@@ -3,7 +3,7 @@
  */
 import Vue from 'vue'
 import Vuex from 'vuex'
-import loadingStore from './modules/loadingStore'
+import common from './modules/common'
 
 Vue.use(Vuex)
 
@@ -11,6 +11,6 @@ const debug = process.env.NODE_ENV !== 'production'
 
 export default new Vuex.Store({
   modules: {
-    loadingStore
+    common
   }, strict: debug
 })

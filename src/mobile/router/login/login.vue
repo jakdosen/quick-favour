@@ -33,6 +33,6 @@
 </script>
 
 <style lang="less">
-   @import "../lib/sytle/flex.less";
+   /*@import "../lib/sytle/flex.less";*/
 </style>
 

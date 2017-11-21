@@ -4,11 +4,15 @@
 export default {
   namespaced: true,
   state: {
-    isLoading: false
+    isLoading: false,
+    direction: 'forward'
   },
   mutations: {
     updateLoadingStatus (state, payload) {
       state.isLoading = payload.isLoading
+    },
+    updateDirection (state, payload) {
+      state.direction = payload.direction
     }
   }
 }
