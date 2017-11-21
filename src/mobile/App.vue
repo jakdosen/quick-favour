@@ -44,7 +44,6 @@
     will-change: transform;
     transition: all 500ms;
     height: 100%;
-    top: 46px;
     position: absolute;
     backface-visibility: hidden;
     perspective: 1000;
