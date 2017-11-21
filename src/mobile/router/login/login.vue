@@ -1,6 +1,6 @@
 <template>
   <div class="c-page-padding" style="height: 100%">
-    <flexbox orient="horizontal" justify="center" style="height: 100%">
+    <flexbox orient="horizontal" justify="center"  style="height: 100%">
       <flexbox-item>
         <!--头部logo-->
         <div class="login-logo">

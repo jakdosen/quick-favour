@@ -4,4 +4,4 @@ yarn.lock
 npm-debug.log
 *.iml
 .idea
-.idea/*
+.idea/*.xml
