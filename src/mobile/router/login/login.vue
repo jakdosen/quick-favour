@@ -8,8 +8,8 @@
         </div>
         <!--输入账号密码-->
         <div style="margin-left: -15px">
-          <x-input placeholder="手机号码" :value="userPhone" @input="updateUserPhone" type="tel" is-type="china-mobile"></x-input>
-          <x-input placeholder="密码" :value="userPassWord" @input="updateUserPassWord" type="password"></x-input>
+          <x-input placeholder="手机号码" class="inputFont" :value="userPhone" @input="updateUserPhone" type="tel" is-type="china-mobile"></x-input>
+          <x-input placeholder="密码" class="inputFont" :value="userPassWord" @input="updateUserPassWord" type="password"></x-input>
         </div>
         <!--注册账号/忘记密码-->
         <div class="flex-container space-between" style="margin: .5rem 0 1.5rem">
@@ -106,13 +106,13 @@
   .login-other legend {
     color: @color5;
     background-color: #fff;
-    font-size: .25rem;
+    font-size: .75rem;
     padding: 0 10px;
   }
 
   .font-style {
     color: #666;
-    font-size: .25rem;
+    font-size: .75rem;
   }
 </style>
 

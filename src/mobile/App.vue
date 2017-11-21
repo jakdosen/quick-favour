@@ -30,6 +30,7 @@
 
 <style lang="less">
   @import '~vux/src/styles/reset.less';
+  @import 'common.less';
   html,body,#app{
     height: 100%;
   }
