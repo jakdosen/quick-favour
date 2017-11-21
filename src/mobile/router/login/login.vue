@@ -1,5 +1,5 @@
 <template>
-  <div class="c-page-padding" style="height: 100%">
+  <div class="c-page-padding" style="height: 100%;background: #fff">
     <flexbox orient="horizontal" justify="center"  style="height: 100%">
       <flexbox-item>
         <!--头部logo-->
@@ -8,13 +8,13 @@
         </div>
         <!--输入账号密码-->
         <div style="margin-left: -15px">
-          <x-input placeholder="手机号码" class="inputFont" :value="userPhone" @input="updateUserPhone" type="tel" is-type="china-mobile"></x-input>
+          <x-input placeholder="手机号码" class="inputFont" :value="userPhone" @input="updateUserPhone" type="tel"  is-type="china-mobile"></x-input>
           <x-input placeholder="密码" class="inputFont" :value="userPassWord" @input="updateUserPassWord" type="password"></x-input>
         </div>
         <!--注册账号/忘记密码-->
         <div class="flex-container space-between" style="margin: .5rem 0 1.5rem">
-          <router-link class="font-style" to="/bar">注册账号</router-link>
-          <router-link class="font-style" to="/bar">忘记密码</router-link>
+          <router-link class="font-style" to="/register">注册账号</router-link>
+          <router-link class="font-style" to="/register?type=forget">忘记密码</router-link>
         </div>
         <!--提交登录-->
         <div>
@@ -52,7 +52,7 @@
     },
     methods: {
       loginInto () {
-        this.userPhone.length && this.userPhone.length &&
+        this.userPhone.length && this.userPassWord.length && /^1[34578]\d{9}$/.test(this.userPhone) &&
         this.$store.dispatch('login/loginInto')
       },
       updateUserPhone(value){
@@ -106,13 +106,13 @@
   .login-other legend {
     color: @color5;
     background-color: #fff;
-    font-size: .75rem;
+    font-size: 1.2rem;
     padding: 0 10px;
   }
 
   .font-style {
     color: #666;
-    font-size: .75rem;
+    font-size: 1.2rem;
   }
 </style>
 

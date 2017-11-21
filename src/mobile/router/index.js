@@ -5,23 +5,17 @@ export default new Router({
     {
       path: '/',
       name: 'HelloWorld',
-      component: (resolve) =>{
-        require(['@/components/HelloWorld'], resolve)
-      }
+      component: resolve => require(['@/components/HelloWorld'], resolve)
     },
     {
       path: '/login',
       name: 'login',
-      component: (resolve) =>{
-        require(['@/router/login/login'], resolve)
-      }
+      component: resolve =>  require(['@/router/login/login'], resolve)
     },
     {
       path: '/register',
       name: 'register',
-      component: (resolve) =>{
-        require(['@/router/login/register'], resolve)
-      }
+      component: resolve => require(['@/router/login/register'], resolve)
     }
   ]
 })

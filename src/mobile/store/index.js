@@ -5,6 +5,7 @@ import Vue from 'vue'
 import Vuex from 'vuex'
 import common from './modules/common'
 import login from './modules/login'
+import register from './modules/register'
 
 Vue.use(Vuex)
 
@@ -13,6 +14,7 @@ const debug = process.env.NODE_ENV !== 'production'
 export default new Vuex.Store({
   modules: {
     common,
-    login
+    login,
+    register
   }, strict: debug
 })
