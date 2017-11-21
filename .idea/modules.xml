@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/quick-favour.iml" filepath="$PROJECT_DIR$/quick-favour.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/quick-favour.iml" filepath="$PROJECT_DIR$/.idea/quick-favour.iml" />
     </modules>
   </component>
 </project>
