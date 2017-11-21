@@ -14,7 +14,7 @@
       Loading
     },
     computed: {
-      ...mapState('loadingStore', {
+      ...mapState('common', {
         isLoading: state => state.isLoading
       })
     }
@@ -23,8 +23,9 @@
 
 <style lang="less">
   @import '~vux/src/styles/reset.less';
-  @import 'common.less';
-
+  html,body,#app{
+    min-height: 100%;
+  }
   body {
     background-color: #fbf9fe;
   }

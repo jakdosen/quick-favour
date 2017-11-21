@@ -1,12 +1,6 @@
-import Vue from 'vue'
 import Router from 'vue-router'
-import HelloWorld from '@/components/HelloWorld'
-import login from '@/components/HelloWorld'
-
-Vue.use(Router)
-
 export default new Router({
-  mode: 'history',
+  // mode: 'history',
   routes: [
     {
       path: '/',
@@ -20,6 +14,13 @@ export default new Router({
       name: 'login',
       component: (resolve) =>{
         require(['@/router/login/login'], resolve)
+      }
+    },
+    {
+      path: '/register',
+      name: 'register',
+      component: (resolve) =>{
+        require(['@/router/login/register'], resolve)
       }
     }
   ]
