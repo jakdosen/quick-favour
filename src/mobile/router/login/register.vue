@@ -4,7 +4,7 @@
               style="width:100%;position:absolute;left:0;top:0;z-index:100;background: #fff;color: #333"
               :left-options="{showBack:true,backText: ''}"
     >
-      {{!isForgetPassWord? '注册': '忘记密码'}}
+      {{navTitle[String(isForgetPassWord)]}}
     </x-header>
     <div style="padding-top:46px">
       <div class="marginBtom" style="margin-left: -15px">
@@ -13,10 +13,10 @@
         <x-input class="inputFont weui-vcode" :value="userNewPassWord" @input="updateUserNewPassWord" :show-clear="false" name="verifyCode" placeholder="验证码">
           <x-button slot="right" class="stateCode" @click.native="sendStateCode" type="primary" mini>{{ stateCodeSuggest }}</x-button>
         </x-input>
-        <x-input class="inputFont" name="password" :value="stateCode" @input="updateStateCode" placeholder="设置密码" type="password" :show-clear="false"></x-input>
+        <x-input v-if="isForgetPassWord!='bindPhone'" class="inputFont" name="password" :value="stateCode" @input="updateStateCode" placeholder="设置密码" type="password" :show-clear="false"></x-input>
       </div>
       <div class="submitBtn">
-        <x-button class="login-btn" type="primary" @click.native="submitInto"> {{!isForgetPassWord? '提交': '找回'}}</x-button>
+        <x-button class="login-btn" type="primary" @click.native="submitInto"> {{ btnTitle[String(isForgetPassWord)]}}</x-button>
       </div>
     </div>
   </div>
@@ -27,7 +27,7 @@
   import {mapGetters, mapState} from 'vuex'
   export default {
     created: function(){
-      this.updateForgetPassWord(Boolean(this.$route.query.type||''));
+      this.updateForgetPassWord(this.$route.query.type||'add');
     },
     components: {
       XInput,
@@ -42,7 +42,9 @@
         userNewPassWord: 'userNewPassWord',
         stateCode: 'stateCode',
         stateCodeSuggest: 'stateCodeSuggest',
-        isForgetPassWord: 'isForgetPassWord'
+        isForgetPassWord: 'isForgetPassWord',
+        navTitle:'navTitle',
+        btnTitle:'btnTitle'
       })
     },
     methods: {

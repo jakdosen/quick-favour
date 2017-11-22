@@ -5,7 +5,7 @@ export default new Router({
     {
       path: '/',
       name: 'HelloWorld',
-      component: resolve => require(['@/components/HelloWorld'], resolve)
+      component: resolve => require(['@/components/HelloWorld'], resolve),
     },
     {
       path: '/login',

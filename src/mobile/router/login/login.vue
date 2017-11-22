@@ -13,7 +13,7 @@
         </div>
         <!--注册账号/忘记密码-->
         <div class="flex-container space-between" style="margin: .5rem 0 1.5rem">
-          <router-link class="font-style" to="/register">注册账号</router-link>
+          <router-link class="font-style" to="/register?type=add">注册账号</router-link>
           <router-link class="font-style" to="/register?type=forget">忘记密码</router-link>
         </div>
         <!--提交登录-->
