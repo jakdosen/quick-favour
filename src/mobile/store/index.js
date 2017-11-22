@@ -6,6 +6,7 @@ import Vuex from 'vuex'
 import common from './modules/common'
 import login from './modules/login'
 import register from './modules/register'
+import articleIndex from './modules/article-index'
 import buyIndex from './modules/buyIndex'
 
 Vue.use(Vuex)
@@ -17,6 +18,7 @@ export default new Vuex.Store({
     common,
     login,
     register,
+    articleIndex,
     buyIndex
   }, strict: debug
 })
