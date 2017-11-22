@@ -2,12 +2,25 @@
   display: table;
   content: ""
 }
-
+* {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
 html,body{
   font-size: 10px !important;
   background: #fff;
+  height: 100%;
 }
-
+body {
+  background-color: #fbf9fe;
+}
 .clearfix:after {
   clear: both
 }
@@ -42,3 +55,46 @@ html,body{
 @color3: #f20840;
 @color4: #484949;
 @color5: #c9caca;
+
+/* 场景切换效果
+---------------------------------------------------------------- */
+.vux-pop-out-enter-active,
+.vux-pop-out-leave-active,
+.vux-pop-in-enter-active,
+.vux-pop-in-leave-active {
+  will-change: transform;
+  transition: all 500ms;
+  height: 100%;
+  width: 100%;
+  position: absolute;
+  backface-visibility: hidden;
+  /*perspective: 1000;*/
+}
+.vux-pop-out-enter {
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
+}
+.vux-pop-out-leave-active {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+}
+.vux-pop-in-enter {
+  opacity: 0;
+  transform: translate3d(100%, 0, 0);
+}
+.vux-pop-in-leave-active {
+  opacity: 0;
+  transform: translate3d(-100%, 0, 0);
+}
+/* 页面tab样式
+---------------------------------------------------------------- */
+.main-tabbar{
+  .weui-tabbar__item.weui-bar__item_on{
+    .weui-tabbar__label{
+      color: @color1;
+    }
+  }
+}
+.weui-tabbar__icon + .weui-tabbar__label {
+  margin-top: 0!important;
+}

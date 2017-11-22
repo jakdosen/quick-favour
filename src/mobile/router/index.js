@@ -4,8 +4,18 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'HelloWorld',
-      component: resolve => require(['@/components/HelloWorld'], resolve),
+      name: 'main',
+      component: resolve => require(['@/router/main'], resolve),
+      children:[
+        {
+          path:'(article)*',
+          component:resolve =>  require(['@/router/main/article'], resolve)
+        },
+        {
+          path:'mall',
+          component:resolve =>  require(['@/router/main/mall'], resolve)
+        }
+      ]
     },
     {
       path: '/login',
