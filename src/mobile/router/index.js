@@ -13,7 +13,7 @@ export default new Router({
         },
         {
           path:'mall',
-          component:resolve =>  require(['@/router/main/mall'], resolve)
+          component:resolve =>  require(['@/router/quickBuy/buyIndex'], resolve)
         }
       ]
     },
@@ -26,6 +26,11 @@ export default new Router({
       path: '/register',
       name: 'register',
       component: resolve => require(['@/router/login/register'], resolve)
+    },
+    {
+      path: '/search',
+      name: 'search',
+      component: resolve => require(['@/router/quickBuy/search/searchIndex'], resolve)
     }
   ]
 })

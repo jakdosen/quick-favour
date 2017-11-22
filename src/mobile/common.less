@@ -26,14 +26,15 @@ body {
 }
 
 .inputFont {
-  font-size: 1.6rem;
+  font-size: 1.4rem;
 }
 
 //公共部分样式
 .c-page-padding{
    padding: 0 1rem;
 }
-
+/* 覆盖weiUI
+---------------------------------------------------------------- */
 .weui-btn_primary.login-btn {
   border-radius: 42px;
   background: linear-gradient(to right, @color2, @color1);
@@ -47,6 +48,20 @@ body {
 }
 .weui-btn_primary.stateCode:not(.weui-btn_disabled):active{
   background-color:@color2;
+}
+.vux-header.searchHead .vux-header-left .left-arrow:before{
+  border-color: #fff !important;
+}
+.searchHead .vux-header-title-area{
+  margin: 0 50px   !important;
+}
+/*----------------------------------------------------------------*/
+ul {
+  list-style: none
+}
+address, caption, cite, code, dfn, em, b, i, th, var, b, strong {
+  font-style: normal;
+  font-weight: normal;
 }
 
 // 颜色定义
