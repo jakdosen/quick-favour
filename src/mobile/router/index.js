@@ -1,6 +1,6 @@
 import Router from 'vue-router'
 export default new Router({
-  // mode: 'history',
+  mode: 'history',
   routes: [
     {
       path: '/',
@@ -9,13 +9,25 @@ export default new Router({
       children:[
         {
           path:'(article)*',
-          component:resolve =>  require(['@/router/main/article'], resolve)
+          component:resolve =>  require(['@/router/main/article'], resolve),
+          children:[
+            {
+              path:'',
+              component:resolve =>  require(['@/router/main/article/list'], resolve),
+            },
+
+          ]
         },
         {
           path:'mall',
           component:resolve =>  require(['@/router/quickBuy/buyIndex'], resolve)
         }
       ]
+    },
+    //文章详情独立
+    {
+      path:'/article/detail/:articleId',
+      component:resolve =>  require(['@/router/main/article/detail'], resolve),
     },
     {
       path: '/login',

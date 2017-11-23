@@ -1,11 +1,11 @@
 <template>
-  <view-box ref="viewBox"  body-padding-bottom="55px">
+  <view-box ref="viewBox"  body-padding-top="46px" body-padding-bottom="55px">
     <transition
       @after-enter="$vux.bus && $vux.bus.$emit('vux:after-view-enter')"
       :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')">
       <router-view class="router-view"></router-view>
     </transition>
-    <tabbar class="main-tabbar" icon-class="vux-center">
+    <tabbar class="main-tabbar" icon-class="vux-center"  slot="bottom">
       <tabbar-item :link="{path:'/'}" :selected="(/^\/article/.test(path) || path == '\/')" :title="path">
         <span class="tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">&#xe637;</span>
         <span slot="label">秒赞</span>

@@ -7,6 +7,8 @@ import common from './modules/common'
 import login from './modules/login'
 import register from './modules/register'
 import articleIndex from './modules/article-index'
+import articleList from './modules/article-list'
+import articleDetail from './modules/article-detail'
 import buyIndex from './modules/buyIndex'
 import hotGoods from './modules/hotGoods'
 
@@ -20,6 +22,8 @@ export default new Vuex.Store({
     login,
     register,
     articleIndex,
+    articleList,
+    articleDetail,
     buyIndex,
     hotGoods
   }, strict: debug
