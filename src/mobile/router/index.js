@@ -31,6 +31,21 @@ export default new Router({
       path: '/search',
       name: 'search',
       component: resolve => require(['@/router/quickBuy/search/searchIndex'], resolve)
+    },
+    {
+      path: '/hot',
+      name: 'hot',
+      component: resolve => require(['@/router/quickBuy/hotGoods/hotGoods'], resolve)
+    },
+    {
+      path: '/quick',
+      name: 'quick',
+      component: resolve => require(['@/router/quickBuy/quickMoney/quickMoney'], resolve)
+    },
+    {
+      path: '/all',
+      name: 'all',
+      component: resolve => require(['@/router/quickBuy/allGoods/allGoods'], resolve)
     }
   ]
 })

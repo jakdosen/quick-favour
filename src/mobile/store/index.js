@@ -8,6 +8,7 @@ import login from './modules/login'
 import register from './modules/register'
 import articleIndex from './modules/article-index'
 import buyIndex from './modules/buyIndex'
+import hotGoods from './modules/hotGoods'
 
 Vue.use(Vuex)
 
@@ -19,6 +20,7 @@ export default new Vuex.Store({
     login,
     register,
     articleIndex,
-    buyIndex
+    buyIndex,
+    hotGoods
   }, strict: debug
 })

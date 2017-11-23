@@ -13,10 +13,10 @@
       <!--首页导航-->
       <div class="buy-nav">
         <grid>
-          <grid-item link="" :label="'热门商品'">
+          <grid-item link="/hot" :label="'热门商品'">
             <img slot="icon" src="">
           </grid-item>
-          <grid-item link="" :label="'秒币商品'">
+          <grid-item link="/quick" :label="'秒币商品'">
             <img slot="icon" src="">
           </grid-item>
           <grid-item link="" :label="'全部商品'">
@@ -27,7 +27,7 @@
       <!--首页搜索框-->
       <div class="buy-search">
         <Sticky offset="15">
-          <div class="toCenter" @clcik="openSearchPage">
+          <div class="toCenter" @click="openSearchPage">
             <x-input class="searchBtn" placeholder="输入商品名称进行搜索"  :readonly="true" >
               <icon slot="label" style="display:block;margin-right: 5px" type="search"></icon>
             </x-input>
@@ -82,8 +82,9 @@
       })
     },
     methods: {
-        openSearchPage:()=>{
-
+//        箭头函数会导致this指向错误
+        openSearchPage: function () {
+           this.$router.push({path:'/search'})
         }
     }
   }
