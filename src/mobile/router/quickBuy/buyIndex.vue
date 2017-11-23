@@ -19,7 +19,7 @@
           <grid-item link="/quick" :label="'秒币商品'">
             <img slot="icon" src="">
           </grid-item>
-          <grid-item link="" :label="'全部商品'">
+          <grid-item link="/all" :label="'全部商品'">
             <img slot="icon" src="">
           </grid-item>
         </grid>

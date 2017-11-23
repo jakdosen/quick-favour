@@ -53,7 +53,7 @@
     },
     data(){
       return {
-          selectIndex:'',
+          selectIndex:0,
           navSource:['生活','美味','母婴','美丽','新奇','健康','艺术'],
           dataSource:[[{title:'游戏本',src:'//img11.360buyimg.com/n7/jfs/t5935/195/2108753717/176060/c849dcb6/593a49a3Nf9c2a052.jpg'},{title:'游戏本',src:'//img11.360buyimg.com/n7/jfs/t5935/195/2108753717/176060/c849dcb6/593a49a3Nf9c2a052.jpg'},{title:'游戏本',src:'//img11.360buyimg.com/n7/jfs/t5935/195/2108753717/176060/c849dcb6/593a49a3Nf9c2a052.jpg'},{title:'游戏本',src:'//img11.360buyimg.com/n7/jfs/t5935/195/2108753717/176060/c849dcb6/593a49a3Nf9c2a052.jpg'},{title:'游戏本',src:'//img11.360buyimg.com/n7/jfs/t5935/195/2108753717/176060/c849dcb6/593a49a3Nf9c2a052.jpg'}],'美味','母婴','美丽','新奇','健康','艺术']
       }
