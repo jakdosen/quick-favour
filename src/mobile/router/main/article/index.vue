@@ -10,7 +10,7 @@
     <transition
       @after-enter="$vux.bus && $vux.bus.$emit('vux:after-view-enter')"
       :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')">
-      <router-view class="router-view"></router-view>
+      <router-view class="router-view" style="padding-top: 46px"></router-view>
     </transition>
   </div>
 </template>

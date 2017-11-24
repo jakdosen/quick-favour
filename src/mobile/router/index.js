@@ -58,6 +58,26 @@ export default new Router({
       path: '/all',
       name: 'all',
       component: resolve => require(['@/router/quickBuy/allGoods/allGoods'], resolve)
-    }
+    },
+    {
+      path: '/goods',
+      name: 'main',
+      component: resolve => require(['@/router/goodsDetail'], resolve),
+      children:[
+        {
+          path:'(index)*',
+          component:resolve =>  require(['@/router/goodsDetail/home'], resolve),
+        },
+        {
+          path:'detail',
+          component:resolve =>  require(['@/router/quickBuy/buyIndex'], resolve)
+        },
+        {
+          path:'rater',
+          component:resolve =>  require(['@/router/quickBuy/buyIndex'], resolve)
+        }
+      ]
+    },
+
   ]
 })

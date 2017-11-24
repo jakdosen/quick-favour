@@ -1,0 +1,256 @@
+<template>
+  <div style="height: 100%">
+    <!--公共头部-->
+    <CommonHeader>
+      <div slot="title" style="height: 100%">
+        <tab   :line-width="1" :active-color="'#f63'">
+          <tab-item selected>商品</tab-item>
+          <tab-item>详情</tab-item>
+          <tab-item>评价</tab-item>
+        </tab>
+      </div>
+    </CommonHeader>
+    <view-box :body-padding-top="'46px'" ref="viewBox" style="background: #e4e4e4">
+         <!--购买信息-->
+         <div class="buy-info">
+           <swiper :show-desc-mask="false" :auto="true" :show-dots="dataImg.length>1" :list="dataImg" dots-position="center" :loop="true"
+                   height="23rem"></swiper>
+           <div class="buy-word-info">
+               <strong>Apple MacBook Air 13.3英寸</strong>
+               <p>Apple MacBook Air 13.3英寸笔记本电脑 银色（2017新歌Core I5处理器/8GB内存/128G内存</p>
+               <span><small>￥</small>38888.00</span>
+               <div>
+                   <span><small>￥</small>38888.00</span>
+                   <i>元</i>
+                   <b>秒</b>
+               </div>
+           </div>
+         </div>
+         <!--选择颜色分类-->
+        <group class="buy-type">
+          <cell :title="'选择颜色分类'" :is-link="true"  @click.native=""></cell>
+        </group>
+         <!--宝贝评价 -->
+         <div class="buy-rater">
+              <div class="header "><span>宝贝评价（498）</span><span>好评度<i>90%</i></span></div>
+              <div class="content">
+                <ul>
+                  <li class="">
+                     <div class="buy-rater-buyMessage">
+                         <span><img src="//pic5.40017.cn/01/001/69/e2/rBLkBloJRPqAONZ4AAIHd0GN-AI775_242x150_00.jpg" alt="">姜**小</span>
+                         <p>2017-11-09 颜色：银色 128G 固态键盘</p>
+                     </div>
+                     <p>顺丰给力啊，第三天到的。东西很不错，正品，应该是没有拆过的，东西包装也不错</p>
+                  </li>
+                  <li class="">
+                    <div class="buy-rater-buyMessage">
+                      <span><img src="//pic5.40017.cn/01/001/69/e2/rBLkBloJRPqAONZ4AAIHd0GN-AI775_242x150_00.jpg" alt="">姜**小</span>
+                      <p>2017-11-09 颜色：银色 128G 固态键盘</p>
+                    </div>
+                    <p>顺丰给力啊，第三天到的。东西很不错，正品，应该是没有拆过的，东西包装也不错</p>
+                  </li>
+                </ul>
+              </div>
+              <div class="footer"><route-link><span>查看全部评价</span></route-link></div>
+         </div>
+         <!--商品介绍/商品详情-->
+        <div class="buy-content-more clearfix">
+          <tab :line-width=2 active-color='#fc378c' v-model="index">
+            <tab-item class="vux-center">商品介绍</tab-item>
+            <tab-item class="vux-center">商品详情</tab-item>
+          </tab>
+          <div class="buy-swrap clearfix" >
+            <transition name="fade">
+              <div class="buy-introduce clearfix" v-show="index === 0">
+                <Divider style="margin:1rem 2rem" >商品信息</Divider>
+                <img width="100%"  height="auto" src="//pic5.40017.cn/01/001/69/e2/rBLkBloJRPqAONZ4AAIHd0GN-AI775_242x150_00.jpg" alt="">
+                <img width="100%"  height="auto" src="//pic5.40017.cn/01/001/69/e2/rBLkBloJRPqAONZ4AAIHd0GN-AI775_242x150_00.jpg" alt="">
+                <img width="100%"  height="auto" src="//pic5.40017.cn/01/001/69/e2/rBLkBloJRPqAONZ4AAIHd0GN-AI775_242x150_00.jpg" alt="">
+              </div>
+            </transition>
+            <transition name="fade">
+            <div class="buy-tab" v-show="index === 1" style="margin-top: 1rem">
+              <x-table :content-bordered="false" :full-bordered="true">
+                <colgroup><col width="40%"></colgroup>
+                <tbody>
+                <tr>
+                  <td>Apple</td>
+                  <td>$1.25</td>
+                </tr>
+                <tr>
+                  <td>Banana</td>
+                  <td>$1.20</td>
+                </tr>
+                </tbody>
+              </x-table>
+            </div>
+            </transition>
+          </div>
+        </div>
+        <divider style="padding-top: 2rem">我是有底线的</divider>
+    </view-box>
+  </div>
+</template>
+
+<script>
+//  弹框用XDIALOG 来处理
+  import {Tab, TabItem, ViewBox, Swiper, SwiperItem, Group, Cell, Card,Divider,XTable,XDialog   } from 'vux'
+  import CommonHeader  from '@/components/CommonHeader'
+  export default {
+    components: {
+      CommonHeader,
+      Tab,
+      TabItem,
+      ViewBox,
+      Swiper,
+      SwiperItem,
+      Group,
+      Cell,
+      Card,
+      Divider,
+      XTable
+    },
+    data(){
+      return {
+         index:0,
+         dataImg:[{ url: 'javascript:', img: 'https://static.vux.li/demo/1.jpg' },{ url: 'javascript:', img: 'https://static.vux.li/demo/1.jpg' }]
+      }
+    },
+    computed: {
+
+    },
+    methods: {
+      getHeight:function (s) {
+        console.log(s)
+      }
+    }
+  }
+</script>
+
+<style lang="less" scoped rel="stylesheet/less">
+  @import "../../lib/style/flex.less";
+  @import '../../common.less';
+  @import '~vux/src/styles/1px.less';
+.buy-word-info{
+  padding: 0 1.5rem;
+  padding-bottom: 1rem;
+  width: 100%;
+  background: #fff;
+}
+.buy-word-info strong{
+  font-weight: bold;
+  font-size: 1.6rem;
+  line-height: 2;
+  color: #333;
+}
+.buy-word-info p{
+  position:relative;
+  line-height:1.8rem;
+  overflow:hidden;
+  font-size: 1.4rem;
+  height: 3.6rem;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.buy-word-info > span{
+   font-size: 1.2rem;
+   color: #f63;
+   line-height: 2;
+}
+.buy-word-info > span small{
+  font-size: 1rem;
+}
+.buy-word-info> div {
+  text-align: right;
+}
+.buy-word-info> div  span{
+  float: left;
+  color: #f63;
+  font-size: 1.4rem;
+}
+.buy-word-info> div small{
+  font-size: 1.2rem;
+}
+  .buy-word-info> div i,.buy-word-info> div b{
+    display: inline-block;
+    padding: 0 5px;
+    color: #fff;
+    margin-right: 5px;
+  }
+.buy-word-info> div i{
+  background: @color1;
+}
+  .buy-word-info> div b{
+    background: @color2;
+  }
+  .buy-rater{
+     background: #fff;
+    margin-top: 1.17647059em;
+  }
+  .buy-rater .header{
+  .flexbox;
+  padding: 1rem;
+  .justify-content(space-between);
+   font-size: 1.4rem;
+  }
+
+  .buy-rater .header i{
+    color: #f63;
+  }
+  .buy-rater .footer{
+  .flexbox;
+  .justify-content(center);
+    font-size: 1.4rem;
+    color: @color2;
+    padding: 1.5rem 0;
+  }
+  .buy-rater .footer span{
+     display: inline-block;
+     border: 1px solid @color1;
+     padding: 0 10px;
+     border-radius: 1rem;
+     font-size: 1.4rem;
+  }
+  .buy-rater .content li{
+     padding: 1.5rem 1rem;
+  }
+  .buy-rater .content li>p{
+    font-size: 1.4rem;
+  }
+  .buy-rater-buyMessage span{
+  .flexbox;
+  .justify-content(flex-start);
+  }
+  .buy-rater-buyMessage img{
+     border-radius: 100%;
+     width: 20px;
+     height: 20px;
+     margin-right: 5px;
+  }
+  .buy-rater-buyMessage>p{
+    font-size: 1.2rem;
+    color: @color5;
+    line-height:3;
+  }
+  .buy-rater-buyMessage span{
+       font-size: 1.2rem;
+  }
+  .buy-content-more{
+    margin-top: 1.17647059em;
+  }
+  .buy-content-more img{
+    float: left;
+  }
+  .fade-enter-active, .fade-leave-active {
+    transition: opacity .5s
+  }
+  .fade-enter, .fade-leave-to /* .fade-leave-active in below version 2.1.8 */ {
+    opacity: 0
+  }
+  .buy-swrap{
+     background: #fff;
+     padding-bottom: 2rem;
+  }
+</style>

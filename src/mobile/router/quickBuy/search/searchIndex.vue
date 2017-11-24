@@ -1,10 +1,8 @@
 <template>
   <div style="width: 100%;height: 100%;background: #fff">
-    <!--头部搜索-->
-    <x-header class="searchHead" title="slot:overwrite-title"
-              :left-options="{showBack:true,backText: ''}"
-    >
-      <div class="overwrite-title-demo" slot="overwrite-title">
+    <!--头部搜索  空searchWord，显示输入框和搜索按钮，带搜索词，则显示搜索词头-->
+    <CommonHeader className="colorHeader" v-if="!searchWord">
+      <div class="overwrite-title-demo" slot="title">
         <x-input  class="searchBtn inputFont" placeholder="输入商品名称进行搜索" >
           <icon slot="label" style="display:block;margin-right: 5px" type="search"></icon>
         </x-input>
@@ -12,10 +10,15 @@
       <div slot="right">
         <span style="color: #fff">搜索</span>
       </div>
-    </x-header>
-    <view-box body-padding-top="46px">
+    </CommonHeader>
+    <CommonHeader className="colorHeader" v-else>
+      <span slot="title">{{searchWord}}</span>
+      <div slot="right" @click="toSearchPage">
+        <icon type="search" style="color: #fff" ></icon>
+      </div>
+    </CommonHeader>
     <!--历史搜索-->
-    <div class="search-histry-modules hide c-page-padding">
+    <div v-if="!searchWord"  class="search-histry-modules  c-page-padding">
       <card>
          <div slot="header">
             <div class="clearfix">
@@ -35,7 +38,7 @@
       </card>
     </div>
     <!--内容搜索-->
-    <div class="search-content-modules">
+    <div v-if="searchWord" class="search-content-modules">
       <tab :line-width=2 active-color='#fc378c' v-model="index">
         <!--价格的时候 用slot，icon-->
         <tab-item class="vux-center"  v-for="(item, index) in list2" :key="index">{{item}}</tab-item>
@@ -58,6 +61,7 @@
   import {XHeader,XInput,Icon,Card,ViewBox,Tab, TabItem,Swiper, SwiperItem } from 'vux'
   import {mapGetters, mapState} from 'vuex'
   import GoodsList  from '@/components/GoodsList'
+  import CommonHeader  from '@/components/CommonHeader'
   export default {
     components: {
       XHeader,
@@ -69,16 +73,28 @@
       TabItem,
       Swiper,
       SwiperItem,
-      GoodsList
+      GoodsList,
+      CommonHeader
+    },
+    created:function () {
+       this.$store.commit('searchIndex/update',{searchWord:this.$route.query['searchWord']||''})
     },
     data(){
         return {
-          list2 : ['综合', '现金商品', '现金&秒币', '秒币商品', '价格'],
           index: 0
         }
     },
-    computed: {},
-    methods: {}
+    computed: {
+      ...mapState('searchIndex',{
+         searchWord:'searchWord',
+         list2:'list2'
+      })
+    },
+    methods: {
+      toSearchPage:function () {
+        this.$store.commit('searchIndex/update',{searchWord:''})
+      }
+    }
   }
 </script>
 
@@ -86,16 +102,6 @@
   @import '../../../common.less';
   @import "../../../lib/style/flex.less";
   @import '~vux/src/styles/1px.less';
-
-  .searchHead {
-    width:100%;
-    position:absolute;
-    left:0;
-    top:0;
-    z-index:100;
-    background: -webkit-linear-gradient(left top, @color2, @color1);
-    color: #333
-  }
   .searchBtn{
     background: #fff;
     height: 30px;

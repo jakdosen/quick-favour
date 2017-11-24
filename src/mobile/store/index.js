@@ -11,6 +11,7 @@ import articleList from './modules/article-list'
 import articleDetail from './modules/article-detail'
 import buyIndex from './modules/buyIndex'
 import hotGoods from './modules/hotGoods'
+import searchIndex from './modules/searchIndex'
 
 Vue.use(Vuex)
 
@@ -25,6 +26,7 @@ export default new Vuex.Store({
     articleList,
     articleDetail,
     buyIndex,
-    hotGoods
+    hotGoods,
+    searchIndex
   }, strict: debug
 })

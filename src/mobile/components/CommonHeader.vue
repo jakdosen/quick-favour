@@ -4,6 +4,9 @@
               :left-options="{showBack:true,backText: ''}"
     >
       <slot name="title"></slot>
+      <div slot="right">
+         <slot name="right"></slot>
+      </div>
     </x-header>
 </template>
 <script>
