@@ -9,6 +9,7 @@ import register from './modules/register'
 import articleIndex from './modules/article-index'
 import articleList from './modules/article-list'
 import articleDetail from './modules/article-detail'
+import articleDetailNote from './modules/article-detail-note'
 import buyIndex from './modules/buyIndex'
 import hotGoods from './modules/hotGoods'
 import searchIndex from './modules/searchIndex'
@@ -25,6 +26,7 @@ export default new Vuex.Store({
     articleIndex,
     articleList,
     articleDetail,
+    articleDetailNote,
     buyIndex,
     hotGoods,
     searchIndex

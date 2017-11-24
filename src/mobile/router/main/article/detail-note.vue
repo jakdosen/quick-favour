@@ -1,8 +1,8 @@
 <!--单独作为一个页面-->
 <template>
-  <view-box ref="viewBox"  body-padding-top="46px" body-padding-bottom="45px">
+  <view-box ref="viewBox"  body-padding-top="46px">
     <x-header slot="header" class="main-vux-header article-vux-header" :left-options="leftOptions" >
-      <span solt="default">秒赞 - 文章</span>
+      <span solt="default">留言</span>
     </x-header>
     <div class="article-detail-page">
         <div>
@@ -11,26 +11,8 @@
             {{article.date}} <i>{{article.likeNum}}人秒赞</i>
           </div>
           <!--文章内容-->
-          <div v-html="article.detail" class="content"></div>
+          <div  class="content"></div>
         </div>
-    </div>
-    <flexbox :gutter="0" wrap="wrap" slot="bottom" class="article-footer">
-      <flexbox-item :span="1/4" class="vux-1px-r" style="text-align: center" @click.native="showNotePopup = true">留言...</flexbox-item>
-      <flexbox-item>
-        <div class="social-share" data-sites="wechat,weibo,qq,qzone,tencent">
-
-        </div>
-      </flexbox-item>
-    </flexbox>
-    <div v-transfer-dom>
-      <popup v-model="showNotePopup" position="bottom" max-height="50%">
-        <div style="background-color:#fff;margin:0 auto;padding:0 15px;">
-          <x-textarea :max="100" :placeholder="'写写你看了的感受~~'" class="article-note" v-model="noteText"></x-textarea>
-          <div style="padding:20px 0px;">
-            <x-button type="primary" @click.native="sendNote" :disabled="isSending">发送</x-button>
-          </div>
-        </div>
-      </popup>
     </div>
   </view-box>
 </template>
@@ -45,11 +27,6 @@
     },
     created(){
       this.fetchArticleDetail(this.route.params);
-    },
-    mounted() {
-      //初始化分享
-      socialShare('.social-share');
-
     },
     data:()=>({
       showNotePopup:false,
@@ -77,6 +54,7 @@
           showBack: !!window.history.length
         }
       },
+
     },
     components: {
       Group,
@@ -102,18 +80,9 @@
               this.postNote().then((msg)=>{
                 this.noteText = '';
                 this.showNotePopup = false;
-                this.goToNoteDetail();
-              }).finally(()=>{
-                  this.isSending = false;
-              });
+              }).finally(()=>{ this.isSending = false;});
 
           }
-      },
-      goToNoteDetail(){
-        this.$router.push({
-          name:'article-detail-note',
-          params:this.route.params
-        })
       }
     }
   }
@@ -123,30 +92,7 @@
   @import "~@/common.less";
   @import "~@/style/article.less";
   @import "~@/lib/share/css/share.less";
-  .article-footer{
-    position: absolute;
-    height: 45px;
-    z-index: 500;
-    bottom: 0;
-    width: 100%;
-    background-color: #efefef;
-    .vux-flexbox-item{
-      padding: 0 10px;
-    }
-  }
-  .article-note{
-    &.vux-x-textarea{
-        padding: 15px 0 10px;
-     }
-    textarea{
-      padding: 10px;
-      background-color: #efefef;
-    }
-  }
-  .social-share{
-    display: flex;
-    justify-content: space-around;
-  }
+
   .article-detail-page{
     padding: 10px;
     .title{

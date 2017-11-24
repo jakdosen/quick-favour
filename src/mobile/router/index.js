@@ -30,6 +30,11 @@ export default new Router({
       component:resolve =>  require(['@/router/main/article/detail'], resolve),
     },
     {
+      path:'/article/detail/:articleId/note',
+      name:'article-detail-note',
+      component:resolve =>  require(['@/router/main/article/detail-note'], resolve),
+    },
+    {
       path: '/login',
       name: 'login',
       component: resolve =>  require(['@/router/login/login'], resolve)
