@@ -1,7 +1,7 @@
 <template>
   <div>
     <!--swiper-->
-    <swiper :list="swiperList" loop auto style="margin:0 auto;" height="100px" dots-class="custom-bottom" dots-position="center"></swiper>
+    <swiper :list="swiperList" loop auto style="margin:0 auto;" height="150px" dots-class="custom-bottom" dots-position="center"></swiper>
     <!--panel-->
     <div v-for="article in articleList" class="weui-panel weui-panel_access article-weui-panel" :key="article.id">
       <div class="weui-panel__hd">{{article.date}}</div>

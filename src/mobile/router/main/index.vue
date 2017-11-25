@@ -7,15 +7,15 @@
     </transition>
     <tabbar class="main-tabbar" icon-class="vux-center"  slot="bottom">
       <tabbar-item :link="{path:'/'}" :selected="(/^\/article/.test(path) || path == '\/')" :title="path">
-        <span class="tabbar-icon-home" slot="icon" style="position:relative;top: -2px;">&#xe637;</span>
+        <span class="iconfont icon-zan" slot="icon"></span>
         <span slot="label">秒赞</span>
       </tabbar-item>
       <tabbar-item :link="{path:'/mall'}" :selected="/^\/mall/.test(path)" >
-        <span class="demo-icon-22" slot="icon">&#xe633;</span>
+        <span class="iconfont icon-light" slot="icon"></span>
         <span slot="label">秒购</span>
       </tabbar-item>
       <tabbar-item :link="{path:'/user'}" :selected="/^\/user/.test(path)" show-dot>
-        <span class="demo-icon-22" slot="icon">&#xe630;</span>
+        <span class="iconfont icon-user" slot="icon"></span>
         <span slot="label">会员</span>
       </tabbar-item>
     </tabbar>

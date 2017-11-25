@@ -15,7 +15,10 @@
         </div>
     </div>
     <flexbox :gutter="0" wrap="wrap" slot="bottom" class="article-footer">
-      <flexbox-item :span="1/4" class="vux-1px-r" style="text-align: center" @click.native="showNotePopup = true">留言...</flexbox-item>
+      <flexbox-item :span="1/4" class="vux-1px-r" style="text-align: center" @click.native="showNotePopup = true">
+        <span class="iconfont icon-note" style="ont-size: 2.1rem; vertical-align: middle;"></span>
+        留言...
+      </flexbox-item>
       <flexbox-item>
         <div class="social-share" data-sites="wechat,weibo,qq,qzone,tencent">
 

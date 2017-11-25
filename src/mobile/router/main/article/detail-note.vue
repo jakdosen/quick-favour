@@ -10,8 +10,27 @@
           <div class="info">
             {{article.date}} <i>{{article.likeNum}}人秒赞</i>
           </div>
-          <!--文章内容-->
-          <div  class="content"></div>
+          <div>
+            <p>
+              {{notes.total}}人 评论
+            </p>
+            <div v-for="item in notes.list"
+                         class="weui-media-box weui-media-box_appmsg"
+                         :key="item.id"
+                         style="padding: 10px"
+            >
+              <div class="weui-media-box__hd" style="height: 40px;height: 40px;background-color: #7bc549">
+                <img :src="item.img" alt="" class="weui-media-box__thumb">
+              </div>
+              <div class="weui-media-box__bd">
+                <!--<h4 class="weui-media-box__title">{{item.title}}</h4>-->
+                <p class="weui-media-box__desc">{{item.desc}}</p>
+                <!--<p class="weui-media-box__tip"> {{item.likeNum}}人秒赞</p>-->
+              </div>
+            </div>
+          </div>
+
+
         </div>
     </div>
   </view-box>
@@ -27,6 +46,7 @@
     },
     created(){
       this.fetchArticleDetail(this.route.params);
+      this.fetchArticleNoteList(this.route.params);
     },
     data:()=>({
       showNotePopup:false,
@@ -40,21 +60,12 @@
       ...mapState('common',{
         direction: state => state.direction
       }),
-      ...mapState('articleDetail',['article','sharable','note']),
-      noteText:{
-        get () {
-          return this.note
-        },
-        set (v) {
-          this.changeNode(v)
-        }
-      },
+      ...mapState('articleDetailNote',['article','notes']),
       leftOptions () {
         return {
           showBack: !!window.history.length
         }
       },
-
     },
     components: {
       Group,
@@ -69,10 +80,9 @@
       XButton
     },
     methods:{
-      ...mapActions('articleDetail',{
+      ...mapActions('articleDetailNote',{
         fetchArticleDetail:'fetchArticleDetail',
-        changeNode:'changeNode',
-        postNote:'postNote'
+        fetchArticleNoteList:'fetchArticleNoteList'
       }),
       sendNote(){
           if(this.note){

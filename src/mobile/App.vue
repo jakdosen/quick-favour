@@ -31,5 +31,6 @@
 <style lang="less">
   @import '~vux/src/styles/reset.less';
   @import '~vux/src/styles/1px.less';
+  @import '~@/style/iconfont.less';
   @import 'common.less';
 </style>

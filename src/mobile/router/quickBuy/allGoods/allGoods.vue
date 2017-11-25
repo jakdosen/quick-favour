@@ -9,7 +9,7 @@
         <!--左边导航-->
         <div class="hot-body-left">
           <ul>
-            <li class="vux-1px-b" v-for = "(item, index) in navSource" :class="index === selectIndex ? 'active' : ''" @click="changeNav(index)">{{item}}</li>
+            <li class="vux-1px-b" v-for = "(item, index) in navSource" :class="index === selectIndex ? 'active' : ''" @click="changeNav(index)" :key="index">{{item}}</li>
           </ul>
         </div>
         <!--右边内容区 -->
