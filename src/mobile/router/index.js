@@ -21,6 +21,14 @@ export default new Router({
         {
           path:'mall',
           component:resolve =>  require(['@/router/quickBuy/buyIndex'], resolve)
+        },
+        {
+            path:'/mall/cart',
+            component:resolve =>  require(['@/router/quickBuy/cart'], resolve)
+        },
+        {
+            path:'/mall/order',
+            component:resolve =>  require(['@/router/quickBuy/order'], resolve)
         }
       ]
     },
