@@ -1,18 +1,23 @@
 <template>
-  <view-box ref="viewBox"  body-padding-bottom="55px">
+  <view-box ref="viewBox"  body-padding-bottom="50px">
     <transition
       @after-enter="$vux.bus && $vux.bus.$emit('vux:after-view-enter')"
       :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')">
       <router-view class="router-view"></router-view>
     </transition>
-    <tabbar class="main-tabbar" icon-class="vux-center"  slot="bottom">
+    <tabbar class="main-tabbar" icon-class="vux-center"  slot="bottom" style="height: 50px">
       <tabbar-item :link="{path:'/'}" :selected="(/^\/article/.test(path) || path == '\/')" :title="path">
         <span class="iconfont icon-zan" slot="icon"></span>
         <span slot="label">秒赞</span>
       </tabbar-item>
-      <tabbar-item :link="{path:'/mall'}" :selected="/^\/mall/.test(path)" >
+      <tabbar-item :link="{path:'/mall'}" :selected="/^\/mall/.test(path) && path!='/mall/cart'" >
         <span class="iconfont icon-light" slot="icon"></span>
         <span slot="label">秒购</span>
+      </tabbar-item>
+      <!--开发环境临时链接-->
+      <tabbar-item :link="{path:'/mall/cart'}" :selected="/^\/mall\/cart/.test(path)" >
+        <span class="iconfont icon-shopping-cart" slot="icon"></span>
+        <span slot="label">购物车</span>
       </tabbar-item>
       <tabbar-item :link="{path:'/user'}" :selected="/^\/user/.test(path)" show-dot>
         <span class="iconfont icon-user" slot="icon"></span>

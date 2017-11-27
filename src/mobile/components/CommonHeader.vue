@@ -1,6 +1,6 @@
 <template>
     <!--searchHead有两种样式，一种白底黑字，一种红底白字-->
-    <x-header v-bind:class="className"
+    <x-header v-bind:class="[className,'main-vux-header','vux-header']"
               :left-options="leftOptions"
     >
       <div slot="default">
