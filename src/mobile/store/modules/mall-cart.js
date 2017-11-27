@@ -28,6 +28,7 @@ export default {
                 desc:'test1',
                 img:'',
                 price:1000,
+                coinBi:0,
                 num:2,
                 selected:false
               },
@@ -36,6 +37,7 @@ export default {
                 desc:'test2',
                 img:'',
                 price:3000,
+								coinBi:0,
                 num:3,
                 selected:false
               }
@@ -50,6 +52,7 @@ export default {
                 desc:'test3',
                 img:'',
                 price:1000,
+								coinBi:100,
                 num:2,
                 selected:true
               }
@@ -63,7 +66,8 @@ export default {
                 id:'0004',
                 desc:'test4',
                 img:'',
-                price:1000,
+                price:0,
+								coinBi:10000,
                 num:2,
                 selected:false
               }

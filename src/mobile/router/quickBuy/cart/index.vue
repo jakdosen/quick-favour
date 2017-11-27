@@ -10,12 +10,21 @@
       </div>
     </CommonHeader>
     <div class="" style="padding-bottom: 42px;">
-
+      <div>
+        <div>
+          <check-icon :value.sync="checkAll" class="cart-check">全选</check-icon>
+          <div><img></div>
+        </div>
+        <div>
+          <div> 索玛格皮带 男士腰带真皮头层牛皮裤带商务休闲裤腰带z字母板扣S100057 115cm 金色扣黑带 </div>
+          <div>$4555.00 </div>
+        </div>
+      </div>
     </div>
     <flexbox :gutter="0" wrap="wrap" slot="bottom" class="weui-tabbar cart-tabbar" style="height: 42px">
       <flexbox-item class="check-all-warp">
         <div>
-          <check-icon :value.sync="checkAll">全选</check-icon>
+          <check-icon :value.sync="checkAll" class="cart-check">全选</check-icon>
         </div>
       </flexbox-item>
       <flexbox-item>
@@ -95,13 +104,16 @@
         border:none
      }
   }
-
   .cart-tabbar{
     .vux-flexbox-item.check-all-warp{
       flex-grow: 0;
       flex-basis: 6rem;
     }
-
   }
-
+  .cart-check{
+    &.vux-check-icon > .weui-icon-success:before,
+    &.vux-check-icon > .weui-icon-success-circle:before{
+      color: @color2;
+    }
+  }
 </style>
