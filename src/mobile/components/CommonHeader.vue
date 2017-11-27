@@ -47,8 +47,8 @@
     left:0;
     top:0;
     z-index:100;
-    background: #fff;
-    color: #333
+    color: #333;
+    background-color: #fff !important;
   }
   .colorHeader{
     background: -webkit-linear-gradient(left top, @color2, @color1);

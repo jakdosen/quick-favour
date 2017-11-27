@@ -2,7 +2,7 @@
   <div style="height: 100%">
     <!--公共头部-->
     <CommonHeader>
-      <div slot="title" style="height: 100%">
+      <div slot="default" style="height: 100%">
         <tab   :line-width="1" :active-color="'#f63'">
           <tab-item selected>商品</tab-item>
           <tab-item>详情</tab-item>
@@ -10,7 +10,7 @@
         </tab>
       </div>
     </CommonHeader>
-    <view-box :body-padding-top="'46px'" ref="viewBox" style="background: #e4e4e4">
+    <view-box  ref="viewBox" style="background: #e4e4e4">
          <!--购买信息-->
          <div class="buy-info">
            <swiper :show-desc-mask="false" :auto="true" :show-dots="dataImg.length>1" :list="dataImg" dots-position="center" :loop="true"
@@ -28,7 +28,49 @@
          </div>
          <!--选择颜色分类-->
         <group class="buy-type">
-          <cell :title="'选择颜色分类'" :is-link="true"  @click.native=""></cell>
+          <cell :title="'选择颜色分类'" :is-link="true"  @click.native="openChoseType"></cell>
+          <div class="buy-choseType">
+            <!--点击选择规格参数-->
+            <popup v-model="popupShow" position="bottom" max-height="90%">
+                <div class="clearfix" style="background: #fff;padding: 0 1rem">
+                    <div class="chose-list" data-title="颜色分类">
+                      <checker
+                        default-item-class="check-border-1px"
+                        selected-item-class="check-border-active"
+                      >
+                        <checker-item :value="'all'" > 银色 </checker-item>
+                        <checker-item :value="'good'"> 棕色 </checker-item>
+                      </checker>
+                    </div>
+                    <div class="chose-list" data-title="版本">
+                      <checker
+                        default-item-class="check-border-1px"
+                        selected-item-class="check-border-active"
+                      >
+                        <checker-item :value="'all'" > 2017年i5处理器升级版 </checker-item>
+                        <checker-item :value="'good'"> 1.6GHz i5处理器 </checker-item>
+                      </checker>
+                    </div>
+                    <div class="chose-list" data-title="选择配置">
+                      <checker
+                        default-item-class="check-border-1px"
+                        selected-item-class="check-border-active"
+                      >
+                        <checker-item :value="'all'" > 8G内存/128GB SSD </checker-item>
+                        <checker-item :value="'good'"> 8G内存/256GB SSD </checker-item>
+                        <checker-item :value="'bd'"> 11.6英寸/4GB内存/128GB SSD </checker-item>
+                      </checker>
+                    </div>
+                    <group class="buy-chose-list-num">
+                      <x-number :value="1" title="购买数量"  :min="1"></x-number>
+                    </group>
+                    <div class="buy-chose-btn">
+                         <span>加入购物车</span>
+                         <span>立即购买</span>
+                    </div>
+                </div>
+            </popup>
+          </div>
         </group>
          <!--宝贝评价 -->
          <div class="buy-rater">
@@ -51,10 +93,10 @@
                   </li>
                 </ul>
               </div>
-              <div class="footer"><route-link><span>查看全部评价</span></route-link></div>
+              <div class="footer"><router-link to="/goods/rater"><span>查看全部评价</span></router-link></div>
          </div>
          <!--商品介绍/商品详情-->
-        <div class="buy-content-more clearfix">
+         <div class="buy-content-more clearfix">
           <tab :line-width=2 active-color='#fc378c' v-model="index">
             <tab-item class="vux-center">商品介绍</tab-item>
             <tab-item class="vux-center">商品详情</tab-item>
@@ -94,7 +136,7 @@
 
 <script>
 //  弹框用XDIALOG 来处理
-  import {Tab, TabItem, ViewBox, Swiper, SwiperItem, Group, Cell, Card,Divider,XTable,XDialog   } from 'vux'
+  import {Tab, TabItem, ViewBox, Swiper, SwiperItem, Group, Cell, Card, Divider, XTable, XDialog, Popup, Checker, CheckerItem, XNumber} from 'vux'
   import CommonHeader  from '@/components/CommonHeader'
   export default {
     components: {
@@ -108,11 +150,17 @@
       Cell,
       Card,
       Divider,
-      XTable
+      XTable,
+      Popup,
+      Checker,
+      CheckerItem,
+      XNumber
     },
     data(){
       return {
          index:0,
+         popupShow:false,
+         buyNumValue:'2',
          dataImg:[{ url: 'javascript:', img: 'https://static.vux.li/demo/1.jpg' },{ url: 'javascript:', img: 'https://static.vux.li/demo/1.jpg' }]
       }
     },
@@ -122,12 +170,15 @@
     methods: {
       getHeight:function (s) {
         console.log(s)
+      },
+      openChoseType:function () {
+         this.popupShow = true;
       }
     }
   }
 </script>
 
-<style lang="less" scoped rel="stylesheet/less">
+<style lang="less"  rel="stylesheet/less">
   @import "../../lib/style/flex.less";
   @import '../../common.less';
   @import '~vux/src/styles/1px.less';
@@ -212,6 +263,7 @@
      padding: 0 10px;
      border-radius: 1rem;
      font-size: 1.4rem;
+    color: #ff5300;
   }
   .buy-rater .content li{
      padding: 1.5rem 1rem;
@@ -243,14 +295,40 @@
   .buy-content-more img{
     float: left;
   }
-  .fade-enter-active, .fade-leave-active {
-    transition: opacity .5s
-  }
-  .fade-enter, .fade-leave-to /* .fade-leave-active in below version 2.1.8 */ {
-    opacity: 0
-  }
   .buy-swrap{
      background: #fff;
      padding-bottom: 2rem;
   }
+  .chose-list {
+      &:before{
+          content: attr(data-title);
+          display: block;
+          font-size: 1.2rem;
+          color: #666;
+          margin: 1rem 0;
+       }
+      .check-border-1px{
+        border: 1px solid #e4e4e4;
+        padding: .4rem 1.2rem;
+        border-radius: 3px;
+        font-size: 1.2rem;
+        color: @color4;
+        margin-bottom: 1rem;
+      }
+      .check-border-active{
+        color: @color2;
+        border: 1px solid #f63;
+      }
+      .buy-chose-btn{
+        width: 100%;
+      .flexbox;
+        span{
+          display: inline-block;
+          width: 50%;
+          text-align: center;
+          height: ;
+        }
+      }
+  }
+
 </style>

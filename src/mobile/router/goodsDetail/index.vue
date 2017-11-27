@@ -55,6 +55,7 @@
     z-index: 5;
     width: 100%;
     height: 45px;
+    background: #fff;
   }
 
   .goods-buy-item1 {
