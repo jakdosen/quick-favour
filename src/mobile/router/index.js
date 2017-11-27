@@ -22,10 +22,12 @@ export default new Router({
           path:'mall',
           component:resolve =>  require(['@/router/quickBuy/buyIndex'], resolve)
         },
+        //购物车
         {
             path:'/mall/cart',
             component:resolve =>  require(['@/router/quickBuy/cart'], resolve)
         },
+        //订单
         {
             path:'/mall/order',
             component:resolve =>  require(['@/router/quickBuy/order'], resolve)

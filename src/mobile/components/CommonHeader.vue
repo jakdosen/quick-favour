@@ -1,9 +1,11 @@
 <template>
     <!--searchHead有两种样式，一种白底黑字，一种红底白字-->
     <x-header v-bind:class="className"
-              :left-options="{showBack:true,backText: ''}"
+              :left-options="leftOptions"
     >
-      <slot name="title"></slot>
+      <div slot="default">
+        <slot name="default"></slot>
+      </div>
       <div slot="right">
          <slot name="right"></slot>
       </div>
@@ -25,13 +27,19 @@
         default() {
           return 'whiteHeader';
         }
+      },
+      leftOptions:{
+        type:Object,
+        default:()=>{
+          return {showBack:true,backText: ''}
+        }
       }
     },
     computed: {},
     methods: {}
   }
 </script>
-<style lang="less" scoped rel="stylesheet/less">
+<style lang="less" rel="stylesheet/less">
   @import '../common.less';
   .whiteHeader {
     width:100%;
@@ -44,5 +52,11 @@
   }
   .colorHeader{
     background: -webkit-linear-gradient(left top, @color2, @color1);
+    &.vux-header{
+      .vux-header-left,
+      .vux-header-right{
+        color: #fff;
+      }
+    }
   }
 </style>

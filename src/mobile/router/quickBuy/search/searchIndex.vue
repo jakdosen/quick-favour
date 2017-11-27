@@ -2,7 +2,7 @@
   <div style="width: 100%;height: 100%;background: #fff">
     <!--头部搜索  空searchWord，显示输入框和搜索按钮，带搜索词，则显示搜索词头-->
     <CommonHeader className="colorHeader" v-if="!searchWord">
-      <div class="overwrite-title-demo" slot="title">
+      <div class="overwrite-title-demo" slot="default">
         <x-input  class="searchBtn inputFont" placeholder="输入商品名称进行搜索" >
           <icon slot="label" style="display:block;margin-right: 5px" type="search"></icon>
         </x-input>

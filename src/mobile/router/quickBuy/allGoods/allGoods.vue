@@ -4,7 +4,7 @@
 <template>
   <div style="width: 100%;height: 100%;background: #fff">
     <!--头部导航-->
-    <common-header className="colorHeader"><span slot="title">全部商品</span></common-header>
+    <common-header className="colorHeader"><span slot="default">全部商品</span></common-header>
       <div class="all-body">
         <!--左边导航-->
         <div class="hot-body-left">

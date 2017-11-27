@@ -4,7 +4,7 @@
 <template>
   <div style="width: 100%;height: 100%;background: #fff">
      <!--头部导航-->
-     <common-header><span slot="title">热门商品</span></common-header>
+     <common-header><span slot="default">热门商品</span></common-header>
      <div class="hot-body">
         <!--头部广告-->
         <swiper :show-desc-mask="false" :auto="true" :show-dots="dataSource.length>1" :list="dataSource" dots-position="center" :loop="true"
