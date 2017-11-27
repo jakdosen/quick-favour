@@ -4,15 +4,15 @@
     <CommonHeader>
       <div slot="default" style="height: 100%">
         <tab   :line-width="1" :active-color="'#f63'">
-          <tab-item selected>商品</tab-item>
-          <tab-item>详情</tab-item>
-          <tab-item>评价</tab-item>
+          <tab-item selected><a class="nav-a" href="#buy-info">商品</a></tab-item>
+          <tab-item><a class="nav-a" href="#buy-content-more">详情</a></tab-item>
+          <tab-item><a class="nav-a" href="#buy-rater">评价</a></tab-item>
         </tab>
       </div>
     </CommonHeader>
     <view-box  ref="viewBox" style="background: #e4e4e4">
          <!--购买信息-->
-         <div class="buy-info">
+         <div id="buy-info" class="buy-info">
            <swiper :show-desc-mask="false" :auto="true" :show-dots="dataImg.length>1" :list="dataImg" dots-position="center" :loop="true"
                    height="23rem"></swiper>
            <div class="buy-word-info">
@@ -33,6 +33,14 @@
             <!--点击选择规格参数-->
             <popup v-model="popupShow" position="bottom" max-height="90%">
                 <div class="clearfix" style="background: #fff;padding: 0 1rem">
+                    <div class="buy-choose-goods">
+                        <div class="imgBox"><img src="//pic5.40017.cn/01/001/69/e2/rBLkBloJRPqAONZ4AAIHd0GN-AI775_242x150_00.jpg" alt=""></div>
+                        <div class="info">
+                            <span><i><small>￥</small>38888.0</i>& <b><small>M</small>120000</b></span>
+                            <p>商品编号：11828347434</p>
+                            <span><i>元</i><b>秒</b></span>
+                        </div>
+                    </div>
                     <div class="chose-list" data-title="颜色分类">
                       <checker
                         default-item-class="check-border-1px"
@@ -64,16 +72,16 @@
                     <group class="buy-chose-list-num">
                       <x-number :value="1" title="购买数量"  :min="1"></x-number>
                     </group>
-                    <div class="buy-chose-btn">
-                         <span>加入购物车</span>
-                         <span>立即购买</span>
-                    </div>
+                </div>
+                <div class="buy-chose-btn">
+                  <span>加入购物车</span>
+                  <span>立即购买</span>
                 </div>
             </popup>
           </div>
         </group>
          <!--宝贝评价 -->
-         <div class="buy-rater">
+         <div id="buy-rater" class="buy-rater">
               <div class="header "><span>宝贝评价（498）</span><span>好评度<i>90%</i></span></div>
               <div class="content">
                 <ul>
@@ -96,7 +104,7 @@
               <div class="footer"><router-link to="/goods/rater"><span>查看全部评价</span></router-link></div>
          </div>
          <!--商品介绍/商品详情-->
-         <div class="buy-content-more clearfix">
+         <div id="buy-content-more" class="buy-content-more clearfix">
           <tab :line-width=2 active-color='#fc378c' v-model="index">
             <tab-item class="vux-center">商品介绍</tab-item>
             <tab-item class="vux-center">商品详情</tab-item>
@@ -319,16 +327,72 @@
         color: @color2;
         border: 1px solid #f63;
       }
-      .buy-chose-btn{
-        width: 100%;
-      .flexbox;
-        span{
-          display: inline-block;
-          width: 50%;
-          text-align: center;
-          height: ;
-        }
-      }
   }
 
+  .buy-choseType{
+    .buy-chose-btn{
+      width: 100%;
+      height: 45px;
+      color:#fff;
+      line-height: 45px;
+      .flexbox;
+          span{
+            display: inline-block;
+            width: 50%;
+            text-align: center;
+            &:first-child{
+               background: #ff8c00;
+             }
+            &:last-child{
+               background: #ff5300;
+             }
+          }
+    }
+    .buy-choose-goods{
+    .flexbox;
+      .imgBox{
+         width: 40%;
+         padding: 1.5rem 15px;
+         img{
+           width: 100%;
+           height: 100%;
+         }
+      }
+      .info{
+         padding-top: 2rem;
+         font-size:1.2rem;
+        color: #666;
+         p{
+           line-height: 2.5;
+         }
+         span{
+            small{
+              font-size: 1rem;
+            }
+            &:first-child{
+                 color: @color2;
+            }
+            &:last-child{
+               i,b{
+                 display: inline-block;
+                 margin-right: 5px;
+                 border-radius: 2px;
+                 padding: 2px 5px;
+                 background: @color1;
+                 color: #fff;
+               }
+             }
+         }
+      }
+    }
+  }
+  .nav-a{
+    color: #333;
+    display: block;
+    width: 100%;
+    height: 100%;
+  }
+  .vux-tab-selected a{
+    color: #f36;
+  }
 </style>
