@@ -1,46 +1,70 @@
 <template>
-  <view-box ref="viewBox">
+  <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="42px" class="no-select">
     <CommonHeader slot="header" :className="'colorHeader'">
       <span solt="default">
-        购物车<span v-if="!!selectedIds.length">({{selectedIds.length}})</span>
+        购物车<span v-if="!!totalSpecNum">({{totalSpecNum}})</span>
       </span>
       <div slot="right">
         <span v-if="isEditMode" @click.capture.prevent="stopEditMode">完成</span>
         <span v-else @click.capture.prevent="startEditMode">编辑</span>
       </div>
     </CommonHeader>
-    <div class="" style="padding-bottom: 42px;">
-      <div>
-        <div>
-          <check-icon :value.sync="checkAll" class="cart-check">全选</check-icon>
-          <div><img></div>
+    <div class="cart-list-wrap">
+      <div class="cart-list" v-for="goods in goodsList" :key="goods.type">
+        <div class="cart-title">
+          <check-icon class="cart-check"
+                      :value="!goods.list.filter(item=>!item.selected).length"
+                      v-on:update:value="(selected)=>changeSelectBatchGoods({type:goods.type,selected})"
+          >{{goods.name}}</check-icon>
         </div>
-        <div>
-          <div> 索玛格皮带 男士腰带真皮头层牛皮裤带商务休闲裤腰带z字母板扣S100057 115cm 金色扣黑带 </div>
-          <div>$4555.00 </div>
-        </div>
+        <ul class="cart-list-cot">
+          <li class="cart-item" v-for="item in goods.list" :key="item.id">
+            <div class="cart-wrap">
+              <div class="cart-item-img">
+                <check-icon class="cart-check"
+                            :value="item.selected"
+                            v-on:update:value="(selected)=>changeSelectSingleGoods({id:item.id,selected})"></check-icon>
+                <div class="cart-item-img-wrap"><img :src="item.img"></div>
+              </div>
+              <div class="cart-item-detail">
+                <p class="cart-item-desc"> {{item.desc}} </p>
+                <div class="cart-item-price">
+                  <div class="price-detail">
+                    <p v-if="item.price>0"><em>¥</em>{{item.price}}.00</p>
+                    <p v-if="item.coinBi>0"><em>M</em>{{item.coinBi}}</p>
+                  </div>
+                  <div class="quantity-handel">
+                    <button class="round-btn decrease-btn iconfont icon-minus" @click="decreaseQuantity(item.id)"></button>
+                    <span class="quantity-detail">{{item.num}}</span>
+                    <button class="round-btn increase-btn iconfont icon-add" @click="increaseQuantity(item.id)"></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
       </div>
     </div>
     <flexbox :gutter="0" wrap="wrap" slot="bottom" class="weui-tabbar cart-tabbar" style="height: 42px">
-      <flexbox-item class="check-all-warp">
+      <flexbox-item class="check-all-wrap">
         <div>
-          <check-icon :value.sync="checkAll" class="cart-check">全选</check-icon>
+          <check-icon :value.sync="isSelectedAll" class="cart-check">全选</check-icon>
         </div>
       </flexbox-item>
       <flexbox-item>
         <div v-if="isEditMode">
-          <span>已选（{{selectedIds.length}}）</span>
+          <span>已选（{{selectedNum}}）</span>
         </div>
         <div v-else>
 
         </div>
       </flexbox-item>
       <flexbox-item  :span="1/4">
-        <x-button type="warn" class="cart-submit-btn border-radius-0" v-if="isEditMode" :disabled="!selectedIds.length">
+        <x-button type="warn" class="cart-submit-btn border-radius-0" v-if="isEditMode" :disabled="selectedNum == 0">
           删除
         </x-button>
-        <x-button type="warn" class="cart-submit-btn border-radius-0" v-else :disabled="!selectedIds.length">
-          结算<span v-if="!!selectedIds.length">({{selectedIds.length}})</span>
+        <x-button type="warn" class="cart-submit-btn border-radius-0" v-else :disabled="selectedNum == 0">
+          结算<span v-if="selectedNum != 0">({{selectedNum}})</span>
         </x-button>
       </flexbox-item>
     </flexbox>
@@ -50,12 +74,11 @@
   import { CheckIcon, ViewBox, XHeader,XButton, Tabbar, TabbarItem, Loading,Flexbox,FlexboxItem } from 'vux'
   import CommonHeader  from '@/components/CommonHeader'
   import { mapState, mapActions } from 'vuex'
-
+  import _ from 'underscore';
   export default {
-    data () {
-      return {
-        checkAll: false
-      }
+    created(){
+      //获取购物车数据
+      this.fetchCartList();
     },
     components: {
       CheckIcon,
@@ -69,11 +92,30 @@
       CommonHeader
     },
     computed:{
-      ...mapState('mallCart',[
-        'isEditMode',
-        'goods',
-        'selectedIds'
-      ])
+      ...mapState('mallCart',{
+        isEditMode: 'isEditMode',
+        goodsList: 'goodsList',
+        selectedIds: 'selectedIds',
+      }),
+      //总产品数量
+      totalSpecNum(){
+        return this.goodsList.reduce((a,b)=>a + b.list.length,0)
+      },
+      //选中个数
+      selectedNum(){
+        return  _.chain(this.goodsList).pluck('list').flatten().filter(a=>a.selected).value().length
+      },
+      //是否都选择
+      isSelectedAll:{
+        get(){
+          let allGoods = _.chain(this.goodsList).pluck('list').flatten();
+          let allGoodsNum = allGoods.value().length;
+          return allGoodsNum === allGoods.flatten().filter(a=>a.selected).value().length
+        },
+        set(selected){
+          this.changeSelectAllGoods(selected)
+        }
+      }
     },
     methods:{
       ...mapActions('mallCart',[
@@ -81,8 +123,12 @@
         'checkOut',
         'startEditMode',
         'stopEditMode',
-        'selectGood',
-        'removeSelectedGood'
+        'changeSelectSingleGoods',
+        'changeSelectBatchGoods',
+        'changeSelectAllGoods',
+        'removeSelectedGood',
+        'increaseQuantity',
+        'decreaseQuantity'
       ])
     }
   }
@@ -105,15 +151,136 @@
      }
   }
   .cart-tabbar{
-    .vux-flexbox-item.check-all-warp{
+    .vux-flexbox-item.check-all-wrap{
+      padding-left: 10px;
       flex-grow: 0;
       flex-basis: 6rem;
     }
   }
+  //选择按钮
   .cart-check{
     &.vux-check-icon > .weui-icon-success:before,
     &.vux-check-icon > .weui-icon-success-circle:before{
       color: @color2;
+    }
+    .weui-icon-circle,
+    .weui-icon-success,
+    .weui-icon-success-circle{
+      font-size: 18px;
+    }
+  }
+  /* 购物车列表
+  ---------------------------------------------------------------- */
+  .cart-list-wrap{
+    height: 100%;
+    background-color: #eee;
+    overflow-y: auto;
+    font-size: 12px;
+  }
+  .cart-list{
+    background-color: #fff;
+    &:not(:last-child){
+      margin-bottom: 15px;
+    }
+    .cart-title{
+      display: flex;
+      align-items: center;
+      padding: 10px;
+      border-bottom: 1px solid #eee;
+    }
+    /*列表容器*/
+    .cart-list-cot{
+      list-style: none;
+      .cart-item{
+        padding: 10px;
+        &:not(:last-child){
+          border-bottom: 1px solid #eee;
+        }
+        .cart-wrap{
+          display: flex;
+        }
+        /*.cart-item-img*/
+        &-img{
+          text-align: center;
+          display: flex;
+          align-items: center;
+          /*height: 9.5rem;*/
+          &-wrap{
+            margin-left: 5px;
+            width: 95px;
+            height: 95px;
+            border:1px solid #eee;
+          }
+          img{
+            max-width: 95px;
+            max-height: 95px;
+          }
+        }
+        /*.cart-item-detail*/
+        &-detail{
+          flex-grow: 1;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-between;
+          padding: 0 10px;
+        }
+        /*.cart-item-desc*/
+        &-desc{
+          padding-right: 2em;
+          font-size: 14px;
+          font-weight: 600;
+          line-height: 1.2;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          -webkit-line-clamp: 2;
+        }
+        /*.cart-item-price*/
+        &-price{
+          display: flex;
+          align-items: flex-end;
+          justify-content: space-between;
+          .price-detail{
+            font-size: 16px;
+            line-height: 1.8rem;
+            color: @color1;
+            em{
+              font-size: 12px;
+              display: inline-block;
+              width: 1em;
+            }
+          }
+        }
+      }
+    }
+    .round-btn{
+      width: 24px;
+      height: 24px;
+      text-align: center;
+      border-radius: 50%;
+      padding: 5px;
+      font-size: 12px;
+      border:1px solid #ddd;
+      color: #666;
+      background-color: #fff;
+      outline: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      -webkit-transform: scale(0.9);
+      -moz-transform: scale(0.9);
+      -ms-transform: scale(0.9);
+      -o-transform: scale(0.9);
+      transform: scale(0.9);
+    }
+    .quantity-handel{
+      .quantity-detail{
+        font-size: 14px;
+        font-weight: 600;
+        margin: 0 5px;
+        color: #444;
+      }
     }
   }
 </style>

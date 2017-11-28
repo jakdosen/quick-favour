@@ -7,8 +7,9 @@ export default {
   state: {
     //是否编辑状态
     isEditMode:false,
+    isSelectedAll:false,
     //商品列表
-    goods:[
+    goodsList:[
 
     ],
     //选中商品
@@ -18,15 +19,15 @@ export default {
     //获取购物车列表
     fetchCartList ({ commit ,state},params) {
       commit('fetchCartList',{
-        goods:[
+        goodsList:[
           {
             type:'real',
-            name:'现金',
+            name:'现金商品',
             list:[
               {
                 id:'0001',
-                desc:'test1',
-                img:'',
+                desc:'索玛格皮带 男士腰带真皮头层牛皮裤带商务休闲裤腰带z字母板扣S100057 115cm 金色扣黑带',
+                img:'//image1.suning.cn/uimg/b2c/newcatentries/0010137040-000000000826122474_1_200x200.jpg?v=&from=mobile',
                 price:1000,
                 coinBi:0,
                 num:2,
@@ -34,8 +35,8 @@ export default {
               },
               {
                 id:'0002',
-                desc:'test2',
-                img:'',
+                desc:'珊瑚绒小毛毯空调毯盖毯双层冬季单人加厚儿童小毯子午睡毯办公室',
+                img:'https://gw.alicdn.com/bao/uploaded/i1/3326712345/TB2xIZQhrsTMeJjSszhXXcGCFXa_!!3326712345.jpg_200x200q50s150.jpg_.webp',
                 price:3000,
 								coinBi:0,
                 num:3,
@@ -45,11 +46,11 @@ export default {
           },
           {
             type:'real&virtual',
-            name:'现金&虚拟币',
+            name:'现金&秒币',
             list:[
               {
                 id:'0003',
-                desc:'test3',
+                desc:'现金&秒币 珊瑚绒小毛毯空调毯盖毯双层冬季单人加厚儿童小毯子午睡毯办公室',
                 img:'',
                 price:1000,
 								coinBi:100,
@@ -60,15 +61,15 @@ export default {
           },
           {
             type:'virtual',
-            name:'虚拟币',
+            name:'秒币商品',
             list:[
               {
                 id:'0004',
-                desc:'test4',
+                desc:'秒币商品 珊瑚绒小毛毯空调毯盖毯双层冬季单人加厚儿童小毯子午睡毯办公室',
                 img:'',
                 price:0,
 								coinBi:10000,
-                num:2,
+                num:1,
                 selected:false
               }
             ]
@@ -88,13 +89,29 @@ export default {
     stopEditMode({commit}){
       commit('changeEditMode',false)
     },
-    //选择商品
-    selectGood({commit},params){
-
+    //选择单个商品
+    changeSelectSingleGoods({commit},params){
+      commit('changeSelectSingleGoods',params)
+    },
+    //选择多个商品
+    changeSelectBatchGoods({commit},params){
+      commit('changeSelectBatchGoods',params)
+    },
+    //选择所有商品
+    changeSelectAllGoods({commit},selected){
+      commit('changeSelectAllGoods',selected)
     },
     //移除选中商品
-    removeSelectedGood({commit}){
+    removeSelectedGoods({commit}){
 
+    },
+    //减少商品数量
+    decreaseQuantity({commit},specId){
+      commit('decreaseQuantity',specId)
+    },
+    //增加商品数量
+    increaseQuantity({commit},specId){
+      commit('increaseQuantity',specId);
     }
   },
   mutations: {
@@ -105,12 +122,41 @@ export default {
       state.isEditMode = payload;
     },
     //选择单个商品
-    changeSelectSingle(){
-
+    changeSelectSingleGoods(state, payload){
+      let goods = _.chain(state.goodsList).pluck('list').flatten().filter(item=>item.id == payload.id).value();
+      if(goods.length){
+        goods[0].selected = payload.selected;
+      }
     },
     //选择多个商品
-    changeSelectBatch(){
-
+    changeSelectBatchGoods(state, payload){
+      let goodsBatch = state.goodsList.filter(item=>item.type == payload.type);
+      if(!goodsBatch.length) return
+      goodsBatch[0].list.forEach(item=>item.selected = payload.selected)
+    },
+    //选择所有商品
+    changeSelectAllGoods(state, payload){
+      state.goodsList.forEach(item=>{
+        item.list.forEach(obj=>{
+          obj.selected = payload
+        })
+      })
+    },
+    //减少商品数量
+    decreaseQuantity(state, payload){
+      let goods = _.chain(state.goodsList).pluck('list').flatten().filter(item=>item.id == payload).value();
+      if(goods.length){
+        let num = goods[0].num;
+        num > 1 && ( goods[0].num = num - 1)
+      }
+    },
+    //增加商品数量
+    increaseQuantity(state, payload){
+      let goods = _.chain(state.goodsList).pluck('list').flatten().filter(item=>item.id == payload).value();
+      if(goods.length){
+        let num = goods[0].num;
+        goods[0].num = num + 1
+      }
     }
   }
 }
