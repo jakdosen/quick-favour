@@ -93,6 +93,16 @@ export default new Router({
       path: '/submitOrder',
       name: 'submitOrder',
       component: resolve => require(['@/router/order/submitOrder'], resolve)
+    },
+    {
+      path: '/confirmOrder',
+      name: 'confirmOrder',
+      component: resolve => require(['@/router/order/submitOrder/confirmOrder'], resolve)
+    },
+    {
+      path: '/choseAddress',
+      name: 'choseAddress',
+      component: resolve => require(['@/router/order/submitOrder/choseAddress'], resolve)
     }
   ]
 })

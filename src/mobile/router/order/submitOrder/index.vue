@@ -4,7 +4,7 @@
      <common-header className="colorHeader"><span slot="default">确认订单</span></common-header>
      <view-box body-padding-top="46px" body-padding-bottom="46px">
        <!--收货地址-->
-       <div class="order-address">
+       <div class="order-address" @click="openChoseAddress">
          <div class="left"></div>
          <div class="center">
            <p><span>收货人：</span>任东东 18862231223</p>
@@ -15,8 +15,8 @@
        <!--商品列表-->
        <div class="order-goodsList">
          <ul>
-           <li><img src="//img12.360buyimg.com/mobilecms/s110x110_jfs/t2986/330/2296781313/64049/d520957/57a2f64dN8f3883de.jpg" alt=""></li>
-           <li><img src="//img12.360buyimg.com/mobilecms/s110x110_jfs/t2986/330/2296781313/64049/d520957/57a2f64dN8f3883de.jpg" alt=""></li>
+           <li><img src="http://img12.360buyimg.com/mobilecms/s110x110_jfs/t2986/330/2296781313/64049/d520957/57a2f64dN8f3883de.jpg" alt=""></li>
+           <li><img src="http://img10.360buyimg.com/babel/s100x100_jfs/t13498/5/1157838140/11141/a5eea81/5a1be04bN6a38659f.jpg!q90.webp" alt=""></li>
          </ul>
          <span>共2件</span>
        </div>
@@ -53,7 +53,7 @@
      <!--提交订单-->
      <div class="order-push">
        <p>实付金额：<span><small>￥</small>3006.<small>00</small></span></p>
-       <span>提交订单</span>
+       <span @click="submitOrder">提交订单</span>
      </div>
    </div>
 </template>
@@ -84,7 +84,12 @@
 
     },
     methods: {
-
+      submitOrder(){
+          this.$router.push('/confirmOrder')
+      },
+      openChoseAddress(){
+        this.$router.push('/choseAddress')
+      }
     }
   }
 </script>
@@ -112,9 +117,7 @@
   }
   .order-goodsList{
     padding: 0 1rem;
-    height: 8rem;
     background: #fff;
-    line-height: 8rem;
     .flexbox;
     ul{
       width: 100%;
@@ -122,17 +125,20 @@
     }
     li{
       float: left;
-      width: 40%;
-      padding: 5px;
-      height: 100%;
-      img{
-        width: 100%;
-        height: 100%;
-      }
+      box-sizing: border-box;
+      padding: 10px;
+      max-width: 20%;
+      max-height: 9rem;
+        img{
+          width: 100%;
+          height: auto;
+        }
     }
     span{
       width: 5rem;
       font-size: 1.2rem;
+      transform: translate3d(0,50%,0);
+      margin-top: -1.2rem;
     }
   }
 
