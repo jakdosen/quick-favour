@@ -50,13 +50,18 @@
     color: #333;
     background-color: #fff !important;
   }
-  .colorHeader{
-    background: -webkit-linear-gradient(left top, @color2, @color1);
-    &.vux-header{
+  .redHeader,.colorHeader{
+      &.vux-header{
       .vux-header-left,
       .vux-header-right{
         color: #fff;
+        }
       }
-    }
+  }
+  .colorHeader{
+    background: -webkit-linear-gradient(left top, @color2, @color1);
+  }
+  .redHeader{
+    background: #fd3442;
   }
 </style>
