@@ -15,6 +15,7 @@
 }
 html,body{
   font-size: 10px !important;
+  font-family: Arial,Helvetica,STHeiTi,sans-serif!important;
   background: #fff;
   height: 100%;
 }
@@ -30,7 +31,14 @@ body {
 .inputFont {
   font-size: 1.4rem;
 }
-
+.no-select {
+  -webkit-touch-callout: none; /* iOS Safari */
+  -webkit-user-select: none; /* Chrome/Safari/Opera */
+  -khtml-user-select: none; /* Konqueror */
+  -moz-user-select: none; /* Firefox */
+  -ms-user-select: none; /* Internet Explorer/Edge */
+  user-select: none; /* Non-prefixed version, currently*/
+}
 //公共部分样式
 .c-page-padding{
    padding: 0 1rem;
@@ -178,7 +186,7 @@ address, caption, cite, code, dfn, em, b, i, th, var, b, strong {
 .main-tabbar{
   align-items: stretch;
   .iconfont{
-    font-size: 2.1rem;
+    font-size: 18px;
     position: relative;
     top:0px;
   }
@@ -186,7 +194,15 @@ address, caption, cite, code, dfn, em, b, i, th, var, b, strong {
     padding-top: 0;
     .weui-tabbar__label{
       position: relative;
-      top: 0px;
+      top: 3px;
+    }
+    .weui-tabbar__icon{
+      top: 3px;
+      &.vux-reddot:after,
+      &.vux-reddot-border:after,
+      &.vux-reddot-s:after{
+        top:0;
+      }
     }
     &.weui-bar__item_on{
       .weui-tabbar__icon,
