@@ -5,7 +5,7 @@
   <div style="width: 100%;height: 100%;background: #fff">
     <!--头部导航-->
     <common-header className="colorHeader"><span slot="default">全部商品</span></common-header>
-      <div class="all-body">
+    <div class="all-body" style="padding-top: 46px;">
         <!--左边导航-->
         <div class="hot-body-left">
           <ul>

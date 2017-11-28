@@ -12,11 +12,13 @@
       </div>
     </CommonHeader>
     <CommonHeader className="colorHeader" v-else>
-      <span slot="title">{{searchWord}}</span>
+      <span slot="default">{{searchWord}}</span>
       <div slot="right" @click="toSearchPage">
         <icon type="search" style="color: #fff" ></icon>
       </div>
     </CommonHeader>
+    <!--头部占位符-->
+    <div style="height: 46px;"></div>
     <!--历史搜索-->
     <div v-if="!searchWord"  class="search-histry-modules  c-page-padding">
       <card>

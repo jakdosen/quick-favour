@@ -89,6 +89,10 @@ export default new Router({
         }
       ]
     },
-
+    {
+      path: '/submitOrder',
+      name: 'submitOrder',
+      component: resolve => require(['@/router/order/submitOrder'], resolve)
+    }
   ]
 })

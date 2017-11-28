@@ -39,6 +39,7 @@
     <div class="buy-goods-list">
       <ul>
         <li>
+          <router-link to="/goods">
           <div class="buy-goods-detail">
             <div class="buy-image">
               <x-img :src="'//pic4.40017.cn/zzy/rimage/2016/10/10/18/AVVJjh_242x150_00.jpg'"></x-img>
@@ -53,6 +54,7 @@
               </div>
             </div>
           </div>
+          </router-link>
         </li>
         <li></li>
         <li></li>
