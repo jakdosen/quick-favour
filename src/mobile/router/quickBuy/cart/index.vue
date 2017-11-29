@@ -1,5 +1,5 @@
 <template>
-  <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="42px" class="no-select">
+  <view-box ref="viewBox" body-padding-top="46px" body-padding-bottom="50px" class="no-select">
     <CommonHeader slot="header" :className="'colorHeader'">
       <span solt="default">
         购物车<span v-if="!!totalSpecNum">({{totalSpecNum}})</span>
@@ -30,13 +30,13 @@
                 <p class="cart-item-desc"> {{item.desc}} </p>
                 <div class="cart-item-price">
                   <div class="price-detail">
-                    <p v-if="item.price>0"><em>¥</em>{{item.price}}.00</p>
-                    <p v-if="item.coinBi>0"><em>M</em>{{item.coinBi}}</p>
+                    <p v-if="item.price > 0"><em>¥</em>{{item.price.toFixed(2)}}</p>
+                    <p v-if="item.coinBi > 0"><em>M</em>{{item.coinBi}}</p>
                   </div>
                   <div class="quantity-handel">
-                    <button class="round-btn decrease-btn iconfont icon-minus" @click="decreaseQuantity(item.id)"></button>
+                    <button :class="[item.num == 1 ? 'gary' : '', 'round-btn','iconfont', 'icon-minus']" @click="decreaseQuantity(item.id)"></button>
                     <span class="quantity-detail">{{item.num}}</span>
-                    <button class="round-btn increase-btn iconfont icon-add" @click="increaseQuantity(item.id)"></button>
+                    <button class="round-btn iconfont icon-add" @click="increaseQuantity(item.id)"></button>
                   </div>
                 </div>
               </div>
@@ -45,7 +45,7 @@
         </ul>
       </div>
     </div>
-    <flexbox :gutter="0" wrap="wrap" slot="bottom" class="weui-tabbar cart-tabbar" style="height: 42px">
+    <flexbox :gutter="0" wrap="wrap" slot="bottom" class="weui-tabbar cart-tabbar" style="height: 50px">
       <flexbox-item class="check-all-wrap">
         <div>
           <check-icon :value.sync="isSelectedAll" class="cart-check">全选</check-icon>
@@ -55,11 +55,21 @@
         <div v-if="isEditMode">
           <span>已选（{{selectedNum}}）</span>
         </div>
-        <div v-else>
-
+        <div v-else class="purchase-cot">
+          <!--<span style="padding-right: 10px">合计：</span>-->
+          <div style="padding-left: 5px">
+            <p v-if="totalPrice > 0">
+              现金：
+              <span class="price-detail"><em>¥</em>{{totalPrice.toFixed(2)}}</span>
+            </p>
+            <p v-if="totalCoinBi > 0">
+              秒币：
+              <span class="price-detail"><em>M</em>{{totalCoinBi}}</span>
+            </p>
+          </div>
         </div>
       </flexbox-item>
-      <flexbox-item  :span="1/4">
+      <flexbox-item  :span="1/4" class="cart-submit-btn-wrap">
         <x-button type="warn" class="cart-submit-btn border-radius-0" v-if="isEditMode" :disabled="selectedNum == 0">
           删除
         </x-button>
@@ -103,18 +113,24 @@
       },
       //选中个数
       selectedNum(){
-        return  _.chain(this.goodsList).pluck('list').flatten().filter(a=>a.selected).value().length
+        return  _.chain(this.goodsList).pluck('list').flatten().filter(d=>d.selected).value().length
       },
       //是否都选择
       isSelectedAll:{
         get(){
           let allGoods = _.chain(this.goodsList).pluck('list').flatten();
           let allGoodsNum = allGoods.value().length;
-          return allGoodsNum === allGoods.flatten().filter(a=>a.selected).value().length
+          return allGoodsNum === allGoods.flatten().filter(d=>d.selected).value().length
         },
         set(selected){
           this.changeSelectAllGoods(selected)
         }
+      },
+      totalPrice(){
+        return  _.chain(this.goodsList).pluck('list').flatten().filter(d=>d.selected).reduce((a,b)=>a + b.price * b.num,0).value()
+      },
+      totalCoinBi(){
+        return  _.chain(this.goodsList).pluck('list').flatten().filter(d=>d.selected).reduce((a,b)=>a + b.coinBi * b.num,0).value()
       }
     },
     methods:{
@@ -137,7 +153,11 @@
   @import "~vux/src/styles/weui/weui.less";
   @import "~@/common.less";
   /*提交按钮*/
+  .cart-submit-btn-wrap{
+    align-self: stretch;
+  }
   .cart-submit-btn{
+    height: 100%;
     &.weui-btn_warn{
       background-color: @color2;
       &.weui-btn_disabled{
@@ -176,6 +196,16 @@
     background-color: #eee;
     overflow-y: auto;
     font-size: 12px;
+  }
+  .price-detail{
+    font-size: 16px;
+    line-height: 1.8rem;
+    color: @color1;
+    em{
+      font-size: 12px;
+      display: inline-block;
+      width: 1em;
+    }
   }
   .cart-list{
     background-color: #fff;
@@ -241,19 +271,10 @@
           display: flex;
           align-items: flex-end;
           justify-content: space-between;
-          .price-detail{
-            font-size: 16px;
-            line-height: 1.8rem;
-            color: @color1;
-            em{
-              font-size: 12px;
-              display: inline-block;
-              width: 1em;
-            }
-          }
         }
       }
     }
+
     .round-btn{
       width: 24px;
       height: 24px;
@@ -273,6 +294,10 @@
       -ms-transform: scale(0.9);
       -o-transform: scale(0.9);
       transform: scale(0.9);
+      &.gary{
+        border-color:#eee;
+        color: #ddd;
+      }
     }
     .quantity-handel{
       .quantity-detail{
@@ -281,6 +306,16 @@
         margin: 0 5px;
         color: #444;
       }
+    }
+  }
+</style>
+<style lang="less" scoped>
+  .purchase-cot{
+    display: flex;
+    font-size: 12px;
+    align-items: center;
+    .price-detail{
+      font-size: 15px;
     }
   }
 </style>
