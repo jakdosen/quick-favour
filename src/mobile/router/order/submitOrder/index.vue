@@ -5,12 +5,12 @@
      <view-box body-padding-top="46px" body-padding-bottom="46px">
        <!--收货地址-->
        <div class="order-address" @click="openChoseAddress">
-         <div class="left"></div>
+         <div class="left iconfont icon-address"></div>
          <div class="center">
            <p><span>收货人：</span>任东东 18862231223</p>
            <p><span>收货地址：</span>江苏省苏州市吴中东长路88号区工业园区2.5产业园A2-202</p>
          </div>
-         <div class="right"></div>
+         <div class="right iconfont icon-arrow-right"></div>
        </div>
        <!--商品列表-->
        <div class="order-goodsList">
@@ -98,21 +98,26 @@
   @import "../../../lib/style/flex.less";
   @import '../../../common.less';
   .order-address{
-    border-bottom: 1px solid #e4e4e4;
     margin: 15px 0;
     background: #fff;
-    padding: 5px 0;
+    padding: 1rem;
     font-size: 1.4rem;
+    background: url('~@/publice/img/submitOrder-01.png') no-repeat bottom left #fff;
+    background-size: 100% 2px;
     .flexbox;
     .center{
       p{
       }
     }
     .left{
-       width: 40px;
+       font-size: 1.6rem;
+       line-height: 4;
+       margin-right: 5px;
     }
     .right{
-       width: 40px;
+      font-size: 1.6rem;
+      line-height: 4;
+      color: #D0D1D1;
     }
   }
   .order-goodsList{
@@ -135,8 +140,9 @@
         }
     }
     span{
-      width: 5rem;
+      width: 8rem;
       font-size: 1.2rem;
+      text-align: right;
       transform: translate3d(0,50%,0);
       margin-top: -1.2rem;
     }

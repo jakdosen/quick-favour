@@ -21,8 +21,8 @@
             <p>选择支付方式</p>
             <div style="background: #fff">
              <checker v-model="chosePay"  type="radio" radio-required default-item-class="pay-default" selected-item-class="pay-selected">
-               <checker-item class="vux-1px-b" value="1"><span>icon</span> <icon :type="chosePay==='1'? 'success':'circle'"></icon></checker-item>
-               <checker-item value="2"><span>icon</span> <icon :type="chosePay==='2'? 'success':'circle'"></icon></checker-item>
+               <checker-item class="vux-1px-b" value="1"><span style="color: #3eb135;font-size: 2rem" class="iconfont icon-wechat-cc"></span> <icon :type="chosePay==='1'? 'success':'circle'"></icon></checker-item>
+               <checker-item value="2"><span style="color: #00a7ff;font-size: 2rem" class="iconfont icon-alipay"></span> <icon :type="chosePay==='2'? 'success':'circle'"></icon></checker-item>
              </checker>
            </div>
          </div>

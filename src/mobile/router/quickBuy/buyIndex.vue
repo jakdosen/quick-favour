@@ -2,7 +2,7 @@
 * Created by shiyang.yao on 2017/11/22.
 */
 <template>
-  <div style="width:100%;background: #f0f0f0" >
+  <div class="clearfix" style="width:100%;min-height:100%;background: #f0f0f0" >
       <!--头部  -->
       <div class="buy-head">
         <!--首页幻灯-->
@@ -37,12 +37,12 @@
       </div>
       <!--产品列表-->
       <div class="buy-goods-list clearfix">
-        <ul>
+        <ul class="clearfix">
           <li v-for="(_src , index) in dataSource_img" :key="index">
             <router-link to="/goods">
               <div class="buy-goods-detail">
                 <div class="buy-image">
-                  <x-img :key="index+'img'" container="#vux_view_box_body"  :offset="100"  default-src="//misc.360buyimg.com/lib/skin/e/i/error-jd.gif" :src="_src"></x-img>
+                  <x-img container="#vux_view_box_body"   :offset="100"  default-src="//misc.360buyimg.com/lib/skin/e/i/error-jd.gif" :src="_src"></x-img>
                 </div>
                 <div class="buy-content">
                   <p>苹果iphone6s pluse1111111111</p>
@@ -78,7 +78,17 @@
     },
     data(){
         return {
-            dataSource_img: ['https://img10.360buyimg.com/n7/jfs/t7645/290/1928701097/198779/bb4f4828/59a4c0d8N6864a187.jpg','https://img10.360buyimg.com/n7/jfs/t12994/338/733574425/319777/f266f597/5a128bebN55293392.jpg']
+            dataSource_img: ['http://img14.360buyimg.com/n7/jfs/t10306/244/2422227561/270172/192bae2b/59f7d7dbNaa44c3b0.jpg',
+              'http://img10.360buyimg.com/n7/jfs/t12994/338/733574425/319777/f266f597/5a128bebN55293392.jpg',
+              'http://img10.360buyimg.com/n7/jfs/t12994/338/733574425/319777/f266f597/5a128bebN55293392.jpg',
+              'http://img10.360buyimg.com/n7/jfs/t12994/338/733574425/319777/f266f597/5a128bebN55293392.jpg',
+              'http://img10.360buyimg.com/n7/jfs/t12994/338/733574425/319777/f266f597/5a128bebN55293392.jpg',
+              'http://img10.360buyimg.com/n7/jfs/t12994/338/733574425/319777/f266f597/5a128bebN55293392.jpg',
+              'http://img10.360buyimg.com/n7/jfs/t12994/338/733574425/319777/f266f597/5a128bebN55293392.jpg',
+              'http://img10.360buyimg.com/n7/jfs/t12994/338/733574425/319777/f266f597/5a128bebN55293392.jpg',
+              'http://img10.360buyimg.com/n7/jfs/t12994/338/733574425/319777/f266f597/5a128bebN55293392.jpg',
+              'http://img10.360buyimg.com/n7/jfs/t12994/338/733574425/319777/f266f597/5a128bebN55293392.jpg',
+              'http://img13.360buyimg.com/n7/jfs/t13765/353/1178544549/103859/e7bd4b77/5a1bae62N9ad8c823.jpg']
         }
     },
     computed: {

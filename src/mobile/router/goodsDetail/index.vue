@@ -9,14 +9,14 @@
     <div class="goods-buy">
       <div class="goods-buy-item1">
          <span @click="openHome">
-           <em></em><br>
+           <em class="iconfont icon-home"></em><br>
            首页
          </span>
          <span>
-           <em></em><br>
+           <em class="iconfont icon-shopping-cart"></em><br>
            购物车</span>
          <span @click="openCustomDialog">
-           <em></em><br>
+           <em class="iconfont icon-custom-service"></em><br>
            客服</span>
       </div>
       <div class="goods-buy-item2">
@@ -91,7 +91,7 @@
   }
 
   .goods-buy-item1 {
-  .flex-grow(1);
+  .flex-grow(2);
   }
 
   .goods-buy-item1 span{
@@ -103,14 +103,13 @@
   }
   .goods-buy-item1 em{
     display: inline-block;
-    width: 15px;
-    height: 15px;
-    margin-top: 7px;
-    background: #e4e4e4;
+    margin-top: 4px;
+    font-size: 1.6rem;
+    /*background: #e4e4e4;*/
   }
 
   .goods-buy-item2 {
-  .flex-grow(2);
+  .flex-grow(3);
   }
   .goods-buy-item2 span{
     width: 50%;
@@ -131,7 +130,8 @@
       .custom-img-box{
         height: 120px;
         width: 100%;
-        background: @color1;
+        background: url('~@/publice/img/goodDetail-01.png') no-repeat center center @color1;
+        background-size: contain;
       }
       .custom-content-box{
           padding:1rem 2.0rem;

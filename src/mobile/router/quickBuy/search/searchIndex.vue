@@ -53,7 +53,8 @@
     </div>
     <!--空状态搜索-->
     <div class="search-null-modules hide">
-         抱歉，没有找到您搜到的商品
+          <span></span>
+          抱歉，没有找到您搜到的商品~
     </div>
     </view-box>
   </div>
@@ -146,6 +147,21 @@
   }
   .search-content-modules,.search-content-modules .vux-slider{
     height: 100% ;
+  }
+  .search-null-modules{
+     margin: 10rem auto;
+     font-size: 1.4rem;
+     color: #666;
+     line-height: 5;
+    text-align: center;
+     width:80%;
+     span{
+        display: block;
+        width: 100%;
+        height: 10rem;
+        background: url(~@/publice/img/searchIndex-01.png) center center no-repeat;
+        background-size: contain;
+     }
   }
 </style>
 
