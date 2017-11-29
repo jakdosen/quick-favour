@@ -4,13 +4,17 @@
       <span solt="default">
         购物车<span v-if="!!totalSpecNum">({{totalSpecNum}})</span>
       </span>
-      <div slot="right">
+      <div slot="right" v-if="!!totalSpecNum">
         <span v-if="isEditMode" @click.capture.prevent="stopEditMode">完成</span>
         <span v-else @click.capture.prevent="startEditMode">编辑</span>
       </div>
     </CommonHeader>
     <div class="cart-list-wrap">
-      <div class="cart-list" v-for="goods in goodsList" :key="goods.type">
+      <!--购物车为空-->
+      <div slot="right" v-if="!totalSpecNum">
+        <h2 style="text-align: center">购物车为空</h2>
+      </div>
+      <div class="cart-list" v-for="goods in goodsList" :key="goods.type" v-if="goods.list.length > 0">
         <div class="cart-title">
           <check-icon class="cart-check"
                       :value="!goods.list.filter(item=>!item.selected).length"
@@ -48,12 +52,12 @@
     <flexbox :gutter="0" wrap="wrap" slot="bottom" class="weui-tabbar cart-tabbar" style="height: 50px">
       <flexbox-item class="check-all-wrap">
         <div>
-          <check-icon :value.sync="isSelectedAll" class="cart-check">全选</check-icon>
+          <check-icon :value.sync="isSelectedAll" class="cart-check" >全选</check-icon>
         </div>
       </flexbox-item>
       <flexbox-item>
-        <div v-if="isEditMode">
-          <span>已选（{{selectedNum}}）</span>
+        <div v-if="isEditMode" class="purchase-cot">
+          <span style="font-size: 12px;padding-left: 5px">已选（{{selectedNum}}）</span>
         </div>
         <div v-else class="purchase-cot">
           <!--<span style="padding-right: 10px">合计：</span>-->
@@ -70,10 +74,10 @@
         </div>
       </flexbox-item>
       <flexbox-item  :span="1/4" class="cart-submit-btn-wrap">
-        <x-button type="warn" class="cart-submit-btn border-radius-0" v-if="isEditMode" :disabled="selectedNum == 0">
+        <x-button type="warn" class="cart-submit-btn border-radius-0" v-if="isEditMode" :disabled="selectedNum == 0" @click.native="removeSelectedGoods">
           删除
         </x-button>
-        <x-button type="warn" class="cart-submit-btn border-radius-0" v-else :disabled="selectedNum == 0">
+        <x-button type="warn" class="cart-submit-btn border-radius-0" v-else :disabled="selectedNum == 0" @click.native="checkOut">
           结算<span v-if="selectedNum != 0">({{selectedNum}})</span>
         </x-button>
       </flexbox-item>
@@ -142,7 +146,7 @@
         'changeSelectSingleGoods',
         'changeSelectBatchGoods',
         'changeSelectAllGoods',
-        'removeSelectedGood',
+        'removeSelectedGoods',
         'increaseQuantity',
         'decreaseQuantity'
       ])

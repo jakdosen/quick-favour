@@ -7,7 +7,6 @@ export default {
   state: {
     //是否编辑状态
     isEditMode:false,
-    isSelectedAll:false,
     //商品列表
     goodsList:[
 
@@ -103,15 +102,22 @@ export default {
     },
     //移除选中商品
     removeSelectedGoods({commit}){
-
+      commit('removeSelectedGoods')
+      commit('changeEditMode',false)
     },
     //减少商品数量
     decreaseQuantity({commit},specId){
-      commit('decreaseQuantity',specId)
+      commit('changeQuantity',{
+        specId,
+        type:'decrease'
+      })
     },
     //增加商品数量
     increaseQuantity({commit},specId){
-      commit('increaseQuantity',specId);
+      commit('changeQuantity',{
+        specId,
+        type:'increase'
+      })
     }
   },
   mutations: {
@@ -142,21 +148,21 @@ export default {
         })
       })
     },
-    //减少商品数量
-    decreaseQuantity(state, payload){
-      let goods = _.chain(state.goodsList).pluck('list').flatten().filter(item=>item.id == payload).value();
+    //改变商品数量
+    changeQuantity(state, payload){
+      let {specId,type} = payload;
+      let goods = _.chain(state.goodsList).pluck('list').flatten().filter(item=>item.id == specId).value();
       if(goods.length){
         let num = goods[0].num;
-        num > 1 && ( goods[0].num = num - 1)
+        type == 'increase' && num ++
+        type == 'decrease' && num --
+        num > 0 && ( goods[0].num = num)
       }
     },
-    //增加商品数量
-    increaseQuantity(state, payload){
-      let goods = _.chain(state.goodsList).pluck('list').flatten().filter(item=>item.id == payload).value();
-      if(goods.length){
-        let num = goods[0].num;
-        goods[0].num = num + 1
-      }
+    removeSelectedGoods(state){
+      state.goodsList.forEach(subList=>{
+        subList.list = subList.list.filter(item=>!item.selected)
+      })
     }
   }
 }
