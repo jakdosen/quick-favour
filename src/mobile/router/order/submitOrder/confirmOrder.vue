@@ -28,7 +28,7 @@
          </div>
          <!--确认支付-->
          <div class="confirm-btn">
-           <a href="">确认支付</a>
+           <router-link class="confirm-pay" to="/payOrderSuccess">确认支付</router-link>
          </div>
      </view-box>
   </div>
@@ -118,7 +118,7 @@
   padding: 0 1rem;
   width: 100%;
   text-align: center;
-  a{
+  .confirm-pay{
     display: block;
     line-height: 4rem;
     background: #ff8c00;

@@ -8,7 +8,7 @@
         </div>
         <!--输入账号密码-->
         <div style="margin-left: -15px">
-          <x-input placeholder="手机号码" class="inputFont" :value="userPhone" @input="updateUserPhone" type="tel"  is-type="china-mobile"></x-input>
+          <x-input placeholder="手机号码" class="inputFont"  :value="userPhone" @input="updateUserPhone" type="tel"  is-type="china-mobile"></x-input>
           <x-input placeholder="密码" class="inputFont" :value="userPassWord" @input="updateUserPassWord" type="password"></x-input>
         </div>
         <!--注册账号/忘记密码-->
@@ -25,6 +25,10 @@
           <fieldset>
             <legend align="center">使用第三方登录</legend>
           </fieldset>
+          <div class="login-other-account">
+             <span class="iconfont icon-wechat-cc"></span>
+             <span class="iconfont icon-alipay"></span>
+          </div>
         </div>
       </flexbox-item>
     </flexbox>
@@ -109,7 +113,22 @@
     font-size: 1.2rem;
     padding: 0 10px;
   }
-
+  .login-other-account{
+    margin-top:2rem;
+    span{
+      border-radius: 100%;
+      padding: .5rem;
+      font-size: 3rem;
+      border:1px solid #e4e4e4;
+      &:first-child{
+          color: #3eb135;
+           margin-right: 2rem;
+       }
+      &:last-child{
+         color: #00a7ff
+       }
+    }
+  }
   .font-style {
     color: #666;
     font-size: 1.2rem;
