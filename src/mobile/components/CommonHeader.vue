@@ -62,6 +62,6 @@
     background: -webkit-linear-gradient(left top, @color2, @color1);
   }
   .redHeader{
-    background: #fd3442;
+    background-color: #fd3442 !important;
   }
 </style>
