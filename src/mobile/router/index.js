@@ -2,6 +2,11 @@ import Router from 'vue-router'
 export default new Router({
   mode: 'history',
   routes: [
+    // 404页面
+    {
+      path:'*',
+      component: resolve => require(['@/router/quickBuy'], resolve)
+    },
     {
       path: '/',
       name: 'main',
