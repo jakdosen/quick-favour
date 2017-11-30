@@ -4,7 +4,7 @@
 <template>
   <div style="width: 100%;height: 100%;background: #fff">
     <!--头部导航-->
-    <common-header><span slot="default">秒币商城</span></common-header>
+    <common-header><span class="hot-headerTitle" slot="default"></span></common-header>
     <div class="hot-body">
       <!--头部广告-->
       <swiper :show-desc-mask="false" :auto="true" :show-dots="dataSource.length>1" :list="dataSource" dots-position="center" :loop="true"
@@ -56,5 +56,12 @@
   }
   .hot-goods{
     padding: 1rem 0;
+  }
+  .hot-headerTitle{
+    background: url('~@/publice/img/quickMoney-01.png') no-repeat center center;
+    background-size: 92.5px 26px;
+    display: block;
+    width: 100%;
+    height: 46px;
   }
 </style>
