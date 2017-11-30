@@ -64,7 +64,7 @@
   }
 </script>
 <style lang="less" rel="stylesheet/less">
-  @import "../../../lib/style/flex.less";
+  @import "~@/lib/style/flex.less";
   @import '~vux/src/styles/1px.less';
 .confirmOrder-pay{
    background: #fff;

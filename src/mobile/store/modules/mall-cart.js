@@ -2,6 +2,7 @@
  * Created by Gavin.Li on 2017/11/22.
  */
 import _ from 'underscore'
+import router from '@/router/index'
 export default {
   namespaced: true,
   state: {
@@ -78,7 +79,7 @@ export default {
     },
     //结算
     checkOut() {
-
+      router.push({'path': '/submitOrder'})
     },
     //编辑购物车
     startEditMode({commit}){

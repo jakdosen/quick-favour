@@ -20,18 +20,18 @@ export default new Router({
         },
         {
           path:'mall',
-          component:resolve =>  require(['@/router/quickBuy/buyIndex'], resolve)
+          component:resolve =>  require(['@/router/quickBuy'], resolve)
         },
         //购物车
         {
             path:'/mall/cart',
-            component:resolve =>  require(['@/router/quickBuy/cart'], resolve)
+            component:resolve =>  require(['@/router/quickBuy/cart.vue'], resolve)
         },
         //订单
         {
             path:'/mall/order',
-            component:resolve =>  require(['@/router/quickBuy/order'], resolve)
-        }
+            component:resolve =>  require(['@/router/quickBuy/order.vue'], resolve)
+        },
       ]
     },
     //文章详情独立
@@ -44,70 +44,71 @@ export default new Router({
       name:'article-detail-note',
       component:resolve =>  require(['@/router/main/article/detail-note'], resolve),
     },
+    // 登录页面
     {
       path: '/login',
-      name: 'login',
       component: resolve =>  require(['@/router/login/login'], resolve)
     },
+    // 注册页面
     {
       path: '/register',
-      name: 'register',
       component: resolve => require(['@/router/login/register'], resolve)
     },
+    // 搜索页面
     {
       path: '/search',
-      name: 'search',
-      component: resolve => require(['@/router/quickBuy/search/searchIndex'], resolve)
+      component: resolve => require(['@/router/quickBuy/searchIndex'], resolve)
     },
+    // 热门商品
     {
       path: '/hot',
-      name: 'hot',
-      component: resolve => require(['@/router/quickBuy/hotGoods/hotGoods'], resolve)
+      component: resolve => require(['@/router/quickBuy/hotGoods'], resolve)
     },
+    // 秒购商城
     {
       path: '/quick',
-      name: 'quick',
-      component: resolve => require(['@/router/quickBuy/quickMoney/quickMoney'], resolve)
+      component: resolve => require(['@/router/quickBuy/quickMoney'], resolve)
     },
+    // 全部商品
     {
       path: '/all',
-      name: 'all',
-      component: resolve => require(['@/router/quickBuy/allGoods/allGoods'], resolve)
+      component: resolve => require(['@/router/quickBuy/allGoods'], resolve)
     },
+    // 产品列表
     {
       path: '/goods',
-      name: 'main',
       component: resolve => require(['@/router/goodsDetail'], resolve),
       children:[
         {
           path:'(index)*',
           component:resolve =>  require(['@/router/goodsDetail/home'], resolve),
         },
+        // 产品更多评论
         {
           path:'rater',
           component:resolve =>  require(['@/router/goodsDetail/rater'], resolve)
         }
       ]
     },
+    // 确认订单
     {
       path: '/submitOrder',
-      name: 'submitOrder',
-      component: resolve => require(['@/router/order/submitOrder'], resolve)
+      component: resolve => require(['@/router/order'], resolve)
     },
+    // 支付订单
     {
       path: '/confirmOrder',
-      name: 'confirmOrder',
-      component: resolve => require(['@/router/order/submitOrder/confirmOrder'], resolve)
+      component: resolve => require(['@/router/order/confirmOrder'], resolve)
     },
+    // 确认订单中-地址选择
     {
       path: '/choseAddress',
-      name: 'choseAddress',
-      component: resolve => require(['@/router/order/submitOrder/choseAddress'], resolve)
+      component: resolve => require(['@/router/order/choseAddress'], resolve)
     },
+    // 订单支付成功
     {
       path: '/payOrderSuccess',
-      name: 'payOrderSuccess',
-      component: resolve => require(['@/router/order/submitOrder/payOrderSuccess'], resolve)
+      component: resolve => require(['@/router/order/payOrderSuccess'], resolve)
     }
   ]
 })

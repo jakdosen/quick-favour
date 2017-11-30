@@ -53,8 +53,8 @@
   }
 </script>
 <style lang="less" scoped rel="stylesheet/less">
-  @import "../../../lib/style/flex.less";
-  @import '../../../common.less';
+  @import "~@/lib/style/flex.less";
+  @import '~@/common.less';
 .pay-default{
 padding: 0 1rem;
 margin-top: 1rem;

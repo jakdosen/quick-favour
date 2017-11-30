@@ -92,21 +92,13 @@
         }
     },
     computed: {
-      ...mapState('buyIndex', {
-        dataSource: 'dataSource'
-      })
+      ...mapState('buyIndex', ['dataSource'])
     },
     methods: {
 //        箭头函数会导致this指向错误
         openSearchPage: function () {
            this.$router.push({path:'/search'})
-        },
-      success(s,q){
-            console.log('success')
-      },
-      error(s,a){
-            console.log('error')
-      }
+        }
     }
   }
 </script>

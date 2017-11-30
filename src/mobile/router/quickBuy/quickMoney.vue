@@ -36,15 +36,13 @@
       }
     },
     computed: {
-      ...mapState('hotGoods', {
-        dataSource: 'dataSource'
-      })
+      ...mapState('hotGoods', ['dataSource'])
     },
     methods: {}
   }
 </script>
 <style lang="less" scoped rel="stylesheet/less">
-  @import '../../../common.less';
+  @import '~@/common.less';
   .hot-body{
     background: #fff;
     min-height: 100%;

@@ -95,8 +95,8 @@
 </script>
 
 <style lang="less" scoped rel="stylesheet/less">
-  @import "../../../lib/style/flex.less";
-  @import '../../../common.less';
+  @import "~@/lib/style/flex.less";
+  @import '~@/common.less';
   .order-address{
     margin: 15px 0;
     background: #fff;

@@ -13,7 +13,9 @@
         <x-input class="inputFont weui-vcode" :value="userNewPassWord" @input="updateUserNewPassWord" :show-clear="false" name="verifyCode" placeholder="验证码">
           <x-button slot="right" class="stateCode" @click.native="sendStateCode" type="primary" mini>{{ stateCodeSuggest }}</x-button>
         </x-input>
-        <x-input v-if="isForgetPassWord!='bindPhone'" class="inputFont" name="password" :value="stateCode" @input="updateStateCode" placeholder="设置密码" type="password" :show-clear="false"></x-input>
+        <x-input v-if="isForgetPassWord!='bindPhone'" class="inputFont" name="password" :value="stateCode" @input="updateStateCode" placeholder="设置密码" :type="openEye ? 'text':'password'" :show-clear="false">
+          <span slot="right" class="iconfont" :class="openEye ? 'icon-openEye':'icon-closeEye'" style="margin-left: 5px" @click="openEye=!openEye"></span>
+        </x-input>
       </div>
       <div class="submitBtn">
         <x-button class="login-btn" type="primary" @click.native="submitInto"> {{ btnTitle[String(isForgetPassWord)]}}</x-button>
@@ -36,16 +38,21 @@
       Cell,
       XHeader
     },
+    data(){
+      return {
+        openEye:false
+      }
+    },
     computed: {
-      ...mapState('register', {
-        userPhone: 'userPhone',
-        userNewPassWord: 'userNewPassWord',
-        stateCode: 'stateCode',
-        stateCodeSuggest: 'stateCodeSuggest',
-        isForgetPassWord: 'isForgetPassWord',
-        navTitle:'navTitle',
-        btnTitle:'btnTitle'
-      })
+      ...mapState('register', [
+        'userPhone',
+        'userNewPassWord',
+        'stateCode',
+        'stateCodeSuggest',
+        'isForgetPassWord',
+        'navTitle',
+        'btnTitle'
+      ])
     },
     methods: {
       sendStateCode(){

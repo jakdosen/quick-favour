@@ -3,7 +3,7 @@
     <common-header className="colorHeader">
          <div slot="default" class="header-img"><img src="//pic5.40017.cn/01/001/69/e2/rBLkBloJRPqAONZ4AAIHd0GN-AI775_242x150_00.jpg" alt=""></div>
     </common-header>
-    <view-box ref="viewBox" >
+    <view-box ref="viewBox" body-padding-top="46px">
       <div class="buy-rater">
         <div class="header"><span>宝贝评价（498）</span><span>好评度<i>90%</i></span></div>
         <div class="rater-type">

@@ -9,7 +9,9 @@
         <!--输入账号密码-->
         <div style="margin-left: -15px">
           <x-input placeholder="手机号码" class="inputFont"  :value="userPhone" @input="updateUserPhone" type="tel"  is-type="china-mobile"></x-input>
-          <x-input placeholder="密码" class="inputFont" :value="userPassWord" @input="updateUserPassWord" type="password"></x-input>
+          <x-input placeholder="密码" class="inputFont" :value="userPassWord" @input="updateUserPassWord" :type="openEye ? 'text':'password'">
+              <span slot="right" class="iconfont" :class="openEye ? 'icon-openEye':'icon-closeEye'" style="margin-left: 5px" @click="openEye=!openEye"></span>
+          </x-input>
         </div>
         <!--注册账号/忘记密码-->
         <div class="flex-container space-between" style="margin: .5rem 0 1.5rem">
@@ -47,12 +49,17 @@
       Flexbox,
       FlexboxItem
     },
+    data(){
+       return {
+           openEye:false
+       }
+    },
     // 这种形式使用model需要当心
     computed: {
-      ...mapState('login', {
-        userPhone: 'userPhone',
-        userPassWord: 'userPassWord'
-      })
+      ...mapState('login', [
+        'userPhone',
+        'userPassWord'
+      ])
     },
     methods: {
       loginInto () {

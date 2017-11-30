@@ -13,6 +13,7 @@ import articleDetailNote from './modules/article-detail-note'
 import mallCart from './modules/mall-cart'
 import buyIndex from './modules/buyIndex'
 import hotGoods from './modules/hotGoods'
+import allGoods from './modules/allGoods'
 import searchIndex from './modules/searchIndex'
 
 Vue.use(Vuex)
@@ -31,6 +32,7 @@ export default new Vuex.Store({
     mallCart,
     buyIndex,
     hotGoods,
-    searchIndex
+    searchIndex,
+    allGoods
   }, strict: debug
 })

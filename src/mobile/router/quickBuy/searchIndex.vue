@@ -100,11 +100,7 @@
        this.searchHistory = localStorage && localStorage.split(',') || '';
     },
     computed: {
-      ...mapState('searchIndex',{
-         searchWord:'searchWord',
-         list2:'list2',
-         isLoading:'isLoading'
-      })
+      ...mapState('searchIndex',['searchWord','list2','isLoading'])
     },
     methods: {
       toSearchPage:function () {
@@ -133,8 +129,8 @@
 </script>
 
 <style lang="less" scoped rel="stylesheet/less">
-  @import '../../../common.less';
-  @import "../../../lib/style/flex.less";
+  @import '~@/common.less';
+  @import "~@/lib/style/flex.less";
   @import '~vux/src/styles/1px.less';
   .searchBtn{
     background: #fff;

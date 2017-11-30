@@ -71,10 +71,10 @@
   }
 </script>
 <style lang="less" scoped rel="stylesheet/less">
-  @import "../../../lib/style/flex.less";
-  @import '../../../common.less';
+  @import "~@/lib/style/flex.less";
+  @import '~@/common.less';
 .payOrder-message{
-  background: url(../../../publice/img/paySuccess-box.png) right center #fd3442 no-repeat;
+  background: url(~@/publice/img/paySuccess-box.png) right center #fd3442 no-repeat;
   background-size: 15.5rem 8.6rem;
   padding: 4rem 2rem;
   color:#fff;
@@ -138,7 +138,7 @@
      display: block;
      width: 50%;
      margin: 2rem auto 1rem;
-     background: url(../../../publice/img/paySuccess-line.png)  no-repeat;
+     background: url(~@/publice/img/paySuccess-line.png)  no-repeat;
      background-size: contain;
      line-height: 2rem;
      box-sizing: border-box;
