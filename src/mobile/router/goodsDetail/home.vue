@@ -10,7 +10,7 @@
         </tab>
       </div>
     </CommonHeader>
-    <view-box  ref="viewBox" style="background: #e4e4e4">
+    <view-box  ref="viewBox" style="background: #f0f0f0">
          <!--购买信息-->
          <div id="buy-info" class="buy-info">
            <swiper :show-desc-mask="false" :auto="true" :show-dots="dataImg.length>1" :list="dataImg" dots-position="center" :loop="true"
