@@ -6,6 +6,8 @@
   "private": true,
   "scripts": {
     "dev": "webpack-dev-server --host 0.0.0.0 --inline --progress --config build/webpack.dev.conf.js",
+    "dev:pc": "webpack-dev-server --host 0.0.0.0 --inline --progress --config build/pc/webpack.dev.conf.js",
+    "build:pc": "webpack --progress --config build/pc/webpack.prod.conf.js",
     "start": "npm run dev",
     "build": "node build/build.js"
   },
@@ -43,6 +45,7 @@
     "extract-text-webpack-plugin": "^3.0.0",
     "file-loader": "^1.1.4",
     "friendly-errors-webpack-plugin": "^1.6.1",
+    "glob": "^7.1.2",
     "html-webpack-plugin": "^2.30.1",
     "less": "^2.7.1",
     "less-loader": "^2.2.3",
