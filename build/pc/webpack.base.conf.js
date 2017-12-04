@@ -74,7 +74,7 @@ let webpackConfig = {
 		}),
 	]
 }
-let htmls = getEntries(path.join(resolve('src/pc/views/') + '/**/*.html'));
+let htmls = getEntries(path.join(resolve('src/pc/views/') + '/*.html'));
 Object.keys(htmls).forEach(key =>{
 	webpackConfig.plugins.push(new HtmlWebpackPlugin({
 		template: htmls[key],
@@ -82,13 +82,11 @@ Object.keys(htmls).forEach(key =>{
 		chunks: ['vendor', key],
 		inject: 'body',
 		hash:true,
-		minify: {
+/*		minify: {
 			removeComments: true,
 			collapseWhitespace: true,
 			removeAttributeQuotes: true
-			// more options:
-			// https://github.com/kangax/html-minifier#options-quick-reference
-		},
+		},*/
   }))
 })
 function getEntries(globPath) {
