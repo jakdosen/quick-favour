@@ -4,7 +4,7 @@ const utils = require('./utils')
 const config = require('./config')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ExtractTextPlugin = require('extract-text-webpack-plugin')
+
 const glob = require('glob')
 
 function resolve (dir) {
@@ -68,10 +68,7 @@ let webpackConfig = {
 			name: 'vendor',
 			minChunks: Object.keys(entries).length
 		}),
-		new ExtractTextPlugin({
-			filename: utils.assetsPath('css/[name].css'),
-			allChunks: true,
-		}),
+
 	]
 }
 let htmls = getEntries(path.join(resolve('src/pc/views/') + '/*.html'));

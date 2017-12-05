@@ -7,7 +7,7 @@
   "scripts": {
     "dev": "webpack-dev-server --host 0.0.0.0 --inline --progress --config build/webpack.dev.conf.js",
     "dev:pc": "webpack-dev-server --host 0.0.0.0 --inline --progress --config build/pc/webpack.dev.conf.js",
-    "build:pc": "webpack --progress --config build/pc/webpack.prod.conf.js",
+    "build:pc": "node build/pc/build.js",
     "start": "npm run dev",
     "build": "node build/build.js"
   },
