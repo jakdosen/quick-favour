@@ -1,5 +1,28 @@
 @import "./common";
-
 .mz-input{
-  .mz-div-input();
+.mz-div-input(100%);
+}
+.form-group{
+  width: 500px;
+  position: relative;
+  label{
+    position: absolute;
+    left: -96px;
+    top:2px;
+  }
+}
+.mz-register-form{
+  width: 500px;
+  margin: 0 auto;
+  .mz-btn-register{
+     background: @color-1;
+    width: 100%;
+    display: block;
+    .font-set(18px,#fff,45px,center);
+  }
+}
+h1{
+  background: @color-1;
+  .font-set(18px,#fff,70px,center);
+  margin-bottom: 74px;
 }

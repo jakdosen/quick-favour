@@ -1,6 +1,11 @@
 @import "resetCss";
 
 @theme-color:#FFF;
+@color-1:#ff5300;
+@color-2:#fff3e9;
+@color-3:#ffa53a;
+@color-4:#ff8c00;
+@input-height:40px;
 
 html,body{
   color: #333;
@@ -12,24 +17,76 @@ html,body{
   width: 1050px;
   margin: 0 auto;
 }
+// 定义公共的group
+.form-group{
+  font-size: 14px;
+  line-height: @input-height;
+  label{
+    padding: 0 20px;
+    display: inline-block;
+  }
+}
+
+
+
+// 通用的字体设置
+.font-set(@fontSize:14px,@color:#fff,@lineHeight:70px,@textAlign:left){
+  font-size: @fontSize;
+  color: @color;
+  line-height: @lineHeight;
+  text-align: @textAlign;
+}
 
 //定义公共的输入框input
-.mz-div-input(@width:500px){
+.mz-div-input(@width:500px,@bottom:35px){
+    display: inline-block;
     width:@width;
     border: 1px solid #e5e5e5;
     -webkit-border-radius: 2px;
     border-radius: 2px;
-    line-height: 45px;
-    font-size: 12px;
+    box-sizing: border-box;
+    margin-bottom: 35px;
     input{
       padding-left: 20px;
       border: none;
+      width: 90%;
     }
-    label{
-       padding: 0 20px;
-       margin-left: -100%;
+    &.error{
+       border-color: @color-3;
+       position: relative;
+       background: @color-2;
+       input{
+         background: @color-2;
+       }
+       &:before{
+         position: absolute;
+         top: @input-height+2;
+         content:attr(data-error);
+         display: block;
+         .font-set(14px,@color-1,25px)
+       }
     }
 }
-.mz-input{
-    .mz-div-input();
+
+
+.from-group-code{
+  width: 100%;
+  .mz-input,.mz-sendCode{
+    display: inline-block;
+  }
+  .mz-input{
+    width: 70%;
+    float: left;
+    line-height: @input-height;
+  }
+  .mz-sendCode{
+    width: 25%;
+    float: right;
+    background: @color-4;
+    .font-set(@lineHeight: 40px,@textAlign: center)
+  }
+}
+
+.hide{
+  display: none;
 }

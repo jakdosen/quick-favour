@@ -1,5 +1,3 @@
-/* before */
-@reset-global pc;
 
 /* after */
 html {
@@ -31,7 +29,8 @@ template, [hidden] {
 }
 a {
   background-color: transparent;
-  -webkit-text-decoration-skip: objects
+  -webkit-text-decoration-skip: objects;
+  text-decoration: none;
 }
 a:active,
 a:hover {
@@ -219,4 +218,16 @@ ul, ol {
 h1, h2, h3, h4, h5, h6 {
   font-size: 100%;
   font-weight: normal
+}
+
+.clearfix {
+  *zoom: 1; /* for IE6-7 */
+}
+.clearfix:before, .clearfix:after {
+  display: table;
+  line-height: 0;
+  content: "";
+}
+.clearfix:after {
+  clear: both;
 }
