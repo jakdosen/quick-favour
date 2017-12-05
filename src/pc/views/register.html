@@ -2,11 +2,12 @@
 <html lang="en">
 <head>
   <%= require('html-loader!./common/meta.html') %>
+  <%= require('html-loader!./common/polyfill.html') %>
 </head>
 <body>
-<%= require('html-loader!./common/header.html') %>
+<%= require('html-loader!./common/header-login.html') %>
 <div class="container-1050">
-  <h1>注册会员</h1>
+  <h1 style="margin-bottom: 70px;">注册会员</h1>
   <div class="mz-register-form">
     <!--手机号-->
     <div class="form-group">

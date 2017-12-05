@@ -6,6 +6,7 @@
 @color-3:#ffa53a;
 @color-4:#ff8c00;
 @input-height:40px;
+@login-backgroud:#f3f3f3;
 
 html,body{
   color: #333;
@@ -16,6 +17,9 @@ html,body{
 .container-1050{
   width: 1050px;
   margin: 0 auto;
+  background: #fff;
+  margin-top: 35px;
+  padding-bottom: 200px;
 }
 // 定义公共的group
 .form-group{
@@ -89,4 +93,32 @@ html,body{
 
 .hide{
   display: none;
+}
+
+// 登录和注册公共头部
+.header-login{
+  background: #fff;
+  height: 70px;
+  line-height: 70px;
+  font-size: 16px;
+  padding: 0 35px;
+  .divide{
+     &:before{
+         content: '';
+         display: inline-block;
+         width: 1px;
+         height: 10px;
+         border-left:1px solid #666;
+         margin: 0 15px;
+     }
+  }
+  .pull-left{
+    float: left;
+  }
+  .pull-right{
+    float: right;
+  }
+  a{
+    color: #f63;
+  }
 }

@@ -4,11 +4,11 @@
   <%= require('html-loader!./common/meta.html') %>
 </head>
 <body>
-<%= require('html-loader!./common/header.html') %>
+<%= require('html-loader!./common/header-login.html') %>
 <div class="container-1050">
   <h1>账号安全</h1>
   <!--找回密码 -->
-  <div class="mz-lookForWord-form">
+  <div class="mz-lookForWord-form hide">
     <h2>找回密码</h2>
     <!--手机号-->
     <div class="form-group">
@@ -34,7 +34,7 @@
     <a class="mz-btn-register" href="javascript:;">下一步</a>
   </div>
   <!--修改密码-->
-  <div class="mz-changePassword-form hide">
+  <div class="mz-changePassword-form ">
     <h2>修改密码</h2>
     <!--手机号-->
     <div class="form-group">

@@ -3,7 +3,7 @@
 .mz-div-input(100%);
 }
 .form-group{
-  width: 500px;
+  width: 420px;
   position: relative;
   label{
     position: absolute;
@@ -11,8 +11,8 @@
     top:2px;
   }
 }
-.mz-register-form{
-  width: 500px;
+.mz-register-form,.mz-lookForWord-form,.mz-changePassword-form{
+  width: 420px;
   margin: 0 auto;
   .mz-btn-register{
      background: @color-1;
@@ -24,5 +24,11 @@
 h1{
   background: @color-1;
   .font-set(18px,#fff,70px,center);
-  margin-bottom: 74px;
+}
+
+h2{
+   .font-set(@fontSize: 16px,@color: #333,@textAlign: center,@lineHeight: 83px);
+}
+body{
+  background: @login-backgroud;
 }
