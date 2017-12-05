@@ -1,1 +1,35 @@
+@import "resetCss";
+
 @theme-color:#FFF;
+
+html,body{
+  color: #333;
+  font: normal normal normal 12px/20px Arial,sans-serif;
+}
+
+//定义公共容器
+.container-1050{
+  width: 1050px;
+  margin: 0 auto;
+}
+
+//定义公共的输入框input
+.mz-div-input(@width:500px){
+    width:@width;
+    border: 1px solid #e5e5e5;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    line-height: 45px;
+    font-size: 12px;
+    input{
+      padding-left: 20px;
+      border: none;
+    }
+    label{
+       padding: 0 20px;
+       margin-left: -100%;
+    }
+}
+.mz-input{
+    .mz-div-input();
+}
