@@ -75,9 +75,10 @@ let setCookie = (sName, sValue, oExpires, sPath, sDomain, bSecure)=>{
  * @param sDomain
  * @param bSecure
  */
-let removeCookie = (sName, sPath, sDomain, bSecure)=>{
+const removeCookie = (sName, sPath, sDomain, bSecure)=>{
   setCookie(sName,"", new Date(0), sPath,sDomain,bSecure);
 };
+
 export default {
   api,
   urlArgs,

@@ -12,6 +12,7 @@ function resolve (dir) {
 }
 
 let entries = getEntries(path.join(resolve('src/pc/scripts/modules') + '/**/*.js'));
+entries['init'] = resolve('src/pc/scripts/init.js')
 console.log(entries)
 let webpackConfig = {
   context: path.resolve(__dirname, '../../'),
@@ -79,7 +80,7 @@ Object.keys(htmls).forEach(key =>{
 	webpackConfig.plugins.push(new HtmlWebpackPlugin({
 		template: `!!ejs-loader!ejs-html-loader!${htmls[key]}`,
 		filename: 'views/' + key + '.html',
-		chunks: ['vendor', key],
+		chunks: ['vendor', 'init',key],
 		inject: 'body',
 		hash:true,
 /*		minify: {

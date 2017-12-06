@@ -16,6 +16,7 @@
     "backbone": "^1.3.3",
     "fastclick": "^1.0.6",
     "jquery": "1.12.4",
+    "store": "^2.0.12",
     "underscore": "^1.8.3",
     "vue": "^2.5.2",
     "vue-router": "^3.0.1",
