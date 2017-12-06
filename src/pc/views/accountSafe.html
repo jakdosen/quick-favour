@@ -1,10 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%= require('html-loader!./common/meta.html') %>
+  <%-include('./common/meta.html')%>
+
 </head>
 <body>
-<%= require('html-loader!./common/header-login.html') %>
+<%-include('./common/header-login.html')%>
+
 <div class="container-1050">
   <h1>账号安全</h1>
   <!--找回密码 -->

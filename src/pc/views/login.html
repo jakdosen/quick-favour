@@ -1,11 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <%= require('html-loader!./common/meta.html') %>
-  <%= require('html-loader!./common/polyfill.html') %>
+  <%-include('./common/meta.html')%>
+  <%-include('./common/polyfill.html')%>
 </head>
 <body>
-<%= require('html-loader!./common/header.html') %>
+<%-include('./common/header-login.html')%>
 <div class="login">ewew</div>
 <div class="test">
     test

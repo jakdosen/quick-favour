@@ -36,7 +36,8 @@ let webpackConfig = {
       {
         test: /\.js$/,
         loader: 'babel-loader',
-        include: [resolve('src'), resolve('test')]
+        include: [resolve('src'), resolve('test')],
+        exclude:['polyfill.js']
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -75,7 +76,7 @@ let webpackConfig = {
 let htmls = getEntries(path.join(resolve('src/pc/views/') + '/*.html'));
 Object.keys(htmls).forEach(key =>{
 	webpackConfig.plugins.push(new HtmlWebpackPlugin({
-		template: htmls[key],
+		template: `!!ejs-loader!ejs-html-loader!${htmls[key]}`,
 		filename: 'views/' + key + '.html',
 		chunks: ['vendor', key],
 		inject: 'body',

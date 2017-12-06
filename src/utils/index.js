@@ -1,9 +1,9 @@
 /**
  * Created by Gavin.Li on 2017/12/5.
  */
-import api from './api'
 
-const urlArgs = ()=>{
+import api from './api'
+let urlArgs = ()=>{
   let args = {};
   let query = location.search ? location.search : location.hash;
   if(!query){
@@ -25,7 +25,7 @@ const urlArgs = ()=>{
  * getCookie
  * @param sName
  */
-const getCookie = (sName)=>{
+let getCookie = (sName)=>{
   let
     sRE = "(?:; )?"+sName+"=([^;]*);?",
     oRE = new RegExp(sRE);
@@ -45,7 +45,7 @@ const getCookie = (sName)=>{
  * @param bSecure
  * @returns {*}
  */
-const setCookie = (sName, sValue, oExpires, sPath, sDomain, bSecure)=>{
+let setCookie = (sName, sValue, oExpires, sPath, sDomain, bSecure)=>{
   let sCookie = sName + "=" + encodeURIComponent(sValue),d;
   if (oExpires) {
     if (typeof oExpires == "string") {
@@ -75,10 +75,10 @@ const setCookie = (sName, sValue, oExpires, sPath, sDomain, bSecure)=>{
  * @param sDomain
  * @param bSecure
  */
-const removeCookie = (sName, sPath, sDomain, bSecure)=>{
+let removeCookie = (sName, sPath, sDomain, bSecure)=>{
   setCookie(sName,"", new Date(0), sPath,sDomain,bSecure);
 };
-module.exports = {
+export default {
   api,
   urlArgs,
   getCookie,

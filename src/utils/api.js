@@ -1,7 +1,7 @@
 const CTX = '/api'
 const HOST = 'http://t13.zetadata.com.cn:8082'
 const rootPath = `${HOST}${CTX}`
-module.exports = {
+export default {
     //用户相关
     user:{
       login:``,
