@@ -68,6 +68,7 @@ let webpackConfig = {
 	plugins:[
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'vendor',
+      chunks: Object.keys(entries),
 			minChunks: Object.keys(entries).length
 		}),
 
