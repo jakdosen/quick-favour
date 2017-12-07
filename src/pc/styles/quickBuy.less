@@ -1,0 +1,271 @@
+@import "./common";
+
+@qb-color-1:#ff5300;
+@qb-color-2:#666;
+@qb-color-3:#6c1e20;
+
+.qb-search{
+  .qb-search-content{
+    border: 1px solid #ddd;
+    height: 36px;
+    line-height: 36px;
+    border-radius: 36px;
+    overflow: hidden;
+    &:before{
+       content: 'icon';
+       display: inline-block;
+       float: left;
+    }
+    span{
+      display: inline-block;
+      background: @qb-color-1;
+      width: 60px;
+      text-align: center;
+      color: #fff;
+      height: 100%;
+      float: right;
+      cursor: pointer;
+    }
+    input{
+      height: 36px;
+      width: 85%;
+      border: none;
+      float: left;
+      margin-left: 5px;
+    }
+  }
+  .qb-search-history{
+     margin-top: 5px;
+     span{
+       color: @qb-color-2;
+       margin: 0 20px;
+       cursor: pointer;
+       &:hover,&.active{
+         color: @qb-color-1;
+       }
+     }
+  }
+}
+
+.qb-menu{
+  width: 1200px;
+  margin-left: -125px;
+  margin-top: 35px;
+  position: relative;
+  .qb-menu-detail{
+     width: 200px;
+     float: left;
+     display: inline-block;
+     background: #6c1e20;
+     height: 395px;
+      .qb-menu-detail-hide{
+       li{
+         padding: 0 32px;
+         line-height: 40px;
+         margin-top: 15px;
+         color: #fff;
+         cursor: pointer;
+         &:hover,&.active{
+            background: @qb-color-1;
+         }
+         &:after{
+           content: "";
+         }
+       }
+      }
+      .qb-menu-detail-show{
+         width: 600px;
+         height: 100%;
+         background: #fff;
+         position: absolute;
+         left: 200px;
+         top: 0;
+         li{
+           float: left;
+           width: 100px;
+           height: 102px;
+           padding: 15px 25px;
+           text-align: center;
+           .img-box{
+             width: 100%;
+             height: 90px;
+             overflow: hidden;
+           }
+           img{
+             display: inline-block;
+             width: 90%;
+             height: auto
+           }
+           span{
+             display: block;
+             color: @qb-color-2;
+             font-size: 12px;
+             width: 100%;
+             overflow: hidden;
+           }
+         }
+      }
+  }
+  .qb-menu-slider{
+    float: right;
+    width: 1000px;
+    height: 395px;
+    display: inline-block;
+    background: rgba(0,0,0,1);
+  }
+}
+.qb-recommend-goods,.qb-hot-goods,.qb-store {
+  margin-top: 20px;
+  .title {
+    line-height: 45px;
+    span:first-child {
+      font-size: 18px;
+    }
+    b {
+      font-size: 12px;
+      color: @qb-color-2;
+      margin-left: 5px;
+    }
+    a{
+      float: right;
+      color: #333;
+    }
+  }
+}
+.qb-recommend-goods{
+  .qb-recommend-goods-content{
+      li{
+         float: left;
+         width: 184px;
+         height: 220px;
+         padding: 20px;
+         margin-left: 15px;
+         text-align: center;
+         border: 1px solid #e4e4e4;
+         &:first-child{
+           margin-left: 0;
+         }
+         &:hover{
+            box-shadow: 0 0 20px rgba(0,0,0,.2);
+         }
+         .img-box{
+           width: 100%;
+           height: 130px;
+           overflow: hidden;
+           img{
+             display: inline-block;
+             width: 60%;
+             height: auto;
+           }
+         }
+         p{
+             width: 100%;
+             height: 40px;
+             overflow: hidden;
+             line-height: 1.4;
+             font-size: 14px;
+             margin-bottom: 10px;
+             color: #333;
+         }
+         span{
+           display: inline-block;
+           text-align: left;
+           margin-bottom: 5px;
+            b,em{
+              color: @qb-color-1;
+              font-size: 14px;
+            }
+            b{
+              font-size: 12px;
+            }
+         }
+         a>span{width: 100%}
+         .content-box{
+             text-align: left;
+             >b,>em{
+               display: inline-block;
+               color: #fff;
+               font-size: 12px;
+               padding:0 4px;
+               float: right;
+               background: @qb-color-3;
+               margin-right: 5px;
+             }
+             >em{
+               background: @qb-color-1;
+             }
+         }
+      }
+  }
+}
+
+.qb-hot-goods,.qb-store{
+   height: 525px;
+  .qb-hot-goods-box-img,.qb-store-box-img{
+      float: left;
+      img{
+        width: 200px;
+        height: 525px;
+      }
+  }
+  li{
+    float: left;
+    margin-left: 20px;
+    margin-bottom: 20px;
+    height: 223px;
+    width: 190px;
+    padding: 20px 20px 10px;
+    text-align: center;
+    background: #fff;
+    &:hover{
+      box-shadow: 0 0 12px rgba(0,0,0,.2);
+    }
+    .img-box{
+      width: 100%;
+      height: 120px;
+      overflow: hidden;
+      img{
+        width: 60%;
+        height: auto;
+      }
+    }
+    p{
+      color: #333;
+      width: 100%;
+      line-height: 1.4;
+      font-size: 14px;
+      height: 40px;
+      margin-bottom: 5px;
+    }
+    span{
+       display: block;
+       line-height: 50px;
+       color: @qb-color-1;
+    }
+
+  }
+}
+
+.qb-store-box{
+   li{
+     position: relative;
+   }
+   span{
+     position: absolute;
+     border: 1px solid @qb-color-1;
+     color: @qb-color-1;
+     height: 40px;
+     line-height: 40px !important;
+     bottom: 0;
+     width: 228px;
+     left: 0;
+     b{
+       display: inline-block;
+       width: 60px;
+       height: 100%;
+       color: #fff;
+       background: @qb-color-1;
+       float: right;
+     }
+   }
+}
