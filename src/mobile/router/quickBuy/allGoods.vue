@@ -15,7 +15,7 @@
         <!--右边内容区 -->
         <div class="all-body-right">
           <viewBox ref="allGoodsOfViewBox">
-          <div class="all-type-goods"  v-for = "(item, index) in dataSource" v-show="index === selectIndex">
+          <div class="all-type-goods"  v-for = "(item, index) in dataSource" v-show="index === selectIndex" :key="index">
             <span v-if="!Array.isArray(item)"> 敬请期待{{item}}商品</span>
             <div v-else style="width: 100%">
               <!--头部广告-->
@@ -24,7 +24,7 @@
               <span class="all-placeholder">热门分类</span>
               <div style="background: #fff">
                 <grid :cols="item.length%3">
-                  <grid-item v-for="child in item" :link="child.src" :label="child.title">
+                  <grid-item v-for="(child,index) in item" :key="index" :link="child.src" :label="child.title">
                     <img slot="icon" :src="child.src">
                   </grid-item>
                 </grid>

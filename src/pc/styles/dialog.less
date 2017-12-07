@@ -1,0 +1,37 @@
+@import "./common";
+
+@dialog-color1 : #f5f5f5;
+
+.mz-mask{
+   position: fixed;
+   top: 0;
+   left: 0;
+   bottom: 0;
+   right: 0;
+   background: rgb(0,0,0);
+   background: rgba(0,0,0,.4);
+   z-index: 9;
+   filter:Alpha(Opacity=40)
+}
+
+.mz-mask-content{
+  position: fixed;
+  z-index: 10;
+  top: 50%;
+  left: 50%;
+}
+
+.mz-mask-content-header,.mz-mask-content-footer{
+   background: @dialog-color1;
+}
+.mz-mask-content-header{
+   padding:0 28px;
+   font-size: 24px;
+   height: 64px;
+   line-height: 64px;
+}
+
+.mz-mask-content-footer{
+   height: 103px;
+   line-height: 103px;
+}
