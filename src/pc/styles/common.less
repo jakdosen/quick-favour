@@ -12,7 +12,9 @@
 @input-height:40px;
 @login-backgroud:#f3f3f3;
 
-
+.text-primary{
+  color: @primary-color!important;
+}
 html,body{
   -webkit-font-smoothing: antialiased;
   color: @text-default-color;
@@ -154,3 +156,122 @@ html,body{
 }
 
 
+/* 通站头部
+---------------------------------------------------------------- */
+@header-height:80px;
+.header{
+  height: @header-height;
+  line-height: @header-height;
+  padding: 0 40px;
+  font-size: 16px;
+  background-color: #fff;
+  box-shadow: 0px 1px 4px rgba(200,200,200,.5);
+  /*header-icon*/
+  &-icon{
+    height: @header-height;
+    .text-primary{
+      font-size: 32px;
+      font-weight: bold;
+      color: @primary-color;
+      vertical-align: middle;
+    }
+    .text-gray{
+      position: relative;
+      top: 2px;
+      padding: 0 10px;
+      color: @text-gray-color;
+      vertical-align: middle;
+    }
+  }
+  /* header-nav*/
+  &-nav{
+    padding-left: 80px;
+    font-size: 18px;
+  }
+  /* header-nav-left */
+  &-nav-left{
+    .text-left;
+    .inline-block;
+    .link-item{
+      .inline-block;
+      line-height: @header-height;
+      cursor: pointer;
+      padding: 0 30px;
+      vertical-align: middle;
+      &.active>span{
+        color: @primary-color;
+        border-bottom: 2px solid @primary-color;
+        text-align: center;
+        padding-bottom: 2px;
+        display: inline-block;
+        line-height: 1.8;
+      }
+      &:hover>span{
+        color: @primary-color;
+      }
+    }
+  }
+  /* header-nav-right */
+  &-nav-right{
+    .inline-block;
+    .text-left;
+    .link-item{
+      .inline-block;
+      line-height: 1.5;
+      margin-right: 30px;
+      &:last-child{
+        margin-right: 0;
+      }
+      .iconfont{
+        font-size: 18px;
+      }
+      &.main-dropdown{
+        padding: 10px 0;
+      }
+    }
+    .header-tip-num{
+      font-weight: bold;
+    }
+  }
+}
+/* main-dropdown
+---------------------------------------------------------------- */
+.main-dropdown{
+  .inline-block;
+  position: relative;
+  padding: 10px;
+  line-height: 1.5;
+
+  .dropdown-title{
+    .tip-icon{
+      font-family:"iconfont" !important;
+      &:before{
+        content: "\e72f";
+      }
+    }
+  }
+  &>.dropdown-list{
+    position: absolute;
+    top: 100%;
+    right: 0;
+    height: 0px;
+    overflow: hidden;
+    background: #fff;
+    &>li>a{
+      display: block;
+      padding: 5px 20px;
+      font-weight: 400;
+      white-space: nowrap;
+      text-decoration: none;
+      cursor: pointer;
+      &:hover{
+        background-color: #f5f5f5;
+      }
+    }
+  }
+  &.hover:hover,&.open{
+    &>.dropdown-list{
+      height: auto;
+    }
+  }
+}
