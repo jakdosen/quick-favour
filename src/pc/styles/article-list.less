@@ -1,12 +1,16 @@
 @import "./common";
+
+/* 通站头部
+---------------------------------------------------------------- */
 @header-height:80px;
 .header{
   height: @header-height;
   line-height: @header-height;
-  padding: 0 32px;
+  padding: 0 40px;
   font-size: 16px;
   background-color: #fff;
-  //header-icon
+  box-shadow: 0px 1px 4px rgba(200,200,200,.5);
+  /*header-icon*/
   &-icon{
     height: @header-height;
     .text-primary{
@@ -23,17 +27,21 @@
       vertical-align: middle;
     }
   }
+  /* header-nav*/
   &-nav{
-    margin-left: 30px;
+    padding-left: 80px;
     font-size: 18px;
   }
+  /* header-nav-left */
   &-nav-left{
-    text-align: left;
-    text-align-last: left;
-    -moz-text-align-last: left;
+    .text-left;
+    .inline-block;
     .link-item{
+      .inline-block;
       line-height: @header-height;
-      padding: 0 40px;
+      cursor: pointer;
+      padding: 0 30px;
+      vertical-align: middle;
       &.active>span{
         color: @primary-color;
         border-bottom: 2px solid @primary-color;
@@ -47,10 +55,21 @@
       }
     }
   }
+  /* header-nav-right */
   &-nav-right{
-    text-align: left;
-    text-align-last: left;
-    -moz-text-align-last: left;
-
+    .inline-block;
+    .text-left;
+  }
+}
+/* main-dropdown
+---------------------------------------------------------------- */
+.main-dropdown{
+  .inline-block;
+  line-height: 1.5;
+  position: relative;
+  &>.dropdown-list{
+    position: absolute;
+    top: 100%;
+    overflow: hidden;
   }
 }

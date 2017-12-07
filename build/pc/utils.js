@@ -27,10 +27,15 @@ exports.cssLoaders = function (options) {
       sourceMap: options.sourceMap
     }
   }
-
+  var autoprefixerLoader = {
+    loader: 'autoprefixer-loader',
+    options: {
+      sourceMap: options.sourceMap
+    }
+  }
   // generate loader string to be used with extract text plugin
   function generateLoaders (loader, loaderOptions) {
-    const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader]
+    const loaders = options.usePostCSS ? [cssLoader, postcssLoader] : [cssLoader,autoprefixerLoader]
     if (loader) {
       loaders.push({
         loader: loader + '-loader',
