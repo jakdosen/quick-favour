@@ -1,0 +1,81 @@
+@import "./common";
+.article-wrap{
+  margin: @gap-size 0;
+  background-color:#fff ;
+  padding: 15px 40px;
+  min-height: 80vh;
+}
+.article-title{
+  font-size: 26px;
+  line-height: 1.5;
+  font-weight: 500;
+  color: #000;
+}
+.article-sub{
+  margin-top: @gap-size;
+  font-size: @md-font-size;
+  .article-date{
+    .inline-block;
+    .text-left;
+    color: @text-gray-color;
+  }
+  .article-other{
+    .inline-block;
+    .text-left;
+    .other-item{
+      margin-right: 2em;
+    }
+    .num-detail{
+      color: @primary-color;
+    }
+  }
+}
+.article-detail{
+  margin-top: @gap-size;
+  font-size: @md-font-size;
+}
+.article-share{
+  margin-top: @gap-size;
+}
+.article-comment{
+  margin-top: @gap-size;
+}
+.comment-summary{
+  border-top: 1px solid darken(@gap-color,2%);
+  border-bottom: 1px solid darken(@gap-color,2%);
+  font-size: @md-font-size;
+  padding: 15px 0;
+}
+
+.comment-panel{
+  padding: 20px 0;
+  border-bottom: 1px solid darken(@gap-color,2%);
+  .comment-avatar{
+    .fl;
+    width: 40px;
+    img{
+      width: 100%;
+      min-height: 40px;
+      background-color: hotpink;
+      border: none;
+    }
+  }
+  .comment-detail{
+    overflow: hidden;
+    padding-left: 15px;
+    .comment-nickname{
+      font-size: @ms-font-size;
+      font-weight: bold;
+    }
+    .comment-desc{
+      padding: 5px 0;
+      font-size: @ms-font-size;
+      line-height: 1.6;
+
+    }
+    .comment-date{
+      color: @text-gray-color;
+      font-size: @xs-font-size;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%-include('./common/meta.html',{title:'文章列表'})%>
+<%-include('./common/polyfill.html')%>
+
+</head>
+<body>
+<%-include('./common/header.html',{type:'article'})%>
+<div class="main-container">
+  <div class="swiper-container">
+    <div class="swiper-wrapper js-slider-cot"></div>
+    <div class="pagination-ga"></div>
+  </div>
+  <div class="article-tab">
+
+  </div>
+  <div class="article-list">
+
+  </div>
+</div>
+<!--轮播广告模板-->
+<script type="text/template" id="ad-item-tpl">
+  <div class="swiper-slide">
+    <a href="<@=link@>" title="<@-name@>">
+      <img src="<@=src@>">
+    </a>
+  </div>
+</script>
+<!--单个文章-->
+<script type="text/template" id="article-item-tpl">
+  <div class="article-panel">
+    <div class="article-img">
+      <a href="article-detail.html?id=<@-obj.id@>">
+        <img src="<@-obj.cover@>">
+      </a>
+    </div>
+    <div class="article-detail">
+      <p class="article-desc">
+        <a href="article-detail.html?id=<@-obj.id@>"><@-obj.title@></a>
+      </p>
+      <p class="article-zan"><@-obj.like_num@>人赞</p>
+    </div>
+  </div>
+</script>
+</body>
+</html>

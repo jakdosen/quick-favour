@@ -12,6 +12,10 @@ export default {
     article:{
       list:`${rootPath}/article/tglist`,
       adList:`${rootPath}/article/home/cycleimage`,
+      //参数：article_id
+      detail:`${rootPath}/article/detail`,
+      //参数：article_id,page
+      comment:`${rootPath}/article/comment`
     },
     //商城
     mall:{

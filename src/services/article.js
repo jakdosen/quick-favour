@@ -27,3 +27,14 @@ export function getAd(params = {}) {
     params,
   )
 }
+/**
+ * getDetail 获取文章详情
+ * @param params
+ * @returns {AxiosPromise<any>}
+ */
+export function getDetail(params = {}) {
+  return axios.get(
+    article.detail,
+    params,
+  )
+}

@@ -16,8 +16,14 @@
 @md-font-size:16px;
 @ms-font-size:14px;
 @xs-font-size:12px;
+
+@gap-size:20px;
+@gap-color:@bg-default-color;
 .text-primary{
   color: @primary-color!important;
+}
+a{
+  color: @text-default-color;
 }
 html,body{
   -webkit-font-smoothing: antialiased;
@@ -208,7 +214,7 @@ html,body{
       .inline-block;
       line-height: @header-height;
       cursor: pointer;
-      padding: 0 30px;
+      padding: 0 24px;
       vertical-align: middle;
       &.active>span{
         color: @primary-color;
