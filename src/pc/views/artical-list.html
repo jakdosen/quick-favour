@@ -6,9 +6,54 @@
 
 </head>
 <body>
-<%-include('./common/header.html')%>
-<div class="container-1050">
-
+<%-include('./common/header.html',{type:'article'})%>
+<div class="main-container">
+  <div class="swiper-container">
+    <div class="swiper-wrapper js-slider-cot"></div>
+    <div class="pagination-ga"></div>
+  </div>
+  <div class="article-tab">
+    <a class="tab-item active">今日最新</a>
+    <a class="tab-item">昨天</a>
+    <a class="tab-item">2017-10-25</a>
+  </div>
+  <div class="article-list">
+    <div class="article-panel">
+      <div class="article-img">
+        <img>
+      </div>
+      <div class="article-detail">
+        <p class="article-desc">首先我们要明白设置拦截器的目的是什么,当我们需要统一处理http请</p>
+        <p class="article-zan">3577人赞</p>
+      </div>
+    </div>
+    <div class="article-panel">
+      <div class="article-img">
+        <img>
+      </div>
+      <div class="article-detail">
+        <p class="article-desc">首先我们要明白设置拦截器的目的是什么,当我们需要统一处理http请</p>
+        <p class="article-zan">3577人赞</p>
+      </div>
+    </div>
+    <div class="article-panel">
+      <div class="article-img">
+        <img>
+      </div>
+      <div class="article-detail">
+        <p class="article-desc">首先我们要明白设置拦截器的目的是什么,当我们需要统一处理http请</p>
+        <p class="article-zan">3577人赞</p>
+      </div>
+    </div>
+  </div>
 </div>
+<!--轮播广告模板-->
+<script type="text/template" id="ad-item-tpl">
+  <div class="swiper-slide">
+    <a href="<@=link@>" title="<@=name@>">
+      <img src="<@=src@>">
+    </a>
+  </div>
+</script>
 </body>
 </html>

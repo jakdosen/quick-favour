@@ -9,6 +9,11 @@ import _ from 'underscore'
 // 全局对象 bus
 let bus =  window.bus = {}
 let events = bus.events =  _.extend({},Backbone.Events)
+
+// --------------underscore 模板配置----------------
+_.templateSettings = {
+  evaluate: /<@([\s\S]+?)@>/g, interpolate: /<@=([\s\S]+?)@>/g, escape: /<@-([\s\S]+?)@>/g
+};
 // --------------axios 配置----------------
 axios.defaults.timeout = 5000;
 // http request 拦截器

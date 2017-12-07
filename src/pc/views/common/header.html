@@ -1,67 +1,74 @@
+<%
+var typeName = typeof type == 'undefined' ? '': type
+let activeByType = (type)=>{
+  return type === typeName?'active':''
+}
+%>
 <div class="header">
+  <div class="main-container">
     <div class="header-icon fl">
-        <span class="text-primary">秒赞</span>
-        <span class="text-gray">爱生活 爱秒赞</span>
+      <span class="text-primary">秒赞</span>
+      <span class="text-gray">爱生活 爱秒赞</span>
     </div>
     <div class="header-nav justify">
-        <div class="header-nav-left">
-            <a class="link-item active">
+      <div class="header-nav-left">
+        <a class="link-item <%=activeByType('article')%>">
                 <span>
                     秒赞
                 </span>
-            </a>
-            <a class="link-item">
+        </a>
+        <a class="link-item  <%=activeByType('mall')%>">
                 <span>
                     秒购
                 </span>
-            </a>
-            <a class="link-item">
+        </a>
+        <a class="link-item">
                 <span>
                     秒杀
                 </span>
-            </a>
-            <a class="link-item">
+        </a>
+        <a class="link-item">
                 <span>
                     秒筹
                 </span>
-            </a>
-        </div>
-        <div class="header-nav-right">
-          <div class="main-dropdown hover link-item">
+        </a>
+      </div>
+      <div class="header-nav-right">
+        <div class="main-dropdown hover link-item">
             <span class="dropdown-title">
               <span class="dropdown-title-text">我的订单</span>
               <span class="tip-icon"></span>
             </span>
-            <ul class="dropdown-list">
-              <li><a>订单管理</a></li>
-              <li><a>物流信息</a></li>
-            </ul>
-          </div>
-          <div class="main-dropdown hover link-item">
+          <ul class="dropdown-list">
+            <li><a>订单管理</a></li>
+            <li><a>物流信息</a></li>
+          </ul>
+        </div>
+        <div class="main-dropdown hover link-item">
             <span class="dropdown-title">
               <span class="dropdown-title-text">我的会员</span>
               <span class="tip-icon"></span>
             </span>
-            <ul class="dropdown-list">
-              <li><a>会员中心</a></li>
-              <li><a>订单管理</a></li>
-            </ul>
-          </div>
-          <a class="link-item">
-            <span class="iconfont icon-shopping-cart text-primary" style="margin-right: 5px"></span>
-            购物车
-            <span class="header-tip-num text-primary">12</span>
-          </a>
-          <a class="link-item">
-            <span class="iconfont icon-app" style="font-size: 20px;position: relative;top: 1px"></span>
-            APP
-          </a>
-          <span class="link-item">
+          <ul class="dropdown-list">
+            <li><a>会员中心</a></li>
+            <li><a>订单管理</a></li>
+          </ul>
+        </div>
+        <a class="link-item">
+          <span class="iconfont icon-shopping-cart text-primary" style="margin-right: 5px"></span>
+          购物车
+          <span class="header-tip-num text-primary">12</span>
+        </a>
+        <a class="link-item">
+          <span class="iconfont icon-app" style="font-size: 20px;position: relative;top: 1px"></span>
+          APP
+        </a>
+        <span class="link-item">
             <a>登录</a>
             |
             <a>注册</a>
           </span>
-        </div>
-
+      </div>
     </div>
+  </div>
 </div>

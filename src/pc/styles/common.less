@@ -11,7 +11,11 @@
 @color-4:#ff8c00;
 @input-height:40px;
 @login-backgroud:#f3f3f3;
-
+@pc-main-width:1200px;
+@lg-font-size:18px;
+@md-font-size:16px;
+@ms-font-size:14px;
+@xs-font-size:12px;
 .text-primary{
   color: @primary-color!important;
 }
@@ -162,7 +166,9 @@ html,body{
 .header{
   height: @header-height;
   line-height: @header-height;
-  padding: 0 40px;
+  min-width: @pc-main-width;
+  margin: 0 auto;
+  padding: 0 15px;
   font-size: 16px;
   background-color: #fff;
   box-shadow: 0px 1px 4px rgba(200,200,200,.5);
@@ -172,7 +178,6 @@ html,body{
     .text-primary{
       font-size: 32px;
       font-weight: bold;
-      color: @primary-color;
       vertical-align: middle;
     }
     .text-gray{
@@ -185,8 +190,7 @@ html,body{
   }
   /* header-nav*/
   &-nav{
-    padding-left: 80px;
-    font-size: 18px;
+    padding-left: 10px;
   }
   /* header-nav-left */
   &-nav-left{
@@ -218,6 +222,7 @@ html,body{
     .link-item{
       .inline-block;
       line-height: 1.5;
+      font-size: 14px;
       margin-right: 30px;
       &:last-child{
         margin-right: 0;
@@ -260,7 +265,6 @@ html,body{
     &>li>a{
       display: block;
       padding: 5px 20px;
-      font-weight: 400;
       white-space: nowrap;
       text-decoration: none;
       cursor: pointer;
@@ -274,4 +278,9 @@ html,body{
       height: auto;
     }
   }
+}
+
+.main-container{
+  width: @pc-main-width;
+  margin: 0 auto;
 }

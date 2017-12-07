@@ -15,3 +15,15 @@ export function getList(params = {}) {
     params,
   )
 }
+
+/**
+ * getAd 获取轮播广告
+ * @param params
+ * @returns {AxiosPromise<any>}
+ */
+export function getAd(params = {}) {
+  return axios.get(
+    article.adList,
+    params,
+  )
+}

@@ -10,7 +10,8 @@ export default {
     },
     //秒赞文章
     article:{
-      list:`${rootPath}/article/tglist`
+      list:`${rootPath}/article/tglist`,
+      adList:`${rootPath}/article/home/cycleimage`,
     },
     //商城
     mall:{
