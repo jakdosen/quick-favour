@@ -1,18 +1,42 @@
 @import "resetCss";
-
-@theme-color:#FFF;
-@color-1:#ff5300;
+@primary-color:#ff5300;
+@text-default-color:#3e3a39;
+@text-gray-color:#999;
+@bg-default-color:#f7f8f8;
+@theme-color:@primary-color;
+@color-1:@primary-color;
 @color-2:#fff3e9;
 @color-3:#ffa53a;
 @color-4:#ff8c00;
 @input-height:40px;
 @login-backgroud:#f3f3f3;
 
-html,body{
-  color: #333;
-  font: normal normal normal 12px/20px Arial,sans-serif;
-}
 
+html,body{
+  -webkit-font-smoothing: antialiased;
+  color: @text-default-color;
+  font: 12px/1.5 Microsoft YaHei,tahoma,arial,Hiragino Sans GB,sans-serif;
+  background-color: @bg-default-color;
+}
+.fl{
+  float: left;
+}
+.fr{
+  float: right;
+}
+.inline-block{
+  display: inline-block;
+}
+.justify{
+  display: flex;
+  justify-content: space-between;
+  flex-flow: nowrap;
+  align-items: center;
+  text-align: justify;
+  text-align-last: justify;
+  -moz-text-align-last: justify;
+  -ms-flex-pack: justify;
+}
 //定义公共容器
 .container-1050{
   width: 1050px;
@@ -122,3 +146,5 @@ html,body{
     color: #f63;
   }
 }
+
+

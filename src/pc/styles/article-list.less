@@ -1,1 +1,56 @@
 @import "./common";
+@header-height:80px;
+.header{
+  height: @header-height;
+  line-height: @header-height;
+  padding: 0 32px;
+  font-size: 16px;
+  background-color: #fff;
+  //header-icon
+  &-icon{
+    height: @header-height;
+    .text-primary{
+      font-size: 32px;
+      font-weight: bold;
+      color: @primary-color;
+      vertical-align: middle;
+    }
+    .text-gray{
+      position: relative;
+      top: 2px;
+      padding: 0 10px;
+      color: @text-gray-color;
+      vertical-align: middle;
+    }
+  }
+  &-nav{
+    margin-left: 30px;
+    font-size: 18px;
+  }
+  &-nav-left{
+    text-align: left;
+    text-align-last: left;
+    -moz-text-align-last: left;
+    .link-item{
+      line-height: @header-height;
+      padding: 0 40px;
+      &.active>span{
+        color: @primary-color;
+        border-bottom: 2px solid @primary-color;
+        text-align: center;
+        padding-bottom: 2px;
+        display: inline-block;
+        line-height: 1.8;
+      }
+      &:hover>span{
+        color: @primary-color;
+      }
+    }
+  }
+  &-nav-right{
+    text-align: left;
+    text-align-last: left;
+    -moz-text-align-last: left;
+
+  }
+}
