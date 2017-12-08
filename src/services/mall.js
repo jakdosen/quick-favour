@@ -8,17 +8,10 @@ import axios from 'axios'
 
 // 秒购轮播
 export function homeCycleImage(params = {}) {
-  return  new Promise((resolve, reject)=>{
-      let xhr = axios.get(
-        mall.homeCycleImage,
-        {params},
-      );
-      xhr.then((date)=>{
-        resolve(date);
-      },(msg)=>{
-        reject(msg);
-      })
-  });
+  return axios.get(
+    mall.homeCycleImage,
+    {params},
+  );
 }
 
 // 秒购轮播
@@ -45,37 +38,21 @@ export function search(params = {}) {
 
 // 推荐商品列表
 export function suggestlist(params = {}) {
-  return  new Promise((resolve, reject)=>{
-    let errorMsg = [];
-    if(!params['actionType']) params['actionType']='tuijian';
-    if(!params['count']) params['count']='10';
-      let xhr = axios.get(
-        mall.suggestlist,
-        {params},
-      );
-      xhr.then((date)=>{
-        resolve(date);
-      },(msg)=>{
-        errorMsg.push({others:msg})
-        reject(errorMsg);
-      })
-  });
+  if(!params['action_type']) params['action_type']='tuijian';
+  if(!params['count']) params['count']=2;
+  return axios.get(
+    mall.suggestlist,
+    {params},
+  );
 }
 
 // 商品列表
 export function list(params = {}) {
-  return  new Promise((resolve, reject)=>{
     if(!params['count']) params['count']=10;
-    let xhr = axios.get(
+    return axios.get(
       mall.list,
       {params},
     );
-    xhr.then((date)=>{
-      resolve(date);
-    },(msg)=>{
-      reject(msg);
-    })
-  });
 }
 
 // s商品分类
