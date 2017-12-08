@@ -8,6 +8,9 @@ import App from './App'
 import router from './router'
 import store from './store'
 import { sync } from 'vuex-router-sync'
+import permission  from './permission'
+import axios from 'axios'
+import * as axiosStore from 'store'
 
 Vue.use(VueRouter)
 Vue.use(Vuex)
@@ -35,8 +38,31 @@ const history = window.sessionStorage
 history.clear();
 let historyCount = history.getItem('count') * 1 || 0
 history.setItem('/', 0)
+// 假设api_token=任意一个数
+axiosStore.set('api_token','18068017185');
+
+// http response 拦截器
+axios.interceptors.response.use(
+  response => {
+    return response;
+  },
+  error => {
+    if (error.response) {
+      switch (error.response.status) {
+        case 401:
+          store.dispatch('common/toLogin')
+      }
+    }
+    return Promise.reject(error.response.data)
+  });
+
 // 配置loading
 router.beforeEach(function (to, from, next) {
+  // 需要控制权限，并且没有token值
+  if(!!~permission.perPath.indexOf(String(to.path))&& !axiosStore.get('api_token')){
+    store.dispatch('common/toLogin',{callback:to.path});
+    return;
+  }
   store.commit('common/updateLoadingStatus', {isLoading: true})
   const toIndex = history.getItem(to.path)
   const fromIndex = history.getItem(from.path)

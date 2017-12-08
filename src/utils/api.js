@@ -17,8 +17,24 @@ export default {
       //参数：article_id,page
       comment:`${rootPath}/article/comment`
     },
-    //商城
+    //用户相关
+    auth:{
+      register:`${rootPath}/auth/register`,
+      login:`${rootPath}/auth/login`,
+      thirdRegister:`${rootPath}/auth/thirdRegister`,
+      resetPassword:`${rootPath}/auth/resetPassword`
+    },
+    //商城相关
     mall:{
-
+      homeCycleImage:`${rootPath}/goods/home/cycleimage`,
+      search:`${rootPath}/goods/search`,
+      suggestlist:`${rootPath}/goods/suggestlist`,
+      list:`${rootPath}/goods/list`,
+      category:`${rootPath}/goods/category`,
+      detail:`${rootPath}/goods/detail`
+    },
+    // 地址相关
+    address:{
+      addressList:`${rootPath}/address/addressList`
     }
 }
