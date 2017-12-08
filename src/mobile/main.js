@@ -15,6 +15,7 @@ import * as axiosStore from 'store'
 Vue.use(VueRouter)
 Vue.use(Vuex)
 import { DatetimePlugin, CloseDialogsPlugin, ConfigPlugin, BusPlugin,  DevicePlugin, ToastPlugin, AlertPlugin, ConfirmPlugin, LoadingPlugin, WechatPlugin, AjaxPlugin } from 'vux'
+import Promise from "promise-polyfill";
 // global VUX config
 Vue.use(ConfigPlugin, {
   $layout: 'VIEW_BOX' // global config for VUX, since v2.5.12
@@ -44,7 +45,11 @@ axiosStore.set('api_token','18068017185');
 // http response 拦截器
 axios.interceptors.response.use(
   response => {
-    return response;
+    if(response.data && response.data.code === 200){
+      return response.data.datas
+    }else{
+      return Promise.reject(response.data || {message:'未知错误'})
+    }
   },
   error => {
     if (error.response) {
