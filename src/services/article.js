@@ -12,7 +12,7 @@ import axios from 'axios'
 export function getList(params = {}) {
   return axios.get(
     article.list,
-    params,
+    {params},
   )
 }
 
@@ -24,7 +24,7 @@ export function getList(params = {}) {
 export function getAd(params = {}) {
   return axios.get(
     article.adList,
-    params,
+    {params},
   )
 }
 /**
@@ -35,6 +35,6 @@ export function getAd(params = {}) {
 export function getDetail(params = {}) {
   return axios.get(
     article.detail,
-    params,
+    {params},
   )
 }

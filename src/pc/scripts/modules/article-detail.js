@@ -17,7 +17,10 @@ import {Model,Collection,View} from 'backbone'
 let App = View.extend({
   initialize(){
     this.fetchArticleData();
-
+    this.initSocialShare();
+  },
+  initSocialShare(){
+		socialShare('.js-article-share');
   },
   //获取文章列表信息
   fetchArticleData(){
