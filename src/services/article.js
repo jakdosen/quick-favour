@@ -38,3 +38,15 @@ export function getDetail(params = {}) {
     {params},
   )
 }
+
+/**
+ * getCommentList 获取文章评论
+ * @param params
+ * @returns {AxiosPromise<any>}
+ */
+export function getCommentList(params = {page:1}) {
+  return axios.get(
+    article.comment,
+    {params},
+  )
+}

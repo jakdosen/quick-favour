@@ -178,6 +178,8 @@ html,body{
 ---------------------------------------------------------------- */
 @header-height:80px;
 .header{
+  position: relative;
+  z-index: 2;
   height: @header-height;
   line-height: @header-height;
   min-width: @pc-main-width;
@@ -235,9 +237,9 @@ html,body{
     .text-left;
     .link-item{
       .inline-block;
-      line-height: 1.5;
+      vertical-align: top;
       font-size: 14px;
-      margin-right: 30px;
+      margin-right: 15px;
       &:last-child{
         margin-right: 0;
       }
@@ -245,7 +247,7 @@ html,body{
         font-size: 18px;
       }
       &.main-dropdown{
-        padding: 10px 0;
+        line-height: @header-height - 2px;
       }
     }
     .header-tip-num{
@@ -258,10 +260,15 @@ html,body{
 .main-dropdown{
   .inline-block;
   position: relative;
-  padding: 10px;
   line-height: 1.5;
-
   .dropdown-title{
+    .inline-block;
+    padding: 0 10px;
+    position: relative;
+    z-index: 2;
+    background-color: #fff;
+    border: 1px solid transparent;
+    margin: 0 -1px;
     .tip-icon{
       font-family:"iconfont" !important;
       &:before{
@@ -272,13 +279,16 @@ html,body{
   &>.dropdown-list{
     position: absolute;
     top: 100%;
-    right: 0;
+    right: -1px;
     height: 0px;
+    min-width: 100%;
     overflow: hidden;
     background: #fff;
+    line-height: 2;
+    margin-top: -1px;
     &>li>a{
       display: block;
-      padding: 5px 20px;
+      padding:15px;
       white-space: nowrap;
       text-decoration: none;
       cursor: pointer;
@@ -288,8 +298,13 @@ html,body{
     }
   }
   &.hover:hover,&.open{
+    .dropdown-title{
+      border: 1px solid darken(@gap-color,2%);
+      border-bottom: none;
+    }
     &>.dropdown-list{
       height: auto;
+      border: 1px solid darken(@gap-color,2%);
     }
   }
 }

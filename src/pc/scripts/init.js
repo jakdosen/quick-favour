@@ -1,11 +1,15 @@
 /**
  * Created by Gavin.Li on 2017/12/6.
  */
-
+import Promise from 'promise-polyfill';
 import axios from 'axios'
 import store from 'store'
 import Backbone from 'backbone'
 import _ from 'underscore'
+
+if (!window.Promise) {
+  window.Promise = Promise;
+}
 // 全局对象 bus
 let bus =  window.bus = {}
 let events = bus.events =  _.extend({},Backbone.Events)
@@ -31,7 +35,11 @@ axios.interceptors.request.use(
 // http response 拦截器
 axios.interceptors.response.use(
   response => {
-    return response;
+    if(response.data && response.data.code === 200){
+      return response.data.datas
+    }else{
+      return Promise.reject(response.data || {message:'未知错误'})
+    }
   },
   error => {
     if (error.response) {
@@ -41,5 +49,5 @@ axios.interceptors.response.use(
           events.trigger("logout");
       }
     }
-    return Promise.reject(error.response.data)
+    return Promise.reject(error.response && error.response.data || error)
   });

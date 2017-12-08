@@ -38,7 +38,10 @@ let webpackConfig = {
         test: /\.js$/,
         loader: 'babel-loader',
         include: [resolve('src'), resolve('test')],
-        exclude:['polyfill.js']
+        exclude:['polyfill.js','node_modules'],
+        query:{
+          presets: ['es2015-loose']
+        }
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -78,7 +81,13 @@ let webpackConfig = {
 		new webpack.optimize.CommonsChunkPlugin({
 			name: 'vendor',
       chunks: Object.keys(entries),
-			minChunks: Object.keys(entries).length
+      minChunks: function (module) {
+        return (
+          module.resource &&
+          /\.js$/.test(module.resource) &&
+          /node_modules/.test(module.resource)
+        )
+      }
 		}),
 
 	]
@@ -89,6 +98,9 @@ Object.keys(htmls).forEach(key =>{
 		template: `!!ejs-loader!ejs-html-loader!${htmls[key]}`,
 		filename: 'views/' + key + '.html',
 		chunks: ['vendor', 'init',key],
+    chunksSortMode: function(a, b) {
+      return (a.names[0] < b.names[0])? 1 : -1;
+    },
 		inject: 'body',
 		hash:true,
 /*		minify: {

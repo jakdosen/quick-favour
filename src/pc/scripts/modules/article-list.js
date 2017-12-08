@@ -33,14 +33,14 @@ let App = View.extend({
   },
   //获取广告信息
   fetchAdListData(){
-    getAd().then(({data})=>{
-      this.renderAd(data.datas);
+    getAd().then((data)=>{
+      this.renderAd(data);
     })
   },
   //获取文章列表信息
   fetchArticleListData(){
-    getList().then(({data})=>{
-      this.dataBase = data.datas.slice(0);
+    getList().then((data)=>{
+      this.dataBase = data.slice(0);
       this.renderArticleGroup(_.pluck(this.dataBase,'group'));
     })
   },
