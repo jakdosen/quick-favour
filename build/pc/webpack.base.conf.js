@@ -93,13 +93,17 @@ let webpackConfig = {
 	]
 }
 let htmls = getEntries(path.join(resolve('src/pc/views/') + '/*.html'));
-Object.keys(htmls).forEach(key =>{
+let moduleList = Object.keys(htmls);
+let chunks = moduleList.slice(0);
+chunks.unshift('vendor', 'init');
+moduleList.forEach(key =>{
 	webpackConfig.plugins.push(new HtmlWebpackPlugin({
 		template: `!!ejs-loader!ejs-html-loader!${htmls[key]}`,
 		filename: 'views/' + key + '.html',
 		chunks: ['vendor', 'init',key],
     chunksSortMode: function(a, b) {
-      return (a.names[0] < b.names[0])? 1 : -1;
+		  //解决js顺序问题
+      return chunks.indexOf(a.names[0]) - chunks.indexOf(b.names[0])
     },
 		inject: 'body',
 		hash:true,

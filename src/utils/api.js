@@ -31,7 +31,12 @@ export default {
       suggestlist:`${rootPath}/goods/suggestlist`,
       list:`${rootPath}/goods/list`,
       category:`${rootPath}/goods/category`,
-      detail:`${rootPath}/goods/detail`
+      detail:`${rootPath}/goods/detail`,
+      /*购物车*/
+      cartList:`${rootPath}/cart/list`,
+      cartDel:`${rootPath}/cart/delete`,
+      cartUpdate:`${rootPath}/cart/update`,
+      cartCheck:`${rootPath}/cart/checked`,
     },
     // 地址相关
     address:{

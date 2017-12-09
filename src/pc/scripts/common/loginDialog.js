@@ -9,7 +9,7 @@ import Backbone from 'backbone'
 
 const tmpl = `
 <!--弹框登录-->
-<div class="mz-c-login">
+<div class="mz-c-login" id="common-login-popup-window">
   <!--用户-->
   <div class="form-group">
     <label>用户名</label>

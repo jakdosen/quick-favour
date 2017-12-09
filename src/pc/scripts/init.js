@@ -1,11 +1,15 @@
 /**
  * Created by Gavin.Li on 2017/12/6.
  */
+import '@/styles/login.less'
+import '@/styles/loginDialog.less'
 import Promise from 'promise-polyfill';
 import axios from 'axios'
 import store from 'store'
 import Backbone from 'backbone'
 import _ from 'underscore'
+import $ from 'jquery'
+import LoginDialog from '@/scripts/common/loginDialog'
 
 if (!window.Promise) {
   window.Promise = Promise;
@@ -13,6 +17,23 @@ if (!window.Promise) {
 // 全局对象 bus
 let bus =  window.bus = {}
 let events = bus.events =  _.extend({},Backbone.Events)
+/**
+ * checkIsLogin
+ * 检测是否登录
+ */
+bus.checkIsLogin = ()=>{
+  return store.get('user')
+};
+/**
+ * showLoginPopup
+ * 显示登录弹框
+ */
+bus.showLoginPopup = ()=>{
+  //防止多个登录弹框
+  if(!$('#common-login-popup-window').length){
+    new LoginDialog()
+  }
+};
 
 // --------------underscore 模板配置----------------
 _.templateSettings = {

@@ -91,3 +91,15 @@ export function detail(params = {}) {
     }
   });
 }
+
+/**
+ * getCartList 获取购物车列表
+ * @param params
+ * @returns {AxiosPromise<any>}
+ */
+export  function getCartList(params = {}) {
+  return axios.get(
+    mall.cartList,
+    {params},
+  );
+}
