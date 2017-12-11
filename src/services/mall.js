@@ -17,29 +17,17 @@ export function homeCycleImage(params = {}) {
 // 秒购轮播
 export function search(params = {}) {
   return  new Promise((resolve, reject)=>{
-    let errorMsg = [];
-    params['keywords']  || errorMsg.push({keywords:'请填写搜索关键词'});
-    if(!errorMsg.length){
-      let xhr = axios.get(
+      return  axios.get(
         mall.search,
         {params},
       );
-      xhr.then((date)=>{
-        resolve(date);
-      },(msg)=>{
-        errorMsg.push({others:msg})
-        reject(errorMsg);
-      })
-    }else{
-      reject(errorMsg);
-    }
   });
 }
 
 // 推荐商品列表
 export function suggestlist(params = {}) {
   if(!params['action_type']) params['action_type']='tuijian';
-  if(!params['count']) params['count']=2;
+  if(!params['count']) params['count']=10;
   return axios.get(
     mall.suggestlist,
     {params},
@@ -49,6 +37,7 @@ export function suggestlist(params = {}) {
 // 商品列表
 export function list(params = {}) {
     if(!params['count']) params['count']=10;
+    if(!params['sort_by']) params['sort_by']='price_desc';
     return axios.get(
       mall.list,
       {params},
