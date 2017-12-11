@@ -9,20 +9,21 @@ export default {
   state: {
     cycleImage: [],
     suggestlist:[],
-    pagination:{}
+    pagination:{},
+    isLoading:true,
   },
   actions: {
     cycleImage:async ({ commit }) =>{
         const res =await homeCycleImage();
-      res.status===200 && commit('update',{cycleImage:res.data.datas})
+        commit('update',{cycleImage:res})
     },
     suggestlist: async ({ commit , state  }, payload) =>{
          const res =await suggestlist(payload);
-         if (res.status !=200) return;
-         const { data, meta } = res.data.datas;
+         const { data, meta } = res;
          const {  pagination } = meta;
          commit('updateSuggestlist',data)
          commit('update',{pagination:pagination})
+         commit('update', {isLoading: true});
     }
   },
   mutations: {

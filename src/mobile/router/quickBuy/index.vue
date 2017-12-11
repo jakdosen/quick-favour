@@ -45,8 +45,7 @@
       </div>
       <!--产品列表-->
       <div class="buy-goods-list clearfix">
-
-            <ul class="clearfix">
+        <ul class="clearfix">
           <li v-for="(item , index) in suggestlist" :key="index">
             <router-link :to="'/goods/'+item.id">
               <div class="buy-goods-detail">
@@ -92,6 +91,8 @@
     created(){
         // 获取上面导航
         this.$store.dispatch('buyIndex/cycleImage');
+        // 重置列表数据
+        this.$store.commit('buyIndex/update',{suggestlist:[]});
         // 获取推荐列表
         this.$store.dispatch('buyIndex/suggestlist',{page:1});
     },
@@ -115,13 +116,18 @@
            this.$router.push({path:'/search'})
         },
         onPullingUp(){
+          // 防止请求多次
+          if(!this.isLoading)  return;
           const {current_page, total_pages} = this.pagination;
           this.$store.dispatch('buyIndex/suggestlist', {page: current_page + 1});
-          if (current_page < total_pages) {
-            this.$refs.scroll.forceUpdate(true)
-          } else {
-            this.$refs.scroll.forceUpdate(false)
-          }
+          this.$store.commit('buyIndex/update', {isLoading: false});
+          setTimeout(()=>{
+            if (current_page < total_pages) {
+              this.$refs.scroll.forceUpdate(true)
+            } else {
+              this.$refs.scroll.forceUpdate(false)
+            }
+          },300);
         }
     }
   }
@@ -145,11 +151,12 @@
     position: absolute;
     top: 2rem;
     width: 100%;
+    z-index: 99;
   }
   .buy-search .searchBtn{
       border-radius: 2.5rem;
       background: #fff;
-      height: 2.5rem;
+      height: 3.5rem;
       width: 80%;
   }
   .toCenter{
