@@ -15,6 +15,7 @@ import buyIndex from './modules/buyIndex'
 import hotGoods from './modules/hotGoods'
 import allGoods from './modules/allGoods'
 import searchIndex from './modules/searchIndex'
+import goodsDetail from './modules/goods-detail'
 
 Vue.use(Vuex)
 
@@ -33,6 +34,7 @@ export default new Vuex.Store({
     buyIndex,
     hotGoods,
     searchIndex,
-    allGoods
+    allGoods,
+    goodsDetail
   }, strict: debug
 })
