@@ -5,33 +5,26 @@
     </common-header>
     <view-box ref="viewBox" body-padding-top="46px">
       <div class="buy-rater">
-        <div class="header"><span>宝贝评价（498）</span><span>好评度<i>90%</i></span></div>
+        <div class="header"><span>宝贝评价</span><span>好评度<i>{{(raterCommentsCount.goods_rank*1)/100}}%</i></span></div>
         <div class="rater-type">
           <checker
             default-item-class="check-border-1px"
             selected-item-class="check-border-active"
           >
-            <checker-item :value="'all'" > 全部 </checker-item>
-            <checker-item :value="'good'"> 好评 </checker-item>
-            <checker-item :value="'middle'"> 中评 </checker-item>
-            <checker-item :value="'bad'"> 差评 </checker-item>
+            <checker-item :value="'all'" >全部({{ raterPagination.count }})</checker-item>
+            <checker-item :value="'good'">好评({{ raterCommentsCount['comment_good']}})</checker-item>
+            <checker-item :value="'middle'">中评({{ raterCommentsCount['comment_general']}})</checker-item>
+            <checker-item :value="'bad'">差评({{ raterCommentsCount['comment_low']}})</checker-item>
           </checker>
         </div>
         <div class="content">
           <ul>
-            <li class="">
+            <li class="" v-for="item in raterData">
               <div class="buy-rater-buyMessage">
-                <span><img src="//pic5.40017.cn/01/001/69/e2/rBLkBloJRPqAONZ4AAIHd0GN-AI775_242x150_00.jpg" alt="">姜**小</span>
-                <p>2017-11-09 颜色：银色 128G 固态键盘</p>
+                <span><img :src="item.user&&item.user.avatar" alt="">{{item.user&&item.user.nickname}}</span>
+                <p>{{ item.created_at + '  '+ item.goods_attr}}</p>
               </div>
-              <p>顺丰给力啊，第三天到的。东西很不错，正品，应该是没有拆过的，东西包装也不错</p>
-            </li>
-            <li class="">
-              <div class="buy-rater-buyMessage">
-                <span><img src="//pic5.40017.cn/01/001/69/e2/rBLkBloJRPqAONZ4AAIHd0GN-AI775_242x150_00.jpg" alt="">姜**小</span>
-                <p>2017-11-09 颜色：银色 128G 固态键盘</p>
-              </div>
-              <p>顺丰给力啊，第三天到的。东西很不错，正品，应该是没有拆过的，东西包装也不错</p>
+              <p>{{item.content}}</p>
             </li>
           </ul>
         </div>
@@ -43,12 +36,24 @@
 <script>
   import { Checker,CheckerItem,ViewBox } from 'vux'
   import CommonHeader  from '@/components/CommonHeader'
+  import VueBetterScroll  from 'vue2-better-scroll'
+  import {mapGetters, mapState} from 'vuex'
   export default {
     components:{
       Checker,
       CommonHeader,
       CheckerItem,
-      ViewBox
+      ViewBox,
+      VueBetterScroll
+    },
+    created(){
+      // 重置列表数据
+      this.$store.commit('goodsDetail/update',{raterData:[]});
+      // 获取推荐列表
+      this.$store.dispatch('goodsDetail/raterList',{page:1,goods_id:'460'});
+    },
+    computed: {
+      ...mapState('goodsDetail', ['raterData','raterPagination','raterCommentsCount','raterIsLoading'])
     }
   }
 </script>
@@ -125,9 +130,9 @@
   }
   .check-border-1px{
     border: 1px solid #f63;
-    padding: 0 1.2rem;
+    padding: 0 .6rem;
     border-radius: 2px;
-    font-size: 1.4rem;
+    font-size: 1.2rem;
     color: @color1;
   }
   .check-border-active{

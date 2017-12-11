@@ -14,10 +14,10 @@
           </div>
           <div class="right-content">
             <p>{{item.goods_name}}</p>
-            <span><small>￥</small>{{item.cash_price}}</span>
+            <span v-if="type"><small>￥</small>{{item.cash_price}}</span>
             <div>
               <em><small>M</small>{{item.coin_price}}</em>
-              <i>元</i>
+              <i v-if="type">元</i>
               <b>秒</b>
             </div>
           </div>
@@ -48,6 +48,12 @@
           default() {
             return ()=>{}
           }
+      },
+      type:{
+          type:Boolean,
+        default() {
+          return true
+        }
       }
     },
     data(){

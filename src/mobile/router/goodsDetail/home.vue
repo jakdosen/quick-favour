@@ -13,16 +13,18 @@
     <view-box  ref="viewBox" style="background: #f0f0f0">
          <!--购买信息-->
          <div id="buy-info" class="buy-info">
-           <swiper :show-desc-mask="false" :auto="true" :show-dots="dataImg.length>1" :list="dataImg" dots-position="center" :loop="true"
-                   height="23rem"></swiper>
+           <swiper :show-desc-mask="false" :auto="true" :show-dots="[].concat(list.gallerys).length>1"  dots-position="center" :loop="true"
+                   height="23rem">
+             <swiper-item v-for="(item, index) in list.gallerys" :key="index"><router-link to="/goods"><img style="width: 100%;height: auto" :src="item.img_url"></router-link></swiper-item>
+           </swiper>
            <div class="buy-word-info">
-               <strong>Apple MacBook Air 13.3英寸</strong>
-               <p>Apple MacBook Air 13.3英寸笔记本电脑 银色（2017新歌Core I5处理器/8GB内存/128G内存</p>
-               <span><small>￥</small>38888.00</span>
+               <strong>{{list.goods_name}}</strong>
+               <p>{{list.goods_brief}}</p>
+               <span><small>￥</small>{{list.cash_price}}</span>
                <div>
-                   <span><small>￥</small>38888.00</span>
-                   <i>元</i>
-                   <b>秒</b>
+                   <span><small>￥</small>{{list.coin_price}}</span>
+                   <i v-if="list.cash_price">元</i>
+                   <b v-if="list.coin_price">秒</b>
                </div>
            </div>
          </div>
@@ -34,39 +36,19 @@
             <popup v-model="popupShow" position="bottom" max-height="90%">
                 <div class="clearfix" style="background: #fff;padding: 0 1rem">
                     <div class="buy-choose-goods">
-                        <div class="imgBox"><img src="//pic5.40017.cn/01/001/69/e2/rBLkBloJRPqAONZ4AAIHd0GN-AI775_242x150_00.jpg" alt=""></div>
+                        <div class="imgBox"><img :src="list.goods_thumb" alt=""></div>
                         <div class="info">
-                            <span><i><small>￥</small>38888.0</i>& <b><small>M</small>120000</b></span>
-                            <p>商品编号：11828347434</p>
-                            <span><i>元</i><b>秒</b></span>
+                            <span><i><small>￥</small>{{ changeBuyCashPrice || list.cash_price}}</i>& <b><small>M</small>{{ changeBuyCoinPrice || list.coin_price}}</b></span>
+                            <p>商品编号：{{list.goods_sn}}</p>
+                            <span><i v-if="list.cash_price">元</i><b v-if="list.coin_price">秒</b></span>
                         </div>
                     </div>
-                    <div class="chose-list" data-title="颜色分类">
+                    <div class="chose-list" :data-title="item.name" v-for="item in list.specification">
                       <checker
                         default-item-class="check-border-1px"
                         selected-item-class="check-border-active"
                       >
-                        <checker-item :value="'all'" > 银色 </checker-item>
-                        <checker-item :value="'good'"> 棕色 </checker-item>
-                      </checker>
-                    </div>
-                    <div class="chose-list" data-title="版本">
-                      <checker
-                        default-item-class="check-border-1px"
-                        selected-item-class="check-border-active"
-                      >
-                        <checker-item :value="'all'" > 2017年i5处理器升级版 </checker-item>
-                        <checker-item :value="'good'"> 1.6GHz i5处理器 </checker-item>
-                      </checker>
-                    </div>
-                    <div class="chose-list" data-title="选择配置">
-                      <checker
-                        default-item-class="check-border-1px"
-                        selected-item-class="check-border-active"
-                      >
-                        <checker-item :value="'all'" > 8G内存/128GB SSD </checker-item>
-                        <checker-item :value="'good'"> 8G内存/256GB SSD </checker-item>
-                        <checker-item :value="'bd'"> 11.6英寸/4GB内存/128GB SSD </checker-item>
+                        <checker-item style="margin-right: 5px;" v-for="item_child in item.value" :value="item_child.id" @on-item-click="changeSelect(item_child.cash_price,item_child.coin_price)"> {{item_child.label}} </checker-item>
                       </checker>
                     </div>
                     <group class="buy-chose-list-num">
@@ -82,22 +64,15 @@
         </group>
          <!--宝贝评价 -->
          <div id="buy-rater" class="buy-rater">
-              <div class="header "><span>宝贝评价（498）</span><span>好评度<i>90%</i></span></div>
+              <div class="header "><span>宝贝评价（{{Math.max(list.comment_num,1)}}）</span><span>好评度<i>{{(list.goods_rank/100).toFixed(2)}}%</i></span></div>
               <div class="content">
                 <ul>
-                  <li class="">
+                  <li class="" v-for="item in list.comments">
                      <div class="buy-rater-buyMessage">
-                         <span><img src="//pic5.40017.cn/01/001/69/e2/rBLkBloJRPqAONZ4AAIHd0GN-AI775_242x150_00.jpg" alt="">姜**小</span>
-                         <p>2017-11-09 颜色：银色 128G 固态键盘</p>
+                         <span><img :src="item.user.avatar" alt="">{{item.user.nickname}}</span>
+                         <p>{{item.created_at+' '+item.goods_attr}}</p>
                      </div>
-                     <p>顺丰给力啊，第三天到的。东西很不错，正品，应该是没有拆过的，东西包装也不错</p>
-                  </li>
-                  <li class="">
-                    <div class="buy-rater-buyMessage">
-                      <span><img src="//pic5.40017.cn/01/001/69/e2/rBLkBloJRPqAONZ4AAIHd0GN-AI775_242x150_00.jpg" alt="">姜**小</span>
-                      <p>2017-11-09 颜色：银色 128G 固态键盘</p>
-                    </div>
-                    <p>顺丰给力啊，第三天到的。东西很不错，正品，应该是没有拆过的，东西包装也不错</p>
+                     <p>{{ item.content }}</p>
                   </li>
                 </ul>
               </div>
@@ -113,9 +88,9 @@
             <transition name="fade">
               <div class="buy-introduce clearfix" v-show="index === 0">
                 <Divider style="margin:1rem 2rem" >商品信息</Divider>
-                <img width="100%"  height="auto" src="//pic5.40017.cn/01/001/69/e2/rBLkBloJRPqAONZ4AAIHd0GN-AI775_242x150_00.jpg" alt="">
-                <img width="100%"  height="auto" src="//pic5.40017.cn/01/001/69/e2/rBLkBloJRPqAONZ4AAIHd0GN-AI775_242x150_00.jpg" alt="">
-                <img width="100%"  height="auto" src="//pic5.40017.cn/01/001/69/e2/rBLkBloJRPqAONZ4AAIHd0GN-AI775_242x150_00.jpg" alt="">
+                <div class="clearfix buy-swrap-info" v-html = "list.goods_desc" style="width: 100%;">
+                  <!--{{ list.goods_desc }}-->
+                </div>
               </div>
             </transition>
             <transition name="fade">
@@ -123,13 +98,9 @@
               <x-table :content-bordered="false" :full-bordered="true">
                 <colgroup><col width="40%"></colgroup>
                 <tbody>
-                <tr>
-                  <td>Apple</td>
-                  <td>$1.25</td>
-                </tr>
-                <tr>
-                  <td>Banana</td>
-                  <td>$1.20</td>
+                <tr v-for = "item in list.properties">
+                  <td>{{item.name}}</td>
+                  <td>{{item.value}}</td>
                 </tr>
                 </tbody>
               </x-table>
@@ -146,6 +117,7 @@
 //  弹框用XDIALOG 来处理
   import {Tab, TabItem, ViewBox, Swiper, SwiperItem, Group, Cell, Card, Divider, XTable, XDialog, Popup, Checker, CheckerItem, XNumber} from 'vux'
   import CommonHeader  from '@/components/CommonHeader'
+  import {mapGetters, mapState} from 'vuex'
   export default {
     components: {
       CommonHeader,
@@ -169,10 +141,19 @@
          index:0,
          popupShow:false,
          buyNumValue:'2',
+         changeBuyCashPrice:'',
+         changeBuyCoinPrice:'',
          dataImg:[{ url: 'javascript:', img: 'https://static.vux.li/demo/1.jpg' },{ url: 'javascript:', img: 'https://static.vux.li/demo/1.jpg' }]
       }
     },
+    created(){
+        // 先清除数据
+        this.$store.commit('goodsDetail/update',{list:[]});
+        // 获取数据
+        this.$store.dispatch('goodsDetail/search',{goods_id:'460'});
+    },
     computed: {
+      ...mapState('goodsDetail', ['list']),
 
     },
     methods: {
@@ -181,6 +162,14 @@
       },
       openChoseType:function () {
          this.popupShow = true;
+      },
+      changeSelect(cash,coin){
+          // 改变价格
+          let
+            cashPrice =  this.list.cash_price,
+            coinPrice =  this.list.coin_price;
+          this.changeBuyCashPrice = Number(cashPrice) + Number(cash);
+          this.changeBuyCoinPrice = Number(coinPrice) + Number(coin)
       }
     }
   }
@@ -351,7 +340,7 @@
     .buy-choose-goods{
     .flexbox;
       .imgBox{
-         width: 40%;
+         width: 32%;
          padding: 1.5rem 15px;
          img{
            width: 100%;
@@ -394,5 +383,9 @@
   }
   .vux-tab-selected a{
     color: #f36;
+  }
+  .buy-swrap-info img{
+      width: 100%;
+      height: auto;
   }
 </style>
