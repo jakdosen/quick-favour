@@ -3,8 +3,8 @@
  */
 import '@/scripts/libs/social-share/css/share.less'
 import '@/styles/article-detail.less'
-import '@/scripts/libs/social-share/js/social-share'
 import '@/scripts/libs/social-share/js/qrcode'
+// import '@/scripts/libs/social-share/js/social-share'
 import $ from 'jquery'
 import _ from 'underscore'
 import util from '^/utils'
@@ -18,15 +18,19 @@ let App = View.extend({
   template:_.template($('#comment-item-tpl').html()),
   initialize(){
     this.urlParams  = util.urlArgs();
-    this.initSocialShare();
     if(!this.urlParams.id) return
     this.commentList = new Collection();
     this.commentList.bind('reset',this.renderCommentList,this)
     this.fetchArticleData(this.urlParams.id);
     this.fetchArticleCommentList(this.urlParams.id);
+    this.initSocialShare();
   },
   initSocialShare(){
-		socialShare('.js-article-share');
+    require.ensure([], function(require){
+      require('@/scripts/libs/social-share/js/social-share');
+      socialShare('.js-article-share');
+    });
+		// socialShare('.js-article-share');
   },
   //获取文章列表信息
   fetchArticleData(article_id){
