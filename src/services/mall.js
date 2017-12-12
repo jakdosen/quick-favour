@@ -86,3 +86,38 @@ export  function getCartList(params = {}) {
     {params},
   );
 }
+
+/**
+ * changeCartChecked 改变购物车选择状态
+ * @param params
+ * @returns {AxiosPromise<any>}
+ */
+export  function changeCartChecked(params = {}) {
+  return axios.post(
+    mall.cartCheck,
+    {params},
+  );
+}
+
+/**
+ * updateCartNum 更新购物车数量
+ * @returns {AxiosPromise<any>}
+ */
+export function updateCartNum(params = {}) {
+  return axios.post(
+    mall.cartUpdate,
+    {params},
+  );
+}
+
+/**
+ * delCart 删除购物车
+ * @param params
+ * @returns {AxiosPromise<any>}
+ */
+export function delCart(params = {}) {
+  return axios.post(
+    mall.cartDel,
+    {params}
+  )
+}
