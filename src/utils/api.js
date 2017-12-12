@@ -32,6 +32,7 @@ export default {
       list:`${rootPath}/goods/list`,
       category:`${rootPath}/goods/category`,
       detail:`${rootPath}/goods/detail`,
+      rater:`${rootPath}/goods/commentlist`,
       /*购物车*/
       cartList:`${rootPath}/cart/list`,
       cartDel:`${rootPath}/cart/delete`,
