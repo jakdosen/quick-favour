@@ -61,24 +61,18 @@ export function category(params = {}) {
 
 // 商品详情
 export function detail(params = {}) {
-  return  new Promise((resolve, reject)=>{
-    let errorMsg = [];
-    params['goods_id']  || errorMsg.push({goods_id:'请输入合法商品ID'});
-    if(!errorMsg.length){
-      let xhr = axios.get(
-        mall.detail,
-        {params},
-      );
-      xhr.then((date)=>{
-        resolve(date);
-      },(msg)=>{
-        errorMsg.push({others:msg})
-        reject(errorMsg);
-      })
-    }else{
-      reject(errorMsg);
-    }
-  });
+  return  axios.get(
+    mall.detail,
+    {params},
+  );
+}
+
+// 获取评论列表
+export function rater(params = {}) {
+  return  axios.get(
+    mall.rater,
+    {params},
+  );
 }
 
 /**
@@ -91,39 +85,4 @@ export  function getCartList(params = {}) {
     mall.cartList,
     {params},
   );
-}
-
-/**
- * changeCartChecked 改变购物车选择状态
- * @param params
- * @returns {AxiosPromise<any>}
- */
-export  function changeCartChecked(params = {}) {
-  return axios.post(
-    mall.cartCheck,
-    {params},
-  );
-}
-
-/**
- * updateCartNum 更新购物车数量
- * @returns {AxiosPromise<any>}
- */
-export function updateCartNum(params = {}) {
-  return axios.post(
-    mall.cartUpdate,
-    {params},
-  );
-}
-
-/**
- * delCart 删除购物车
- * @param params
- * @returns {AxiosPromise<any>}
- */
-export function delCart(params = {}) {
-  return axios.post(
-    mall.cartDel,
-    {params}
-  )
 }
