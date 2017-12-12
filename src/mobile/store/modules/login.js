@@ -1,6 +1,10 @@
 /**
  * Created by shiyang.yao on 2017/11/21.
  */
+import * as axiosStore from 'store'
+import router from '@/router/index'
+import { login } from '^/services/user'
+
 export default {
   namespaced: true,
   state: {
@@ -8,9 +12,13 @@ export default {
     userPassWord:''
   },
   actions: {
-    loginInto ({ commit ,state}) {
-      console.log(state.userPhone + state.userPassWord)
-      // context.commit('increment')
+    loginInto : async ({ commit ,state}) => {
+       const res = await login(payload);
+       const { api_token } = res;
+       if(api_token){
+         axiosStore.set('api_token',api_token);
+         router.push({path:'/'});
+       }
     }
   },
   mutations: {
