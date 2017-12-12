@@ -1,0 +1,8 @@
+<%
+var list = typeof bread == 'undefined' ? []: bread
+%>
+<div class="breadcrumb">
+   <% list.forEach(function(obj){ %>
+      <a href="<%= obj.url ? obj.url:'javascript:;'%>"><%= obj.name%></a>
+   <% }) %>
+</div>

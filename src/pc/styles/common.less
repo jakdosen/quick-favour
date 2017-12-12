@@ -323,3 +323,21 @@ html,body{
   width: @pc-main-width;
   margin: 0 auto;
 }
+
+//-------------------定义面包屑--------------
+.breadcrumb{
+  padding-left: 24px;
+  line-height: 60px;
+  font-size: 16px;
+  background: #efefef;
+  a{
+    color: #333;
+    &:after{
+      content: '/';
+      margin:0 5px;
+    }
+    &:last-child:after{
+       content: '';
+    }
+  }
+}

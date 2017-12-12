@@ -201,7 +201,7 @@ let App = View.extend({
   },
   //选择所有
   changeSelectAllCart(e) {
-    this.$('.js-cart-checkbox').prop('checked',e.currentTarget.checked).
+    this.$('.js-cart-checkbox').prop('checked',e.currentTarget.checked)
   },
   //提交订单
   checkCart() {

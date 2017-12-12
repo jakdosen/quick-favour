@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <%-include('./common/meta.html',{title:'商品详情'})%>
+  <%-include('./common/polyfill.html')%>
+</head>
+<body>
+<%-include('./common/header.html',{type:'mall'})%>
+<%
+var bread = [
+{name:'首页',url:'www.baidu.com'},
+{name:'秒购',url:'www.baidu.com'},
+{name:'小米VR眼镜',url:''}
+]
+%>
+<%- include('./common/breadcrumb.html',{bread:bread})%>
+<div class="container-950" style="padding-bottom: 45px;">
+
+</div>
+</body>
+</html>
