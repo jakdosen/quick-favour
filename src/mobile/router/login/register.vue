@@ -72,8 +72,30 @@
         timeOut();
       },
       submitInto () {
-        this.userPhone.length && this.userNewPassWord.length && /^1[34578]\d{9}$/.test(this.userPhone) &&
-        this.$store.dispatch('register/submitInto')
+        if(!this.userPhone.length||!/^1[34578]\d{9}$/.test(this.userPhone)){
+          this.$vux.totast.text('请输入正确的手机号码')
+        }else if(!this.stateCode.length){
+          this.$vux.totast.text('请输入验证码')
+        }else if(!this.userNewPassWord.length&&this.isForgetPassWord!=='bindPhone'){
+          this.$vux.totast.text('请输入用户密码')
+        }
+        let payload =this.isForgetPassWord!=='bindPhone' ?
+          {account:this.userPhone,code:this.stateCode}
+          :{account:this.userPhone,password:this.userNewPassWord,code:this.stateCode}
+        switch (this.isForgetPassWord){
+          case 'add':
+              this.$store.dispatch('register/register',payload);
+              break;
+          case 'forget':
+            this.$store.dispatch('register/resetPassword',payload);
+            break;
+          case 'bindNoPhone':
+            this.$store.dispatch('register/thirdRegister',payload);
+            break;
+          case 'bindPhone':
+            this.$store.dispatch('register/thirdRegister',payload);
+            break;
+        }
       },
       updateUserPhone(value){
         this.$store.commit('register/updateCommon',{userPhone:value})

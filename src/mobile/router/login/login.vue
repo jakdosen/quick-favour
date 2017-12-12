@@ -63,8 +63,13 @@
     },
     methods: {
       loginInto () {
-        this.userPhone.length && this.userPassWord.length && /^1[34578]\d{9}$/.test(this.userPhone) &&
-        this.$store.dispatch('login/loginInto')
+        if(!this.userPhone.length|| !/^1[34578]\d{9}$/.test(this.userPhone)){
+          this.$vux.totast.text('请输入正确的手机号码')
+        }else if(!this.userPassWord.length){
+          this.$vux.totast.text('请输入用户密码')
+        }else{
+          this.$store.dispatch('login/loginInto',{account:this.userPhone,password:this.userPassWord})
+        }
       },
       updateUserPhone(value){
         this.$store.commit('login/updateUserPhone',value)

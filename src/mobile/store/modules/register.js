@@ -2,6 +2,8 @@
  * Created by shiyang.yao on 2017/11/21.
  */
 import router from '@/router/index'
+import { register, resetPassword, thirdRegister } from '^/services/user'
+import * as axiosStore from 'store'
 
 export default {
   namespaced: true,
@@ -15,10 +17,24 @@ export default {
     btnTitle:{add:'提交',forget:'找回',bindNoPhone:'完成',bindPhone:'完成'}
   },
   actions: {
-    submitInto ({ commit ,state}) {
-      console.log(state.userPhone + state.userNewPassWord + state.stateCode)
-      router.push({'path': '/login'})
-      // context.commit('increment')
+    register: async ({ commit ,state},payload) => {
+      const res  =await register(payload)
+      const { api_token } = res;
+      if(api_token){
+        axiosStore.set('api_token',api_token);
+        router.push({path:'/'});
+      }
+    },
+    resetPassword: async ({ commit ,state},payload) => {
+      const res  =await resetPassword(payload)
+      router.push({path:'/login'});
+    },
+    thirdRegister: async ({ commit ,state}) => {
+      const res  =await thirdRegister(payload)
+      if(api_token){
+        axiosStore.set('api_token',api_token);
+        router.push({path:'/'});
+      }
     }
   },
   mutations: {
