@@ -4,6 +4,12 @@
          <div slot="default" class="header-img"><img src="//pic5.40017.cn/01/001/69/e2/rBLkBloJRPqAONZ4AAIHd0GN-AI775_242x150_00.jpg" alt=""></div>
     </common-header>
     <view-box ref="viewBox" body-padding-top="46px">
+      <vue-better-scroll
+        style="height:calc(100%);"
+        class="wrapper"
+        ref="scroll"
+        :pullUpLoad="pullUpLoadObj"
+        @pullingUp="onPullingUp">
       <div class="buy-rater">
         <div class="header"><span>宝贝评价</span><span>好评度<i>{{(raterCommentsCount.goods_rank*1)/100}}%</i></span></div>
         <div class="rater-type">
@@ -29,6 +35,7 @@
           </ul>
         </div>
       </div>
+      </vue-better-scroll>
     </view-box>
   </div>
 </template>
@@ -46,14 +53,45 @@
       ViewBox,
       VueBetterScroll
     },
+    data(){
+      return {
+        pullUpLoadObj: {      // 下拉加载提示文案
+          threshold: 20,
+          txt: {
+            more: '加载更多',
+            noMore: '没有更多数据了'
+          }
+        }
+      }
+    },
     created(){
       // 重置列表数据
       this.$store.commit('goodsDetail/update',{raterData:[]});
       // 获取推荐列表
       this.$store.dispatch('goodsDetail/raterList',{page:1,goods_id:'460'});
     },
+    watch:{
+      raterPagination(val){
+         const {current_page, total_pages} = val;
+          if (current_page < total_pages) {
+            this.$refs.scroll.forceUpdate(true)
+          } else {
+            this.$refs.scroll.forceUpdate(false)
+          }
+      }
+    },
     computed: {
       ...mapState('goodsDetail', ['raterData','raterPagination','raterCommentsCount','raterIsLoading'])
+    },
+    methods: {
+      // 下拉刷新
+      onPullingUp(){
+        // 防止请求多次
+        if(!this.raterIsLoading)  return;
+        const {current_page, total_pages} = this.pagination;
+        this.$store.dispatch('goodsDetail/raterList', {page: current_page + 1,goods_id:'460'});
+        this.$store.commit('goodsDetail/update', {raterIsLoading: false});
+      }
     }
   }
 </script>

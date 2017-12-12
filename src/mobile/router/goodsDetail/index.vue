@@ -16,7 +16,7 @@
            <em class="iconfont icon-shopping-cart"></em><br>
            购物车</span>
          <span @click="openCustomDialog">
-           <em class="iconfont icon-custom-service"></em><br>
+           <em class="iconfont icon-customer-service"></em><br>
            客服</span>
       </div>
       <div class="goods-buy-item2">
