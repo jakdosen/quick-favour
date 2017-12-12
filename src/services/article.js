@@ -46,7 +46,19 @@ export function getDetail(params = {}) {
  */
 export function getCommentList(params = {page:1}) {
   return axios.get(
-    article.comment,
+    article.getComment,
+    {params},
+  )
+}
+
+/**
+ * addComment 添加评论
+ * @param params
+ * @returns {AxiosPromise<any>}
+ */
+export function addComment(params = {}) {
+  return axios.post(
+    article.addComment,
     {params},
   )
 }

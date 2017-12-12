@@ -17,30 +17,32 @@
       <div class="cart-list" v-for="goods in goodsList" :key="goods.type" v-if="goods.list.length > 0">
         <div class="cart-title">
           <check-icon class="cart-check"
-                      :value="!goods.list.filter(item=>!item.selected).length"
+                      :value="!goods.list.filter(item=>!item.is_checked).length"
                       v-on:update:value="(selected)=>changeSelectBatchGoods({type:goods.type,selected})"
           >{{goods.name}}</check-icon>
         </div>
         <ul class="cart-list-cot">
-          <li class="cart-item" v-for="item in goods.list" :key="item.id">
+          <li class="cart-item" v-for="item in goods.list" :key="item.cart_id">
             <div class="cart-wrap">
               <div class="cart-item-img">
                 <check-icon class="cart-check"
-                            :value="item.selected"
-                            v-on:update:value="(selected)=>changeSelectSingleGoods({id:item.id,selected})"></check-icon>
-                <div class="cart-item-img-wrap"><img :src="item.img"></div>
+                            :value="!!item.is_checked"
+                            v-on:update:value="(selected)=>changeSelectSingleGoods({cart_id:item.cart_id,selected})"></check-icon>
+                <div class="cart-item-img-wrap"><img :src="item.goods_img"></div>
               </div>
               <div class="cart-item-detail">
-                <p class="cart-item-desc"> {{item.desc}} </p>
+                <p class="cart-item-desc"> {{item.goods_name}} {{item.goods_attr_str}} </p>
                 <div class="cart-item-price">
                   <div class="price-detail">
-                    <p v-if="item.price > 0"><em>¥</em>{{item.price.toFixed(2)}}</p>
-                    <p v-if="item.coinBi > 0"><em>M</em>{{item.coinBi}}</p>
+                    <p v-if="item.cash_price * 1 > 0"><em>¥</em>{{item.cash_price}}</p>
+                    <p v-if="item.coin_price * 1 > 0"><em>M</em>{{item.coin_price}}</p>
                   </div>
                   <div class="quantity-handel">
-                    <button :class="[item.num == 1 ? 'gary' : '', 'round-btn','iconfont', 'icon-minus']" @click="decreaseQuantity(item.id)"></button>
-                    <span class="quantity-detail">{{item.num}}</span>
-                    <button class="round-btn iconfont icon-add" @click="increaseQuantity(item.id)"></button>
+                    <button :class="[item.goods_number == 1 ? 'gary' : '', 'round-btn','iconfont', 'icon-minus']"
+                            @click="changeQuantity({cart_id:item.cart_id,num:item.goods_number - 1,type:'decrease'})"></button>
+                    <span class="quantity-detail">{{item.goods_number}}</span>
+                    <button class="round-btn iconfont icon-add"
+                            @click="changeQuantity({cart_id:item.cart_id,num:item.goods_number + 1,type:'increase'})"></button>
                   </div>
                 </div>
               </div>
@@ -109,7 +111,6 @@
       ...mapState('mallCart',{
         isEditMode: 'isEditMode',
         goodsList: 'goodsList',
-        selectedIds: 'selectedIds',
       }),
       //总产品数量
       totalSpecNum(){
@@ -117,24 +118,24 @@
       },
       //选中个数
       selectedNum(){
-        return  _.chain(this.goodsList).pluck('list').flatten().filter(d=>d.selected).value().length
+        return  _.chain(this.goodsList).pluck('list').flatten().filter(d=>d.is_checked == 1).value().length
       },
       //是否都选择
       isSelectedAll:{
         get(){
           let allGoods = _.chain(this.goodsList).pluck('list').flatten();
           let allGoodsNum = allGoods.value().length;
-          return allGoodsNum === allGoods.flatten().filter(d=>d.selected).value().length
+          return allGoodsNum === allGoods.flatten().filter(d=>d.is_checked == 1).value().length
         },
         set(selected){
           this.changeSelectAllGoods(selected)
         }
       },
       totalPrice(){
-        return  _.chain(this.goodsList).pluck('list').flatten().filter(d=>d.selected).reduce((a,b)=>a + b.price * b.num,0).value()
+        return  _.chain(this.goodsList).pluck('list').flatten().filter(d=>d.is_checked == 1).reduce((a,b)=>a + b.cash_price * b.goods_number,0).value()
       },
       totalCoinBi(){
-        return  _.chain(this.goodsList).pluck('list').flatten().filter(d=>d.selected).reduce((a,b)=>a + b.coinBi * b.num,0).value()
+        return  _.chain(this.goodsList).pluck('list').flatten().filter(d=>d.is_checked == 1).reduce((a,b)=>a + b.coin_price * b.goods_number,0).value()
       }
     },
     methods:{
@@ -147,9 +148,8 @@
         'changeSelectBatchGoods',
         'changeSelectAllGoods',
         'removeSelectedGoods',
-        'increaseQuantity',
-        'decreaseQuantity'
-      ])
+        'changeQuantity'
+      ]),
     }
   }
 </script>

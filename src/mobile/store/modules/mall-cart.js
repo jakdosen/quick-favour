@@ -3,6 +3,76 @@
  */
 import _ from 'underscore'
 import router from '@/router/index'
+import {getCartList, changeCartChecked, updateCartNum, delCart} from '^/services/mall'
+const goodTypeDesc = {
+  cash_goods:'现金商品',
+  coin_goods:'秒币商品',
+  cashcoin_goods:'现金&秒币'
+}
+
+let mockData = {
+  "carts": {
+    "cash_goods": [],
+    "coin_goods": [
+      {
+        "cart_id": 14,
+        "goods_id": 460,
+        "goods_name": "菲律宾香蕉约1.5kg",
+        "cash_price": "5.00",
+        "coin_price": "24",
+        "goods_type": 2,
+        "goods_number": 2,
+        "goods_attr_id": "4044,4049",
+        "goods_attr_str": "越南 8成熟",
+        "is_checked": 1,
+        "is_on_sale": 1,
+        "goods_img": "http://t13.zetadata.com.cn:8082/upload/images/201610/goods_img/460_G_1459126720606.jpg"
+      }
+    ],
+    "cashcoin_goods": [
+      {
+        "cart_id": 1,
+        "goods_id": 430,
+        "goods_name": "以色列葡萄柚4个约250g/个",
+        "cash_price": "30.00",
+        "coin_price": "40.00",
+        "goods_type": 3,
+        "goods_number": 1,
+        "goods_attr_id": "4044,4049",
+        "goods_attr_str": null,
+        "is_checked": 1,
+        "is_on_sale": 1,
+        "goods_img": "http://t13.zetadata.com.cn:8082/upload/images/201610/goods_img/430_G_1459971655294.jpg"
+      }
+    ]
+  },
+  "total": {
+    "goods_checked": 2,
+    "goods_count": 2,
+    "cash_total": "40.00",
+    "coin_total": 88
+  }
+};
+/**
+ * parseCartListData 解析购物车数据
+ * @param data
+ * @returns {Array}
+ */
+let parseCartListData = data=>{
+  let cartList = [];
+  _.each(_.pairs(data.carts || []), pair => {
+    let type = pair[0],subObj;
+    cartList.push( subObj = {
+      type,
+      name:goodTypeDesc[type],
+      list:[]
+    })
+    pair[1].forEach(cart => {
+      subObj.list.push(cart)
+    })
+  })
+  return cartList
+};
 export default {
   namespaced: true,
   state: {
@@ -11,71 +81,17 @@ export default {
     //商品列表
     goodsList:[
 
-    ],
-    //选中商品
-    selectedIds:[]
+    ]
   },
   actions: {
     //获取购物车列表
     fetchCartList ({ commit ,state},params) {
-      commit('fetchCartList',{
-        goodsList:[
-          {
-            type:'real',
-            name:'现金商品',
-            list:[
-              {
-                id:'0001',
-                desc:'索玛格皮带 男士腰带真皮头层牛皮裤带商务休闲裤腰带z字母板扣S100057 115cm 金色扣黑带',
-                img:'//image1.suning.cn/uimg/b2c/newcatentries/0010137040-000000000826122474_1_200x200.jpg?v=&from=mobile',
-                price:1000,
-                coinBi:0,
-                num:2,
-                selected:false
-              },
-              {
-                id:'0002',
-                desc:'珊瑚绒小毛毯空调毯盖毯双层冬季单人加厚儿童小毯子午睡毯办公室',
-                img:'https://gw.alicdn.com/bao/uploaded/i1/3326712345/TB2xIZQhrsTMeJjSszhXXcGCFXa_!!3326712345.jpg_200x200q50s150.jpg_.webp',
-                price:3000,
-								coinBi:0,
-                num:3,
-                selected:false
-              }
-            ]
-          },
-          {
-            type:'real&virtual',
-            name:'现金&秒币',
-            list:[
-              {
-                id:'0003',
-                desc:'现金&秒币 珊瑚绒小毛毯空调毯盖毯双层冬季单人加厚儿童小毯子午睡毯办公室',
-                img:'',
-                price:1000,
-								coinBi:100,
-                num:2,
-                selected:true
-              }
-            ]
-          },
-          {
-            type:'virtual',
-            name:'秒币商品',
-            list:[
-              {
-                id:'0004',
-                desc:'秒币商品 珊瑚绒小毛毯空调毯盖毯双层冬季单人加厚儿童小毯子午睡毯办公室',
-                img:'',
-                price:0,
-								coinBi:10000,
-                num:1,
-                selected:false
-              }
-            ]
-          }
-        ],
+      getCartList().then((data) => {
+        commit('fetchCartList',parseCartListData(data))
       });
+
+      commit('fetchCartList',parseCartListData(mockData))
+
     },
     //结算
     checkOut() {
@@ -91,6 +107,12 @@ export default {
     },
     //选择单个商品
     changeSelectSingleGoods({commit},params){
+      changeCartChecked({
+        cart_id: params.cart_id,
+        is_checked: params.selected|0
+      }).then((data) => {
+
+      })
       commit('changeSelectSingleGoods',params)
     },
     //选择多个商品
@@ -106,63 +128,60 @@ export default {
       commit('removeSelectedGoods')
       commit('changeEditMode',false)
     },
-    //减少商品数量
-    decreaseQuantity({commit},specId){
-      commit('changeQuantity',{
-        specId,
-        type:'decrease'
+    //改变商品数量
+    changeQuantity({commit},payload){
+      updateCartNum({
+        cart_id: payload.cart_id,
+        new_number: payload.num
+      }).then((data) => {
+
       })
-    },
-    //增加商品数量
-    increaseQuantity({commit},specId){
       commit('changeQuantity',{
-        specId,
-        type:'increase'
+        specId:payload.cart_id,
+        type:payload.type,
+        num:payload.num
       })
     }
   },
   mutations: {
     fetchCartList(state, payload){
-      Object.assign(state,payload)
+      state.goodsList = [...state.goodsList,...payload]
     },
     changeEditMode(state, payload){
       state.isEditMode = payload;
     },
     //选择单个商品
     changeSelectSingleGoods(state, payload){
-      let goods = _.chain(state.goodsList).pluck('list').flatten().filter(item=>item.id == payload.id).value();
+      let goods = _.chain(state.goodsList).pluck('list').flatten().filter(item=>item.cart_id == payload.cart_id).value();
       if(goods.length){
-        goods[0].selected = payload.selected;
+        goods[0].is_checked = payload.selected | 0;
       }
     },
     //选择多个商品
     changeSelectBatchGoods(state, payload){
       let goodsBatch = state.goodsList.filter(item=>item.type == payload.type);
       if(!goodsBatch.length) return
-      goodsBatch[0].list.forEach(item=>item.selected = payload.selected)
+      goodsBatch[0].list.forEach(item=>item.is_checked = payload.selected|0)
     },
     //选择所有商品
     changeSelectAllGoods(state, payload){
       state.goodsList.forEach(item=>{
         item.list.forEach(obj=>{
-          obj.selected = payload
+          obj.is_checked = payload | 0
         })
       })
     },
     //改变商品数量
     changeQuantity(state, payload){
-      let {specId,type} = payload;
-      let goods = _.chain(state.goodsList).pluck('list').flatten().filter(item=>item.id == specId).value();
+      let {specId,type,num} = payload;
+      let goods = _.chain(state.goodsList).pluck('list').flatten().filter(item=>item.cart_id == specId).value();
       if(goods.length){
-        let num = goods[0].num;
-        type == 'increase' && num ++
-        type == 'decrease' && num --
-        num > 0 && ( goods[0].num = num)
+        num > 0 && ( goods[0].goods_number = num)
       }
     },
     removeSelectedGoods(state){
       state.goodsList.forEach(subList=>{
-        subList.list = subList.list.filter(item=>!item.selected)
+        subList.list = subList.list.filter(item=>item.is_checked != 1)
       })
     }
   }

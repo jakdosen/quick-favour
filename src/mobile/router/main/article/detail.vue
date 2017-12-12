@@ -15,7 +15,7 @@
         </div>
     </div>
     <flexbox :gutter="0" wrap="wrap" slot="bottom" class="article-footer">
-      <flexbox-item :span="1/4" class="vux-1px-r" style="text-align: center" @click.native="showNotePopup = true">
+      <flexbox-item :span="1/4" class="vux-1px-r" style="text-align: center" @click.native="isShowNotePopup = true">
         <span class="iconfont icon-note" style="ont-size: 2.1rem; vertical-align: middle;"></span>
         留言...
       </flexbox-item>
@@ -26,11 +26,11 @@
       </flexbox-item>
     </flexbox>
     <div v-transfer-dom>
-      <popup v-model="showNotePopup" position="bottom" max-height="50%">
+      <popup v-model="isShowNotePopup" position="bottom" max-height="50%">
         <div style="background-color:#fff;margin:0 auto;padding:0 15px;">
-          <x-textarea :max="100" :placeholder="'写写你看了的感受~~'" class="article-note" v-model="noteText"></x-textarea>
+          <x-textarea :max="100" :placeholder="isLogin?'写写你看了的感受~~':'登录后发表评论'" :readonly="!isLogin" class="article-note" v-model="noteText" @click.native="isLogin || $store.dispatch('common/toLogin')"></x-textarea>
           <div style="padding:20px 0px;">
-            <x-button type="primary" @click.native="sendNote" :disabled="isSending">发送</x-button>
+            <x-button type="primary" @click.native="isLogin?sendNote():$store.dispatch('common/toLogin')" :disabled="isSending">发送</x-button>
           </div>
         </div>
       </popup>
@@ -55,7 +55,7 @@
 
     },
     data:()=>({
-      showNotePopup:false,
+      isShowNotePopup:false,
       isSending:false
     }),
     computed:{
@@ -64,6 +64,7 @@
         path: state => state.route.path
       }),
       ...mapState('common',{
+        isLogin: state => state.isLogin,
         direction: state => state.direction
       }),
       ...mapState('articleDetail',['article','sharable','note']),
@@ -100,17 +101,16 @@
         postNote:'postNote'
       }),
       sendNote(){
-          if(this.note){
-              this.isSending = true;
-              this.postNote().then((msg)=>{
-                this.noteText = '';
-                this.showNotePopup = false;
-                this.goToNoteDetail();
-              }).finally(()=>{
-                  this.isSending = false;
-              });
-
-          }
+        if(this.note){
+          this.isSending = true;
+          this.postNote(this.route.params).then((msg)=>{
+            this.noteText = '';
+            this.isShowNotePopup = false;
+            this.goToNoteDetail();
+          }).finally(()=>{
+              this.isSending = false;
+          });
+        }
       },
       goToNoteDetail(){
         this.$router.push({

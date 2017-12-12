@@ -1,7 +1,7 @@
 /**
  * Created by Gavin.Li on 2017/11/22.
  */
-import {getDetail,getCommentList} from '^/services/article'
+import {getDetail,getCommentList,addComment} from '^/services/article'
 export default {
   namespaced: true,
   state: {
@@ -35,12 +35,10 @@ export default {
       commit('changeNode',noteText)
     },
     //发送留言
-    postNote({state}){
-      //todo
-      return new Promise((resolve, reject) => {
-        setTimeout(() => {
-          resolve(state.note)
-        }, 1000)
+    postNote({state},params){
+      return addComment({
+        id_value:params.articleId,
+        content:state.note
       })
     }
   },

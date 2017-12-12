@@ -15,7 +15,9 @@ export default {
       //参数：article_id
       detail:`${rootPath}/article/detail`,
       //参数：article_id,page
-      comment:`${rootPath}/article/comment`
+      getComment:`${rootPath}/article/comment`,
+      //参数：id_value,content
+      addComment:`${rootPath}/article/comment/create`
     },
     //用户相关
     auth:{

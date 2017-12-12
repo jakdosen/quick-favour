@@ -42,6 +42,23 @@ history.setItem('/', 0)
 // 假设api_token=任意一个数
 axiosStore.set('api_token','18068017185');
 
+axios.defaults.timeout = 5000;
+// http request 拦截器
+axios.interceptors.request.use(
+  config => {
+    if (axiosStore.get('api_token')) {
+      if(config.method.toLowerCase() == 'get'){
+        config.params['api_token'] = axiosStore.get('api_token');
+      }
+      if(config.method.toLowerCase() == 'post'){
+        config.data.params['api_token'] = axiosStore.get('api_token');
+      }
+    }
+    return config;
+  },
+  err => {
+    return Promise.reject(err);
+  });
 // http response 拦截器
 axios.interceptors.response.use(
   response => {
@@ -58,7 +75,7 @@ axios.interceptors.response.use(
           store.dispatch('common/toLogin')
       }
     }
-    return Promise.reject(error.response.data)
+    return Promise.reject(error.message)
   });
 
 // 配置loading

@@ -50,7 +50,12 @@ axios.defaults.timeout = 5000;
 axios.interceptors.request.use(
   config => {
     if (store.get('user')) {
-      config.params['api_token'] = store.get('user').token;
+      if(config.method.toLowerCase() == 'get'){
+        config.params['api_token'] = store.get('user').token;
+      }
+      if(config.method.toLowerCase() == 'post'){
+        config.data.params['api_token'] = store.get('user').token;
+      }
       config.headers.Authorization = `token ${store.get('user').token}`;
     }
     return config;
