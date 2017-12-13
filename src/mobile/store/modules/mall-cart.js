@@ -159,9 +159,9 @@ export default {
     },
     //选择多个商品
     changeSelectBatchGoods(state, payload){
-      let goodsBatch = state.goodsList.filter(item=>item.type == payload.type);
-      if(!goodsBatch.length) return
-      goodsBatch[0].list.forEach(item=>item.is_checked = payload.selected|0)
+      let goodsBatch = state.goodsList.find(item=>item.type == payload.type);
+      if(!goodsBatch) return
+      goodsBatch.list.forEach(item=>item.is_checked = payload.selected|0)
     },
     //选择所有商品
     changeSelectAllGoods(state, payload){

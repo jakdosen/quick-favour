@@ -1,5 +1,5 @@
 const CTX = '/api'
-const HOST = 'http://t13.zetadata.com.cn:8082'
+const HOST = 'http://t13.zetadata.com.cn'
 const rootPath = `${HOST}${CTX}`
 export default {
     //秒赞文章
