@@ -5,6 +5,38 @@
       :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')">
       <router-view class="router-view"></router-view>
     </transition>
+    <!--通用的选择规格-->
+    <div class="buy-choseType">
+      <!--点击选择规格参数-->
+      <popup v-model="popupShow" position="bottom" max-height="90%">
+        <div class="clearfix" style="background: #fff;padding: 0 1rem">
+          <div class="buy-choose-goods">
+            <div class="imgBox"><img :src="list.goods_thumb" alt=""></div>
+            <div class="info">
+              <span><i><small>￥</small>{{ changeBuyCashPrice || list.cash_price}}</i>& <b><small>M</small>{{ changeBuyCoinPrice || list.coin_price}}</b></span>
+              <p>商品编号：{{list.goods_sn}}</p>
+              <span><i v-if="list.cash_price">元</i><b v-if="list.coin_price">秒</b></span>
+            </div>
+          </div>
+          <div class="chose-list" :data-title="item.name" v-for="(item,index) in list.specification">
+            <checker
+              default-item-class="check-border-1px"
+              selected-item-class="check-border-active"
+              @on-change="changeSpec"
+            >
+              <checker-item style="margin-right: 5px;" v-for="item_child in item.value" :value="index+';'+item_child.id+';'+item_child.cash_price+';'+item_child.coin_price" > {{item_child.label}} </checker-item>
+            </checker>
+          </div>
+          <group class="buy-chose-list-num">
+            <x-number v-model="buyNum" title="购买数量"  :min="1"></x-number>
+          </group>
+        </div>
+        <div class="buy-chose-btn">
+          <span @click="addToMallCart(true)" v-if="popupShowButton != 2"  style="background: #ff8c00">加入购物车</span>
+          <span @click="addToMallCart(false)" v-if="popupShowButton != 1"  style="background: #ff5300">立即购买</span>
+        </div>
+      </popup>
+    </div>
     <!--通用的购物快捷导航-->
     <div class="goods-buy">
       <div class="goods-buy-item1">
@@ -20,8 +52,8 @@
            客服</span>
       </div>
       <div class="goods-buy-item2">
-         <span>加入购物车</span>
-         <span>立即购买</span>
+         <span @click="openPopup(1)">加入购物车</span>
+         <span @click="openPopup(2)">立即购买</span>
       </div>
     </div>
     <!--拨打客服电话-->
@@ -40,15 +72,32 @@
   </view-box>
 </template>
 <script>
-  import {Grid, GridItem, ViewBox, XDialog,TransferDomDirective as TransferDom} from 'vux'
-  import {mapGetters, mapState} from 'vuex'
+  import {Popup, Checker, XNumber,CheckerItem,Grid, Group,GridItem, ViewBox, XDialog,TransferDomDirective as TransferDom} from 'vux'
+  import {mapGetters, mapState, mapMutations, mapActions} from 'vuex'
   export default {
     directives: {
       TransferDom
     },
+    components: {
+      Grid,
+      GridItem,
+      ViewBox,
+      XDialog,
+      Popup,
+      Checker,
+      Group,
+      CheckerItem,
+      XNumber
+    },
     data(){
         return{
-            showCustomDialog:false
+            buyNum:1,
+            showCustomDialog:false,
+            buyNumValue:'1',
+            coinList:[],
+            cashList:[],
+            changeBuyCashPrice:'',
+            changeBuyCoinPrice:''
         }
     },
     computed:{
@@ -58,20 +107,64 @@
       ...mapState({
         route: state => state.route,
         path: state => state.route.path
-      })
-    },
-    components: {
-      Grid,
-      GridItem,
-      ViewBox,
-      XDialog
+      }),
+      ...mapState('goodsDetail',['list','popupShowOpen','popupShowButton','selectSpec']),
+      popupShow:{
+        get () {
+          return this.popupShowOpen
+        },
+        set (v) {
+          this.update({popupShowOpen:v})
+        }
+      },
+      specification:{
+        get () {
+          return this.selectSpec
+        },
+        set (v) {
+          this.update({selectSpec:v})
+        }
+      }
     },
     methods:{
+      ...mapMutations('goodsDetail',['update']),
+      ...mapActions('goodsDetail',['create','toSubmitOrder']),
       openCustomDialog() {
             this.showCustomDialog=true;
       },
       openHome(){
           this.$router.push('/')
+      },
+      changeSpec(val){
+        // value 有4个值，第一个为组，第二个为规格ID，第三个为现金 第四个为秒币
+        let value = val.split(';'),index = value[0];
+        const calc = (obj) =>{
+            let
+              price = obj === 'cash' ? this.list.cash_price:this.list.coin_price,
+              data = obj === 'cash' ? this.cashList:this.coinList;
+            data.map((obj)=>{
+              if(!obj)  return;
+              price = Number(price) + Number(obj)
+            })
+          obj === 'cash' ? this.changeBuyCashPrice= price : this.changeBuyCoinPrice = price;
+        }
+        this.specification[index]= value[1];
+        this.cashList[index]= value[2];
+        this.coinList[index]= value[3];
+        calc('cash');
+      },
+      openPopup(val){
+         this.update({popupShowOpen:true,popupShowButton:val})
+      },
+      addToMallCart(flag){
+         if(!this.specification.length){
+             this.$vux.toast.text('请选择一个规则');
+             return;
+         }
+         let args ={goods_id:this.$route.params.id
+           ,number:this.buyNum
+           ,spec:this.specification.join(',')};
+         flag ?this.create(args):this.toSubmitOrder(args);
       }
     }
   }
@@ -154,5 +247,65 @@
             background: #fff;
          }
       }
+  }
+
+  .buy-choseType{
+  .buy-chose-btn{
+    width: 100%;
+    height: 45px;
+    color:#fff;
+    line-height: 45px;
+  .flexbox;
+  span{
+    display: inline-block;
+    text-align: center;
+    font-size:1.4rem;
+    width: 100%;
+  .order(1);
+  /*&:first-child{*/
+     /*background: #ff8c00;*/
+   /*}*/
+  /*&:last-child{*/
+     /*background: #ff5300;*/
+   /*}*/
+  }
+  }
+  .buy-choose-goods{
+  .flexbox;
+  .imgBox{
+    width: 32%;
+    padding: 1.5rem 15px;
+  img{
+    width: 100%;
+    height: 100%;
+  }
+  }
+  .info{
+    padding-top: 2rem;
+    font-size:1.2rem;
+    color: #666;
+  p{
+    line-height: 2.5;
+  }
+  span{
+  small{
+    font-size: 1rem;
+  }
+  &:first-child{
+     color: @color2;
+   }
+  &:last-child{
+  i,b{
+    display: inline-block;
+    margin-right: 5px;
+    border-radius: 2px;
+    padding: 2px 5px;
+    background: @color1;
+    color: #fff;
+  }
+  }
+  }
+  }
+  }
   }
 </style>

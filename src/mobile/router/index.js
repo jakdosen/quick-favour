@@ -81,7 +81,7 @@ export default new Router({
     },
     // 产品列表
     {
-      path: '/goods',
+      path: '/goods/:id',
       component: resolve => require(['@/router/goodsDetail'], resolve),
       children:[
         {

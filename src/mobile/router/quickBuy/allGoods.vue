@@ -9,23 +9,25 @@
         <!--左边导航-->
         <div class="hot-body-left">
           <ul>
-            <li class="vux-1px-b" v-for = "(item, index) in navSource" :class="index === selectIndex ? 'active' : ''" @click="changeNav(index)" :key="index">{{item}}</li>
+            <li class="vux-1px-b" v-for = "(item, index) in sourceList" :class="index === selectIndex ? 'active' : ''" @click="changeNav(index)" :key="index">{{item.cat_name}}</li>
           </ul>
         </div>
         <!--右边内容区 -->
         <div class="all-body-right">
           <viewBox ref="allGoodsOfViewBox">
-          <div class="all-type-goods"  v-for = "(item, index) in dataSource" v-show="index === selectIndex" :key="index">
-            <span v-if="!Array.isArray(item)"> 敬请期待{{item}}商品</span>
+          <div class="all-type-goods"  v-for = "(item, index) in sourceList" v-show="index === selectIndex" :key="index">
+            <span v-if="!item.children.length"> 敬请期待{{item.cat_name}}商品</span>
             <div v-else style="width: 100%">
               <!--头部广告-->
-              <swiper :show-desc-mask="false" :auto="true" :show-dots="dataAboutAd.length>1" :list="dataAboutAd" dots-position="center" :loop="true"
-                   height="9rem"></swiper>
+              <swiper :show-desc-mask="false" :auto="true" :show-dots="false" dots-position="center" :loop="true"
+                   height="9rem">
+                 <swiper-item><router-link :to="'/goods/'+item.id"><img style="width: 100%;height: auto" :src="item.category_img"></router-link></swiper-item>
+              </swiper>
               <span class="all-placeholder">热门分类</span>
               <div style="background: #fff">
-                <grid :cols="item.length%3">
-                  <grid-item v-for="(child,index) in item" :key="index" :link="child.src" :label="child.title">
-                    <img slot="icon" :src="child.src">
+                <grid :cols="3">
+                  <grid-item v-for="(child,index) in item.children" :key="index" :link="'/goods/'+child.id" :label="child.cat_name">
+                    <img slot="icon" :src="child.category_img">
                   </grid-item>
                 </grid>
               </div>
@@ -51,21 +53,20 @@
       Grid,
       GridItem
     },
+    created(){
+        this.$store.dispatch('allGoods/category');
+    },
     data(){
       return {
           selectIndex:0,
-          navSource:['生活','美味','母婴','美丽','新奇','健康','艺术'],
-          dataSource:[[{title:'游戏本',src:'//img11.360buyimg.com/n7/jfs/t5935/195/2108753717/176060/c849dcb6/593a49a3Nf9c2a052.jpg'},{title:'游戏本',src:'//img11.360buyimg.com/n7/jfs/t5935/195/2108753717/176060/c849dcb6/593a49a3Nf9c2a052.jpg'},{title:'游戏本',src:'//img11.360buyimg.com/n7/jfs/t5935/195/2108753717/176060/c849dcb6/593a49a3Nf9c2a052.jpg'},{title:'游戏本',src:'//img11.360buyimg.com/n7/jfs/t5935/195/2108753717/176060/c849dcb6/593a49a3Nf9c2a052.jpg'},{title:'游戏本',src:'//img11.360buyimg.com/n7/jfs/t5935/195/2108753717/176060/c849dcb6/593a49a3Nf9c2a052.jpg'}],'美味','母婴','美丽','新奇','健康','艺术']
       }
     },
     computed: {
-      ...mapState('allGoods', ['dataAboutAd'])
+      ...mapState('allGoods', ['sourceList'])
     },
     methods: {
         changeNav:function (index) {
           this.selectIndex = index;
-//          并且判断dataSource有没有Arrary
-//          Array.isArray(dataSource[index]) && this.$store.dispatch()
         }
     }
   }
@@ -81,6 +82,9 @@
   }
   .hot-body-left{
     width: 120px;
+    height: 100%;
+    overflow-y: scroll;
+    -webkit-overflow-scrolling: touch;
   }
   .hot-body-left li{
      width: 100%;

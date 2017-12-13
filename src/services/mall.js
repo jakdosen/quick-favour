@@ -46,17 +46,10 @@ export function list(params = {}) {
 
 // s商品分类
 export function category(params = {}) {
-  return  new Promise((resolve, reject)=>{
-    let xhr = axios.get(
-      mall.category,
-      {params},
-    );
-    xhr.then((date)=>{
-      resolve(date);
-    },(msg)=>{
-      reject(msg);
-    })
-  });
+  return axios.get(
+    mall.category,
+    {params},
+  );
 }
 
 // 商品详情
@@ -71,6 +64,22 @@ export function detail(params = {}) {
 export function rater(params = {}) {
   return  axios.get(
     mall.rater,
+    {params},
+  );
+}
+
+// 加入购物车
+export function create(params = {}) {
+  return  axios.get(
+    mall.create,
+    {params},
+  );
+}
+
+// 订单确认页面
+export function directcheckorder(params = {}) {
+  return  axios.get(
+    mall.directcheckorder,
     {params},
   );
 }

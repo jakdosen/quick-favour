@@ -65,10 +65,11 @@
       }
     },
     created(){
+
       // 重置列表数据
       this.$store.commit('goodsDetail/update',{raterData:[]});
       // 获取推荐列表
-      this.$store.dispatch('goodsDetail/raterList',{page:1,goods_id:'460'});
+      this.$store.dispatch('goodsDetail/raterList',{page:1,goods_id:this.$route.params.id});
     },
     watch:{
       raterPagination(val){

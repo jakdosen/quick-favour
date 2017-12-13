@@ -2,12 +2,15 @@
  * Created by shiyang.yao on 2017/12/11.
  */
 import router from '@/router/index'
-import { detail, rater } from '^/services/mall'
+import { detail, rater,create } from '^/services/mall'
 
 export default {
   namespaced: true,
   state: {
     list:[],
+    popupShowOpen:false,
+    popupShowButton:0, //0表示显示两个按钮 1表示显示加入购物车，2表示显示立即购买
+    selectSpec:[],
     raterData:[],
     raterPagination:[],
     raterCommentsCount:[],
@@ -26,9 +29,16 @@ export default {
         commit('update',{raterCommentsCount:commentsCount});
       }
       commit('updateRaterData',data);
-      commit('update',{raterPagination:pagination});
-      commit('update',{raterIsLoading:true});
+      commit('update',{raterPagination:pagination,raterIsLoading:true});
     },
+    create: async ({commit, state},payload)=>{
+      const res = await rater(payload);
+       commit('update',{popupShowOpen:false,popupShowButton:0})
+    },
+    toSubmitOrder: async ({commit, state},payload)=>{
+      const res = await rater(payload);
+      router.push({path: '/submitOrder'});
+    }
   },
   mutations: {
     update (state, payload) {

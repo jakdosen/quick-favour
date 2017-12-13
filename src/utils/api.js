@@ -30,10 +30,12 @@ export default {
       detail:`${rootPath}/goods/detail`,
       rater:`${rootPath}/goods/commentlist`,
       /*购物车*/
+      create:`${rootPath}/cart/create`,
       cartList:`${rootPath}/cart/list`,
       cartDel:`${rootPath}/cart/delete`,
       cartUpdate:`${rootPath}/cart/update`,
       cartCheck:`${rootPath}/cart/checked`,
+      directcheckorder:`${rootPath}/cart/directcheckorder`
     },
     // 地址相关
     address:{

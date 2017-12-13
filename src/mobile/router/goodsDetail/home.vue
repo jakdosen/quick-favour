@@ -31,41 +31,11 @@
          <!--选择颜色分类-->
         <group class="buy-type">
           <cell :title="'选择颜色分类'" :is-link="true"  @click.native="openChoseType"></cell>
-          <div class="buy-choseType">
-            <!--点击选择规格参数-->
-            <popup v-model="popupShow" position="bottom" max-height="90%">
-                <div class="clearfix" style="background: #fff;padding: 0 1rem">
-                    <div class="buy-choose-goods">
-                        <div class="imgBox"><img :src="list.goods_thumb" alt=""></div>
-                        <div class="info">
-                            <span><i><small>￥</small>{{ changeBuyCashPrice || list.cash_price}}</i>& <b><small>M</small>{{ changeBuyCoinPrice || list.coin_price}}</b></span>
-                            <p>商品编号：{{list.goods_sn}}</p>
-                            <span><i v-if="list.cash_price">元</i><b v-if="list.coin_price">秒</b></span>
-                        </div>
-                    </div>
-                    <div class="chose-list" :data-title="item.name" v-for="item in list.specification">
-                      <checker
-                        default-item-class="check-border-1px"
-                        selected-item-class="check-border-active"
-                      >
-                        <checker-item style="margin-right: 5px;" v-for="item_child in item.value" :value="item_child.id" @on-item-click="changeSelect(item_child.cash_price,item_child.coin_price)"> {{item_child.label}} </checker-item>
-                      </checker>
-                    </div>
-                    <group class="buy-chose-list-num">
-                      <x-number :value="1" title="购买数量"  :min="1"></x-number>
-                    </group>
-                </div>
-                <div class="buy-chose-btn">
-                  <span>加入购物车</span>
-                  <span>立即购买</span>
-                </div>
-            </popup>
-          </div>
         </group>
          <!--宝贝评价 -->
          <div id="buy-rater" class="buy-rater">
-              <div class="header "><span>宝贝评价（{{Math.max(list.comment_num,1)}}）</span><span>好评度<i>{{(list.goods_rank/100).toFixed(2)}}%</i></span></div>
-              <div class="content">
+              <div class="header "><span>宝贝评价（{{list.comment_num}}）</span><span>好评度<i>{{(list.goods_rank/100).toFixed(2)}}%</i></span></div>
+              <div v-if="list.comment_num>0" class="content">
                 <ul>
                   <li class="" v-for="item in list.comments">
                      <div class="buy-rater-buyMessage">
@@ -76,7 +46,10 @@
                   </li>
                 </ul>
               </div>
-              <div class="footer"><router-link to="/goods/rater"><span>查看全部评价</span></router-link></div>
+              <div v-else class="no-comments">
+                 <p>暂无评价</p>
+              </div>
+              <div class="footer" v-if="list.comments && list.comments.length<list.comment_num"><router-link to="/goods/rater"><span>查看全部评价</span></router-link></div>
          </div>
          <!--商品介绍/商品详情-->
          <div id="buy-content-more" class="buy-content-more clearfix">
@@ -87,14 +60,14 @@
           <div class="buy-swrap clearfix" >
             <transition name="fade">
               <div class="buy-introduce clearfix" v-show="index === 0">
-                <Divider style="margin:1rem 2rem" >商品信息</Divider>
+                <Divider style="margin:1rem 2rem;font-size: 1.4rem" >商品信息</Divider>
                 <div class="clearfix buy-swrap-info" v-html = "list.goods_desc" style="width: 100%;">
                   <!--{{ list.goods_desc }}-->
                 </div>
               </div>
             </transition>
             <transition name="fade">
-            <div class="buy-tab" v-show="index === 1" style="margin-top: 1rem">
+            <div class="buy-tab" v-show="index === 1" style="padding:0 1rem;margin-top: 2rem;font-size: 1.4rem">
               <x-table :content-bordered="false" :full-bordered="true">
                 <colgroup><col width="40%"></colgroup>
                 <tbody>
@@ -117,7 +90,7 @@
 //  弹框用XDIALOG 来处理
   import {Tab, TabItem, ViewBox, Swiper, SwiperItem, Group, Cell, Card, Divider, XTable, XDialog, Popup, Checker, CheckerItem, XNumber} from 'vux'
   import CommonHeader  from '@/components/CommonHeader'
-  import {mapGetters, mapState} from 'vuex'
+  import {mapGetters, mapState, mapMutations} from 'vuex'
   export default {
     components: {
       CommonHeader,
@@ -139,37 +112,23 @@
     data(){
       return {
          index:0,
-         popupShow:false,
-         buyNumValue:'2',
-         changeBuyCashPrice:'',
-         changeBuyCoinPrice:'',
-         dataImg:[{ url: 'javascript:', img: 'https://static.vux.li/demo/1.jpg' },{ url: 'javascript:', img: 'https://static.vux.li/demo/1.jpg' }]
       }
     },
     created(){
+        let id =this.$route.params.id;
+        if(!id) this.$router.push({path:'/mall'});
         // 先清除数据
         this.$store.commit('goodsDetail/update',{list:[]});
         // 获取数据
-        this.$store.dispatch('goodsDetail/search',{goods_id:'460'});
+        this.$store.dispatch('goodsDetail/search',{goods_id:this.$route.params.id});
     },
     computed: {
-      ...mapState('goodsDetail', ['list']),
-
+      ...mapState('goodsDetail', ['list'])
     },
     methods: {
-      getHeight:function (s) {
-        console.log(s)
-      },
+      ...mapMutations('goodsDetail',['update']),
       openChoseType:function () {
-         this.popupShow = true;
-      },
-      changeSelect(cash,coin){
-          // 改变价格
-          let
-            cashPrice =  this.list.cash_price,
-            coinPrice =  this.list.coin_price;
-          this.changeBuyCashPrice = Number(cashPrice) + Number(cash);
-          this.changeBuyCoinPrice = Number(coinPrice) + Number(coin)
+         this.update({popupShowOpen:true,popupShowButton:0});
       }
     }
   }
@@ -318,63 +277,6 @@
       }
   }
 
-  .buy-choseType{
-    .buy-chose-btn{
-      width: 100%;
-      height: 45px;
-      color:#fff;
-      line-height: 45px;
-      .flexbox;
-          span{
-            display: inline-block;
-            width: 50%;
-            text-align: center;
-            &:first-child{
-               background: #ff8c00;
-             }
-            &:last-child{
-               background: #ff5300;
-             }
-          }
-    }
-    .buy-choose-goods{
-    .flexbox;
-      .imgBox{
-         width: 32%;
-         padding: 1.5rem 15px;
-         img{
-           width: 100%;
-           height: 100%;
-         }
-      }
-      .info{
-         padding-top: 2rem;
-         font-size:1.2rem;
-        color: #666;
-         p{
-           line-height: 2.5;
-         }
-         span{
-            small{
-              font-size: 1rem;
-            }
-            &:first-child{
-                 color: @color2;
-            }
-            &:last-child{
-               i,b{
-                 display: inline-block;
-                 margin-right: 5px;
-                 border-radius: 2px;
-                 padding: 2px 5px;
-                 background: @color1;
-                 color: #fff;
-               }
-             }
-         }
-      }
-    }
-  }
   .nav-a{
     color: #333;
     display: block;
@@ -387,5 +289,10 @@
   .buy-swrap-info img{
       width: 100%;
       height: auto;
+  }
+  .no-comments{
+    text-align: center;
+    font-size: 1.4rem;
+    line-height: 8rem;
   }
 </style>

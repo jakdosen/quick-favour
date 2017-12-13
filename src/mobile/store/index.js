@@ -16,6 +16,7 @@ import hotGoods from './modules/hotGoods'
 import allGoods from './modules/allGoods'
 import searchIndex from './modules/searchIndex'
 import goodsDetail from './modules/goods-detail'
+import confirmOrder from './modules/confirm-order'
 
 Vue.use(Vuex)
 
@@ -35,6 +36,7 @@ export default new Vuex.Store({
     hotGoods,
     searchIndex,
     allGoods,
-    goodsDetail
+    goodsDetail,
+    confirmOrder
   }, strict: debug
 })
