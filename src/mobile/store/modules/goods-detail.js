@@ -2,7 +2,7 @@
  * Created by shiyang.yao on 2017/12/11.
  */
 import router from '@/router/index'
-import { detail, rater,create } from '^/services/mall'
+import { detail, rater,create, directcheckorder } from '^/services/mall'
 
 export default {
   namespaced: true,
@@ -32,13 +32,14 @@ export default {
       commit('update',{raterPagination:pagination,raterIsLoading:true});
     },
     create: async ({commit, state},payload)=>{
-      const res = await rater(payload);
+      const res = await create(payload);
        commit('update',{popupShowOpen:false,popupShowButton:0})
+       router.push({path: '/mall/cart'});
     },
-    toSubmitOrder: async ({commit, state},payload)=>{
-      const res = await rater(payload);
-      router.push({path: '/submitOrder'});
-    }
+    // toSubmitOrder: async ({commit, state},payload)=>{
+    //   const res = await directcheckorder(payload);
+    //   router.push({path: '/submitOrder'});
+    // }
   },
   mutations: {
     update (state, payload) {

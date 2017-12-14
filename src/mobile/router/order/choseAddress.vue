@@ -3,30 +3,25 @@
     <common-header><span slot="default">选择地址</span></common-header>
     <view-box body-padding-top="46px">
         <checker v-model="chosePay"  type="radio" radio-required default-item-class="pay-default" selected-item-class="pay-selected">
-          <checker-item value="1">
-               <icon class="changeIcon" :type="chosePay==='1'? 'success':'circle'"></icon>
+          <checker-item :value="item.id" v-for="item in addressList">
+               <icon class="changeIcon" :type="chosePay===item.id? 'success':'circle'"></icon>
                <div>
-                   <span>任冬冬 18862231223</span>
-                   <span>苏州市工业园区2.5产业园A2-202</span>
-               </div>
-          </checker-item>
-          <checker-item value="2">
-               <icon class="changeIcon" :type="chosePay==='2'? 'success':'circle'"></icon>
-               <div>
-                 <span>任冬冬 18862231223</span>
-                 <span>苏州市工业园区2.5产业园A2-202</span>
+                   <span>{{item.true_name + '  '+item.mobile}}</span>
+                   <span>{{item.province+item.city+item.county+item.address}}</span>
                </div>
           </checker-item>
         </checker>
     </view-box>
     <div class="newAddress">
-        新增地址
+       <router-link style="width: 100%;height: 100%;display: block;color: #fff" :to="'//t13.zetadata.com.cn/m1/address/'">
+         新增地址
+       </router-link>
     </div>
   </div>
 </template>
 <script>
   import { Checker, CheckerItem, Icon, ViewBox} from 'vux'
-  import {mapGetters, mapState} from 'vuex'
+  import {mapGetters, mapState, mapMutations, mapActions} from 'vuex'
   import CommonHeader  from '@/components/CommonHeader'
   export default {
     components: {
@@ -37,18 +32,25 @@
       Icon
     },
     created:function () {
-
-    },
-    data(){
-      return {
-        chosePay:'1',  // 选择地址
-      }
+//         每次加载重新获取数据
+        this.update({addressList:[]})
+//         发送获取地址列表请求
+        this.addressListFn();
     },
     computed: {
-
+      ...mapState('confirmOrder',['nowSelectAddressId','addressList']),
+      chosePay:{
+          get(){
+             return this.nowSelectAddressId
+          },
+          set(v){
+             this.update({nowSelectAddressId:v})
+          }
+      }
     },
     methods: {
-
+      ...mapActions('confirmOrder',['addressListFn']),
+      ...mapMutations('confirmOrder',['update'])
     }
   }
 </script>

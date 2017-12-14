@@ -4,14 +4,12 @@
      <view-box body-padding-top="46px">
          <!--支付金额-->
          <div class="confirmOrder-pay">
-             <p>实付金额：<span><small>￥</small>4006.<small>00</small></span></p>
+             <p>实付金额：<span><small>￥</small>{{ trueCash }}</small></span></p>
              <div class="clearfix">
-                <span>购买商品总计：4件</span>
+                <span>购买商品总计：{{goods_list&&goods_list.length}}件</span>
                <ul>
-                 <li>
-                   <img src="//img10.360buyimg.com/mobilecms/s110x110_jfs/t5620/282/148014629/70033/c30f3e24/591d8877N3bfaf0a7.jpg" alt="">
-                 </li><li>
-                   <img src="//img10.360buyimg.com/mobilecms/s110x110_jfs/t6511/137/2674105784/151865/decc1ab7/5965c3ceN748ecfa7.jpg" alt="">
+                 <li v-for="item in goods_list">
+                   <img :src="item.goods_img" alt="">
                  </li>
                </ul>
              </div>
@@ -21,8 +19,8 @@
             <p>选择支付方式</p>
             <div style="background: #fff">
              <checker v-model="chosePay"  type="radio" radio-required default-item-class="pay-default" selected-item-class="pay-selected">
-               <checker-item class="vux-1px-b" value="1"><span style="color: #3eb135;font-size: 2rem" class="iconfont icon-wechat-cc"></span> <icon :type="chosePay==='1'? 'success':'circle'"></icon></checker-item>
-               <checker-item value="2"><span style="color: #00a7ff;font-size: 2rem" class="iconfont icon-alipay"></span> <icon :type="chosePay==='2'? 'success':'circle'"></icon></checker-item>
+               <checker-item @click="payMoney('weixin')" class="vux-1px-b" value="1"><span style="color: #3eb135;font-size: 2rem" class="iconfont icon-wechat-cc"></span> <icon :type="chosePay==='1'? 'success':'circle'"></icon></checker-item>
+               <checker-item @click="payMoney('alipay')" v-if="!this.isWeixin" value="2"><span style="color: #00a7ff;font-size: 2rem" class="iconfont icon-alipay"></span> <icon :type="chosePay==='2'? 'success':'circle'"></icon></checker-item>
              </checker>
            </div>
          </div>
@@ -48,18 +46,29 @@
       Icon
     },
     created:function () {
-
-    },
+      let ua = window.navigator.userAgent.toLowerCase();
+      this.isWeixin = ua.match(/MicroMessenger/i) === 'micromessenger' ? true : false;
+      // 获取orderID
+      this.order_ids = this.$route.query.order_id || this.$router.push({path:'/'})
+      },
     data(){
       return {
-        chosePay:'1'
+        chosePay:'1',
+        isWeixin:false,
+        order_ids:''
       }
     },
     computed: {
-
+      ...mapState('confirmOrder',['goods_list','trueCash']),
     },
     methods: {
-
+      ...mapActions('confirmOrder',['prepay']),
+      payMoney(val){
+          this.prepay({
+            order_ids:this.order_ids,
+            payment:val
+          });
+      }
     }
   }
 </script>

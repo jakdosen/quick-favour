@@ -7,18 +7,17 @@
        <div class="order-address" @click="openChoseAddress">
          <div class="left iconfont icon-address"></div>
          <div class="center">
-           <p><span>收货人：</span>任东东 18862231223</p>
-           <p><span>收货地址：</span>江苏省苏州市吴中东长路88号区工业园区2.5产业园A2-202</p>
+           <p><span>收货人：</span>{{ user_address.true_name + ' '+user_address.mobile}}</p>
+           <p><span>收货地址：</span>{{ user_address.province+user_address.city+user_address.county+user_address.address}}</p>
          </div>
          <div class="right iconfont icon-arrow-right"></div>
        </div>
        <!--商品列表-->
        <div class="order-goodsList">
          <ul>
-           <li><img src="http://img12.360buyimg.com/mobilecms/s110x110_jfs/t2986/330/2296781313/64049/d520957/57a2f64dN8f3883de.jpg" alt=""></li>
-           <li><img src="http://img10.360buyimg.com/babel/s100x100_jfs/t13498/5/1157838140/11141/a5eea81/5a1be04bN6a38659f.jpg!q90.webp" alt=""></li>
+           <li v-for="item in goods_list.goods_list"><img :src="item.goods_img" alt=""></li>
          </ul>
-         <span>共2件</span>
+         <span>共{{goods_list.goods_list &&  goods_list.goods_list.length || 0}}件</span>
        </div>
        <!--物流信息-->
        <div class="order-logistics">
@@ -28,7 +27,7 @@
        <!--我的账户-->
        <div class="order-package">
          <span>我的账户</span>
-         <p>共1000元，可用1000元<br>共100秒币，可用100秒币</p>
+         <p>共{{user_account['run_money']}}元，可用{{user_account['can_use_run_money']}}元<br>共{{user_account['m_coin']}}秒币，可用{{user_account['can_use_m_coin']}}秒币</p>
          <div>
            <x-switch :title="''" v-model="isShowAccount"></x-switch>
          </div>
@@ -37,22 +36,22 @@
        <div class="order-pay-type">
            <span>支付类型</span>
             <div>
-              <checker v-model="chosePay"  type="radio" radio-required default-item-class="pay-default" selected-item-class="pay-selected">
+              <checker @on-change="payChange" v-model="chosePay"  type="radio" radio-required default-item-class="pay-default" selected-item-class="pay-selected">
                 <checker-item value="1">现金</checker-item>
-                <checker-item value="2">现金&秒币</checker-item>
+                <checker-item v-if="user_account['can_use_m_coin']" value="2">现金&秒币</checker-item>
               </checker>
             </div>
        </div>
        <!--订单总额-->
        <div class="order-pay-count">
-           <div><span>订单总额</span><span>￥4006</span></div>
-           <div v-show="chosePay==='2'"><span>订单秒币</span><span>M300066</span></div>
-           <div v-show="isShowAccount"><span>账户支付</span><span>-￥1000</span></div>
+           <div><span>订单总额</span><span>￥{{price}}</span></div>
+           <div v-show="chosePay==='2'"><span>订单秒币</span><span>M{{coin}}</span></div>
+           <div v-show="isShowAccount"><span>账户支付</span><span>-￥{{coinCash}}</span></div>
        </div>
      </view-box>
      <!--提交订单-->
      <div class="order-push">
-       <p>实付金额：<span><small>￥</small>3006.<small>00</small></span></p>
+       <p>实付金额：<span><small>￥</small>{{coinCash}}</span></p>
        <span @click="submitOrder">提交订单</span>
      </div>
    </div>
@@ -60,7 +59,7 @@
 
 <script>
   import { ViewBox, XSwitch, Group, Checker, CheckerItem} from 'vux'
-  import {mapGetters, mapState, mapActions} from 'vuex'
+  import {mapGetters, mapState, mapActions, mapMutations} from 'vuex'
   import CommonHeader  from '@/components/CommonHeader'
   export default {
     components: {
@@ -73,22 +72,46 @@
     },
     created:function () {
       //获取购物车参数
-      let cartId = this.$route.params.cartId|| 1250;
+      let cartId = this.$route.query.cartId||'';
       this.checkOrder({cart_id:cartId});
     },
     data(){
       return {
         chosePay:'1',  // 是否使用现金支付
-        isShowAccount:true
+        isShowAccount:true,
+        coin:0
       }
     },
     computed: {
-      ...mapState('confirmOrder',['sourceList'])
+      ...mapState('confirmOrder',['user_address','user_account','cash_pay','cashcoin_pay','goods_list']),
+      price:{
+          get(){
+             return this.cash_pay.cash_total
+          }
+      },
+      coinCash:{
+        get(){
+          return this.cash_pay.cash_total
+        }
+      },
     },
     methods: {
-      ...mapActions('confirmOrder',['checkOrder']),
+      ...mapActions('confirmOrder',['checkOrder','submitOrder']),
+      ...mapMutations('confirmOrder',['update']),
       submitOrder(){
-          this.$router.push('/confirmOrder')
+          this.submitOrder({
+            pay_type:this.chosePay,
+            address_id:this.user_address.id,
+            goods_list:this.goods_list
+          });
+      },
+      payChange(val){
+         if(val===1){
+            this.coinCash = this.price;
+         }else{
+           this.coinCash = this.cashcoin_pay.cash_total;
+           this.coin = this.cashcoin_pay.coin_total;
+         }
       },
       openChoseAddress(){
         this.$router.push('/choseAddress')

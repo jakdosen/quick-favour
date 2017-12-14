@@ -19,6 +19,8 @@
       </div>
       <div class="submitBtn">
         <x-button class="login-btn" type="primary" @click.native="submitInto"> {{ btnTitle[String(isForgetPassWord)]}}</x-button>
+        <p class="bindLink" v-if="isForgetPassWord ==='bindNoPhone'" @click="changeBind('bindPhone')" >已注册手机绑定</p>
+        <p class="bindLink" v-if="isForgetPassWord ==='bindPhone'"  @click="changeBind('bindNoPhone')">未注册手机绑定</p>
       </div>
     </div>
   </div>
@@ -26,7 +28,7 @@
 
 <script>
   import {XInput, Group, Cell, XButton, XHeader} from 'vux'
-  import {mapGetters, mapState} from 'vuex'
+  import {mapGetters, mapState,mapMutations} from 'vuex'
   export default {
     created: function(){
       this.updateForgetPassWord(this.$route.query.type||'add');
@@ -55,6 +57,7 @@
       ])
     },
     methods: {
+      ...mapMutations('register',['updateCommon']),
       sendStateCode(){
          if(this.stateCodeSuggest !== '发送验证码') return;
          this.$store.dispatch('register/sendCode',{mobile:this.userPhone});
@@ -80,9 +83,8 @@
         }else if(!this.userNewPassWord.length&&this.isForgetPassWord!=='bindPhone'){
           this.$vux.toast.text('请输入用户密码')
         }
-        let payload =this.isForgetPassWord ==='bindPhone' ?
-          {mobile:this.userPhone,code:this.stateCode}
-          :{account:this.userPhone,password:this.userNewPassWord,code:this.stateCode}
+        let payload = {account:this.userPhone,password:this.userNewPassWord,code:this.stateCode};
+
         switch (this.isForgetPassWord){
           case 'add':
               this.$store.dispatch('register/register',payload);
@@ -91,12 +93,17 @@
             this.$store.dispatch('register/resetPassword',payload);
             break;
           case 'bindNoPhone':
-            this.$store.dispatch('register/thirdRegister',payload);
+              payload = {mobile:this.userPhone,code:this.stateCode,password:this.userNewPassWord};
+              this.$store.dispatch('register/thirdRegister',payload);
             break;
           case 'bindPhone':
+            payload = {mobile:this.userPhone,code:this.stateCode}
             this.$store.dispatch('register/thirdRegister',payload);
             break;
         }
+      },
+      changeBind(val){
+         this.updateCommon({isForgetPassWord:val});
       },
       updateStateCode(value){
         this.$store.commit('register/updateCommon',{stateCode:value})
@@ -125,6 +132,14 @@
 
   .marginBtom {
     margin-bottom: 2.5rem;
+  }
+  .bindLink{
+    font-size: 1.4rem;
+    color: #ccc;
+    line-height: 5rem;
+    text-align: right;
+    width: 100%;
+    display: block;
   }
 </style>
 

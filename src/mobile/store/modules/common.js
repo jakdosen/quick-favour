@@ -16,7 +16,7 @@ export default {
       commit('updateLoginStatus',false)
       router.push({'path': '/login',query:payload})
     },
-    //登陆成功设置
+    // //登陆成功设置
     loginSuccess({ commit ,state},params){
       commit('updateLoginStatus',true)
       axiosStore.set('api_token',params)

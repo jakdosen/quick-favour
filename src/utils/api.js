@@ -41,8 +41,14 @@ export default {
       checkorder:`${rootPath}/cart/checkorder`,
       directcheckorder:`${rootPath}/cart/directcheckorder`
     },
-    // 地址相关
-    address:{
+    // 订单相关的
+    order :{
+      done:`${rootPath}/order/done`,
+      prepay:`${rootPath}/pay/prepay`,
       addressList:`${rootPath}/address/addressList`
-    }
+    },
+    // 地址相关
+    // address:{
+    //   addressList:`${rootPath}/address/addressList`
+    // }
 }

@@ -128,7 +128,7 @@
     },
     methods:{
       ...mapMutations('goodsDetail',['update']),
-      ...mapActions('goodsDetail',['create','toSubmitOrder']),
+      ...mapActions('goodsDetail',['create']),
       openCustomDialog() {
             this.showCustomDialog=true;
       },
@@ -157,14 +157,14 @@
          this.update({popupShowOpen:true,popupShowButton:val})
       },
       addToMallCart(flag){
-         if(!this.specification.length){
+         if(this.selectSpec&&this.selectSpec.length&&!this.specification.length){
              this.$vux.toast.text('请选择一个规则');
              return;
          }
          let args ={goods_id:this.$route.params.id
            ,number:this.buyNum
            ,spec:this.specification.join(',')};
-         flag ?this.create(args):this.toSubmitOrder(args);
+         flag ?this.create(args): this.$store.dispatch('confirmOrder/checkOrder',{buyNow:true,...args});
       }
     }
   }
