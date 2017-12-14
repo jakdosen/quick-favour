@@ -35,7 +35,7 @@
 </template>
 <script>
   import { ViewBox, XSwitch, Group, Checker, CheckerItem, Icon } from 'vux'
-  import {mapGetters, mapState} from 'vuex'
+  import {mapGetters, mapState, mapActions} from 'vuex'
   import CommonHeader  from '@/components/CommonHeader'
   export default {
     components: {

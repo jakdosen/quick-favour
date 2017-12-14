@@ -12,7 +12,7 @@ export default {
     userPassWord:''
   },
   actions: {
-    loginInto : async ({ commit ,state}) => {
+    loginInto : async ({ commit ,state},payload) => {
        const res = await login(payload);
        const { api_token } = res;
        if(api_token){

@@ -15,7 +15,7 @@
         <div class="buy-swiper">
           <swiper :show-desc-mask="false" :show-dots="cycleImage>1" :auto="true" dots-position="center" :loop="true"
                   height="18rem">
-             <swiper-item v-for="(item, index) in cycleImage" :key="index"><router-link to="/goods"><img style="width: 100%;height: auto" :src="item.ad_code"></router-link></swiper-item>
+             <swiper-item v-for="(item, index) in cycleImage" :key="index"><router-link to="'/goods/'+item.id"><img style="width: 100%;height: auto" :src="item.ad_code"></router-link></swiper-item>
           </swiper>
         </div>
         <!--首页导航-->
@@ -50,7 +50,8 @@
             <router-link :to="'/goods/'+item.id">
               <div class="buy-goods-detail">
                 <div class="buy-image">
-                  <x-img container="#vux_view_box_body"   :offset="100"  default-src="//misc.360buyimg.com/lib/skin/e/i/error-jd.gif" :src="item.goods_img"></x-img>
+                  <!--<x-img container="#vux_view_box_body"   :offset="100"  default-src="//misc.360buyimg.com/lib/skin/e/i/error-jd.gif" :src="item.goods_img"></x-img>-->
+                  <img style="width: 100%; height: auto" :src="item.goods_img">
                 </div>
                 <div class="buy-content">
                   <p>{{item.goods_name}}</p>

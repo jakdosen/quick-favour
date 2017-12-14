@@ -60,7 +60,7 @@
 
 <script>
   import { ViewBox, XSwitch, Group, Checker, CheckerItem} from 'vux'
-  import {mapGetters, mapState} from 'vuex'
+  import {mapGetters, mapState, mapActions} from 'vuex'
   import CommonHeader  from '@/components/CommonHeader'
   export default {
     components: {
@@ -72,7 +72,9 @@
       CheckerItem
     },
     created:function () {
-
+      //获取购物车参数
+      let cartId = this.$route.params.cartId|| 1250;
+      this.checkOrder({cart_id:cartId});
     },
     data(){
       return {
@@ -81,9 +83,10 @@
       }
     },
     computed: {
-
+      ...mapState('confirmOrder',['sourceList'])
     },
     methods: {
+      ...mapActions('confirmOrder',['checkOrder']),
       submitOrder(){
           this.$router.push('/confirmOrder')
       },

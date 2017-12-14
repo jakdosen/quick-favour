@@ -1,5 +1,6 @@
 const CTX = '/api'
-const HOST = 'http://t13.zetadata.com.cn'
+// const HOST = 'http://t13.zetadata.com.cn'
+const HOST = 'http://localhost:8082'
 const rootPath = `${HOST}${CTX}`
 export default {
     //秒赞文章
@@ -18,7 +19,9 @@ export default {
       register:`${rootPath}/auth/register`,
       login:`${rootPath}/auth/login`,
       thirdRegister:`${rootPath}/auth/thirdRegister`,
-      resetPassword:`${rootPath}/auth/resetPassword`
+      resetPassword:`${rootPath}/auth/resetPassword`,
+      sendCode:`${rootPath}/auth/sendCode`,
+      wx_bindPhone:`${rootPath}/auth/weChat/wx_bindPhone`
     },
     //商城相关
     mall:{
@@ -35,6 +38,7 @@ export default {
       cartDel:`${rootPath}/cart/delete`,
       cartUpdate:`${rootPath}/cart/update`,
       cartCheck:`${rootPath}/cart/checked`,
+      checkorder:`${rootPath}/cart/checkorder`,
       directcheckorder:`${rootPath}/cart/directcheckorder`
     },
     // 地址相关

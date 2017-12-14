@@ -76,10 +76,18 @@ export function create(params = {}) {
   );
 }
 
-// 订单确认页面
+// 订单确认页面提交接口
 export function directcheckorder(params = {}) {
   return  axios.get(
     mall.directcheckorder,
+    {params},
+  );
+}
+
+// 订单确认页面显示接口
+export function checkorder(params = {}) {
+  return  axios.get(
+    mall.checkorder,
     {params},
   );
 }

@@ -8,12 +8,12 @@
     </x-header>
     <div style="padding-top:46px">
       <div class="marginBtom" style="margin-left: -15px">
-        <x-input class="inputFont" :value="userPhone" @input="updateUserPhone" name="mobile" :show-clear="true" placeholder="手机号码" type="tel"
+        <x-input class="inputFont" v-model="userPhone"  name="mobile" :show-clear="true" placeholder="手机号码" type="tel"
                  is-type="china-mobile"></x-input>
-        <x-input class="inputFont weui-vcode" :value="userNewPassWord" @input="updateUserNewPassWord" :show-clear="false" name="verifyCode" placeholder="验证码">
+        <x-input class="inputFont weui-vcode" v-model = 'stateCode'  :show-clear="false" name="verifyCode" placeholder="验证码">
           <x-button slot="right" class="stateCode" @click.native="sendStateCode" type="primary" mini>{{ stateCodeSuggest }}</x-button>
         </x-input>
-        <x-input v-if="isForgetPassWord!='bindPhone'" class="inputFont" name="password" :value="stateCode" @input="updateStateCode" placeholder="设置密码" :type="openEye ? 'text':'password'" :show-clear="false">
+        <x-input v-if="isForgetPassWord!='bindPhone'" class="inputFont" name="password" v-model="userNewPassWord"  @input="updateStateCode" placeholder="设置密码" :type="openEye ? 'text':'password'" :show-clear="false">
           <span slot="right" class="iconfont" :class="openEye ? 'icon-openEye':'icon-closeEye'" style="margin-left: 5px" @click="openEye=!openEye"></span>
         </x-input>
       </div>
@@ -40,14 +40,14 @@
     },
     data(){
       return {
-        openEye:false
+        openEye:false,
+        userPhone:'',
+        stateCode:'',
+        userNewPassWord:'',
       }
     },
     computed: {
       ...mapState('register', [
-        'userPhone',
-        'userNewPassWord',
-        'stateCode',
         'stateCodeSuggest',
         'isForgetPassWord',
         'navTitle',
@@ -57,6 +57,7 @@
     methods: {
       sendStateCode(){
          if(this.stateCodeSuggest !== '发送验证码') return;
+         this.$store.dispatch('register/sendCode',{mobile:this.userPhone});
          let time = 59;
          const timeOut = ()=>{
            setTimeout(()=>{
@@ -69,18 +70,18 @@
              this.updateSendStateCode(nowTime+'s');
            },1000);
          }
-        timeOut();
+         timeOut();
       },
       submitInto () {
         if(!this.userPhone.length||!/^1[34578]\d{9}$/.test(this.userPhone)){
-          this.$vux.totast.text('请输入正确的手机号码')
+          this.$vux.toast.text('请输入正确的手机号码')
         }else if(!this.stateCode.length){
-          this.$vux.totast.text('请输入验证码')
+          this.$vux.toast.text('请输入验证码')
         }else if(!this.userNewPassWord.length&&this.isForgetPassWord!=='bindPhone'){
-          this.$vux.totast.text('请输入用户密码')
+          this.$vux.toast.text('请输入用户密码')
         }
-        let payload =this.isForgetPassWord!=='bindPhone' ?
-          {account:this.userPhone,code:this.stateCode}
+        let payload =this.isForgetPassWord ==='bindPhone' ?
+          {mobile:this.userPhone,code:this.stateCode}
           :{account:this.userPhone,password:this.userNewPassWord,code:this.stateCode}
         switch (this.isForgetPassWord){
           case 'add':
@@ -96,12 +97,6 @@
             this.$store.dispatch('register/thirdRegister',payload);
             break;
         }
-      },
-      updateUserPhone(value){
-        this.$store.commit('register/updateCommon',{userPhone:value})
-      },
-      updateUserNewPassWord(value){
-        this.$store.commit('register/updateCommon',{userNewPassWord:value})
       },
       updateStateCode(value){
         this.$store.commit('register/updateCommon',{stateCode:value})

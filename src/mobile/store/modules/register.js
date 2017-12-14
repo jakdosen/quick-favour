@@ -2,15 +2,12 @@
  * Created by shiyang.yao on 2017/11/21.
  */
 import router from '@/router/index'
-import { register, resetPassword, thirdRegister } from '^/services/user'
+import { register, resetPassword, wx_bindPhone, sendCode } from '^/services/user'
 import * as axiosStore from 'store'
 
 export default {
   namespaced: true,
   state: {
-    userPhone: '',
-    userNewPassWord:'',
-    stateCode:'',
     stateCodeSuggest:'发送验证码',
     isForgetPassWord: 'add',
     navTitle:{add:'注册',forget:'忘记密码',bindNoPhone:'绑定手机',bindPhone:'绑定手机'},
@@ -30,12 +27,16 @@ export default {
       router.push({path:'/login'});
     },
     thirdRegister: async ({ commit ,state}) => {
-      const res  =await thirdRegister(payload)
+      const res  =await wx_bindPhone(payload)
+      const {  api_token } =res;
       if(api_token){
         axiosStore.set('api_token',api_token);
         router.push({path:'/'});
       }
-    }
+    },
+    sendCode: async ({ commit ,state},payload) => {
+      await sendCode(payload)
+    },
   },
   mutations: {
     updateCommon (state, payload) {

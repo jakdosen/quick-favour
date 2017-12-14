@@ -7,33 +7,41 @@ import axios from 'axios'
 
 // 用户登录
 export function login(params = {}) {
-  return axios.get(
+  return axios.post(
     auth.login,
-    {params},
+    {...params},
   );
 }
 
 // 用户注册
 export function register(params = {}) {
-  return axios.get(
+  return axios.post(
     auth.register,
-    {params},
+    {...params},
   );
 }
 
 // 用户忘记密码
 export function resetPassword(params = {}) {
-  return axios.get(
+  return axios.post(
     auth.resetPassword,
-    {params},
+    {...params},
   );
 }
 
 
 // 绑定手机号码
-export function thirdRegister(params = {}) {
+export function wx_bindPhone(params = {}) {
+  return axios.post(
+    auth.wx_bindPhone,
+    {...params},
+  );
+}
+
+// 发送手机验证码
+export function sendCode(params = {}) {
   return axios.get(
-    auth.thirdRegister,
+    auth.sendCode,
     {params},
   );
 }

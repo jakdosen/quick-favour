@@ -40,7 +40,7 @@ history.clear();
 let historyCount = history.getItem('count') * 1 || 0
 history.setItem('/', 0)
 // 假设api_token=任意一个数
-axiosStore.set('api_token','18068017185');
+// axiosStore.set('api_token','18068017185');
 
 axios.defaults.timeout = 5000;
 // http request 拦截器
@@ -65,6 +65,7 @@ axios.interceptors.response.use(
     if(response.data && response.data.code === 200){
       return response.data.datas
     }else{
+      Vue.$vux.toast.text(response.data.message);
       return Promise.reject(response.data || {message:'未知错误'})
     }
   },

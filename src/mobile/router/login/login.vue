@@ -23,7 +23,7 @@
           <x-button class="login-btn" @click.native="loginInto" type="primary"> 登录</x-button>
         </div>
         <!--第三方登录-->
-        <div class="login-other">
+        <div class="login-other " style="display: none">
           <fieldset>
             <legend align="center">使用第三方登录</legend>
           </fieldset>
