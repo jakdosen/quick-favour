@@ -141,7 +141,6 @@
     methods:{
       ...mapActions('mallCart',[
         'fetchCartList',
-        'checkOut',
         'startEditMode',
         'stopEditMode',
         'changeSelectSingleGoods',
@@ -150,6 +149,12 @@
         'removeSelectedGoods',
         'changeQuantity'
       ]),
+      checkOut(){
+        let cartIds = _.chain(this.goodsList).pluck('list').flatten().filter(d=>d.is_checked == 1).pluck('cart_id')
+        this.$router.push({'path': '/submitOrder',query:{
+          cartId:cartIds.value().join(',')
+          }})
+      }
     }
   }
 </script>

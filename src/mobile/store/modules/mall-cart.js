@@ -145,7 +145,7 @@ export default {
   },
   mutations: {
     fetchCartList(state, payload){
-      state.goodsList = [...state.goodsList,...payload]
+      state.goodsList = [...payload]
     },
     changeEditMode(state, payload){
       state.isEditMode = payload;
