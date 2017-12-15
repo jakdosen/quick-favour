@@ -19,7 +19,7 @@ export default {
       const {  pagination } = meta;
       if( pagination.current_page === 1){
         // 第一页的时候更新广告位
-        commit('update',{cycleImage:ads.data});
+        commit('update',{cycleImage:ads});
       }
       commit('updateSourceList',data)
       commit('update',{pagination:pagination})

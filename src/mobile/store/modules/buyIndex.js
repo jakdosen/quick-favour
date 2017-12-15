@@ -15,7 +15,8 @@ export default {
   actions: {
     cycleImage:async ({ commit }) =>{
         const res =await homeCycleImage();
-        commit('update',{cycleImage:res})
+        const { data }=res;
+        commit('update',{cycleImage:data})
     },
     suggestlist: async ({ commit , state  }, payload) =>{
          const res =await suggestlist(payload);

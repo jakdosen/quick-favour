@@ -12,7 +12,9 @@ const tmpl = `
    <div class="mz-sliderBar-content">
       <div class="mz-sliderBar-center">
          <ul>
-           <li></li>
+           <li>
+              <a href="" class="to-home"></a>
+           </li>
            <li>
              <span class="iconfont icon-shopping-cart"></span>
              <span>购物车</span> 

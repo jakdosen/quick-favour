@@ -5,7 +5,7 @@ export default new Router({
     // 404页面
     {
       path:'*',
-      component: resolve => require(['@/router/quickBuy'], resolve)
+      component: resolve => require(['@/router/main'], resolve)
     },
     {
       path: '/',
