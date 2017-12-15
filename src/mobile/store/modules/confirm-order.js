@@ -39,7 +39,6 @@ export default {
          res = await checkorder(payload);
        }
        const { goods_list,user_account, cash_pay, cashcoin_pay, user_address} = res;
-       debugger;
        let addressCount = user_address;
        if(state.nowSelectAddressId&&state.addressList.length){
          addressCount = state.addressList.filter(obj => obj.id=== state.nowSelectAddressId)

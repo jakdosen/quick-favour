@@ -13,7 +13,7 @@
         </checker>
     </view-box>
     <div class="newAddress">
-       <router-link style="width: 100%;height: 100%;display: block;color: #fff" :to="'//t13.zetadata.com.cn/m1/address/'">
+       <router-link style="width: 100%;height: 100%;display: block;color: #fff" :to="'/m1/address/'">
          新增地址
        </router-link>
     </div>

@@ -18,9 +18,9 @@
        <!--商品列表-->
        <div class="order-goodsList">
          <ul>
-           <li v-for="item in goods_list.goods_list"><img :src="item.goods_img" alt=""></li>
+           <li v-for="item in goods_list"><img :src="item.goods_img" alt=""></li>
          </ul>
-         <span>共{{goods_list.goods_list &&  goods_list.goods_list.length || 0}}件</span>
+         <span>共{{goods_list &&  goods_list.length || 0}}件</span>
        </div>
        <!--物流信息-->
        <div class="order-logistics">

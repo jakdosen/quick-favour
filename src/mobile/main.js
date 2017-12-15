@@ -76,7 +76,7 @@ axios.interceptors.response.use(
   error => {
     if (error.response) {
       switch (error.response.status) {
-        case 401:
+        case 203:
           store.dispatch('common/toLogin')
       }
     }

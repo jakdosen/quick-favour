@@ -7,7 +7,7 @@
       :pullUpLoad="pullUpLoadObj"
       @pullingUp="onPullingUp">
     <div v-for="(item,index) in sourceList" :key="index">
-      <router-link to="/goods">
+      <router-link :to="'/goods/'+item.id">
       <div class="search-goods-list vux-1px-b">
           <div class="left-img">
             <img width="auto" height="100%" :src="item.goods_img" alt="">

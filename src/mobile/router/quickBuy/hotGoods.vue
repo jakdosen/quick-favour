@@ -9,7 +9,7 @@
         <!--头部广告-->
        <swiper :show-desc-mask="false" :show-dots="cycleImage>1" :auto="true" dots-position="center" :loop="true"
                height="18rem">
-         <swiper-item v-for="(item, index) in cycleImage" :key="index"><router-link to="/goods"><img style="width: 100%;height: auto" :src="item.ad_code"></router-link></swiper-item>
+         <swiper-item v-for="(item, index) in cycleImage" :key="index"><router-link :to="'/goods'+item.id"><img style="width: 100%;height: auto" :src="item.ad_code"></router-link></swiper-item>
        </swiper>
 
         <span class="hot-placeholder"></span>
