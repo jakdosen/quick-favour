@@ -89,6 +89,7 @@
   .flexbox;
   }
 
+
   .space-between {
   .justify-content(space-between);
   }
@@ -100,11 +101,12 @@
 
   .login-logo span {
     display: inline-block;
-    width: 5rem;
-    height: 5rem;
+    width: 6rem;
+    height: 6rem;
     line-height: 5rem;
-    background: @color1;
     color: #fff;
+    background: url('~@/publice/img/login-01.png') no-repeat;
+    background-size: contain;
   }
 
   .login-other {
