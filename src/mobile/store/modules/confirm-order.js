@@ -3,7 +3,7 @@
  */
 import router from '@/router/index'
 import {  checkorder, directcheckorder} from '^/services/mall'
-import {  done, prepay, addressList } from '^/services/order'
+import {  done, prepay, addressList, success} from '^/services/order'
 
 export default {
   namespaced: true,
@@ -25,7 +25,8 @@ export default {
     },
     user_address: null,
     nowSelectAddressId:"",
-    addressList:[]
+    addressList:[],
+    paySuccessObject:null
   },
   actions: {
     checkOrder : async ({commit,state},payload) =>{
@@ -59,7 +60,11 @@ export default {
       const res = await addressList(payload);
       const { data } = res;
       commit('update',{addressList:data})
-    }
+    },
+    success:async ({commit,state},payload) =>{
+      const res = await success(payload);
+      commit('update',{paySuccessObject:res})
+    },
   },
   mutations: {
     update (state, payload) {

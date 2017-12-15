@@ -28,3 +28,11 @@ export function addressList(params = {}) {
     {params},
   );
 }
+
+// 订单支付成功
+export function success(params = {}) {
+  return axios.get(
+    order.success,
+    {params},
+  );
+}

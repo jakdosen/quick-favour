@@ -9,9 +9,9 @@
          </div>
          <!--收货人信息-->
          <div class="payOrder-user">
-            <p><span>收货人：</span>任东东  18862231223</p>
-            <p><span>收货地址：</span>江苏省苏州市吴中东长路88号区工业园区2.5产业园A2-202</p>
-            <p><span>实付款：</span><span><small>￥</small>412.<small>00</small></span></p>
+            <p><span>收货人：</span>{{paySuccessObject.address.true_name + '  '+paySuccessObject.address.mobile}}</p>
+            <p><span>收货地址：</span>{{paySuccessObject.address.province + paySuccessObject.address.city+ paySuccessObject.address.county+ paySuccessObject.address.address}}</p>
+            <p><span>实付款：</span><span><small>￥</small>{{paySuccessObject.order_amount}}</span></p>
          </div>
          <!--跳转链接到订单详情和返回首页-->
          <div class="payOrder-toLink">
@@ -24,7 +24,7 @@
              <p>付款成功后，秒赞商城不会以付款异常、卡单、系统升级为由联系您。<span>请勿泄露银行卡号、手机验证码、否则会造成钱款损失。<router-link class="moreMsg" to="/">谨防电话诈骗！更多安全知识>></router-link></span> </p>
          </div>
          <!--你可能还想购买 -->
-         <div class="payOrder-buyAgain">
+         <div class="payOrder-buyAgain" style="display: none">
              <span>你可能还想买</span>
              <div>
                <ul>
@@ -42,6 +42,7 @@
 </template>
 <script>
   import { ViewBox } from 'vux'
+  import {mapGetters, mapState, mapActions} from 'vuex'
   import CommonHeader  from '@/components/CommonHeader'
   export default {
     components: {
@@ -49,24 +50,21 @@
       ViewBox
     },
     created:function () {
-
+      // 获取orderID
+      const payment_id = this.$route.query.payment_id || this.$router.push({path:'/'})
+      // 获取成功数据
+      this.success({payment_id})
     },
     data(){
       return {
-        chosePay:'1',  // 是否使用现金支付
-        isShowAccount:true
+
       }
     },
     computed: {
-
+      ...mapState('confirmOrder',['paySuccessObject'])
     },
     methods: {
-      submitOrder(){
-        this.$router.push('/confirmOrder')
-      },
-      openChoseAddress(){
-        this.$router.push('/choseAddress')
-      }
+      ...mapActions('confirmOrder',['success'])
     }
   }
 </script>

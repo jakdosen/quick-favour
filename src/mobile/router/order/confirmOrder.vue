@@ -19,14 +19,14 @@
             <p>选择支付方式</p>
             <div style="background: #fff">
              <checker v-model="chosePay"  type="radio" radio-required default-item-class="pay-default" selected-item-class="pay-selected">
-               <checker-item @click="payMoney('weixin')" class="vux-1px-b" value="1"><span style="color: #3eb135;font-size: 2rem" class="iconfont icon-wechat-cc"></span> <icon :type="chosePay==='1'? 'success':'circle'"></icon></checker-item>
-               <checker-item @click="payMoney('alipay')" v-if="!this.isWeixin" value="2"><span style="color: #00a7ff;font-size: 2rem" class="iconfont icon-alipay"></span> <icon :type="chosePay==='2'? 'success':'circle'"></icon></checker-item>
+               <checker-item  class="vux-1px-b" value="1"><span style="color: #3eb135;font-size: 2rem" class="iconfont icon-wechat-cc"></span> <icon :type="chosePay==='1'? 'success':'circle'"></icon></checker-item>
+               <checker-item  v-if="!this.isWeixin" value="2"><span style="color: #00a7ff;font-size: 2rem" class="iconfont icon-alipay"></span> <icon :type="chosePay==='2'? 'success':'circle'"></icon></checker-item>
              </checker>
            </div>
          </div>
          <!--确认支付-->
          <div class="confirm-btn">
-           <router-link class="confirm-pay" to="/payOrderSuccess">确认支付</router-link>
+           <a @click="payMoney" class="confirm-pay" href="javascript:;">确认支付</a>
          </div>
      </view-box>
   </div>
@@ -49,7 +49,7 @@
       let ua = window.navigator.userAgent.toLowerCase();
       this.isWeixin = ua.match(/MicroMessenger/i) === 'micromessenger' ? true : false;
       // 获取orderID
-      this.order_ids = this.$route.query.order_id || this.$router.push({path:'/'})
+      this.order_ids = this.$route.query.order_ids || this.$router.push({path:'/'})
       },
     data(){
       return {
@@ -63,10 +63,10 @@
     },
     methods: {
       ...mapActions('confirmOrder',['prepay']),
-      payMoney(val){
+      payMoney(){
           this.prepay({
             order_ids:this.order_ids,
-            payment:val
+            payment:{"1":'weixin',"2":'alipay'}[String(this.chosePay)]
           });
       }
     }

@@ -55,7 +55,7 @@
      <!--提交订单-->
      <div class="order-push">
        <p>实付金额：<span><small>￥</small>{{coinCash}}</span></p>
-       <span @click="submitOrder">提交订单</span>
+       <span @click="submitOrder_form">提交订单</span>
      </div>
    </div>
 </template>
@@ -105,7 +105,8 @@
     methods: {
       ...mapActions('confirmOrder',['checkOrder','submitOrder']),
       ...mapMutations('confirmOrder',['update']),
-      submitOrder(){
+      submitOrder_form(){
+          this.update({trueCash:this.coinCash});
           this.submitOrder({
             pay_type:this.chosePay,
             address_id:this.user_address.id,

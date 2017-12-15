@@ -47,7 +47,8 @@ export default {
     order :{
       done:`${rootPath}/order/done`,
       prepay:`${rootPath}/pay/prepay`,
-      addressList:`${rootPath}/address/addressList`
+      addressList:`${rootPath}/address/addressList`,
+      success:`${rootPath}/pay/success`
     },
     // 地址相关
     // address:{
