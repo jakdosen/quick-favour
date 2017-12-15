@@ -101,4 +101,14 @@ export function resetPassword(params = {}) {
   });
 }
 
-
+/**
+ * getWxSignature 获取微信签名
+ * @param params
+ * @returns {AxiosPromise<any>}
+ */
+export function getWxSignature(params = {}) {
+  return axios.get(
+    auth.wx_signature,
+    {params},
+  )
+}

@@ -38,10 +38,25 @@
   </view-box>
 </template>
 <script>
+  import Vue from 'vue'
   import { Group, Cell, Badge, ViewBox, XHeader,Flexbox,FlexboxItem,Icon,Popup,XButton,XTextarea,TransferDom} from 'vux'
   import { mapState, mapActions } from 'vuex'
   import '@/lib/share/js/social-share'
   import '@/lib/share/js/qrcode'
+  import { getWxSignature } from '^/services/auth'
+  import { shareCallback } from '^/services/article'
+  const wx = Vue.wechat;
+
+  wx.ready(() => {
+    const permissions = JSON.stringify(['onMenuShareTimeline', 'onMenuShareAppMessage'])
+    const url = document.location.href;
+    getWxSignature({
+      url:encodeURIComponent(url),
+      jsApiList:permissions
+    }).then(data=>{
+      wx.config(data.signPackage)
+    })
+  });
   export default {
     directives: {
       TransferDom
@@ -116,6 +131,32 @@
         this.$router.push({
           name:'article-detail-note',
           params:this.route.params
+        })
+      },
+      //分享到微信
+      shareAppMessage(){
+        wx.onMenuShareAppMessage({
+          title: this.article.title,
+          desc: this.article.desc,
+          link: window.location.href,
+          success(){
+            shareCallback({
+              article_id:this.article.id
+            })
+          }
+        })
+      },
+      //分享到微信朋友圈
+      shareTimeline(){
+        wx.onMenuShareTimeline({
+          title: this.article.title,
+          desc: this.article.desc,
+          link: window.location.href,
+          success(){
+            shareCallback({
+              article_id:this.article.id
+            })
+          }
         })
       }
     }

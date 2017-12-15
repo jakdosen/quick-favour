@@ -112,7 +112,7 @@ export  function getCartList(params = {}) {
 export  function changeCartChecked(params = {}) {
   return axios.post(
     mall.cartCheck,
-    {params},
+    {...params},
   );
 }
 
@@ -123,7 +123,7 @@ export  function changeCartChecked(params = {}) {
 export function updateCartNum(params = {}) {
   return axios.post(
     mall.cartUpdate,
-    {params},
+    {...params},
   );
 }
 
@@ -135,6 +135,6 @@ export function updateCartNum(params = {}) {
 export function delCart(params = {}) {
   return axios.post(
     mall.cartDel,
-    {params}
+    {...params}
   )
 }
