@@ -132,10 +132,10 @@
         }
       },
       totalPrice(){
-        return  _.chain(this.goodsList).pluck('list').flatten().filter(d=>d.is_checked == 1).reduce((a,b)=>a + b.cash_price * b.goods_number,0).value()
+        return  _.chain(this.goodsList).pluck('list').flatten().filter(d=>d.is_checked == 1).reduce((a,b)=>a + b.cash_price * b.goods_number,0).value().toFixed(2)
       },
       totalCoinBi(){
-        return  _.chain(this.goodsList).pluck('list').flatten().filter(d=>d.is_checked == 1).reduce((a,b)=>a + b.coin_price * b.goods_number,0).value()
+        return  _.chain(this.goodsList).pluck('list').flatten().filter(d=>d.is_checked == 1).reduce((a,b)=>a + b.coin_price * b.goods_number,0).value()|0
       }
     },
     methods:{

@@ -10,7 +10,7 @@ const goodTypeDesc = {
   cashcoin_goods:'现金&秒币'
 }
 
-let mockData = {
+/*let mockData = {
   "carts": {
     "cash_goods": [],
     "coin_goods": [
@@ -52,26 +52,26 @@ let mockData = {
     "cash_total": "40.00",
     "coin_total": 88
   }
-};
+};*/
 /**
  * parseCartListData 解析购物车数据
  * @param data
  * @returns {Array}
  */
 let parseCartListData = data=>{
-  let cartList = [];
+  let cartsList = [];
   _.each(_.pairs(data.carts || []), pair => {
     let type = pair[0],subObj;
-    cartList.push( subObj = {
+    cartsList.push((subObj = {
       type,
       name:goodTypeDesc[type],
       list:[]
-    })
-    pair[1].forEach(cart => {
+    }));
+    (pair[1].goods_list||[]).forEach(cart => {
       subObj.list.push(cart)
-    })
+    });
   })
-  return cartList
+  return cartsList
 };
 export default {
   namespaced: true,
@@ -90,7 +90,7 @@ export default {
         commit('fetchCartList',parseCartListData(data))
       });
 
-      commit('fetchCartList',parseCartListData(mockData))
+      // commit('fetchCartList',parseCartListData(mockData))
 
     },
     //结算

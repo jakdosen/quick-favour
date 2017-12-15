@@ -12,7 +12,8 @@ export default {
       //参数：article_id,page
       getComment:`${rootPath}/article/comment`,
       //参数：id_value,content
-      addComment:`${rootPath}/article/comment/create`
+      addComment:`${rootPath}/article/comment/create`,
+      shareCallback:`${rootPath}/article//share/callback`
     },
     //用户相关
     auth:{
@@ -21,7 +22,8 @@ export default {
       thirdRegister:`${rootPath}/auth/thirdRegister`,
       resetPassword:`${rootPath}/auth/resetPassword`,
       sendCode:`${rootPath}/auth/sendCode`,
-      wx_bindPhone:`${rootPath}/auth/weChat/wx_bindPhone`
+      wx_bindPhone:`${rootPath}/auth/weChat/wx_bindPhone`,
+      wx_signature:`${rootPath}/auth/weChat/wxSignature`
     },
     //商城相关
     mall:{

@@ -59,6 +59,17 @@ export function getCommentList(params = {page:1}) {
 export function addComment(params = {}) {
   return axios.post(
     article.addComment,
-    {params},
+    {...params},
+  )
+}
+/**
+ * shareCallback 分享成功回调
+ * @param params
+ * @returns {AxiosPromise<any>}
+ */
+export function shareCallback(params = {}) {
+  return axios.post(
+    article.shareCallback,
+    {...params},
   )
 }
