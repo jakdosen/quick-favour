@@ -11,7 +11,7 @@ export default {
   },
   actions: {
     fetchSwiperData ({ commit ,state}) {
-      getAd().then(data=>{
+      getAd().then(({data})=>{
         commit('fetchSwiperData',data.map(d=>({
           url: d.ad_link,
           img: d.ad_code,
@@ -20,7 +20,7 @@ export default {
       })
     },
     fetchArticleData({ commit ,state}){
-      getList().then((data)=>{
+      getList().then(({data})=>{
         commit('fetchArticleData',data)
       })
     }

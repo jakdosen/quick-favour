@@ -19,11 +19,12 @@
         <span class="iconfont icon-note" style="ont-size: 2.1rem; vertical-align: middle;"></span>
         留言...
       </flexbox-item>
-      <flexbox-item>
-        <div class="social-share" data-sites="wechat,weibo,qq,qzone,tencent">
-
+     <!-- <flexbox-item>
+        <div class="social-share">
+            <a class="iconfont icon-weixin" @click.native="shareAppMessage"></a>
+            <a class="iconfont icon-pengyouquan" @click.native="shareTimeline"></a>
         </div>
-      </flexbox-item>
+      </flexbox-item>-->
     </flexbox>
     <div v-transfer-dom>
       <popup v-model="isShowNotePopup" position="bottom" max-height="50%">
@@ -41,32 +42,61 @@
   import Vue from 'vue'
   import { Group, Cell, Badge, ViewBox, XHeader,Flexbox,FlexboxItem,Icon,Popup,XButton,XTextarea,TransferDom} from 'vux'
   import { mapState, mapActions } from 'vuex'
-  import '@/lib/share/js/social-share'
-  import '@/lib/share/js/qrcode'
   import { getWxSignature } from '^/services/auth'
   import { shareCallback } from '^/services/article'
   const wx = Vue.wechat;
+  const permissions = JSON.stringify(['onMenuShareTimeline', 'onMenuShareAppMessage'])
+  const url = document.location.href;
+  getWxSignature({
+    url:encodeURIComponent(url),
+    jsApiList:permissions
+  }).then(data=>{
+    wx.config(Object.assign(data.signPackage,{
+      jsApiList:['checkJsApi','onMenuShareTimeline', 'onMenuShareAppMessage']
+    }))
+  })
 
-  wx.ready(() => {
-    const permissions = JSON.stringify(['onMenuShareTimeline', 'onMenuShareAppMessage'])
-    const url = document.location.href;
-    getWxSignature({
-      url:encodeURIComponent(url),
-      jsApiList:permissions
-    }).then(data=>{
-      wx.config(data.signPackage)
-    })
-  });
   export default {
     directives: {
       TransferDom
     },
     created(){
       this.fetchArticleDetail(this.route.params);
+      wx.ready(()=> {
+        wx.onMenuShareAppMessage({
+          title: this.article.title,
+          desc: this.article.desc,
+          link: window.location.href,
+          success(){
+            shareCallback({
+              article_id:this.article.id
+            }).then((data)=>{
+              Vue.$vux.toast.text(`分享成功！获得${data.amount}个秒币`);
+
+            })
+          }
+        });
+        wx.onMenuShareTimeline({
+          title: this.article.title,
+          desc: this.article.desc,
+          link: window.location.href,
+          success(){
+            shareCallback({
+              article_id:this.article.id
+            }).then((data)=>{
+              Vue.$vux.toast.text(`分享成功！获得${data.amount}个秒币`);
+            })
+          }
+        })
+
+      });
+      wx.error((res)=> {
+        Vue.$vux.toast.text(res.message);
+      })
     },
     mounted() {
       //初始化分享
-      socialShare('.social-share');
+      // socialShare('.social-share');
 
     },
     data:()=>({
@@ -166,7 +196,7 @@
   @import "~vux/src/styles/weui/weui.less";
   @import "~@/common.less";
   @import "~@/style/article.less";
-  @import "~@/lib/share/css/share.less";
+  /*@import "~@/lib/share/css/share.less";*/
   .article-footer{
     position: absolute;
     height: 45px;
@@ -209,12 +239,20 @@
       color:#404040;
       img{
         max-width: 100%;
+        position: relative;
+        left: -2em;
       }
       p{
         margin: .6rem 0;
         text-align: justify;
         text-indent: 2em;
       }
+    }
+  }
+  .social-share{
+    .iconfont{
+      color: #00b800;
+      font-size: 28px;
     }
   }
 </style>

@@ -53,13 +53,13 @@ export default {
 	},
 	mutations: {
     setArticleDetail(state, payload){
-			Object.assign(state.article, payload)
+			Object.assign(state.article, payload);
 		},
 		setArticleNoteList(state, payload){
-      state.notes = [...state.notes,...payload]
+      state.notes = [...payload];
 		},
     setPagination(state, payload){
-      Object.assign(state.pagination, payload)
-    },
+      Object.assign(state.pagination, payload);
+    }
 	}
 }
