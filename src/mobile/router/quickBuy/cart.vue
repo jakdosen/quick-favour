@@ -26,7 +26,7 @@
             <div class="cart-wrap">
               <div class="cart-item-img">
                 <check-icon class="cart-check"
-                            :value="!!item.is_checked"
+                            :value="item.is_checked == 1"
                             v-on:update:value="(selected)=>changeSelectSingleGoods({cart_id:item.cart_id,selected})"></check-icon>
                 <div class="cart-item-img-wrap"><img :src="item.goods_img"></div>
               </div>
@@ -125,14 +125,14 @@
         get(){
           let allGoods = _.chain(this.goodsList).pluck('list').flatten();
           let allGoodsNum = allGoods.value().length;
-          return allGoodsNum === allGoods.flatten().filter(d=>d.is_checked == 1).value().length
+          return !!allGoodsNum && allGoodsNum === allGoods.flatten().filter(d=>d.is_checked == 1).value().length
         },
         set(selected){
           this.changeSelectAllGoods(selected)
         }
       },
       totalPrice(){
-        return  _.chain(this.goodsList).pluck('list').flatten().filter(d=>d.is_checked == 1).reduce((a,b)=>a + b.cash_price * b.goods_number,0).value().toFixed(2)
+        return  _.chain(this.goodsList).pluck('list').flatten().filter(d=>d.is_checked == 1).reduce((a,b)=>a + b.cash_price * b.goods_number,0).value()
       },
       totalCoinBi(){
         return  _.chain(this.goodsList).pluck('list').flatten().filter(d=>d.is_checked == 1).reduce((a,b)=>a + b.coin_price * b.goods_number,0).value()|0
