@@ -44,7 +44,7 @@
            <em class="iconfont icon-home"></em><br>
            首页
          </span>
-         <span>
+         <span @click="openMallCart">
            <em class="iconfont icon-shopping-cart"></em><br>
            购物车</span>
          <span @click="openCustomDialog">
@@ -64,7 +64,7 @@
              <div class="custom-content-box">
                <p>我们全心全意为您提供满意周到的咨询服务，也希望您支持和监督我们的服务！</p>
                <a href="tel:4007-555-555">拨打客服热线</a>
-               <a href="">QQ客服</a>
+               <!--<a href="">QQ客服</a>-->
              </div>
         </div>
       </x-dialog>
@@ -134,6 +134,9 @@
       },
       openHome(){
           this.$router.push('/')
+      },
+      openMallCart(){
+        this.$router.push('/mall/cart')
       },
       changeSpec(val){
         // value 有4个值，第一个为组，第二个为规格ID，第三个为现金 第四个为秒币
@@ -243,11 +246,11 @@
         margin-top: 1.5rem;
         background: #5dbf10;
         line-height: 3rem;
-        &:last-child{
-           margin-top: 1rem;
-            color: #5dbf10;
-            background: #fff;
-         }
+        /*&:last-child{*/
+           /*margin-top: 1rem;*/
+            /*color: #5dbf10;*/
+            /*background: #fff;*/
+         /*}*/
       }
   }
 

@@ -22,7 +22,7 @@
                <p>{{list.goods_brief}}</p>
                <span><small>￥</small>{{list.cash_price}}</span>
                <div>
-                   <span><small>￥</small>{{list.coin_price}}</span>
+                   <span><small>M</small>{{list.coin_price}}</span>
                    <i v-if="list.cash_price">元</i>
                    <b v-if="list.coin_price">秒</b>
                </div>
@@ -55,7 +55,7 @@
          <div id="buy-content-more" class="buy-content-more clearfix">
           <tab :line-width=2 active-color='#fc378c' v-model="index">
             <tab-item class="vux-center">商品介绍</tab-item>
-            <tab-item class="vux-center">商品详情</tab-item>
+            <tab-item class="vux-center">商品参数</tab-item>
           </tab>
           <div class="buy-swrap clearfix" >
             <transition name="fade">

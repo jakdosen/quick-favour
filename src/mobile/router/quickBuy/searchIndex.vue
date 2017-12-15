@@ -101,6 +101,7 @@
        // 判断是否是直接搜索关键词
        this.searchWord = this.$route.query['searchWord']||'';
        this.searchFrom = this.searchWord && true;
+       this.searchWord&&this.$store.dispatch('searchIndex/search', {keywords: this.searchWord});
        // 取出本地存储的搜索历史
        const localStorage = window.localStorage.getItem('searchHistory')
        this.searchHistory = localStorage && localStorage.split(',') || '';

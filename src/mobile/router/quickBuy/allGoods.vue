@@ -26,7 +26,7 @@
               <span class="all-placeholder">热门分类</span>
               <div style="background: #fff">
                 <grid :cols="3">
-                  <grid-item v-for="(child,index) in item.children" :key="index" :link="'/goods/'+child.id" :label="child.cat_name">
+                  <grid-item v-for="(child,index) in item.children" :key="index" :link="'/search?searchWord='+child.cat_name" :label="child.cat_name">
                     <img slot="icon" :src="child.category_img">
                   </grid-item>
                 </grid>
