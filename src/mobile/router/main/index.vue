@@ -11,14 +11,22 @@
         <span slot="label">秒赞</span>
       </tabbar-item>
       <tabbar-item :link="{path:'/mall'}" :selected="/^\/mall/.test(path) && path!='/mall/cart'" >
-        <span class="iconfont icon-light" slot="icon"></span>
+        <span class="iconfont icon-bag" slot="icon"></span>
         <span slot="label">秒购</span>
       </tabbar-item>
+      <tabbar-item  :link="{path:'/quick'}" :selected="/^\/quick/.test(path)">
+        <span class="iconfont icon-light" slot="icon" style="position: relative;top: 2px"></span>
+        <span slot="label">秒杀</span>
+      </tabbar-item>
+      <tabbar-item  :link="{path:'/raise'}" :selected="/^\/raise/.test(path)">
+        <span class="iconfont icon-diamond" slot="icon" style="position: relative;top: 2px"></span>
+        <span slot="label">秒筹</span>
+      </tabbar-item>
       <!--开发环境临时链接-->
-      <tabbar-item :link="{path:'/mall/cart'}" :selected="/^\/mall\/cart/.test(path)" >
+<!--      <tabbar-item :link="{path:'/mall/cart'}" :selected="/^\/mall\/cart/.test(path)" >
         <span class="iconfont icon-shopping-cart" slot="icon"></span>
         <span slot="label">购物车</span>
-      </tabbar-item>
+      </tabbar-item>-->
       <tabbar-item :link="'http://t13.zetadata.com.cn/m1/account_cen/'" :selected="/^\/user/.test(path)" show-dot>
         <span class="iconfont icon-user" slot="icon"></span>
         <span slot="label">会员</span>

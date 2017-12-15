@@ -37,6 +37,16 @@ export default new Router({
             path:'/mall/order',
             component:resolve =>  require(['@/router/quickBuy/order.vue'], resolve)
         },
+        //秒杀
+        {
+          path:'quick',
+          component:resolve =>  require(['@/router/main/building'], resolve)
+        },
+        //秒筹
+        {
+          path:'raise',
+          component:resolve =>  require(['@/router/main/building'], resolve)
+        },
       ]
     },
     //文章详情独立
