@@ -124,8 +124,13 @@ export default {
       commit('changeSelectAllGoods',selected)
     },
     //移除选中商品
-    removeSelectedGoods({commit}){
-      commit('removeSelectedGoods')
+    removeSelectedGoods({commit,state}){
+
+      let cart_ids = _.chain(state.goodsList).pluck('list').flatten().filter(item=>item.is_checked == 1).pluck('cart_id').value()
+      delCart({
+        cart_id:cart_ids.join(',')
+      });
+      commit('removeSelectedGoods');
       commit('changeEditMode',false)
     },
     //改变商品数量
@@ -161,10 +166,18 @@ export default {
     changeSelectBatchGoods(state, payload){
       let goodsBatch = state.goodsList.find(item=>item.type == payload.type);
       if(!goodsBatch) return
+      changeCartChecked({
+        cart_id: _.pluck(goodsBatch.list,'cart_id').join(''),
+        is_checked: payload.selected|0
+      })
       goodsBatch.list.forEach(item=>item.is_checked = payload.selected|0)
     },
     //选择所有商品
     changeSelectAllGoods(state, payload){
+      changeCartChecked({
+        cart_id: _.chain(state.goodsList).pluck('list').flatten().pluck('cart_id').value().join(','),
+        is_checked: payload|0
+      })
       state.goodsList.forEach(item=>{
         item.list.forEach(obj=>{
           obj.is_checked = payload | 0
@@ -182,6 +195,7 @@ export default {
     removeSelectedGoods(state){
       state.goodsList.forEach(subList=>{
         subList.list = subList.list.filter(item=>item.is_checked != 1)
+
       })
     }
   }
