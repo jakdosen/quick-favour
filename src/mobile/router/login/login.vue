@@ -4,7 +4,7 @@
       <flexbox-item>
         <!--头部logo-->
         <div class="login-logo">
-          <span>妙趣</span>
+          <span></span>
         </div>
         <!--输入账号密码-->
         <div style="margin-left: -15px">
