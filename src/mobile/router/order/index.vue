@@ -6,10 +6,13 @@
        <!--收货地址-->
        <div class="order-address" @click="openChoseAddress">
          <div class="left iconfont icon-address"></div>
-         <div class="center">
+         <div v-if="user_address" class="center">
            <p><span>收货人：</span>{{ user_address.true_name + ' '+user_address.mobile}}</p>
            <p><span>收货地址：</span>{{ user_address.province+user_address.city+user_address.county+user_address.address}}</p>
          </div>
+          <div v-else class="center" style="width:30rem;line-height: 7rem">
+               <p>暂无默认地址，点击去选择</p>
+          </div>
          <div class="right iconfont icon-arrow-right"></div>
        </div>
        <!--商品列表-->
@@ -73,7 +76,11 @@
     created:function () {
       //获取购物车参数
       let cartId = this.$route.query.cartId||'';
-      this.checkOrder({cart_id:cartId});
+      let payload = {cart_id:cartId};
+      if(!cartId){
+        payload={...payload,...this.$route.query}
+      }
+      this.checkOrder(payload);
     },
     data(){
       return {

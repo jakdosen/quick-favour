@@ -51,7 +51,11 @@ axios.interceptors.request.use(
         config.params['api_token'] = axiosStore.get('api_token');
       }
       if(config.method.toLowerCase() == 'post'){
-        config.data.params['api_token'] = axiosStore.get('api_token');
+        try{
+          config.data.params['api_token'] = axiosStore.get('api_token');
+        }catch (e){
+          config.data['api_token'] = axiosStore.get('api_token');
+        }
       }
     }
     return config;

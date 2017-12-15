@@ -164,7 +164,9 @@
          let args ={goods_id:this.$route.params.id
            ,number:this.buyNum
            ,spec:this.specification.join(',')};
-         flag ?this.create(args): this.$store.dispatch('confirmOrder/checkOrder',{buyNow:true,...args});
+         flag ?this.create(args)
+           : this.$router.push({path:'/submitOrder',query:{...args}});
+//        this.$store.dispatch('confirmOrder/checkOrder',{buyNow:true,...args});
       }
     }
   }

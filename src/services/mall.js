@@ -70,9 +70,9 @@ export function rater(params = {}) {
 
 // 加入购物车
 export function create(params = {}) {
-  return  axios.get(
+  return  axios.post(
     mall.create,
-    {params},
+    {...params},
   );
 }
 

@@ -29,20 +29,17 @@ export default {
   },
   actions: {
     checkOrder : async ({commit,state},payload) =>{
-       if(!payload['cart_id'] && !payload['buyNow']){
-         return;
-       }
        let res;
-       if(payload['buyNow']){
+       if(!payload['cart_id']){
          // 是立即购买时候的状态
-         const { buyNow, ...others} =payload;
+         const { cart_id, ...others} =payload;
          res = await directcheckorder(others);
-         router.push({path:'/'});
        }else{
          // 根据购物车加载
          res = await checkorder(payload);
        }
        const { goods_list,user_account, cash_pay, cashcoin_pay, user_address} = res;
+       debugger;
        let addressCount = user_address;
        if(state.nowSelectAddressId&&state.addressList.length){
          addressCount = state.addressList.filter(obj => obj.id=== state.nowSelectAddressId)
