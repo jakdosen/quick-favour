@@ -26,7 +26,7 @@ export default {
       const res  =await resetPassword(payload)
       router.push({path:'/login'});
     },
-    thirdRegister: async ({ commit ,state}) => {
+    thirdRegister: async ({ commit ,state},payload) => {
       const res  =await wx_bindPhone(payload)
       const {  api_token } =res;
       if(api_token){
