@@ -5,7 +5,7 @@
       :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')">
       <router-view class="router-view"></router-view>
     </transition>
-    <tabbar class="main-tabbar" icon-class="vux-center"  slot="bottom" style="height: 50px">
+    <tabbar class="main-tabbar" icon-class="vux-center"  slot="bottom" style="height: 50px;overflow: hidden">
       <tabbar-item :link="{path:'/'}" :selected="(/^\/article/.test(path) || path == '\/')" :title="path">
         <span class="iconfont icon-zan" slot="icon"></span>
         <span slot="label">秒赞</span>

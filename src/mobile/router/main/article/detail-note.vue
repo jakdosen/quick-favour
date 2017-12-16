@@ -46,8 +46,6 @@
   import { Group, Cell, Badge, ViewBox, XHeader,Flexbox,FlexboxItem,Icon,Popup,XButton,XTextarea,TransferDom} from 'vux'
   import { mapState, mapActions } from 'vuex'
   import VueBetterScroll  from 'vue2-better-scroll'
-  import '@/lib/share/js/social-share'
-  import '@/lib/share/js/qrcode'
   export default {
     directives: {
       TransferDom

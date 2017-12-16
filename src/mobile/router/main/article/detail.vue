@@ -45,16 +45,7 @@
   import { getWxSignature } from '^/services/auth'
   import { shareCallback } from '^/services/article'
   const wx = Vue.wechat;
-  const permissions = JSON.stringify(['onMenuShareTimeline', 'onMenuShareAppMessage'])
-  const url = document.location.href;
-  getWxSignature({
-    url:encodeURIComponent(url),
-    jsApiList:permissions
-  }).then(data=>{
-    wx.config(Object.assign(data.signPackage,{
-      jsApiList:['checkJsApi','onMenuShareTimeline', 'onMenuShareAppMessage']
-    }))
-  })
+
 
   export default {
     directives: {
@@ -62,6 +53,16 @@
     },
     created(){
       this.fetchArticleDetail(this.route.params);
+      const permissions = JSON.stringify(['onMenuShareTimeline', 'onMenuShareAppMessage'])
+      const url = document.location.href;
+      getWxSignature({
+          url:encodeURIComponent(url),
+          jsApiList:permissions
+      }).then(data=>{
+          wx.config(Object.assign(data.signPackage,{
+              jsApiList:['checkJsApi','onMenuShareTimeline', 'onMenuShareAppMessage']
+          }))
+      })
       wx.ready(()=> {
         wx.onMenuShareAppMessage({
           title: this.article.title,
@@ -72,7 +73,6 @@
               article_id:this.article.id
             }).then((data)=>{
               Vue.$vux.toast.text(`分享成功！获得${data.amount}个秒币`);
-
             })
           }
         });

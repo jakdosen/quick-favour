@@ -23,6 +23,10 @@ export default new Router({
 
           ]
         },
+				{
+					path:'/article/rule',
+					component:resolve =>  require(['@/router/main/article/rule'], resolve),
+				},
         {
           path:'mall',
           component:resolve =>  require(['@/router/quickBuy'], resolve)

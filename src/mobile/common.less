@@ -199,14 +199,22 @@ address, caption, cite, code, dfn, em, b, i, th, var, b, strong {
     font-size: 18px;
     position: relative;
     top:0px;
+    display: inline-block;
+    -webkit-transform: scale(1.1);
+    -moz-transform: scale(1.1);
+    -ms-transform: scale(1.1);
+    -o-transform: scale(1.1);
+    transform: scale(1.1);
   }
   .weui-tabbar__item{
     padding-top: 0;
     .weui-tabbar__label{
+      color: #555;
       position: relative;
       top: 3px;
     }
     .weui-tabbar__icon{
+      color: #555;
       top: 3px;
       &.vux-reddot:after,
       &.vux-reddot-border:after,
@@ -220,7 +228,6 @@ address, caption, cite, code, dfn, em, b, i, th, var, b, strong {
         color: @color1;
       }
     }
-
   }
 }
 .weui-tabbar__icon + .weui-tabbar__label {
