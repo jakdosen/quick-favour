@@ -47,18 +47,42 @@ let App = View.extend({
       $(el)[method](content);
     })
   },
-  fetchArticleCommentList(article_id){
+  fetchArticleCommentList(article_id,pageNum){
     getCommentList({
       article_id,
-      page:1
+      page:pageNum||1
     }).then(({data,meta})=>{
       this.commentList.reset(data);
+      this.initPagination(meta)
     })
   },
   renderCommentList(){
+    this.$('.comment-list').empty();
     this.commentList.each(comment=>{
       this.$('.comment-list').append(this.template(comment.toJSON()))
     })
+    !this.commentList.length && this.$('.comment-list').append('<h3>暂无评论</h3>')
+    this.$('img.lazy').lazyload({effect: "fadeIn"});
+  },
+  initPagination({pagination}){
+    let page$el = this.$('.js-pagination');
+    if(page$el[0].selectPage){
+      //todo
+    }else{
+      page$el.pagination(pagination.total, {
+        link_to:'javascript:;',
+        num_edge_entries: 1, //边缘页数
+        num_display_entries: 4, //主体页数
+        callback: this.changePageNum.bind(this),
+        items_per_page: pagination.per_page, //每页显示10项
+        prev_text: "前一页",
+        next_text: "后一页"
+      });
+    }
+
+  },
+  changePageNum(pageNum){
+    this.fetchArticleCommentList(this.urlParams.id,pageNum + 1);
   }
 });
 new App({

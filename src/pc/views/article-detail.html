@@ -27,34 +27,25 @@
         <a>全部留言(<span data-key="comment_num">0</span>)</a>
       </div>
       <div class="comment-list">
-        <div class="comment-panel">
-          <div class="comment-avatar">
-            <img>
-          </div>
-          <div class="comment-detail">
-            <h2 class="comment-nickname">小华</h2>
-            <div class="comment-desc">
-              Promise based HTTP client for the browser and node.js
-            </div>
-            <p class="comment-date">2017-10-25</p>
-          </div>
-        </div>
+        数据加载中...
       </div>
+      <div class="pagination js-pagination"><!-- 这里显示分页 --></div>
     </div>
   </div>
 </div>
 <!--评论模板-->
 <script type="text/template" id="comment-item-tpl">
+  <@var user = obj.user||{};@>
   <div class="comment-panel">
     <div class="comment-avatar">
-      <img>
+      <img class="lazy" data-src="<@-user.avatar@>">
     </div>
     <div class="comment-detail">
-      <h2 class="comment-nickname">小华</h2>
+      <h2 class="comment-nickname"><@-user.nickname||'匿名'@></h2>
       <div class="comment-desc">
-        Promise based HTTP client for the browser and node.js
+        <@-obj.account@>
       </div>
-      <p class="comment-date">2017-10-25</p>
+      <p class="comment-date"><@-obj.created_at@></p>
     </div>
   </div>
 </script>

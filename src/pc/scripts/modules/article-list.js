@@ -33,40 +33,24 @@ let App = View.extend({
   },
   //获取广告信息
   fetchAdListData(){
-    getAd().then((data)=>{
+    getAd().then(({data})=>{
       this.renderAd(data);
     })
   },
   //获取文章列表信息
   fetchArticleListData(){
-    getList().then((data)=>{
+    getList().then(({data})=>{
       this.dataBase = data.slice(0);
       this.renderArticleGroup(_.pluck(this.dataBase,'group'));
     })
   },
   renderAd(list){
-    list.push({
-        "id": 1,
-        "position_id": 1,
-        "ad_name": "首页广告1",
-        "ad_link": "http://www.baidu.com",
-        "ad_code": "http://img.ivsky.com/img/bizhi/slides/201711/16/thor_ragnark-010.jpg",
-        "created_at": "1970-01-01"
-      },
-      {
-        "id": 2,
-        "position_id": 1,
-        "ad_name": "首页广告2",
-        "ad_link": "http://www.baidu.com",
-        "ad_code": "http://www.adquan.com/adimages/1511936645065b9ef849bda63e.jpeg",
-        "created_at": "1970-01-01"
-      })
     _.each(list,item=>{
       this.$('.js-slider-cot').append(
         this.template.ad({
-          name:item.ad_name,
-          link:item.ad_link,
-          src:item.ad_code
+          name:item.adv_name,
+          link:item.adv_link,
+          src:item.adv_code
         })
       );
     });
@@ -90,7 +74,8 @@ let App = View.extend({
     this.$('.article-list').empty();
     this.articleList.each(article=>{
       this.$('.article-list').append(this.template.article(article.toJSON()))
-    })
+    });
+    this.$('img.lazy').lazyload({effect: "fadeIn"});
   },
   changeDateName(){
     let currentDateName = this.filter.get('dateName');

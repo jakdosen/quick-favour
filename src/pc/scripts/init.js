@@ -8,6 +8,8 @@ import Backbone from 'backbone'
 import _ from 'underscore'
 import $ from 'jquery'
 import toast from './libs/jquery-toast-plugin/jquery.toast'
+import lazyload from './libs/jquery-lazyload-plugin/jquery.lazyload'
+import pagination from './libs/jqyery-pagination-plugin/jquery.pagination'
 import LoginDialog from '@/scripts/common/loginDialog'
 
 //初始化加载样式文件
@@ -16,6 +18,10 @@ import '@/styles/loginDialog.less'
 import './libs/jquery-toast-plugin/jquery.toast.less'
 //绑定toast 插件
 toast($,window,document);
+//绑定 lazyload 插件
+lazyload($,window,document);
+//绑定 pagination 插件
+pagination($,window,document);
 if (!window.Promise) {
   window.Promise = Promise;
 }
