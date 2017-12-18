@@ -10,6 +10,7 @@ import $ from 'jquery'
 import toast from './libs/jquery-toast-plugin/jquery.toast'
 import lazyload from './libs/jquery-lazyload-plugin/jquery.lazyload'
 import pagination from './libs/jqyery-pagination-plugin/jquery.pagination'
+import magnifier from './libs/goods-detail/magnifier'
 import LoginDialog from '@/scripts/common/loginDialog'
 
 //初始化加载样式文件
@@ -22,6 +23,9 @@ toast($,window,document);
 lazyload($,window,document);
 //绑定 pagination 插件
 pagination($,window,document);
+// 绑定商品详情页商品图片展示
+magnifier($,window,document);
+
 if (!window.Promise) {
   window.Promise = Promise;
 }
