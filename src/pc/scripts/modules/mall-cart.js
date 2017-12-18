@@ -13,44 +13,52 @@ let moduleEv = _.extend({}, Events);
 let mockData = {
   "carts": {
     "cash_goods": [],
-    "coin_goods": [
-      {
-        "cart_id": 14,
-        "goods_id": 460,
-        "goods_name": "菲律宾香蕉约1.5kg",
-        "cash_price": "5.00",
-        "coin_price": "24",
-        "goods_type": 2,
-        "goods_number": 2,
-        "goods_attr_id": "4044,4049",
-        "goods_attr_str": "越南 8成熟",
-        "is_checked": 1,
-        "is_on_sale": 1,
-        "goods_img": "http://t13.zetadata.com.cn:8082/upload/images/201610/goods_img/460_G_1459126720606.jpg"
-      }
-    ],
-    "cashcoin_goods": [
-      {
-        "cart_id": 1,
-        "goods_id": 430,
-        "goods_name": "以色列葡萄柚4个约250g/个",
-        "cash_price": "30.00",
-        "coin_price": "40.00",
-        "goods_type": 3,
-        "goods_number": 1,
-        "goods_attr_id": "4044,4049",
-        "goods_attr_str": null,
-        "is_checked": 1,
-        "is_on_sale": 1,
-        "goods_img": "http://t13.zetadata.com.cn:8082/upload/images/201610/goods_img/430_G_1459971655294.jpg"
-      }
-    ]
+    "coin_goods": {
+      "checked_count": 1,
+      "goods_list": [
+        {
+          "cart_id": 14,
+          "goods_id": 460,
+          "goods_name": "菲律宾香蕉约1.5kg",
+          "goods_sn": "MZ000460",
+          "cash_price": "5.00",
+          "coin_price": "59995",
+          "goods_type": 2,
+          "goods_number": 2,
+          "goods_attr_id": "4044,4049",
+          "goods_attr_str": "越南 8成熟",
+          "is_checked": 1,
+          "is_on_sale": 1,
+          "goods_img": "http://t13.zetadata.com.cn:8082/upload/images/201610/goods_img/460_G_1459126720606.jpg"
+        }
+      ]
+    },
+    "cashcoin_goods": {
+      "checked_count": 1,
+      "goods_list": [
+        {
+          "cart_id": 1,
+          "goods_id": 430,
+          "goods_name": "以色列葡萄柚4个约250g/个",
+          "goods_sn": "MZ000430",
+          "cash_price": "30.00",
+          "coin_price": "40.00",
+          "goods_type": 3,
+          "goods_number": 1,
+          "goods_attr_id": "4044,4049",
+          "goods_attr_str": null,
+          "is_checked": 1,
+          "is_on_sale": 1,
+          "goods_img": "http://t13.zetadata.com.cn:8082/upload/images/201610/goods_img/430_G_1459971655294.jpg"
+        }
+      ]
+    }
   },
   "total": {
-    "goods_checked": 2,
-    "goods_count": 2,
+    "goods_checked": 3,
+    "goods_count": 3,
     "cash_total": "40.00",
-    "coin_total": 88
+    "coin_total": 120035
   }
 };
 /**
@@ -101,8 +109,8 @@ let CartCollection = Collection.extend({
     })
     let total = _.reduce(findList, (a, b) => {
       return {
-        cash_total: a.cash_total + parseInt(b.get('cash_price')) || 0,
-        coin_total: a.coin_total + parseInt(b.get('coin_price')) | 0
+        cash_total: a.cash_total + (parseInt(b.get('cash_price')) || 0) * b.get('goods_number'),
+        coin_total: a.coin_total + (parseInt(b.get('coin_price')) | 0) * b.get('goods_number')
       }
     }, {cash_total: 0, coin_total: 0});
     total.goods_checked = findList.length;
@@ -182,7 +190,7 @@ let App = View.extend({
     let cartList = [];
     _.each(_.pairs(data.carts || []), pair => {
       let type = pair[0];
-      pair[1].forEach(cart => {
+      pair[1].goods_list && pair[1].goods_list.forEach(cart => {
         cartList.push(_.extend({type}, cart))
       })
     })
@@ -201,7 +209,7 @@ let App = View.extend({
   },
   //选择所有
   changeSelectAllCart(e) {
-    this.$('.js-cart-checkbox').prop('checked',e.currentTarget.checked)
+    this.$('.js-cart-checkbox').prop('checked', e.currentTarget.checked).trigger('change')
   },
   //提交订单
   checkCart() {
@@ -209,7 +217,6 @@ let App = View.extend({
   },
   changeTotal() {
     this.totalModel.set(this.cartList.getTotal())
-
   },
   renderTotal() {
     let totalModel = this.totalModel, checkLen = totalModel.get('goods_checked');
