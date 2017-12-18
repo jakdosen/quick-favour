@@ -3,6 +3,8 @@
  */
 import '@/styles/goodsDetail.less'
 import  sliderBar  from '@/scripts/common/sliderbar'
+import $ from 'jquery'
+import _ from 'underscore'
 
 new sliderBar();
 
