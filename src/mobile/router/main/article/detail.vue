@@ -136,6 +136,7 @@
       initShare(config){
         const permissions = ['hideMenuItems','onMenuShareTimeline', 'onMenuShareAppMessage'];
         const url = (config && config.share_url)||window.location.href;
+        let article = this.article;
         getWxSignature({
           url:encodeURIComponent(url),
           jsApiList:JSON.stringify(permissions)
@@ -152,26 +153,26 @@
             });
           }
           wx.onMenuShareAppMessage({
-            title: this.article.title,
-            desc: this.article.desc,
+            title: article.title,
+            desc: article.desc,
             link: url,
-            imgUrl:this.article.cover,
+            imgUrl:article.cover,
             success(){
               shareCallback({
-                article_id:this.article.id
+                article_id:article.id
               }).then((data)=>{
                 Vue.$vux.toast.text(`分享成功！获得${data.amount}个秒币`);
               })
             }
           });
           wx.onMenuShareTimeline({
-            title: this.article.title,
-            desc: this.article.desc,
+            title: article.title,
+            desc: article.desc,
             link: url,
-            imgUrl:this.article.cover,
+            imgUrl:article.cover,
             success(){
               shareCallback({
-                article_id:this.article.id
+                article_id:article.id
               }).then((data)=>{
                 Vue.$vux.toast.text(`分享成功！获得${data.amount}个秒币`);
               })

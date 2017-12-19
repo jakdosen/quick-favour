@@ -83,7 +83,7 @@
 </script>
 <script type="text/template" id="comment-submit-tpl">
   <@var isLogin = window.bus.checkIsLogin();@>
-  <textarea style="width: 100%;resize: none" rol="5" maxlength="500" class="comment-textarea <@=(!isLogin?'no-login':'')@>"
+  <textarea style="width: 100%;resize: none" rows="5" maxlength="500" class="comment-textarea <@=(!isLogin?'no-login':'')@>"
   placeholder="<@=isLogin?'说说你的看法':'请登录后发表评论'@>"
   <@=(!isLogin?'readonly':'')@>
   ></textarea>
