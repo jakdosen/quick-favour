@@ -6,6 +6,35 @@
 </head>
 <body>
 <%-include('./common/header.html',{type:'article'})%>
+<style>
+  .comment-textarea{
+    box-sizing: border-box;
+    margin: 0;
+    -webkit-appearance: none;
+    tap-highlight-color: hsla(0,0%,100%,0);
+    padding: .78571429em 1em;
+    background: #fff;
+    border: 1px solid rgba(34,36,38,.15);
+    outline: none;
+    color: rgba(0,0,0,.87);
+    border-radius: .28571429rem;
+    box-shadow: inset 0 0 0 0 transparent;
+    transition: color .1s ease,border-color .1s ease;
+    font-size: 1em;
+    line-height: 1.2857;
+    resize: vertical;
+  }
+  .comment-textarea:focus{
+    color: rgba(0,0,0,.95);
+    border-color: rgba(242, 117, 0, 0.39);
+    border-radius: .28571429rem;
+    background: #fff;
+    box-shadow: inset 0 0 0 0 rgba(34,36,38,.35);
+  }
+  .comment-textarea.no-login{
+    cursor: pointer;
+  }
+</style>
 <div class="main-container">
   <div class="article-wrap">
     <h1 class="article-title" data-key="title">&nbsp;</h1>
@@ -23,6 +52,9 @@
         分享到：<div class="inline-block js-article-share" data-sites="wechat,weibo,qq,qzone,tencent,douban"></div>
     </div>
     <div class="article-comment">
+      <div class="js-commit-textArea">
+
+      </div>
       <div class="comment-summary">
         <a>全部留言(<span data-key="comment_num">0</span>)</a>
       </div>
@@ -43,12 +75,21 @@
     <div class="comment-detail">
       <h2 class="comment-nickname"><@-user.nickname||'匿名'@></h2>
       <div class="comment-desc">
-        <@-obj.account@>
+        <@-obj.content@>
       </div>
       <p class="comment-date"><@-obj.created_at@></p>
     </div>
   </div>
 </script>
-
+<script type="text/template" id="comment-submit-tpl">
+  <@var isLogin = window.bus.checkIsLogin();@>
+  <textarea style="width: 100%;resize: none" rol="5" maxlength="500" class="comment-textarea <@=(!isLogin?'no-login':'')@>"
+  placeholder="<@=isLogin?'说说你的看法':'请登录后发表评论'@>"
+  <@=(!isLogin?'readonly':'')@>
+  ></textarea>
+  <div class="text-right" style="margin: 1rem 0">
+    <button type="button" class="js-submit btn btn-primary" style="padding:6px 40px" <@=(!isLogin?'disabled':'')@>>发布</button>
+  </div>
+</script>
 </body>
 </html>

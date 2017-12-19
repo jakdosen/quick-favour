@@ -22,9 +22,12 @@ export default {
     fetchArticleDetail ({ commit ,state},params) {
       getDetail({
         article_id:params.articleId
-      }).then(({title,created_at,like_num,content})=>{
+      }).then(({title,created_at,like_num,content,id,desc,cover})=>{
         commit('fetchArticleDetail',{
+          id,
           title,
+          desc,
+          cover,
           date:created_at,
           likeNum:like_num,
           detail:content

@@ -31,6 +31,42 @@ html,body{
   font: 12px/1.5 Microsoft YaHei,tahoma,arial,Hiragino Sans GB,sans-serif;
   background-color: @bg-default-color;
 }
+.btn{
+  display: inline-block;
+  padding: 4px 15px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+  touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+.btn-primary{
+  color: #fff;
+  background-color: @primary-color;
+  border-color: @primary-color;
+}
+.btn-primary:hover{
+  background-color: darken(@primary-color,5%);
+}
+.btn.disabled,.btn[disabled]{
+  cursor: not-allowed;
+}
+.btn-primary.disabled,.btn-primary[disabled],.btn-primary.disabled:hover,.btn-primary[disabled]:hover{
+  background-color: lighten(@primary-color,30%);
+  border-color: lighten(@primary-color,30%);
+}
 .fl{
   float: left;
 }

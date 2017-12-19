@@ -42,8 +42,8 @@
   import Vue from 'vue'
   import { Group, Cell, Badge, ViewBox, XHeader,Flexbox,FlexboxItem,Icon,Popup,XButton,XTextarea,TransferDom} from 'vux'
   import { mapState, mapActions } from 'vuex'
-  import { getWxSignature } from '^/services/auth'
-  import { shareCallback } from '^/services/article'
+  import { getWxSignature} from '^/services/auth'
+  import { shareCallback ,preshare} from '^/services/article'
   const wx = Vue.wechat;
 
 
@@ -53,51 +53,21 @@
     },
     created(){
       this.fetchArticleDetail(this.route.params);
-      const permissions = JSON.stringify(['onMenuShareTimeline', 'onMenuShareAppMessage'])
-      const url = document.location.href;
-      getWxSignature({
-          url:encodeURIComponent(url),
-          jsApiList:permissions
+      preshare({
+        article_id:this.route.params.articleId
       }).then(data=>{
-          wx.config(Object.assign(data.signPackage,{
-              jsApiList:['checkJsApi','onMenuShareTimeline', 'onMenuShareAppMessage']
-          }))
-      })
-      wx.ready(()=> {
-        wx.onMenuShareAppMessage({
-          title: this.article.title,
-          desc: this.article.desc,
-          link: window.location.href,
-          success(){
-            shareCallback({
-              article_id:this.article.id
-            }).then((data)=>{
-              Vue.$vux.toast.text(`分享成功！获得${data.amount}个秒币`);
-            })
-          }
-        });
-        wx.onMenuShareTimeline({
-          title: this.article.title,
-          desc: this.article.desc,
-          link: window.location.href,
-          success(){
-            shareCallback({
-              article_id:this.article.id
-            }).then((data)=>{
-              Vue.$vux.toast.text(`分享成功！获得${data.amount}个秒币`);
-            })
-          }
-        })
-
-      });
-      wx.error((res)=> {
-        Vue.$vux.toast.text(res.message);
+        this.initShare(data)
+      }).catch(resp=>{
+        if(resp.code == 201 && !!~resp.message.indexOf('会员才可以分享文章')){
+          this.initShare({hide:true})
+        }else{
+          this.initShare({})
+        }
       })
     },
     mounted() {
       //初始化分享
       // socialShare('.social-share');
-
     },
     data:()=>({
       isShowNotePopup:false,
@@ -163,30 +133,54 @@
           params:this.route.params
         })
       },
-      //分享到微信
-      shareAppMessage(){
-        wx.onMenuShareAppMessage({
-          title: this.article.title,
-          desc: this.article.desc,
-          link: window.location.href,
-          success(){
-            shareCallback({
-              article_id:this.article.id
-            })
+      initShare(config){
+        const permissions = ['hideMenuItems','onMenuShareTimeline', 'onMenuShareAppMessage'];
+        const url = (config && config.share_url)||window.location.href;
+        getWxSignature({
+          url:encodeURIComponent(url),
+          jsApiList:JSON.stringify(permissions)
+        }).then(data=>{
+          wx.config(Object.assign(data.signPackage,{
+            jsApiList:permissions
+          }));
+        });
+        wx.ready(()=> {
+          //没有分享权限
+          if(config && config.hide){
+            wx.hideMenuItems({
+              menuList: ['menuItem:share:appMessage','menuItem:share:timeline']
+            });
           }
-        })
-      },
-      //分享到微信朋友圈
-      shareTimeline(){
-        wx.onMenuShareTimeline({
-          title: this.article.title,
-          desc: this.article.desc,
-          link: window.location.href,
-          success(){
-            shareCallback({
-              article_id:this.article.id
-            })
-          }
+          wx.onMenuShareAppMessage({
+            title: this.article.title,
+            desc: this.article.desc,
+            link: url,
+            imgUrl:this.article.cover,
+            success(){
+              shareCallback({
+                article_id:this.article.id
+              }).then((data)=>{
+                Vue.$vux.toast.text(`分享成功！获得${data.amount}个秒币`);
+              })
+            }
+          });
+          wx.onMenuShareTimeline({
+            title: this.article.title,
+            desc: this.article.desc,
+            link: url,
+            imgUrl:this.article.cover,
+            success(){
+              shareCallback({
+                article_id:this.article.id
+              }).then((data)=>{
+                Vue.$vux.toast.text(`分享成功！获得${data.amount}个秒币`);
+              })
+            }
+          })
+
+        });
+        wx.error((res)=> {
+          Vue.$vux.toast.text(res.errMsg);
         })
       }
     }

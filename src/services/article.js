@@ -73,3 +73,16 @@ export function shareCallback(params = {}) {
     {...params},
   )
 }
+
+/**
+ * preshare 分享前获取数据
+ * @param params
+ * @returns {AxiosPromise<any>}
+ */
+export function preshare(params = {}) {
+  return axios.get(
+    article.preshare,
+    {params},
+  )
+}
+

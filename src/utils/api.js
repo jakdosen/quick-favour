@@ -13,7 +13,8 @@ export default {
       getComment:`${rootPath}/article/comment`,
       //参数：id_value,content
       addComment:`${rootPath}/article/comment/create`,
-      shareCallback:`${rootPath}/article//share/callback`,
+      shareCallback:`${rootPath}/article/share/callback`,
+      preshare:`${rootPath}/article/preshare`,
       //文章规则
       rule:`${rootPath}/related/rule`
     },

@@ -8,13 +8,17 @@ import '@/scripts/libs/social-share/js/qrcode'
 import $ from 'jquery'
 import _ from 'underscore'
 import util from '^/utils'
-import {getDetail,getCommentList} from '^/services/article'
+import {getDetail,getCommentList,preshare,addComment} from '^/services/article'
 import {Model,Collection,View} from 'backbone'
 
 /**
  * App
  */
 let App = View.extend({
+  events:{
+    'click .comment-textarea.no-login,.js-article-share a':'checkLogin',
+    'click .js-submit':'addComment'
+  },
   template:_.template($('#comment-item-tpl').html()),
   initialize(){
     this.urlParams  = util.urlArgs();
@@ -24,13 +28,29 @@ let App = View.extend({
     this.fetchArticleData(this.urlParams.id);
     this.fetchArticleCommentList(this.urlParams.id);
     this.initSocialShare();
+    this.initSubmitTextArea();
+  },
+  checkLogin(e){
+    e.stopPropagation();
+    if (!bus.checkIsLogin()) {
+      bus.showLoginPopup();
+      e.preventDefault();
+      return this
+    }
   },
   initSocialShare(){
     require.ensure([], function(require){
       require('@/scripts/libs/social-share/js/social-share');
+
+/*      preshare({}).then(data=>{
+
+      });*/
       socialShare('.js-article-share');
     });
 		// socialShare('.js-article-share');
+  },
+  initSubmitTextArea(){
+    this.$('.js-commit-textArea').html(_.template($("#comment-submit-tpl").html())())
   },
   //获取文章列表信息
   fetchArticleData(article_id){
@@ -82,7 +102,17 @@ let App = View.extend({
 
   },
   changePageNum(pageNum){
+    if(this.curPageNum == pageNum) return
+    this.curPageNum = pageNum
     this.fetchArticleCommentList(this.urlParams.id,pageNum + 1);
+  },
+  addComment(){
+    addComment({
+      id_value:this.urlParams.id,
+      content:$.trim(this.$('.comment-textarea').val())
+    }).then(data=>{
+      this.fetchArticleCommentList(this.urlParams.id,this.curPageNum + 1);
+    })
   }
 });
 new App({

@@ -44,7 +44,7 @@
 </template>
 <script>
   import { Group, Cell, Badge, ViewBox, XHeader,Flexbox,FlexboxItem,Icon,Popup,XButton,XTextarea,TransferDom} from 'vux'
-  import { mapState, mapActions } from 'vuex'
+  import { mapState, mapActions ,mapMutations} from 'vuex'
   import VueBetterScroll  from 'vue2-better-scroll'
   export default {
     directives: {
@@ -52,11 +52,11 @@
     },
     created(){
       this.fetchDetail({articleId:this.articleId,page:1});
+      this.clearNoteList();
     },
     data:()=>({
       // article_id:this.route.params.article_id,
       showNotePopup:false,
-      isLoading:false,
       pullUpLoadObj: {
         threshold: 20,
         txt: {
@@ -78,7 +78,8 @@
       ...mapState('common',{
         direction: state => state.direction
       }),
-      ...mapState('articleDetailNote',['article','notes','pagination']),
+      ...mapState('articleDetailNote',['article','notes','pagination','isLoading']),
+
       leftOptions () {
         return {
           showBack: !!window.history.length
@@ -102,9 +103,10 @@
       ...mapActions('articleDetailNote',{
         fetchDetail:'fetchDetail',
       }),
+      ...mapMutations('articleDetailNote',['clearNoteList']),
       onPullingUp(){
         // 防止请求多次
-        if(!this.isLoading)  return;
+        if(this.isLoading)  return;
         const {current_page, total_pages} = this.pagination;
         this.$store.dispatch('articleDetailNote/fetchDetail', {articleId:this.articleId,page: current_page + 1});
         setTimeout(()=>{

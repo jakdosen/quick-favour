@@ -6,6 +6,7 @@ import _ from 'underscore'
 export default {
 	namespaced: true,
 	state: {
+    isLoading:false,
 		//文章详情数据
 		article: {
 			title: '',
@@ -28,6 +29,7 @@ export default {
 	},
 	actions: {
     fetchDetail ({commit, state}, params) {
+      commit('setLoadingState',true)
       getCommentList({
         article_id:params.articleId,
         page:params.page
@@ -48,15 +50,24 @@ export default {
             user:comment.user
           }
         }));
+        commit('setLoadingState',false)
+      }).catch(()=>{
+        commit('setLoadingState',false)
       })
 		}
 	},
 	mutations: {
+    clearNoteList(state, payload){
+      state.notes = [];
+    },
+    setLoadingState(state, payload){
+      state.isLoading = payload
+    },
     setArticleDetail(state, payload){
 			Object.assign(state.article, payload);
 		},
 		setArticleNoteList(state, payload){
-      state.notes = [...payload];
+      state.notes = [...state.notes,...payload];
 		},
     setPagination(state, payload){
       Object.assign(state.pagination, payload);

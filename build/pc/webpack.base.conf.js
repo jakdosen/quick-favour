@@ -99,7 +99,7 @@ chunks.unshift('vendor', 'init');
 moduleList.forEach(key =>{
 	webpackConfig.plugins.push(new HtmlWebpackPlugin({
 		template: `!!ejs-loader!ejs-html-loader!${htmls[key]}`,
-		filename: 'views/' + key + '.html',
+		filename: key + '.html',
 		chunks: ['vendor', 'init',key],
     chunksSortMode: function(a, b) {
 		  //解决js顺序问题
