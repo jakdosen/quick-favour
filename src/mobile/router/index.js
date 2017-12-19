@@ -85,7 +85,7 @@ export default new Router({
     },
     // 秒购商城
     {
-      path: '/quick',
+      path: '/quickMall',
       component: resolve => require(['@/router/quickBuy/quickMoney'], resolve)
     },
     // 全部商品

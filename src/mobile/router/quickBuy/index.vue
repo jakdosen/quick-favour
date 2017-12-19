@@ -15,7 +15,7 @@
         <div class="buy-swiper">
           <swiper :show-desc-mask="false" :show-dots="cycleImage>1" :auto="true" dots-position="center" :loop="true"
                   height="15rem">
-             <swiper-item v-for="(item, index) in cycleImage" :key="index"><router-link to="'/goods/'+item.id"><img style="width: 100%;height: auto" :src="item.adv_code"></router-link></swiper-item>
+             <swiper-item v-for="(item, index) in cycleImage" :key="index"><router-link :to="'/goods/'+item.id"><img style="width: 100%;height: auto" :src="item.adv_code"></router-link></swiper-item>
           </swiper>
         </div>
         <!--首页导航-->
@@ -24,7 +24,7 @@
             <grid-item link="/hot" :label="'热门商品'" class="change-width-height">
               <span slot="icon" class="buyIndex-01"></span>
             </grid-item>
-            <grid-item link="/quick" :label="'秒币商品'">
+            <grid-item link="/quickMall" :label="'秒币商品'">
               <span slot="icon" class="buyIndex-02"></span>
             </grid-item>
             <grid-item link="/all" :label="'全部商品'">
