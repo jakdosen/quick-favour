@@ -85,6 +85,8 @@ axios.interceptors.response.use(
 
 // 配置loading
 router.beforeEach(function (to, from, next) {
+  // 取出api_token 对象
+  to.query['api_token'] && axiosStore.set('api_token',to.query['api_token'])
   // 需要控制权限，并且没有token值
   if(!!~permission.perPath.indexOf(String(to.path))&& !axiosStore.get('api_token')){
     store.dispatch('common/toLogin',{callback:to.path});

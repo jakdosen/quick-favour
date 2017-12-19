@@ -14,7 +14,8 @@ export default {
     toLogin ({ commit ,state},payload) {
       axiosStore.remove('api_token');
       commit('updateLoginStatus',false)
-      router.push({'path': '/login',query:payload})
+      let ua = window.navigator.userAgent.toLowerCase();
+      ua.match(/MicroMessenger/i) === 'micromessenger' ? router.push({'path': '/api/auth/weChat/oauth',query:payload}) : router.push({'path': '/login',query:payload});
     },
     // //登陆成功设置
     loginSuccess({ commit ,state},params){
