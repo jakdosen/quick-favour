@@ -2,46 +2,47 @@
  * Created by shiyang.yao on 2017/12/18.
  */
 export default function($, window, document, undefined) {
-  var $window = $(window);
-
-  var SliderVerification = function (elem) {
+  var SliderVerification = function (options) {
     var self = this;
-    this.$box = elem||document.getElementById('verify_box');
-    this.$xbox = this.$elem.find('#verify_xbox');
-    this.$element = this.$elem.find('#btn');
+    this.$box =document.getElementById('verify_box');
+    this.$xbox = document.getElementById('verify_xbox');
+    this.$element = document.getElementById('btn');
     this.$b = this.$box.offsetWidth;
     this.$o = this.$element.offsetWidth;
+    this.callBack = options.callBack;
   };
 
   SliderVerification.prototype={
     inital: function () {
-      this.$element.ondragstart = function() {
+      var  _this = this;
+      _this.$element.ondragstart = function() {
         return false;
       };
-      this.$element.onselectstart = function() {
+      _this.$element.onselectstart = function() {
         return false;
       };
       this.$element.onmousedown = function(e) {
-        var disX = e.clientX - this.$element.offsetLeft;
+        var disX = e.clientX - _this.$element.offsetLeft;
         document.onmousemove = function (e) {
-          var l = e.clientX - disX +this.$o;
-          if(l<this.$o){
-            l=this.$o
+          var l = e.clientX - disX +_this.$o;
+          if(l<_this.$o){
+            l=_this.$o
           }
-          if(l>this.$b){
-            l=this.$b
+          if(l>_this.$b){
+            l=_this.$b
           }
-          this.$xbox.style.width = l + 'px';
+          _this.$xbox.style.width = l + 'px';
         };
         document.onmouseup = function (e){
-          var l = e.clientX - disX +this.$o;
-          if(l<this.$b){
-            l=this.$o
+          var l = e.clientX - disX +_this.$o;
+          if(l<_this.$b){
+            l=_this.$o
           }else{
-            l=this.$b;
-            this.$xbox.innerHTML='验证通过<div id="btn"><img style="margin-top:8px" src="//www.jq22.com/demo/slideVerification201711082055/img/kkkk.png"/></div>';
+            l=_this.$b;
+            _this.$xbox.innerHTML='验证通过<div id="btn"><img style="margin-top:8px" src="//www.jq22.com/demo/slideVerification201711082055/img/kkkk.png"/></div>';
+            _this.callBack();
           }
-          this.$xbox.style.width = l + 'px';
+          _this.$xbox.style.width = l + 'px';
           document.onmousemove = null;
           document.onmouseup = null;
         };
@@ -51,8 +52,8 @@ export default function($, window, document, undefined) {
 
 
 
-  $.fn.sliderVerification = function () {
-    var sliderVerification = new SliderVerification(this);
+  $.sliderVerification = function (options) {
+    var sliderVerification = new SliderVerification(options);
     return sliderVerification.inital();
   };
 }

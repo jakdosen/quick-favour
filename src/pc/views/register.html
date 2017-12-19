@@ -6,45 +6,46 @@
 </head>
 <body>
 <%-include('./common/header-login.html')%>
-<div class="container-1050">
-  <h1 style="margin-bottom: 70px;">注册会员</h1>
+<div class="container-1050 register-page">
+  <h1 style="margin-bottom: 70px;font-size: 18px;">注册会员</h1>
   <div class="mz-register-form">
     <!--手机号-->
     <div class="form-group">
       <label>手机号码</label>
-      <div class="mz-input" data-error="只能输入11位手机号">
-        <input type="text" placeholder="请输入11位手机号码" maxlength="11">
+      <div class="mz-input account" data-error="只能输入11位手机号">
+        <input  type="text" placeholder="请输入11位手机号码" maxlength="11">
       </div>
     </div>
     <!--验证码滑条-->
     <div class="verify">
-      <span>验证:</span>
+      <input name="isVerify" hidden type="text" value="">
       <div id="verify_box">
         <div id="verify_xbox">
           <div id="btn">
             <img src="//www.jq22.com/demo/slideVerification201711082055/img/lllllll.png"/>
           </div>
         </div>
-        &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;按住滑块，拖动到最右边
+       按住滑块，拖动到最右边
       </div>
     </div>
-    <!--输入验证码-->
-    <div class="from-group-code clearfix">
-      <div class="mz-input" data-error="只能输入11位手机号">
-        <input type="text" placeholder="请输入11位手机号码" maxlength="11">
+    <div class="verify-success" style="display: none">
+      <!--输入验证码-->
+      <div class="from-group-code clearfix">
+        <div class="mz-input code" data-error="">
+          <input type="text" placeholder="输入验证码" maxlength="11">
+        </div>
+        <div class="mz-sendCode">发送验证码</div>
       </div>
-      <div class="mz-sendCode">发送验证码</div>
-    </div>
-    <!--输入密码-->
-    <div class="form-group">
-      <div class="mz-input" data-error="只能输入11位手机号">
-        <input type="text" placeholder="6-20位密码" maxlength="11">
+      <!--输入密码-->
+      <div class="form-group">
+        <div class="mz-input password" data-error="只能输入11位手机号">
+          <input type="password" placeholder="6-20位密码" maxlength="20">
+          <span class="changeType open"></span>
+        </div>
       </div>
     </div>
     <a class="mz-btn-register" href="javascript:;">注册</a>
   </div>
-
-
 </div>
 </body>
 </html>

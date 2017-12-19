@@ -11,6 +11,7 @@ import toast from './libs/jquery-toast-plugin/jquery.toast'
 import lazyload from './libs/jquery-lazyload-plugin/jquery.lazyload'
 import pagination from './libs/jqyery-pagination-plugin/jquery.pagination'
 import magnifier from './libs/goods-detail/magnifier'
+import slideVerification from './libs/jquery-slideVerification-plugin/slideVerification'
 import LoginDialog from '@/scripts/common/loginDialog'
 
 //初始化加载样式文件
@@ -25,6 +26,8 @@ lazyload($,window,document);
 pagination($,window,document);
 // 绑定商品详情页商品图片展示
 magnifier($,window,document);
+// 滑动验证
+slideVerification($,window,document);
 
 if (!window.Promise) {
   window.Promise = Promise;

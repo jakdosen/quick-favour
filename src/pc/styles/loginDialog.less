@@ -18,6 +18,15 @@
   .mz-input{
     margin-bottom: 20px !important;
   }
+  .logo-img{
+     width: 100%;
+     text-align: center;
+     img{
+       display: inline-block;
+       width: 100px;
+       height: auto;
+     }
+  }
   .mz-btn-register{
     background: @color-1;
     width: 100%;
@@ -29,7 +38,7 @@
      color: #999;
     line-height:45px;
      a{
-       color: #333;
+       color: #333 !important;
        &:last-child{
          float: right;
        }
@@ -65,11 +74,15 @@
         display: inline-block;
         width: 45px;
         height: 45px;
+        border-radius: 100%;
+        border: 1px solid #eee;
         &:first-child{
           float: left;
+          background: url(~@/images/wxlogo.png) no-repeat center center;
         }
         &:last-child{
           float: right;
+          background: url(~@/images/alilogo.png) no-repeat center center;
         }
      }
   }
