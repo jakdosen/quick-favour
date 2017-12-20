@@ -27,7 +27,7 @@
         <span class="iconfont icon-shopping-cart" slot="icon"></span>
         <span slot="label">购物车</span>
       </tabbar-item>-->
-      <tabbar-item :link="'http://t13.zetadata.com.cn/m1/account_cen/'" :selected="/^\/user/.test(path)" show-dot>
+      <tabbar-item :link="'http://t13.zetadata.com.cn/m1/account_cen/'" :selected="/^\/user/.test(path)">
         <span class="iconfont icon-user" slot="icon"></span>
         <span slot="label">会员</span>
       </tabbar-item>

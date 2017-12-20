@@ -1,0 +1,142 @@
+@import "./common";
+@ie8-fix:~"\0";
+@padding-size:40px;
+.currency{
+  color: @primary-color;
+}
+
+.order-header{
+  background-color: #fff;
+  margin-top: @gap-size;
+  padding: 0 @padding-size;
+  font-size: 22px;
+  line-height: 3;
+  border-bottom: 3px solid @primary-color;
+}
+
+.check-btn{
+  border: none;
+  background-color: @primary-color;
+  color: #fff;
+  height: 46px;
+  line-height: 46px;
+  padding: 0 50px;
+  cursor: pointer;
+  vertical-align: top;
+  font-size: 20px;
+  &.disabled{
+    background-color: lighten(@text-gray-color,15%);
+    color: #efefef;
+    cursor: not-allowed;
+  }
+}
+.order-wrap{
+  font-size: @md-font-size;
+  margin-top: @gap-size;
+  background-color: #fff;
+  padding: 0 @padding-size;
+  .split-bottom{
+    border-bottom: 1px solid darken(@bg-default-color,2%);
+  }
+  .order-sub-title{
+    margin-bottom: 15px;
+    font-size: @lg-font-size;
+  }
+  order-sub-body{
+    font-size: @ms-font-size;
+  }
+  .order-address,
+  .order-goods,
+  .order-account,
+  .order-type,
+  .order-total,
+  .order-summary{
+    padding: @gap-size 0;
+  }
+}
+.address-item{
+  padding: @gap-size;
+  font-size: @lg-font-size;
+  font-weight: 500;
+  color: lighten(@text-default-color,5%);
+  border: 2px dashed lighten(@text-gray-color,10%) @ie8-fix;
+  border-radius: 4px;
+  background: url('../images/border-default.svg') no-repeat left top;
+  background-size: 100% 100%;
+  cursor: pointer;
+  &.primary{
+    color: darken(@text-default-color,5%);
+    border-color: @primary-color @ie8-fix;
+    background-image: url('../images/border-primary.svg');
+    &>.address-name:after{
+      content: "收";
+      .inline-block;
+      margin-left: 0.5em;
+    }
+  }
+  &>.edit-btn{
+    color: @theme-color;
+  }
+  &>.split{
+    margin-right: 1em;
+  }
+}
+.goods-table{
+  width: 100%;
+  table-layout: fixed;
+  text-align: center;
+  background-color: #fafcfc;
+  &>thead>tr>th,
+  &>tbody>tr>td{
+    padding:10px;
+    vertical-align: middle;
+    &:first-child,
+    &:last-child{
+      padding:@gap-size @padding-size;
+    }
+    img{
+      vertical-align: middle;
+    }
+  }
+}
+.select-btn{
+  border: 1px solid #ccc;
+  padding: 6px 30px;
+  cursor: pointer;
+  margin-right: 1em;
+  text-align: center;
+  min-width: 8em;
+  box-sizing: border-box;
+  .inline-block;
+  position: relative;
+  &:not(.checked):hover{
+    color: @primary-color;
+  }
+  &.checked{
+    border-color:@primary-color ;
+    cursor: default;
+    &:after{
+      content: " ";
+      position: absolute;
+      right: 0;
+      bottom: 0;
+      width: 20px;
+      height: 18px;
+      background: url("../images/right.png") no-repeat bottom right;
+    }
+  }
+}
+.order-d-item{
+  .text-right;
+  line-height:2;
+  font-size: @ms-font-size;
+  &>.order-d-item-header,
+  &>.order-d-item-body{
+    .inline-block;
+
+  }
+  &>.order-d-item-body{
+    width: 8em;
+    color: @primary-color;
+  }
+}

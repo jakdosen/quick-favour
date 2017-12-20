@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<%-include('./common/meta.html',{title:'确认订单'})%>
+<%-include('./common/polyfill.html')%>
+</head>
+<body>
+<%-include('./common/header.html',{type:'mall',page:'order-confirm'})%>
+<div class="main-container">
+  <h1 class="order-header">
+    确认订单
+  </h1>
+  <div class="order-wrap">
+    <div class="order-address split-bottom">
+      <div class="justify" style="margin-bottom: 15px">
+        <div class="inline-block order-sub-title" style="margin-bottom: 0">
+          选择收货地址
+        </div>
+        <a href="javascript:;" class="text-primary">新增地址</a>
+      </div>
+      <div class="address-item primary">
+          <span class="address-name split">收货人姓名</span>
+          <span class="address-detail split">江苏省苏州市园区东昌路88号2.5产业园</span>
+          <span class="address-phone">15344555555</span>
+      </div>
+    </div>
+    <div class="order-goods split-bottom">
+        <div class="order-sub-title">
+            商品信息
+        </div>
+      <div class="goods-list order-sub-body">
+        <table class="goods-table">
+          <colgroup>
+            <col>
+            <col>
+            <col>
+            <col style="width: 110px">
+            <col>
+            <col>
+          </colgroup>
+          <tbody class="js-goods-list-cot">
+          <tr>
+            <td class="text-left">
+              <img width="50" height="50">
+            </td>
+            <td>
+              VR眼睛
+            </td>
+            <td>白色</td>
+            <td>
+              <span class="goods-num inline-block">2</span>
+            </td>
+            <td>现金</td>
+            <td class="text-right currency">
+              M4384834
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div class="order-account split-bottom">
+      <div class="order-sub-title">
+        我的账户
+      </div>
+      <div class="justify order-sub-body" style="padding:0 40px;margin-bottom: 10px">
+        <div class="inline-block">
+          <span>共1000.00元，可用1000</span>
+          <span>共1000.00元，可用1000</span>
+        </div>
+        <div class="inline-block">
+          <input type="checkbox">
+        </div>
+      </div>
+    </div>
+    <div class="order-type split-bottom">
+      <div class="order-sub-title">
+        支付类型
+      </div>
+      <div style="padding:0 40px;margin-bottom: 10px">
+        <a class="select-btn checked">现金</a>
+        <a class="select-btn">现金&秒币</a>
+        <a class="select-btn">秒币</a>
+      </div>
+    </div>
+    <div class="order-total split-bottom"">
+        <div class="order-d-item">
+          <span class="order-d-item-header">商品件数：</span>
+          <span class="order-d-item-body">1件</span>
+        </div>
+      <div class="order-d-item">
+        <span class="order-d-item-header">运费：</span>
+        <span class="order-d-item-body">顺丰包邮</span>
+      </div>
+      <div class="order-d-item">
+        <span class="order-d-item-header">订单总额：</span>
+        <span class="order-d-item-body">¥299.00</span>
+      </div>
+    </div>
+    <div class="order-summary ">
+      <div class="order-d-item" style="font-size: 18px">
+        <span class="order-d-item-header">实际金额：</span>
+        <span class="order-d-item-body">¥299.00</span>
+      </div>
+      <div class="order-d-item" style="font-size: 14px;color: #999">
+        <span style="margin-right: 1em">寄送至：吴中区东厂路99号2.5创业园</span>
+        <span style="margin-right: 1em">收件人：吴** </span>
+        <span>号码：15455669887</span>
+      </div>
+      <div class="order-d-item" style="margin: 25px 0">
+          <button class="check-btn">提交订单</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<script type="text/template" id="cart-item-tpl">
+  <td class="text-left">
+      <img width="50" height="50" src="<@=obj.goods_img@>">
+    </td>
+    <td>
+        <@-obj.goods_name@>
+    </td>
+    <td><@-obj.goods_attr_str@></td>
+    <td>
+      <span class="goods-num inline-block"><@-obj.goods_number@></span>
+    </td>
+    <td>
+      <@
+      var map = {
+      "cash_goods":"现金",
+      "coin_goods":"秒币",
+      "cashcoin_goods":"现金&秒币"
+      }
+      @>
+      <@-map[obj.type]@>
+    </td>
+    <td class="text-right currency">
+      <@if(obj.cash_price){@><div>¥<@-obj.cash_price@></div><@}@>
+      <@if(obj.coin_price){@><div>M<@-obj.coin_price@></div><@}@>
+    </td>
+</script>
+</body>
+</html>

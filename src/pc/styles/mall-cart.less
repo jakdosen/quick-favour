@@ -4,8 +4,23 @@
 .cart-list,
 .cart-total{
   background-color: #fff;
-  & .currency{
-    color: @primary-color;
+}
+.currency{
+  color: @primary-color;
+}
+.check-btn{
+  border: none;
+  background-color: @primary-color;
+  color: #fff;
+  height: 60px;
+  line-height: 60px;
+  padding: 0 50px;
+  cursor: pointer;
+  vertical-align: top;
+  &.disabled{
+    background-color: lighten(@text-gray-color,15%);
+    color: #efefef;
+    cursor: not-allowed;
   }
 }
 .cart-header{
@@ -48,20 +63,6 @@
   line-height: 60px;
   border: 1px solid darken(@gap-color,5%);
   overflow: hidden;
-  .check-btn{
-    border: none;
-    background-color: @primary-color;
-    color: #fff;
-    height: 60px;
-    line-height: 60px;
-    padding: 0 50px;
-    cursor: pointer;
-    vertical-align: top;
-    &.disabled{
-      background-color: lighten(@text-gray-color,15%);
-      color: #efefef;
-      cursor: not-allowed;
-    }
-  }
+
 }
 
