@@ -41,7 +41,8 @@ let historyCount = history.getItem('count') * 1 || 0
 history.setItem('/', 0)
 // 假设api_token=任意一个数
 // axiosStore.set('api_token','18068017185');
-
+let initApiToken = (window.location.search.match(/api_token=([^=&]+)/)||[]);
+initApiToken[1] && axiosStore.set('api_token',initApiToken[1]);
 axios.defaults.timeout = 5000;
 // http request 拦截器
 axios.interceptors.request.use(

@@ -107,11 +107,11 @@ moduleList.forEach(key =>{
     },
 		inject: 'body',
 		hash:true,
-/*		minify: {
+		minify: {
 			removeComments: true,
 			collapseWhitespace: true,
 			removeAttributeQuotes: true
-		},*/
+		},
   }))
 })
 function getEntries(globPath) {
