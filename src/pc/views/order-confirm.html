@@ -40,20 +40,7 @@
           </colgroup>
           <tbody class="js-goods-list-cot">
           <tr>
-            <td class="text-left">
-              <img width="50" height="50">
-            </td>
-            <td>
-              VR眼睛
-            </td>
-            <td>白色</td>
-            <td>
-              <span class="goods-num inline-block">2</span>
-            </td>
-            <td>现金</td>
-            <td class="text-right currency">
-              M4384834
-            </td>
+            <td colspan="6">加载中...</td>
           </tr>
           </tbody>
         </table>
@@ -116,31 +103,32 @@
 
 </div>
 
-<script type="text/template" id="cart-item-tpl">
+
+<script type="text/template" id="goods-item-tpl">
   <td class="text-left">
-      <img width="50" height="50" src="<@=obj.goods_img@>">
-    </td>
-    <td>
-        <@-obj.goods_name@>
-    </td>
-    <td><@-obj.goods_attr_str@></td>
-    <td>
-      <span class="goods-num inline-block"><@-obj.goods_number@></span>
-    </td>
-    <td>
-      <@
-      var map = {
-      "cash_goods":"现金",
-      "coin_goods":"秒币",
-      "cashcoin_goods":"现金&秒币"
-      }
-      @>
-      <@-map[obj.type]@>
-    </td>
-    <td class="text-right currency">
-      <@if(obj.cash_price){@><div>¥<@-obj.cash_price@></div><@}@>
-      <@if(obj.coin_price){@><div>M<@-obj.coin_price@></div><@}@>
-    </td>
+    <img width="50" height="50" src="<@=obj.goods_img@>">
+  </td>
+  <td>
+    <@-obj.goods_name@>
+  </td>
+  <td><@-obj.goods_attr_str@></td>
+  <td>
+    <span class="goods-num inline-block"><@-obj.goods_number@></span>
+  </td>
+  <td>
+    <@
+    var map = {
+    "cash_goods":"现金",
+    "coin_goods":"秒币",
+    "cashcoin_goods":"现金&秒币"
+    }
+    @>
+    <@-map[obj.type]@>
+  </td>
+  <td class="text-right currency">
+    <@if(obj.cash_price){@><div>¥<@-obj.cash_price@></div><@}@>
+    <@if(obj.coin_price){@><div>M<@-obj.coin_price@></div><@}@>
+  </td>
 </script>
 </body>
 </html>

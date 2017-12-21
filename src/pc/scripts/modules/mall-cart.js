@@ -29,7 +29,7 @@ let mockData = {
           "goods_attr_str": "越南 8成熟",
           "is_checked": 1,
           "is_on_sale": 1,
-          "goods_img": "http://t13.zetadata.com.cn:8082/upload/images/201610/goods_img/460_G_1459126720606.jpg"
+          "goods_img": "http://t13.zetadata.com.cn/upload/images/201610/goods_img/460_G_1459126720606.jpg"
         }
       ]
     },
@@ -49,7 +49,7 @@ let mockData = {
           "goods_attr_str": null,
           "is_checked": 1,
           "is_on_sale": 1,
-          "goods_img": "http://t13.zetadata.com.cn:8082/upload/images/201610/goods_img/430_G_1459971655294.jpg"
+          "goods_img": "http://t13.zetadata.com.cn/upload/images/201610/goods_img/430_G_1459971655294.jpg"
         }
       ]
     }
@@ -78,7 +78,7 @@ let CartModel = Model.extend({
     }).then((data) => {
 
     })
-    moduleEv.trigger('check:total')
+    moduleEv.trigger('check:total');
   },
   sendChangeGoodsNum() {
     updateCartNum({
@@ -116,6 +116,14 @@ let CartCollection = Collection.extend({
     total.goods_checked = findList.length;
     total.is_all_checked = !!this.length && this.length == findList.length;
     return total
+  },
+  getCheckedCartIds(){
+    let findList = this.filter(cart => {
+      return cart.get('is_checked') == 1
+    });
+    return _.map(findList,(obj)=>{
+      return obj.get('cart_id')
+    })
   }
 });
 /**
@@ -192,8 +200,8 @@ let App = View.extend({
       let type = pair[0];
       pair[1].goods_list && pair[1].goods_list.forEach(cart => {
         cartList.push(_.extend({type}, cart))
-      })
-    })
+      });
+    });
     this.cartList.add(cartList);
     this.totalModel.set(data.total || {});
     this.changeTotal();
@@ -213,7 +221,8 @@ let App = View.extend({
   },
   //提交订单
   checkCart() {
-
+    let cartIds = this.cartList.getCheckedCartIds();
+    window.location.assign(`order-confirm.html?cartIds=${cartIds.join(',')}`);
   },
   changeTotal() {
     this.totalModel.set(this.cartList.getTotal())

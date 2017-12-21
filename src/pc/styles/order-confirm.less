@@ -191,3 +191,71 @@
 }
 
 
+
+
+.address-wrap{
+  position: relative;
+}
+.address-input{
+  display: inline-block;
+  width: 100%;
+  padding: 0 15px;
+  border: 1px solid #f3f3f3;
+  height: @input-height;
+  line-height: @input-height;
+  cursor: pointer;
+}
+.address-choose-text span{
+  margin-right: 0.5em;
+}
+.address-input b{
+  font-size: 24px;
+  float: right;
+}
+.address-box{
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border: 1px solid #f3f3f3;
+  border-top: none;
+  background: #fff;
+  display: none;
+}
+.address-wrap.open .address-box{
+  display: block;
+}
+.address-choose-area{
+  list-style: none;
+  height: @input-height;
+  line-height: @input-height;
+  background: #f3f3f3;
+  overflow: hidden;
+}
+.address-choose-area li{
+  float: left;
+  padding: 0 20px;
+  min-width: 8em;
+  text-align: center;
+  cursor: pointer;
+}
+.address-choose-area li.active{
+  background: #fff;
+  cursor: default;
+  color: @primary-color;
+}
+.area-wrap{
+  padding: 10px 15px 15px;
+  background: #fff;
+  max-height: 8em;
+  overflow-y: auto;
+}
+.area-wrap>a{
+  display: inline-block;
+  padding: 4px 10px;
+  cursor: pointer;
+}
+.area-wrap>a:hover{
+  background-color: @primary-color;
+  color: #fff;
+}
