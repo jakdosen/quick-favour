@@ -13,9 +13,13 @@
     border-radius: 36px;
     overflow: hidden;
     &:before{
-      content: 'icon';
+      content: '';
       display: inline-block;
       float: left;
+      width: 16px;
+      height: 36px;
+      margin: 0 10px;
+      background: url(~@/images/search.png) no-repeat center;
     }
     span{
       display: inline-block;
@@ -55,6 +59,7 @@
   .qb-menu-slider{
     width: 100%;
     height: 395px;
+
     background: rgba(0,0,0,1);
   }
 }
@@ -71,6 +76,9 @@
       width: 20%;
       cursor: pointer;
       &:hover{
+        color: @qb-color-1;
+      }
+      &.active{
         color: @qb-color-1;
       }
    }
@@ -208,4 +216,69 @@
        }
      }
    }
+}
+
+//----- 幻灯 样式
+.swiper-container {
+  height: 395px;
+  width: 100%;
+  font-size: 0;
+  overflow: hidden;
+  position: relative;
+  .swiper-wrapper{
+    width: 100%;
+    height: 100%;
+  }
+}
+.swiper-slide {
+  float: left;
+  font-size: 0;
+  height: 100%;
+  a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    font-size: 0;
+    text-align: center;
+    line-height: 365px;
+    img{
+      vertical-align: middle;
+      height: auto;
+      width: 750px;
+      display: inline-block;
+    }
+  }
+}
+.pagination-ga {
+  display: inline-block;
+  position: absolute;
+  z-index: 20;
+  bottom: 10px;
+  text-align: center;
+  font-size: 0;
+  left: 50%;
+  margin-left: -40px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background-color: rgba(200, 200, 200, 0.3);
+}
+.swiper-pagination-bullet {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background: #fff;
+  margin: 0 5px;
+  opacity: 0.8;
+  cursor: pointer;
+  &-active{
+    background: #f63;
+  }
+}
+.swiper-active-switch {
+  background: #db192a;
+}
+
+.js-pagination{
+
 }

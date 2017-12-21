@@ -8,40 +8,50 @@
 <%-include('./common/header.html',{type:'mall'})%>
 <%
 var bread = [
-     {name:'首页',url:'www.baidu.com'},
-     {name:'秒购',url:'www.baidu.com'},
-     {name:'热门商品',url:''}
-  ]
+{name:'首页',url:'www.baidu.com'},
+{name:'秒购',url:'www.baidu.com'},
+{name:'搜索页面',url:''}
+]
 %>
 <%- include('./common/breadcrumb.html',{bread:bread})%>
 <div class="container-950" style="padding-bottom: 45px;">
   <!--搜索模块-->
-  <div class="qb-menu clearfix">
-    <div class="qb-menu-slider">
-      <div class="swiper-container">
-        <div class="swiper-wrapper js-slider-cot"></div>
-        <div class="pagination-ga"></div>
-      </div>
+  <div class="qb-search">
+    <div class="qb-search-content">
+      <input type="text" name="search" placeholder="iphoneX">
+      <span>搜索</span>
+    </div>
+    <div class="qb-search-history">
+      <span>4K电视</span>
+      <span>笔记本</span>
+      <span>母婴用品</span>
+      <span>路由器</span>
+      <span>耳机</span>
+      <span>有限鼠标</span>
+      <span>无线鼠标</span>
+      <span>显示器</span>
+      <span>白酒</span>
+      <span>海外面膜进口奶粉</span>
     </div>
   </div>
 </div>
 <div style="width:100%;background: #e4e4e4;padding-top: 10px;">
   <div class="container-950" style="background: none">
-      <div class="select-content hot clearfix">
-         数据加载中....
-      </div>
+    <div class="select-nav clearfix">
+      <ul>
+        <li data-goodstype="">综合</li>
+        <li data-goodstype="1">现金商品</li>
+        <li data-goodstype="3">现金&秒币</li>
+        <li data-goodstype="2">秒币商品</li>
+        <li data-sortby="price_asc">价格</li>
+      </ul>
+    </div>
+    <div class="select-content mall clearfix">
+       数据加载中...
+    </div>
     <div class="pagination js-pagination"><!-- 这里显示分页 --></div>
   </div>
 </div>
-<!--渲染轮播图片-->
-<script type="text/template" id="ad-item-tpl">
-  <@ obj.length && _.each(obj,function(item,index){@>
-  <div class="swiper-slide" >
-    <a href="<@- item.id@>" style="background:<@- item.bg_color@>"><img  src="<@- item.adv_code@>"></a>
-  </div>
-  <@})@>
-</script>
-
 <script type="text/template" id="ad-goods">
   <ul>
     <@ obj.length && _.each(obj,function(item,index){@>

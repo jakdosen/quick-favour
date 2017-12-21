@@ -36,3 +36,11 @@ export function success(params = {}) {
     {params},
   );
 }
+
+// 获取支付ID
+export function orderPay(params = {}) {
+  return axios.get(
+    order.orderPay,
+    {params},
+  );
+}
