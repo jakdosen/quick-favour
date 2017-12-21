@@ -12,10 +12,13 @@
     border-radius: 36px;
     overflow: hidden;
     &:before{
-       content: 'icon';
+       content: '';
        display: inline-block;
        float: left;
-
+       width: 16px;
+       height: 36px;
+       margin: 0 10px;
+       background: url(~@/images/search.png) no-repeat center;
     }
     span{
       display: inline-block;
@@ -66,21 +69,28 @@
          margin-top: 15px;
          color: #fff;
          cursor: pointer;
+         font-size: 16px;
          &:hover,&.active{
             background: @qb-color-1;
          }
-         &:after{
-           content: "";
+         &:before{
+           float: right;
          }
        }
       }
       .qb-menu-detail-show{
          width: 600px;
          height: 100%;
-         background: #fff;
          position: absolute;
          left: 200px;
          top: 0;
+         ul{
+           width: 100%;
+           height: 100%;
+           background: #fff;
+           position: relative;
+           z-index: 10;
+         }
          li{
            float: left;
            width: 100px;
@@ -108,18 +118,17 @@
       }
   }
   .qb-menu-slider{
-    float: right;
+    vertical-align: top;
     width: 1000px;
     height: 395px;
     display: inline-block;
-    background: rgba(0,0,0,1);
   }
 }
 .qb-recommend-goods,.qb-hot-goods,.qb-store {
   margin-top: 20px;
   .title {
     line-height: 45px;
-    span:first-child {
+    >span:first-child {
       font-size: 18px;
     }
     b {
@@ -131,6 +140,27 @@
       float: right;
       color: #333;
     }
+  }
+  .controlArrow{
+     display: inline-block;
+     float: right;
+     i,em{
+       display: inline-block;
+       vertical-align: middle;
+       width: 16px;
+       height: 16px;
+       cursor: pointer;
+       border: 1px solid #eee;
+       &.notAllow{
+         cursor: not-allowed;
+       }
+     }
+     i{
+       background: url(~@/images/left.png) no-repeat;
+     }
+      em{
+        background: url(~@/images/right.png) no-repeat;
+      }
   }
 }
 .qb-recommend-goods{
@@ -269,4 +299,65 @@
        float: right;
      }
    }
+}
+
+//----幻灯
+.swiper-container {
+  height: 395px;
+  width: 100%;
+  font-size: 0;
+  overflow: hidden;
+  .swiper-wrapper{
+    width: 100%;
+    height: 100%;
+  }
+}
+.swiper-slide {
+  float: left;
+  font-size: 0;
+  height: 100%;
+  a{
+    display: block;
+    width: 100%;
+    height: 100%;
+    font-size: 0;
+    img{
+      vertical-align: middle;
+       height: 100%;
+       width: 100%;
+    }
+  }
+}
+.pagination-ga {
+  display: inline-block;
+  position: absolute;
+  z-index: 20;
+  bottom: 10px;
+  text-align: center;
+  font-size: 0;
+  left: 50%;
+  margin-left: -40px;
+  padding: 2px 8px;
+  border-radius: 12px;
+  background-color: rgba(200, 200, 200, 0.3);
+}
+.swiper-pagination-bullet {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background: #fff;
+  margin: 0 5px;
+  opacity: 0.8;
+  cursor: pointer;
+  &-active{
+    background: #f63;
+  }
+}
+.swiper-active-switch {
+  background: #db192a;
+}
+
+.swiper-container.qb-recommend-goods-content{
+  height: 263px;
 }

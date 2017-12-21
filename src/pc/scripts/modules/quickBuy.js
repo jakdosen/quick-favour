@@ -2,3 +2,221 @@
  * Created by shiyang.yao on 2017/12/7.
  */
 import '@/styles/quickBuy.less'
+import $ from 'jquery'
+import _ from 'underscore'
+import Backbone from 'backbone'
+import Swiper from 'swiper'
+import { homeCycleImage, suggestlist, list, category } from '^/services/mall'
+
+const  VIEW = Backbone.View;
+const  MODEL = Backbone.Model;
+
+const
+  searchTemplate =
+    '<@ obj.length && _.each(obj,function(item){@>'+
+    '<span><@-item@></span>'+
+    '<@})@>';
+
+const
+    menuNav =
+        '<@ obj.length && _.each(obj,function(item,index){@>'+
+        '<li class="iconfont icon-arrow-right" data-flag="menu-<@- index @>"><@-item.cat_name@></li>'+
+        '<@})@>',
+    menuContent=
+      '<@ obj.length && _.each(obj,function(item,index){@>'+
+      '<ul data-flag="menu-<@- index @>" style="display:none">'+
+      '<@ item.children.length && _.each(item.children,function(child){@>'+
+      '<li><a href="">'+
+      '<div class="img-box"><img src="<@- child.category_img@>" alt=""></div>'+
+      '<span><@- child.cat_name@></span></a>'+
+      '<@})@>'+
+      '</ul>'+
+      '<@})@>';
+
+// 搜索模块
+const Search = VIEW.extend({
+  events:{
+     'keyup .qb-search-content input':function (e) {
+         this.model.set('keywords',$(e.currentTarget).val());
+     },
+     'click .qb-search-content span': 'searchMore',
+  },
+  initialize(){
+     // 注册model
+     this.createModel();
+     // 从本地存储里取出搜索历史
+     this.searchHistory();
+  },
+  createModel(){
+    this.model = new MODEL();
+  },
+  searchHistory(){
+    let
+      elem = this.$('.qb-search-history'),
+      searchHistory = window.localStorage.getItem('searchHistory');
+    elem.empty();
+    elem.append(_.template(searchTemplate)(searchHistory&&searchHistory.split(',')));
+  },
+  searchMore(){
+     location.href="?keywords="+this.model.get('keywords');
+  }
+});
+
+// 菜单模块
+const Menu =   VIEW.extend({
+  events:{
+    'click .qb-menu-detail-hide li': 'changeNav'
+  },
+  initialize(){
+    // 渲染首页幻灯列表
+    this.fetchDateAboutCycleImage();
+    // 获取数据&渲染列表
+    this.fetchDate();
+  },
+  changeNav(e){
+    let select = '  [data-flag="'+$(e.currentTarget).data('flag')+'"]'
+    this.$('.qb-menu-detail-hide '+select).addClass('active').siblings().removeClass('active');
+    this.$('.qb-menu-detail-show '+select).siblings().css('display','none');
+    this.$('.qb-menu-detail-show '+select).fadeIn();
+  },
+  fetchDateAboutCycleImage(){
+    homeCycleImage().then( data => {
+      this.renderCycleImage(data.data)
+    })
+  },
+  fetchDate(){
+     category().then( data => {
+          this.render(data)
+     })
+  },
+  render(data){
+     // 渲染菜单
+     this.$('.qb-menu-detail-hide ul').empty().append(_.template(menuNav)(data));
+     // 渲染菜单明细
+     this.$('.qb-menu-detail-show').empty().append(_.template(menuContent)(data));
+  },
+  renderCycleImage(data){
+    this.$('.js-slider-cot').empty().append(_.template($('#ad-item-tpl').html())(data));
+    let swiperOption = {
+      pagination:{
+        el:'.pagination-ga',
+        clickable:true
+      },
+      autoplay : 5000,
+      speed:500,
+      setWrapperSize:true,
+      loop : true,
+    }
+    data.length<2 && this.$('.pagination-ga').hide();
+    new Swiper(this.$('.swiper-container'),swiperOption)
+  },
+});
+
+// 热门商品
+const HotGoods = VIEW.extend({
+  initialize(){
+    // 获取数据&渲染列表
+    this.fetchDate();
+  },
+  fetchDate(){
+    suggestlist({action_type:'hot',count:6,page:1}).then(data =>{
+            this.render(data)
+    })
+  },
+  render(data){
+     this.$('.qb-hot-goods-box').empty().append(_.template($('#ad-hot-goods').html())(data));
+  }
+})
+
+// 秒币商城
+const CoinStore = VIEW.extend({
+  initialize(){
+    // 获取数据&渲染列表
+    this.fetchDate();
+  },
+  fetchDate(){
+    suggestlist({action_type:'coin',count:6,page:1}).then(data =>{
+      this.render(data)
+    })
+  },
+  render(data){
+    this.$('.qb-store-box').empty().append(_.template($('#ad-coin-store').html())(data));
+  }
+})
+
+// 推荐商品
+const Recommend = VIEW.extend({
+  initialize(){
+    // 建立分页model
+    this.createModel()
+     // 获取数据并且加载数据
+    this.fetchDate();
+  },
+  createModel(){
+    let Recommend = MODEL.extend({
+      defaults:{
+        action_type:'tuijian',
+        count:8,
+        page:1,
+        total:1
+      }
+    });
+     this.model = new Recommend();
+  },
+  fetchDate(){
+    suggestlist(this.model.toJSON()).then(data =>{
+      this.render(data)
+      //加载幻灯效果
+      this.reSlider && this.reSlider.update() ||this.slider()
+    })
+  },
+  slider(){
+    let _this = this;
+    _this.reSlider = new Swiper(this.$('.swiper-container'),{
+      navigation:{
+        nextEl: '.controlArrow .next',
+        prevEl: '.controlArrow .pre'
+      },
+      setWrapperSize:true,
+      speed:500,
+    })
+    _this.reSlider.on('slideChange',function(data){
+
+    })
+  },
+  render(data){
+    this.$('.recommend-slider').append(_.template($('#hot-recommend').html())(data));
+  }
+});
+
+const App = VIEW.extend({
+  initialize(){
+     this.bindView();
+  },
+  bindView(){
+     // 绑定Search模块
+     this.Search = new Search({
+       el:$('.qb-search')
+     });
+    // 绑定菜单模块
+    this.Menu = new Menu({
+      el:$('.qb-menu')
+    });
+    // 绑定热门商品模块
+    this.hotGoods = new HotGoods({
+      el:$('.qb-hot-goods')
+    });
+    // 绑定秒币商城
+    this.coinStore = new CoinStore({
+      el:$('.qb-store')
+    });
+    // 绑定热门推荐
+    this.recommend = new Recommend({
+      el:$('.qb-recommend-goods')
+    });
+  }
+})
+
+new App({
+  el:$('body')
+});
