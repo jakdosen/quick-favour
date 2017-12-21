@@ -5,10 +5,14 @@
       <span solt="default">秒赞 - 文章</span>
     </x-header>
     <div class="article-detail-page">
-        <div>
+        <div >
           <h1 class="title">{{article.title}}</h1>
-          <div class="info">
-            {{article.date}} <i>{{article.likeNum}}人秒赞</i>
+          <div class="info justify">
+            <span class="inline-block">{{article.date}}</span>
+            <router-link class="inline-block" :to="'/article/detail/'+ article.id + '/note'" style="float: right">
+              <i><badge :text="article.likeNum" style="position: relative;top: -2px;"></badge> 人秒赞</i>
+            </router-link>
+
           </div>
           <!--文章内容-->
           <div v-html="article.detail" class="content"></div>
@@ -107,7 +111,8 @@
       FlexboxItem,
       Icon,
       Popup,
-      XButton
+      XButton,
+      Badge
     },
     methods:{
       ...mapActions('articleDetail',{
