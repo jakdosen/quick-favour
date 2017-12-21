@@ -52,7 +52,7 @@ export default {
       prepay:`${rootPath}/pay/prepay`,
       addressList:`${rootPath}/address/addressList`,
       success:`${rootPath}/pay/success`,
-      order:`${rootPath}/pay/order`,
+      orderPay:`${rootPath}/pay/order`,
     },
     // 地址相关
     // address:{

@@ -38,9 +38,9 @@ export function success(params = {}) {
 }
 
 // 获取支付ID
-export function order(params = {}) {
+export function orderPay(params = {}) {
   return axios.get(
-    order.order,
+    order.orderPay,
     {params},
   );
 }

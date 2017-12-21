@@ -7,7 +7,7 @@ import _ from 'underscore'
 import Backbone from 'backbone'
 import Swiper from 'swiper'
 import util from '^/utils'
-import { order } from '^/services/order'
+import { orderPay } from '^/services/order'
 
 const  VIEW = Backbone.View;
 const  MODEL = Backbone.Model;
@@ -21,7 +21,7 @@ const App = VIEW.extend({
     this.fetchDate(this.urlParams);
   },
   fetchDate({ order_ids }){
-     order({order_ids}).then(data=>{
+    orderPay({order_ids}).then(data=>{
          this.render(data);
      })
   },
