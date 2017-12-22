@@ -48,6 +48,7 @@
   import { mapState, mapActions } from 'vuex'
   import { getWxSignature} from '^/services/auth'
   import { shareCallback ,preshare} from '^/services/article'
+  import _ from 'underscore'
   const wx = Vue.wechat;
 
 
@@ -56,9 +57,10 @@
       TransferDom
     },
     created(){
-      this.fetchArticleDetail(this.route.params);
+      this.fetchArticleDetail(_.extend({},this.route.params,this.route.query));
       preshare({
-        article_id:this.route.params.articleId
+        article_id:this.route.params.articleId,
+        is_weixin:1
       }).then(data=>{
         this.initShare(data)
       }).catch(resp=>{
@@ -142,11 +144,12 @@
         const permissions = ['hideMenuItems','onMenuShareTimeline', 'onMenuShareAppMessage'];
         const url = (config && config.share_url)||window.location.href;
         let article = this.article;
+        let configObj;
         getWxSignature({
-          url:encodeURIComponent(url),
+          url:encodeURIComponent(window.location.href),
           jsApiList:JSON.stringify(permissions)
         }).then(data=>{
-          wx.config(Object.assign(data.signPackage,{
+          wx.config(configObj = Object.assign(data.signPackage,{
             jsApiList:permissions
           }));
         });
@@ -166,7 +169,12 @@
               shareCallback({
                 article_id:article.id
               }).then((data)=>{
-                Vue.$vux.toast.text(`分享成功！获得${data.amount}个秒币`);
+                Vue.$vux.toast.show({
+                  text:`分享成功，获得<span style="font-size: 20px">${data.amount}</span>个秒币！`,
+                  width:'20em',
+                  type:'success',
+                  time:3000
+                });
               })
             }
           });
@@ -179,7 +187,12 @@
               shareCallback({
                 article_id:article.id
               }).then((data)=>{
-                Vue.$vux.toast.text(`分享成功！获得${data.amount}个秒币`);
+                Vue.$vux.toast.show({
+                  text:`分享成功，获得<span style="font-size: 20px">${data.amount}</span>个秒币！`,
+                  width:'20em',
+                  type:'success',
+                  time:3000
+                });
               })
             }
           })

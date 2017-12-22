@@ -43,7 +43,7 @@ history.setItem('/', 0)
 // axiosStore.set('api_token','18068017185');
 let initApiToken = (window.location.search.match(/api_token=([^=&]+)/)||[]);
 initApiToken[1] && axiosStore.set('api_token',initApiToken[1]);
-axios.defaults.timeout = 5000;
+axios.defaults.timeout = 10000;
 // http request 拦截器
 axios.interceptors.request.use(
   config => {
