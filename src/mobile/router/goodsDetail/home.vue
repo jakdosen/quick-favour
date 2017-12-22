@@ -49,7 +49,7 @@
               <div v-else class="no-comments">
                  <p>暂无评价</p>
               </div>
-              <div class="footer" v-if="list.comments && list.comments.length<list.comment_num"><router-link to="/goods/rater"><span>查看全部评价</span></router-link></div>
+              <div class="footer" v-if="list.comments && list.comments.length<list.comment_num"><router-link :to="'/goods/'+goods_id+'/rater'"><span>查看全部评价</span></router-link></div>
          </div>
          <!--商品介绍/商品详情-->
          <div id="buy-content-more" class="buy-content-more clearfix">
@@ -112,13 +112,15 @@
     data(){
       return {
          index:0,
+         goods_id:''
       }
     },
     created(){
         let id =this.$route.params.id;
         if(!id) this.$router.push({path:'/mall'});
+        this.goods_id = id;
         // 先清除数据
-        this.$store.commit('goodsDetail/update',{list:[]});
+        this.$store.commit('goodsDetail/update',{list:[],popupShowOpen:false});
         // 获取数据
         this.$store.dispatch('goodsDetail/search',{goods_id:this.$route.params.id});
     },

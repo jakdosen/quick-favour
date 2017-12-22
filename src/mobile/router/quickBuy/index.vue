@@ -39,6 +39,7 @@
               <x-input class="searchBtn" placeholder="输入商品名称进行搜索"  :readonly="true" >
                 <icon slot="label" style="display:block;margin-right: 5px" type="search"></icon>
               </x-input>
+              <router-link to="/mall/cart"><span class="iconfont icon-shopping-cart" style="margin-left:1rem;color: #ff5300;font-size: 2.5rem"></span></router-link>
             </div>
           </Sticky>
         </div>

@@ -16,11 +16,12 @@
           <checker
             default-item-class="check-border-1px"
             selected-item-class="check-border-active"
+            @on-change="raterChange"
           >
-            <checker-item :value="'all'" >全部({{ raterPagination.count }})</checker-item>
-            <checker-item :value="'good'">好评({{ raterCommentsCount['comment_good']}})</checker-item>
-            <checker-item :value="'middle'">中评({{ raterCommentsCount['comment_general']}})</checker-item>
-            <checker-item :value="'bad'">差评({{ raterCommentsCount['comment_low']}})</checker-item>
+            <checker-item :value="'0'" >全部({{ raterCommentsCount.comment_general }})</checker-item>
+            <checker-item :value="'1'">好评({{ raterCommentsCount['comment_good']}})</checker-item>
+            <checker-item :value="'2'">中评({{ raterCommentsCount['comment_general']}})</checker-item>
+            <checker-item :value="'3'">差评({{ raterCommentsCount['comment_low']}})</checker-item>
           </checker>
         </div>
         <div class="content">
@@ -55,6 +56,7 @@
     },
     data(){
       return {
+        goods_id:'',
         pullUpLoadObj: {      // 下拉加载提示文案
           threshold: 20,
           txt: {
@@ -65,11 +67,11 @@
       }
     },
     created(){
-
       // 重置列表数据
       this.$store.commit('goodsDetail/update',{raterData:[]});
+      this.goods_id = this.$route.params.id;
       // 获取推荐列表
-      this.$store.dispatch('goodsDetail/raterList',{page:1,goods_id:this.$route.params.id});
+      this.$store.dispatch('goodsDetail/raterList',{page:1,goods_id:this.goods_id});
     },
     watch:{
       raterPagination(val){
@@ -90,8 +92,12 @@
         // 防止请求多次
         if(!this.raterIsLoading)  return;
         const {current_page, total_pages} = this.pagination;
-        this.$store.dispatch('goodsDetail/raterList', {page: current_page + 1,goods_id:'460'});
+        this.$store.dispatch('goodsDetail/raterList', {page: current_page + 1,goods_id:this.goods_id});
         this.$store.commit('goodsDetail/update', {raterIsLoading: false});
+      },
+      raterChange(value){
+        this.$store.commit('goodsDetail/update',{raterData:[]});
+        this.$store.dispatch('goodsDetail/raterList', {page: 1,goods_id:this.goods_id, rank:value});
       }
     }
   }

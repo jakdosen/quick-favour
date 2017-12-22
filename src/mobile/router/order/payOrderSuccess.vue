@@ -15,13 +15,13 @@
          </div>
          <!--跳转链接到订单详情和返回首页-->
          <div class="payOrder-toLink">
-             <router-link class="link-btn" to="/order">订单详情</router-link>
+             <a class="link-btn" :href="'/m1/order/order_detail.html?id='+payment_id">订单详情</a>
              <router-link class="link-btn" to="/">返回首页</router-link>
          </div>
          <!--安全提醒-->
          <div class="payOrder-safeAction">
              <span>安全提醒：</span>
-             <p>付款成功后，秒赞商城不会以付款异常、卡单、系统升级为由联系您。<span>请勿泄露银行卡号、手机验证码、否则会造成钱款损失。<router-link class="moreMsg" to="/">谨防电话诈骗！更多安全知识>></router-link></span> </p>
+             <p>付款成功后，秒赞商城不会以付款异常、卡单、系统升级为由联系您。<span>请勿泄露银行卡号、手机验证码、否则会造成钱款损失。</span> </p>
          </div>
          <!--你可能还想购买 -->
          <div class="payOrder-buyAgain" style="display: none">
@@ -51,13 +51,13 @@
     },
     created:function () {
       // 获取orderID
-      const payment_id = this.$route.query.payment_id || this.$router.push({path:'/'})
+       this.payment_id = this.$route.query.payment_id || this.$router.push({path:'/'})
       // 获取成功数据
-      this.success({payment_id})
+      this.success({payment_id:this.payment_id})
     },
     data(){
       return {
-
+        payment_id:''
       }
     },
     computed: {

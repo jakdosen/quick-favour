@@ -27,7 +27,7 @@
               <div style="background: #fff">
                 <grid :cols="3">
                   <grid-item v-for="(child,index) in item.children" :key="index" :link="'/search?searchWord='+child.cat_name" :label="child.cat_name">
-                    <img slot="icon" :src="child.category_img">
+                    <x-img  default-src="static/allGoodsBg.png" slot="icon" :src="child.category_img"></x-img>
                   </grid-item>
                 </grid>
               </div>
@@ -39,7 +39,7 @@
   </div>
 </template>
 <script>
-  import {XHeader , Swiper, SwiperItem ,ViewBox,Grid, GridItem } from 'vux'
+  import {XImg, XHeader , Swiper, SwiperItem ,ViewBox,Grid, GridItem } from 'vux'
   import {mapGetters, mapState} from 'vuex'
   import CommonHeader  from '@/components/CommonHeader'
 
@@ -51,7 +51,8 @@
       ViewBox,
       CommonHeader,
       Grid,
-      GridItem
+      GridItem,
+      XImg
     },
     created(){
         this.$store.dispatch('allGoods/category');

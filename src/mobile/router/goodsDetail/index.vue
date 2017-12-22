@@ -100,6 +100,9 @@
             changeBuyCoinPrice:''
         }
     },
+    created(){
+      !this.list.length  && this.$router.push({path:'/goods/'+this.$route.params.id})
+    },
     computed:{
       ...mapState('common',{
         direction: state => state.direction

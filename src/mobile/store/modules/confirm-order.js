@@ -3,13 +3,15 @@
  */
 import router from '@/router/index'
 import {  checkorder, directcheckorder} from '^/services/mall'
-import {  done, prepay, addressList, success} from '^/services/order'
+import {  done, prepay, addressList, success, orderPay} from '^/services/order'
+// import {  getWxSignature } from '^/services/auth'
 
 export default {
   namespaced: true,
   state: {
-    goods_list:{},
+    goods_list:[],
     trueCash:'', //实际应要付的价格
+    order_list:[],
     user_account:{
       run_money: "0.00",
       m_coin: 0,
@@ -42,7 +44,7 @@ export default {
        const { goods_list,user_account, cash_pay, cashcoin_pay, user_address} = res;
        let addressCount = user_address;
        if(state.nowSelectAddressId&&state.addressList.length){
-         addressCount = state.addressList.filter(obj => obj.id=== state.nowSelectAddressId)
+         addressCount = state.addressList.filter(obj => obj.id=== state.nowSelectAddressId)[0]
        }
        commit('update',{ goods_list, user_account, cash_pay, cashcoin_pay,user_address:addressCount});
     },
@@ -51,11 +53,16 @@ export default {
       const { order_ids } = res;
       router.push({path:'/confirmOrder',query:{order_ids}})
     },
-    prepay:async ({commit,state},payload) =>{
-      const res = await prepay(payload);
-      const { payment_id } = res;
-      router.push({path:'/payOrderSuccess',query:{payment_id}})
-    },
+    // prepay:async ({commit,state},payload) =>{
+    //   const res = await prepay(payload);
+    //   const { payment_id } = res;
+    //   router.push({path:'/payOrderSuccess',query:{payment_id}})
+    // },
+    // getWxSignature: async ({commit,state},payload)=>{
+    //   const res = await getWxSignature();
+    //   const { timestamp, nonceStr, signType, paySign} =  res
+    //   wx.ready();
+    // },
     addressListFn:async ({commit,state},payload) =>{
       const res = await addressList(payload);
       const { data } = res;
@@ -65,6 +72,11 @@ export default {
       const res = await success(payload);
       commit('update',{paySuccessObject:res})
     },
+    orderPay:async ({commit,state},payload) =>{
+      const res = await orderPay(payload);
+      const { order_amount, goods_list} = res;
+      commit('update',{trueCash:order_amount,order_list:goods_list})
+    }
   },
   mutations: {
     update (state, payload) {

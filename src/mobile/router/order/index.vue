@@ -6,7 +6,7 @@
        <!--收货地址-->
        <div class="order-address" @click="openChoseAddress">
          <div class="left iconfont icon-address"></div>
-         <div v-if="user_address" class="center">
+         <div v-if="user_address&&JSON.stringify!=='{}'" class="center">
            <p><span>收货人：</span>{{ user_address.true_name + ' '+user_address.mobile}}</p>
            <p><span>收货地址：</span>{{ user_address.province+user_address.city+user_address.county+user_address.address}}</p>
          </div>
@@ -20,7 +20,7 @@
          <ul>
            <li v-for="item in goods_list"><img :src="item.goods_img" alt=""></li>
          </ul>
-         <span>共{{goods_list &&  goods_list.length || 0}}件</span>
+         <span>共{{goods_list &&  countNum || 0}}件</span>
        </div>
        <!--物流信息-->
        <div class="order-logistics">
@@ -32,7 +32,7 @@
          <span>我的账户</span>
          <p>共{{user_account['run_money']}}元，可用{{user_account['can_use_run_money']}}元<br>共{{user_account['m_coin']}}秒币，可用{{user_account['can_use_m_coin']}}秒币</p>
          <div>
-           <x-switch :title="''" v-model="isShowAccount"></x-switch>
+           <x-switch :title="''" v-model="isShowAccount" v-if = "Number(user_account['can_use_run_money'])"></x-switch>
          </div>
        </div>
        <!--支付类型-->
@@ -41,7 +41,7 @@
             <div>
               <checker @on-change="payChange" v-model="chosePay"  type="radio" radio-required default-item-class="pay-default" selected-item-class="pay-selected">
                 <checker-item value="1">现金</checker-item>
-                <checker-item v-if="user_account['can_use_m_coin']" value="2">现金&秒币</checker-item>
+                <checker-item v-if="Number(cashcoin_pay['coin_total'])&&(Number(user_account['m_coin'])-Number(cashcoin_pay['coin_total']))>0" value="2">现金&秒币</checker-item>
               </checker>
             </div>
        </div>
@@ -85,7 +85,7 @@
     data(){
       return {
         chosePay:'1',  // 是否使用现金支付
-        isShowAccount:true,
+        isShowAccount:false,
         coin:0
       }
     },
@@ -98,9 +98,16 @@
       },
       coinCash:{
         get(){
-          return this.cash_pay.cash_total
+          return this.chosePay==="1"? this.cash_pay.cash_total: this.cashcoin_pay.cash_total
         }
       },
+      countNum:{
+          get(){
+              let count =0;
+              this.goods_list.length&&this.goods_list.map(item => count=count+Number(item.goods_number));
+              return count;
+          }
+      }
     },
     methods: {
       ...mapActions('confirmOrder',['checkOrder','submitOrder']),
@@ -109,6 +116,7 @@
           this.update({trueCash:this.coinCash});
           this.submitOrder({
             pay_type:this.chosePay,
+            account_pay:(this.isShowAccount && 1) || 0,
             address_id:this.user_address.id,
             goods_list:this.goods_list
           });
@@ -193,7 +201,7 @@
       &:first-child{
          font-size: 1.4rem;
          font-weight: bold;
-         width: 10rem;
+         width: 11rem;
        }
     }
   }

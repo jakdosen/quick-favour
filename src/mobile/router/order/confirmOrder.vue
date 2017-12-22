@@ -6,10 +6,10 @@
          <div class="confirmOrder-pay">
              <p>实付金额：<span><small>￥</small>{{ trueCash }}</small></span></p>
              <div class="clearfix">
-                <span>购买商品总计：{{goods_list&&goods_list.length}}件</span>
+                <span>购买商品总计：{{order_list&&order_list.length}}件</span>
                <ul>
-                 <li v-for="item in goods_list">
-                   <img :src="item.goods_img" alt="">
+                 <li v-for="item in order_list">
+                   <img :src="item.goods_thumb" alt="">
                  </li>
                </ul>
              </div>
@@ -32,9 +32,14 @@
   </div>
 </template>
 <script>
+  import Vue from 'vue'
   import { ViewBox, XSwitch, Group, Checker, CheckerItem, Icon } from 'vux'
   import {mapGetters, mapState, mapActions} from 'vuex'
   import CommonHeader  from '@/components/CommonHeader'
+  import { prepay} from '^/services/order'
+  import {  getWxSignature } from '^/services/auth'
+  const wx = Vue.wechat;
+
   export default {
     components: {
       CommonHeader,
@@ -46,27 +51,58 @@
       Icon
     },
     created:function () {
-      let ua = window.navigator.userAgent.toLowerCase();
-      this.isWeixin = ua.match(/MicroMessenger/i) === 'micromessenger' ? true : false;
+      this.isWeixin = /micromessenger|wechat/.test(navigator.userAgent.toLowerCase());
       // 获取orderID
       this.order_ids = this.$route.query.order_ids || this.$router.push({path:'/'})
-      },
+      // 判断当前是否有goods_list 和trueCash
+      this.orderPay({ order_ids:this.order_ids});
+      if(this.isWeixin){
+        // 初始化微信
+        const permissions = ['chooseWXPay'];
+        const url = window.location.href;
+        getWxSignature({
+          url: encodeURIComponent(url),
+          jsApiList: JSON.stringify(permissions)
+        }).then(data => {
+          this.wx_signPackage =  Object.assign(data.signPackage, {
+            jsApiList: permissions
+          });
+          wx.config(this.wx_signPackage);
+        });
+      }
+     },
     data(){
       return {
         chosePay:'1',
         isWeixin:false,
-        order_ids:''
+        order_ids:'',
+        wx_signPackage:null
       }
     },
     computed: {
-      ...mapState('confirmOrder',['goods_list','trueCash']),
+      ...mapState('confirmOrder',['order_list','trueCash']),
     },
     methods: {
-      ...mapActions('confirmOrder',['prepay']),
+      ...mapActions('confirmOrder',['orderPay']),
       payMoney(){
-          this.prepay({
+          if(!this.isWeixin) return;
+          prepay({
             order_ids:this.order_ids,
             payment:{"1":'weixin',"2":'alipay'}[String(this.chosePay)]
+          }).then( ({payment_id}) =>{
+              const { timestamp,  nonceStr, signType, paySign} = this.wx_signPackage
+              wx.ready(()=>{
+                wx.chooseWXPay({
+                  timestamp: timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
+                  nonceStr: nonceStr, // 支付签名随机串，不长于 32 位
+                  package: 'prepay_id='+payment_id, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
+                  signType: signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
+                  paySign: paySign, // 支付签名
+                  success: ()=>{
+                       this.$router.push({path:'/payOrderSuccess',query:{payment_id}})
+                  }
+                });
+              });
           });
       }
     }
