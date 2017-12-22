@@ -12,7 +12,7 @@
           </div>
           <div class="weui-media-box__bd">
             <h4 class="weui-media-box__title">{{item.title}}</h4>
-            <p class="weui-media-box__desc">{{item.desc}}</p>
+            <p class="weui-media-box__desc">&nbsp;<!--{{item.desc}}--></p>
             <p class="weui-media-box__tip"> {{item.like_num}}人秒赞</p>
           </div>
         </router-link>
