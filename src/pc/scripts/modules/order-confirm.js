@@ -6,6 +6,8 @@ import $ from 'jquery'
 import _ from 'underscore'
 import util from '^/utils'
 import AddressInput from '../common/addressInput'
+import '@/styles/loginDialog.less'
+import Dialog from '@/scripts/common/dialog'
 import {  checkorder, directcheckorder} from '^/services/mall'
 
 import {Model, Collection, View, Events} from 'backbone'
@@ -70,7 +72,31 @@ let mockData = {
     "coin_total": 120030
   }
 };
-
+/**
+ *  AddressPopupView
+ */
+let AddressPopupView = Dialog.extend({
+  template:_.template($('#address-form-tpl').html()),
+  initialize(){
+    this.constructor.__super__.initialize.apply(this, arguments);
+    //合并父类的events
+    if (this.constructor.prototype.events) {
+      this.events = $.extend( true,{},this.constructor.__super__.events,this.events);
+      this.delegateEvents();
+    }
+    // 渲染Dom
+    this.render();
+    this.initAddressInput();
+  },
+  content(){
+    return  this.template();
+  },
+  initAddressInput(){
+    new AddressInput({
+      target:this.$('.js-address-input')
+    });
+  }
+})
 
 /**
  * GoodsView
@@ -93,13 +119,12 @@ let GoodsView = View.extend({
  */
 let App = View.extend({
   events: {
+    'click .js-add-address-btn':'addAddress',
     'click .check-btn': 'sendOrder'
   },
   initialize() {
 
-    new AddressInput({
-      target:this.$('#address')
-    });
+
 
     this.urlParams  = util.urlArgs();
     if (!!bus.checkIsLogin()) {
@@ -149,6 +174,9 @@ let App = View.extend({
   },
   sendOrder(){
 
+  },
+  addAddress(){
+    new AddressPopupView();
   }
 });
 new App({

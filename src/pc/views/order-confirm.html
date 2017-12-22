@@ -16,7 +16,7 @@
         <div class="inline-block order-sub-title" style="margin-bottom: 0">
           选择收货地址
         </div>
-        <a href="javascript:;" class="text-primary">新增地址</a>
+        <a href="javascript:;" class="text-primary js-add-address-btn">新增地址</a>
       </div>
       <div class="address-item primary">
           <span class="address-name split">收货人姓名</span>
@@ -129,6 +129,17 @@
     <@if(obj.cash_price){@><div>¥<@-obj.cash_price@></div><@}@>
     <@if(obj.coin_price){@><div>M<@-obj.coin_price@></div><@}@>
   </td>
+</script>
+
+<script type="text/template" id="address-form-tpl">
+    <div>
+      <div>
+        <h1>添加收货地址</h1>
+      </div>
+      <div class="js-address-input">
+
+      </div>
+    </div>
 </script>
 </body>
 </html>
