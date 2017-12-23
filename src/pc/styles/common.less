@@ -54,6 +54,9 @@ html,body{
   border: 1px solid transparent;
   border-radius: 4px;
 }
+.btn.btn-lg{
+  padding: 8px 30px;
+}
 .btn-primary{
   color: #fff;
   background-color: @primary-color;
@@ -68,6 +71,14 @@ html,body{
 .btn-primary.disabled,.btn-primary[disabled],.btn-primary.disabled:hover,.btn-primary[disabled]:hover{
   background-color: lighten(@primary-color,30%);
   border-color: lighten(@primary-color,30%);
+}
+.table-fixed{
+  display: table;
+  table-layout: fixed;
+  width: 100%;
+}
+.table-cell{
+  display: table-cell;
 }
 .fl{
   float: left;

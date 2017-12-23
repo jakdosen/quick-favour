@@ -192,9 +192,10 @@
 
 
 
-
+/*------------省市地区选择--------------*/
 .address-wrap{
   position: relative;
+  z-index: 100;
 }
 .address-input{
   display: inline-block;
@@ -260,3 +261,43 @@
   background-color: @primary-color;
   color: #fff;
 }
+
+/*-----------地址弹框-------------*/
+
+.d-address-header,
+.d-address-footer{
+  background-color: #f3f3f3;
+}
+
+.d-address-header,
+.d-address-body,
+.d-address-footer{
+  padding:@gap-size @gap-size*1.5;
+}
+.d-address-header{
+  font-size: 20px;
+}
+.d-address{
+  font-size: 14px;
+   margin:-40px;
+   min-width: 30em;
+  .table-fixed{
+    width: 30em;
+  }
+  .form-group{
+    margin-bottom: 20px;
+  }
+  .input-wrap{
+    border: 1px solid #f3f3f3;
+    padding: 0 15px;
+    .input-main{
+      overflow: hidden;
+      input,textarea{
+        border: none;
+        outline: none;
+        padding: 0 15px;
+        width: 100%;
+      }
+    }
+  }
+ }

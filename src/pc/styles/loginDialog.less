@@ -3,18 +3,20 @@
 .mz-input{
   .mz-div-input(100%);
 }
-.form-group{
-  width: 100%;
-  position: relative;
-  label{
-    position: absolute;
-    left: -96px;
-    top:2px;
-  }
-}
+
 .mz-c-login{
-  width: 320px;
+  width: 400px;
   margin: 0 auto;
+  .form-group{
+    width: 100%;
+    position: relative;
+    padding-left: 96px;
+    label{
+      position: absolute;
+      left: 0;
+      top:2px;
+    }
+  }
   .mz-input{
     margin-bottom: 20px !important;
   }
@@ -69,6 +71,7 @@
     }
   }
   .mz-login-others-link{
+    overflow: hidden;
      padding: 0 75px;
      a{
         display: inline-block;

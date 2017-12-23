@@ -132,12 +132,46 @@
 </script>
 
 <script type="text/template" id="address-form-tpl">
-    <div>
-      <div>
+    <div  class="d-address">
+      <div class="d-address-header">
         <h1>添加收货地址</h1>
       </div>
-      <div class="js-address-input">
+      <div class="d-address-body">
+        <div class="form-group" style="overflow: hidden">
+              <div class="fl" style="padding-right: 15px;width: 50%">
+                <div class="input-wrap">
+                  <div class="input-label fl">姓名</div>
+                  <div class="input-main">
+                    <input placeholder="收货人手机姓名" maxlength="15">
+                  </div>
+                </div>
+              </div>
+              <div class="fl" style="padding-left: 15px;width: 50%">
+                  <div class="input-wrap">
+                    <div class="input-label fl">手机号码</div>
+                    <div class="input-main">
+                      <input placeholder="收货人手机号码" maxlength="20">
+                    </div>
+                  </div>
+              </div>
+        </div>
+        <div class="form-group">
+          <div class="js-address-input">
 
+          </div>
+        </div>
+        <div class="form-group">
+          <div class="input-wrap">
+            <div class="input-label fl">详细地址</div>
+            <div class="input-main">
+              <textarea rows="2" maxlength="50" placeholder="详细地址路名或街道、门牌号" minlength="5"></textarea>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="d-address-footer text-center">
+          <button class="btn btn-primary btn-lg" style="margin-right: 1em">确定</button>
+          <button class="btn btn-default btn-lg">取消</button>
       </div>
     </div>
 </script>

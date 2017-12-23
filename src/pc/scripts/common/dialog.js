@@ -12,7 +12,7 @@ const tmpl = `
    <div class="mz-mask"></div>
    <!--新建内容区域-->
    <div class="mz-mask-content">
-    <div class="clearfix" style="margin-top: -50%;margin-left: -50%;padding:40px 20px;background: #fff">
+    <div class="clearfix" style="background: #fff">
      <div class="mz-mask-content-header hide">
         <span class="title"><@- obj.title@></span>
         <span class="close">×</span>
