@@ -13,8 +13,8 @@
               <span style="margin-left: 1em">{{article.likeNum}}人秒赞</span>
             </span>
             <router-link class="inline-block" :to="'/article/detail/'+ article.id + '/note'" style="float: right">
-              <i><badge :text="article.commentNum + 500" style="position: relative;top: -8px;font-size: 10px;height: 12px;
-    line-height: 12px;"></badge> <span class="iconfont icon-msg"></span></i>
+              <i><span class="iconfont icon-book"></span><badge :text="article.commentNum + 500" style="position: relative;top: -6px;font-size: 10px;height: 12px;
+    line-height: 12px;"></badge> </i>
             </router-link>
 
           </div>
@@ -243,6 +243,7 @@
     .title{
       font-size: 2rem;
       padding: 0 0 1rem;
+      font-weight: 500;
     }
     .info{
       font-size: 1.2rem;
