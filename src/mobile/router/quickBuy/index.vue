@@ -95,9 +95,9 @@
         // 获取上面导航
         this.$store.dispatch('buyIndex/cycleImage');
         // 重置列表数据
-        this.$store.commit('buyIndex/update',{suggestlist:[]});
-        // 获取推荐列表
-        this.$store.dispatch('buyIndex/suggestlist',{page:1});
+//        this.$store.commit('buyIndex/update',{suggestlist:[]});
+        // 获取推荐列表(在数据没有的时候加载)
+        !this.suggestlist.length && this.$store.dispatch('buyIndex/suggestlist',{page:1});
     },
     data(){
         return {

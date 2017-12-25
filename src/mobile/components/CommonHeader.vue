@@ -54,7 +54,7 @@
       &.vux-header{
       .vux-header-left,
       .vux-header-right{
-        color: #fff;
+        color: #fff !important;
         }
       }
   }

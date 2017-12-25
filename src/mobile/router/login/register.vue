@@ -93,11 +93,11 @@
             this.$store.dispatch('register/resetPassword',payload);
             break;
           case 'bindNoPhone':
-              payload = {mobile:this.userPhone,code:this.stateCode,password:this.userNewPassWord};
+              payload = {mobile:this.userPhone,code:this.stateCode,password:this.userNewPassWord,registered:0};
               this.$store.dispatch('register/thirdRegister',payload);
             break;
           case 'bindPhone':
-            payload = {mobile:this.userPhone,code:this.stateCode}
+            payload = {mobile:this.userPhone,code:this.stateCode,registered:1}
             this.$store.dispatch('register/thirdRegister',payload);
             break;
         }

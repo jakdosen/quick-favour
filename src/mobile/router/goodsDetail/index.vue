@@ -102,6 +102,7 @@
     },
     created(){
       !this.list.length  && this.$router.push({path:'/goods/'+this.$route.params.id})
+      this.update({selectSpec:[]})
     },
     computed:{
       ...mapState('common',{
@@ -163,7 +164,7 @@
          this.update({popupShowOpen:true,popupShowButton:val})
       },
       addToMallCart(flag){
-         if(this.selectSpec&&this.selectSpec.length&&!this.specification.length){
+         if(this.list.specification.length&&!this.specification.length){
              this.$vux.toast.text('请选择一个规则');
              return;
          }

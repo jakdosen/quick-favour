@@ -109,10 +109,10 @@
       accountPay:{
         get(){
           if(!this.isShowAccount){
-            return this.cash_pay.cash_total;
+            return Number(this.cash_pay.cash_total).toFixed(2);
           }else{
               let arvs = this.user_account['can_use_run_money']-this.coinCash;
-              return arvs < 0 ? Math.abs(arvs):0
+              return arvs < 0 ?  Number(Math.abs(arvs)).toFixed(2):0.00
           }
         },
         set(){}

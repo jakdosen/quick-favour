@@ -2,7 +2,7 @@
   <div style="background: #fff;height: 100%">
     <common-header><span slot="default">选择地址</span></common-header>
     <view-box body-padding-top="46px">
-        <checker v-model="chosePay"  type="radio" radio-required default-item-class="pay-default" selected-item-class="pay-selected">
+        <checker v-model="chosePay" @on-change="history"  type="radio" radio-required default-item-class="pay-default" selected-item-class="pay-selected">
           <checker-item :value="item.id" v-for="item in addressList" :key="item.id">
                <icon class="changeIcon" :type="chosePay===item.id? 'success':'circle'"></icon>
                <div>
@@ -50,7 +50,10 @@
     },
     methods: {
       ...mapActions('confirmOrder',['addressListFn']),
-      ...mapMutations('confirmOrder',['update'])
+      ...mapMutations('confirmOrder',['update']),
+      history(){
+          this.$router.go(-1);
+      }
     }
   }
 </script>

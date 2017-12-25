@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div style="height: 100%">
     <common-header className="colorHeader">
          <div slot="default" class="header-img"><img src="//pic5.40017.cn/01/001/69/e2/rBLkBloJRPqAONZ4AAIHd0GN-AI775_242x150_00.jpg" alt=""></div>
     </common-header>
     <view-box ref="viewBox" body-padding-top="46px">
       <vue-better-scroll
-        style="height:calc(100%);"
+        style="height:100%;"
         class="wrapper"
         ref="scroll"
         :pullUpLoad="pullUpLoadObj"
