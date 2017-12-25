@@ -47,6 +47,10 @@ axios.defaults.timeout = 10000;
 // http request 拦截器
 axios.interceptors.request.use(
   config => {
+    //防止缓存
+    if(config.method.toLowerCase() == 'get'){
+      config.params['r'] = Math.random();
+    }
     if (axiosStore.get('api_token')) {
       if(config.method.toLowerCase() == 'get'){
         config.params['api_token'] = axiosStore.get('api_token');

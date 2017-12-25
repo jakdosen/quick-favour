@@ -8,9 +8,13 @@
         <div >
           <h1 class="title">{{article.title}}</h1>
           <div class="info justify">
-            <span class="inline-block">{{article.date}}</span>
+            <span class="inline-block">
+              <span>{{article.date}}</span>
+              <span style="margin-left: 1em">{{article.likeNum}}人秒赞</span>
+            </span>
             <router-link class="inline-block" :to="'/article/detail/'+ article.id + '/note'" style="float: right">
-              <i><badge :text="article.likeNum" style="position: relative;top: -2px;"></badge> 人秒赞</i>
+              <i><badge :text="article.commentNum + 500" style="position: relative;top: -8px;font-size: 10px;height: 12px;
+    line-height: 12px;"></badge> <span class="iconfont icon-msg"></span></i>
             </router-link>
 
           </div>
@@ -18,18 +22,18 @@
           <div v-html="article.detail" class="content"></div>
         </div>
     </div>
-    <flexbox :gutter="0" wrap="wrap" slot="bottom" class="article-footer">
+<!--    <flexbox :gutter="0" wrap="wrap" slot="bottom" class="article-footer">
       <flexbox-item :span="1/4" class="vux-1px-r" style="text-align: center" @click.native="isShowNotePopup = true">
         <span class="iconfont icon-note" style="ont-size: 2.1rem; vertical-align: middle;"></span>
         留言...
       </flexbox-item>
-     <!-- <flexbox-item>
+      <flexbox-item>
         <div class="social-share">
             <a class="iconfont icon-weixin" @click.native="shareAppMessage"></a>
             <a class="iconfont icon-pengyouquan" @click.native="shareTimeline"></a>
         </div>
-      </flexbox-item>-->
-    </flexbox>
+      </flexbox-item>
+    </flexbox>-->
     <div v-transfer-dom>
       <popup v-model="isShowNotePopup" position="bottom" max-height="50%">
         <div style="background-color:#fff;margin:0 auto;padding:0 15px;">
@@ -238,7 +242,6 @@
     padding: 10px;
     .title{
       font-size: 2rem;
-      font-weight: 700;
       padding: 0 0 1rem;
     }
     .info{
