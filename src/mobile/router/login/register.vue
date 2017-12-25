@@ -59,7 +59,7 @@
     methods: {
       ...mapMutations('register',['updateCommon']),
       sendStateCode(){
-         if(this.stateCodeSuggest !== '发送验证码') return;
+         if(this.stateCodeSuggest !== '发送验证码'||!this.userPhone) return;
          this.$store.dispatch('register/sendCode',{mobile:this.userPhone});
          let time = 59;
          const timeOut = ()=>{

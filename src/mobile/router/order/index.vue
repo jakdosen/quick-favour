@@ -47,14 +47,14 @@
        </div>
        <!--订单总额-->
        <div class="order-pay-count">
-           <div><span>订单总额</span><span>￥{{price}}</span></div>
+           <div><span>订单总额</span><span>￥{{coinCash}}</span></div>
            <div v-show="chosePay==='2'"><span>订单秒币</span><span>M{{coin}}</span></div>
-           <div v-show="isShowAccount"><span>账户支付</span><span>-￥{{coinCash}}</span></div>
+           <div v-show="isShowAccount"><span>账户支付</span><span>-￥{{accountCash}}</span></div>
        </div>
      </view-box>
      <!--提交订单-->
      <div class="order-push">
-       <p>实付金额：<span><small>￥</small>{{coinCash}}</span></p>
+       <p>实付金额：<span><small>￥</small>{{accountPay}}</span></p>
        <span @click="submitOrder_form">提交订单</span>
      </div>
    </div>
@@ -96,10 +96,26 @@
              return this.cash_pay.cash_total
           }
       },
+      accountCash:{
+        get(){
+          return this.chosePay==="1"? Math.min(this.user_account['can_use_run_money'],this.cash_pay.cash_total): Math.min(this.user_account['can_use_run_money'],this.cashcoin_pay.cash_total)
+        },set(){}
+      },
       coinCash:{
         get(){
           return this.chosePay==="1"? this.cash_pay.cash_total: this.cashcoin_pay.cash_total
-        }
+        },set(){}
+      },
+      accountPay:{
+        get(){
+          if(!this.isShowAccount){
+            return this.cash_pay.cash_total;
+          }else{
+              let arvs = this.user_account['can_use_run_money']-this.coinCash;
+              return arvs < 0 ? Math.abs(arvs):0
+          }
+        },
+        set(){}
       },
       countNum:{
           get(){
@@ -113,12 +129,13 @@
       ...mapActions('confirmOrder',['checkOrder','submitOrder']),
       ...mapMutations('confirmOrder',['update']),
       submitOrder_form(){
-          this.update({trueCash:this.coinCash});
+          this.update({trueCash:this.accountPay});
           this.submitOrder({
             pay_type:this.chosePay,
             account_pay:(this.isShowAccount && 1) || 0,
             address_id:this.user_address.id,
-            goods_list:this.goods_list
+            goods_list:this.goods_list,
+            trueCash:this.accountPay
           });
       },
       payChange(val){

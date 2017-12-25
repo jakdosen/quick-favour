@@ -35,10 +35,11 @@
         <!--首页搜索框-->
         <div class="buy-search">
           <Sticky offset="15">
-            <div class="toCenter" @click="openSearchPage">
-              <x-input class="searchBtn" placeholder="输入商品名称进行搜索"  :readonly="true" >
-                <icon slot="label" style="display:block;margin-right: 5px" type="search"></icon>
-              </x-input>
+            <div class="toCenter">
+              <div class="buy-search-input"  @click.prevent.stop="openSearchPage">
+                  <icon style="margin-left: 10px;" type="search"></icon>
+                  <span>输入商品名称进行搜索</span>
+              </div>
               <router-link to="/mall/cart"><span class="iconfont icon-shopping-cart" style="margin-left:1rem;color: #ff5300;font-size: 2.5rem"></span></router-link>
             </div>
           </Sticky>
@@ -142,6 +143,7 @@
     background: #fff;
     margin-bottom: 2rem;
     position: relative;
+    width: 100%;
   }
   .buy-head  .weui-grids:before,.buy-head  .weui-grids:after{
      border: none;
@@ -154,12 +156,16 @@
     top: 2rem;
     width: 100%;
     z-index: 99;
+
   }
-  .buy-search .searchBtn{
-      border-radius: 2.5rem;
-      background: #fff;
-      height: 3.5rem;
-      width: 80%;
+  .buy-search-input{
+    width: 80%;
+    border-radius: 2.5rem;
+    background: #fff;
+    height: 3.5rem;
+    line-height: 3.5rem;
+    font-size: 1.2rem;
+    color: #999;
   }
   .toCenter{
   .flexbox;
@@ -221,6 +227,9 @@
      padding: 0 4px;
      display: inline-block;
      background: @color3;
+  }
+  .buy-icon>i{
+    background: #822eef;
   }
   .buyIndex-01,.buyIndex-02,.buyIndex-03{
       display: block;

@@ -139,10 +139,13 @@
     font-size: 1.2rem;
     display: inline-block;
     margin-right: 5px;
-    background: #f63;
+    background: #f20840;
     color: #fff;
     padding: 0 .7rem;
     margin-top: -5px;
+  }
+  .right-content > div i{
+    background: #822eef;
   }
   .wrapper{
     -webkit-overflow-scrolling: touch;

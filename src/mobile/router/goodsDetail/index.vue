@@ -18,13 +18,13 @@
               <span><i v-if="list.cash_price">元</i><b v-if="list.coin_price">秒</b></span>
             </div>
           </div>
-          <div class="chose-list" :data-title="item.name" v-for="(item,index) in list.specification">
+          <div class="chose-list" :data-title="item.name" v-for="(item,index) in list.specification" :key="index">
             <checker
               default-item-class="check-border-1px"
               selected-item-class="check-border-active"
               @on-change="changeSpec"
             >
-              <checker-item style="margin-right: 5px;" v-for="item_child in item.value" :value="index+';'+item_child.id+';'+item_child.cash_price+';'+item_child.coin_price" > {{item_child.label}} </checker-item>
+              <checker-item style="margin-right: 5px;" :key="item_child.id" v-for="item_child in item.value" :value="index+';'+item_child.id+';'+item_child.cash_price+';'+item_child.coin_price" > {{item_child.label}} </checker-item>
             </checker>
           </div>
           <group class="buy-chose-list-num">
@@ -310,6 +310,9 @@
     padding: 2px 5px;
     background: @color1;
     color: #fff;
+  }
+  i{
+    background: #822eef;
   }
   }
   }

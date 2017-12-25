@@ -3,7 +3,7 @@
     <common-header><span slot="default">选择地址</span></common-header>
     <view-box body-padding-top="46px">
         <checker v-model="chosePay"  type="radio" radio-required default-item-class="pay-default" selected-item-class="pay-selected">
-          <checker-item :value="item.id" v-for="item in addressList">
+          <checker-item :value="item.id" v-for="item in addressList" :key="item.id">
                <icon class="changeIcon" :type="chosePay===item.id? 'success':'circle'"></icon>
                <div>
                    <span>{{item.true_name + '  '+item.mobile}}</span>
@@ -13,7 +13,7 @@
         </checker>
     </view-box>
     <div class="newAddress">
-       <a href="//t13.zetadata.com.cn/m1/address/" style="width: 100%;height: 100%;display: block;color: #fff">
+       <a onclick="window.location.replace('/m1/address/')"  style="width: 100%;height: 100%;display: block;color: #fff">
          新增地址
        </a>
     </div>

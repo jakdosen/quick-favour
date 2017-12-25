@@ -28,7 +28,7 @@ export default {
     user_address: null,
     nowSelectAddressId:"",
     addressList:[],
-    paySuccessObject:null
+    paySuccessObject:{}
   },
   actions: {
     checkOrder : async ({commit,state},payload) =>{
@@ -50,8 +50,12 @@ export default {
     },
     submitOrder:async ({commit,state},payload) =>{
       const res = await done(payload);
-      const { order_ids } = res;
-      router.push({path:'/confirmOrder',query:{order_ids}})
+      const { order_ids,payment_id } = res;
+      if(!payload.trueCash){
+        router.push({path:'/payOrderSuccess',query:{payment_id}})
+      }else{
+        router.push({path:'/confirmOrder',query:{order_ids}})
+      }
     },
     // prepay:async ({commit,state},payload) =>{
     //   const res = await prepay(payload);

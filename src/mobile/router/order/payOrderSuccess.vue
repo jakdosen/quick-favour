@@ -8,7 +8,7 @@
              <p>您的包裹整装待发!</p>
          </div>
          <!--收货人信息-->
-         <div class="payOrder-user">
+         <div class="payOrder-user" v-if="JSON.stringify(paySuccessObject) !== '{}'">
             <p><span>收货人：</span>{{paySuccessObject.address.true_name + '  '+paySuccessObject.address.mobile}}</p>
             <p><span>收货地址：</span>{{paySuccessObject.address.province + paySuccessObject.address.city+ paySuccessObject.address.county+ paySuccessObject.address.address}}</p>
             <p><span>实付款：</span><span><small>￥</small>{{paySuccessObject.order_amount}}</span></p>

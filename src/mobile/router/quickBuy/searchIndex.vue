@@ -37,7 +37,7 @@
             </div>
             <div slot="content" style="margin-top: 1rem">
               <ul>
-                <li v-for="item in searchHistory"  @click="doSearchHistory(item)" class="vux-1px">{{ item }}</li>
+                <li v-for="(item,index) in searchHistory" :key="index"  @click="doSearchHistory(item)" class="vux-1px">{{ item }}</li>
               </ul>
             </div>
           </card>
@@ -46,7 +46,7 @@
         <div v-if="!isLoading&&!isShowHistory" class="search-content-modules">
           <tab :line-width=2 active-color='#fc378c' v-model="index" style="z-index: 10">
             <!--价格的时候 用slot，icon-->
-            <tab-item class="vux-center"  v-for="(item, num) in list2" >{{item}}</tab-item>
+            <tab-item class="vux-center"  v-for="(item, num) in list2" :key="num" >{{item}}</tab-item>
           </tab>
           <!--有列表的时候-->
           <div v-if="sourceList.length" style="height: calc(100% - 44px)">

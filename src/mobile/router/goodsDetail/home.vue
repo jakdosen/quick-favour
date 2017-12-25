@@ -14,7 +14,7 @@
          <!--购买信息-->
          <div id="buy-info" class="buy-info">
            <swiper :show-desc-mask="false" :auto="true" :show-dots="[].concat(list.gallerys).length>1"  dots-position="center" :loop="true"
-                   height="23rem">
+                   height="37.5rem">
              <swiper-item v-for="(item, index) in list.gallerys" :key="index"><router-link to="/goods"><img style="width: 100%;height: auto" :src="item.img_url"></router-link></swiper-item>
            </swiper>
            <div class="buy-word-info">
@@ -189,10 +189,10 @@
     margin-right: 5px;
   }
 .buy-word-info> div i{
-  background: @color1;
+  background: #822eef;
 }
   .buy-word-info> div b{
-    background: @color2;
+    background: @color1;
   }
   .buy-rater{
      background: #fff;
