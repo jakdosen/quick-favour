@@ -21,7 +21,9 @@ export default {
     //获取文章详情
     fetchArticleDetail ({ commit ,state},params) {
       getDetail({
-        article_id:params.articleId
+        article_id:params.articleId,
+        share_id:params.share_id,
+        share_code:params.share_code
       }).then(({title,created_at,like_num,comment_num,click_num,content,id,desc,cover})=>{
         commit('fetchArticleDetail',{
           id,

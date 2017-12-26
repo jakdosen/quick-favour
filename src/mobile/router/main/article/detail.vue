@@ -146,11 +146,11 @@
       },
       initShare(config){
         const permissions = ['hideMenuItems','onMenuShareTimeline', 'onMenuShareAppMessage'];
-        const url = (config && config.share_url)||window.location.href;
+        const url = (config && config.share_url)||window.location.href.split("#")[0];
         let article = this.article;
         let configObj;
         getWxSignature({
-          url:encodeURIComponent(window.location.href),
+          url:encodeURIComponent(window.location.href.split("#")[0]),
           jsApiList:JSON.stringify(permissions)
         }).then(data=>{
           wx.config(configObj = Object.assign(data.signPackage,{
