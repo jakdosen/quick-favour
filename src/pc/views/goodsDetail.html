@@ -20,130 +20,136 @@ var bread = [
   <div class="goods-info clearfix">
        <!--左边slider，商品图片-->
        <div class="goods-info-img">
-         <div id="magnifier">
-           <div class="small-box">
-             <img src="images/small_1.jpg" alt="#">
-             <span class="hover"></span>
-           </div>
-           <div class="thumbnail-box">
-             <a href="javascript:;" class="btn btn-prev"></a>
-             <a href="javascript:;" class="btn btn-next"></a>
-             <div class="list">
-               <ul class="wrapper">
-                 <li class="item item-cur" data-src="images/small_1.jpg"><img src="images/thumbnail_1.jpg" alt="#"></li>
-                 <li class="item" data-src="images/small_2.jpg"><img src="images/thumbnail_2.jpg" alt="#"></li>
-                 <li class="item" data-src="images/small_3.jpg"><img src="images/thumbnail_3.jpg" alt="#"></li>
-                 <li class="item" data-src="images/small_4.jpg"><img src="images/thumbnail_4.jpg" alt="#"></li>
-                 <li class="item" data-src="images/small_5.jpg"><img src="images/thumbnail_5.jpg" alt="#"></li>
-                 <li class="item" data-src="images/small_6.jpg"><img src="images/thumbnail_6.jpg" alt="#"></li>
-               </ul>
-             </div>
-           </div>
-           <div class="big-box">
-             <img src="images/big_1.jpg" alt="#">
-           </div>
-         </div>
+
        </div>
        <!--右边商品参数选择-->
        <div class="goods-info-options">
-          <h1>小米VR眼镜</h1>
-          <h2>暴风魔镜 小D白 智能 VR眼镜 3D头盔</h2>
-          <div class="goods-info-spec">
-              <div class="c-spec price" data-label="价格"><span>299<small>元</small></span></div>
-              <div class="c-spec logistics" data-label="物流"><span>顺丰包邮</span></div>
-              <div class="c-spec spection" data-label="颜色分类">
-                <div class="spection-box">
-                  <span class="active">小米VR眼睛</span>
-                  <span>小米VR眼睛玩具版PLAY2</span>
-                </div>
-              </div>
-              <div class="c-spec num" data-label="购买数量">
-                 <div class="num-box">
-                    <input type="text">
-                    <span>
-                       <b>+</b>
-                       <b>-</b>
-                    </span>
-                 </div>
-                 件
-              </div>
-              <div class="c-spec submit" data-label="">
-                  <a href="javascript:;" class="submit-buy">立即购买</a>
-                  <a href="javascript:;" class="submit-addCart"><span style="font-size: 12px;margin-right: 5px;" class="iconfont icon-shopping-cart"></span>加入购物车</a>
-              </div>
-          </div>
+
        </div>
   </div>
   <!--商品导航-->
   <div class="goods-nav">
     <ul>
-      <li class="active" data-id="detail">商品详情</li>
-      <li data-id="config">参数配置</li>
-      <li data-id="comment" data-comment="2783">商品评价</li>
+      <li class="active" data-id="detail" data-index="0">商品详情</li>
+      <li data-id="config" data-index="1">参数配置</li>
+      <li data-id="comment" data-comment="2783" data-index="2">商品评价</li>
     </ul>
     <span class="goods-nav-active" style="left: 0;">▼</span>
   </div>
   <!--商品导航对应的商品详情介绍-->
   <div class="goods-content">
-      <div  data-id="detail">
-          <div class="goods-content-message clearfix">
-             <span>品牌名称：Xiaomi/小米</span>
-            <ul>
-              <li>兼容平台：MIUI</li>
-              <li>品牌名称：Xiaomi/小米</li>
-              <li>品牌名称：Xiaomi/小米</li>
-              <li>品牌名称：Xiaomi/小米</li>
-              <li>品牌名称：Xiaomi/小米</li>
-            </ul>
-          </div>
+      <div  data-id="detail" class="active">
+          <!--<div class="goods-content-message clearfix">-->
+             <!--<span>品牌名称：Xiaomi/小米</span>-->
+            <!--<ul>-->
+              <!--<li>兼容平台：MIUI</li>-->
+              <!--<li>品牌名称：Xiaomi/小米</li>-->
+              <!--<li>品牌名称：Xiaomi/小米</li>-->
+              <!--<li>品牌名称：Xiaomi/小米</li>-->
+              <!--<li>品牌名称：Xiaomi/小米</li>-->
+            <!--</ul>-->
+          <!--</div>-->
           <div class="goods-content-images clearfix">
-            <img src="" alt="">
+            数据加载中。。。
           </div>
       </div>
       <div data-id="config" >
-         <div class="goods-config-item"><span>商品编号</span><b>52253456</b></div>
-         <div class="goods-config-item"><span>店铺</span><b>秒赞商城</b></div>
-         <div class="goods-config-item"><span>内存</span><b>8GB</b></div>
+        数据加载中。。。
       </div>
-      <div data-id="comment" class="active comment">
-          <div class="comment-count">
-             <span>商品评价 2783</span>
-             <p>好评度 <strong>90<b>%</b></strong></p>
-          </div>
-          <div class="comment-detail">
-             <div class="comment-detail-nav">
-                <span>全部评价(20)</span>
-               <ul>
-                 <li>好评(18)</li>
-                 <li>中评(1)</li>
-                 <li>差评(1)</li>
-               </ul>
-             </div>
-             <div class="comment-detail-content">
-                 <div class="comment-detail-content-item">
-                     <div class="name">
-                       <span><img src="" alt=""></span>
-                       <b>姜***小</b>
-                     </div>
-                     <div class="message">
-                          <p>顺丰给力啊，第三天到的，东西很不错，正品，应该没有拆过，东西包装不错</p>
-                          <span>2017-11-09 颜色：银色 128G固态键盘</span>
-                     </div>
-                 </div>
-               <div class="comment-detail-content-item">
-                 <div class="name">
-                   <span><img src="" alt=""></span>
-                   <b>姜***小</b>
-                 </div>
-                 <div class="message">
-                   <p>顺丰给力啊，第三天到的，东西很不错，正品，应该没有拆过，东西包装不错</p>
-                   <span>2017-11-09 颜色：银色 128G固态键盘</span>
-                 </div>
-               </div>
-             </div>
-          </div>
+      <div data-id="comment" class=" comment">
+         数据加载中。。。
       </div>
   </div>
 </div>
+<script type="text/template" id="tmpl-magnifier">
+  <div id="magnifier">
+    <div class="small-box">
+      <img src="<@- obj[0].img_url@>" alt="#">
+      <span class="hover"></span>
+    </div>
+    <div class="thumbnail-box">
+      <a href="javascript:;" class="btn btn-prev"></a>
+      <a href="javascript:;" class="btn btn-next"></a>
+      <div class="list">
+        <ul class="wrapper">
+          <@ _.each(obj,function(item,index){@>
+          <li class="item <@- !index&& 'item-cur'@>" data-src="<@- item.img_url@>"><img src="<@- item.thumb_url@>" alt="#"></li>
+          <@})@>
+        </ul>
+      </div>
+    </div>
+    <div class="big-box">
+      <img src="<@- obj[0].thumb_url@>" alt="#">
+    </div>
+  </div>
+</script>
+<script type="text/template" id="tmpl-options">
+  <h1><@- obj.goods_name@></h1>
+  <h2><@- obj.goods_brief@></h2>
+  <div class="goods-info-spec">
+    <div class="c-spec price" data-label="价格">
+        <span class="cashPrice"><small>￥</small><@- cash_price@><small>元</small></span>
+        <span class="coinPrice" style="margin-left: 20px;"><small>M</small><@- coin_price@></span>
+    </div>
+    <div class="c-spec logistics" data-label="物流"><span>顺丰包邮</span></div>
+    <@ obj.specification.length && _.each(obj.specification,function(item,index){@>
+      <div class="c-spec spection" data-label="<@- item.name@>">
+        <div class="spection-box">
+          <@ item.value && _.each(item.value,function(child,num){@>
+              <span data-id="<@- index+';'+child.id+';'+(child.cash_price||0)+';'+(child.coin_price||0)@>"><@- child.label@></span>
+          <@})@>
+        </div>
+      </div>
+    <@})@>
+
+    <div class="c-spec num" data-label="购买数量">
+      <div class="num-box">
+        <input type="text" value="1">
+        <span>
+                       <b class="add">+</b>
+                       <b class="des">-</b>
+                    </span>
+      </div>
+      件
+    </div>
+    <div class="c-spec submit" data-label="">
+      <a href="javascript:;" class="submit-buy">立即购买</a>
+      <a href="javascript:;" class="submit-addCart"><span style="font-size: 12px;margin-right: 5px;" class="iconfont icon-shopping-cart"></span>加入购物车</a>
+    </div>
+  </div>
+</script>
+<script type="text/template" id="tpl-comment">
+  <div class="comment-count">
+    <span>商品评价 <@- obj.data.length@></span>
+    <p>好评度 <strong><@- obj.commentsCount.goods_rank/100@><b>%</b></strong></p>
+  </div>
+  <div class="comment-detail">
+    <div class="comment-detail-nav">
+      <span>全部评价(<@- obj.data.length@>)</span>
+      <ul>
+        <li>好评(<@- obj.commentsCount.comment_good@>)</li>
+        <li>中评(<@- obj.commentsCount.comment_general@>)</li>
+        <li>差评(<@- obj.commentsCount.comment_low@>)</li>
+      </ul>
+    </div>
+    <div class="comment-detail-content">
+    </div>
+    <div class="pagination js-pagination"><!-- 这里显示分页 --></div>
+  </div>
+</script>
+<script type="text/template" id="tpl-comment-item">
+  <@ _.each(obj,function(item){@>
+    <div class="comment-detail-content-item">
+      <div class="name">
+        <span><img src="<@- item.user.avatar@>" alt=""></span>
+        <b><@- item.user.nickname@></b>
+      </div>
+      <div class="message">
+        <p><@- item.content@></p>
+        <span><@- item.created_at+'  '+item.goods_attr@></span>
+      </div>
+    </div>
+  <@ }) @>
+</script>
 </body>
 </html>

@@ -24,7 +24,7 @@
               selected-item-class="check-border-active"
               @on-change="changeSpec"
             >
-              <checker-item style="margin-right: 5px;" :key="item_child.id" v-for="item_child in item.value" :value="index+';'+item_child.id+';'+item_child.cash_price+';'+item_child.coin_price" > {{item_child.label}} </checker-item>
+              <checker-item style="margin-right: 5px;" :key="item_child.id" v-for="item_child in item.value" :value="index+';'+item_child.id+';'+(item_child.cash_price||0)+';'+(item_child.coin_price||0)" > {{item_child.label}} </checker-item>
             </checker>
           </div>
           <group class="buy-chose-list-num">
@@ -153,12 +153,13 @@
               if(!obj)  return;
               price = Number(price) + Number(obj)
             })
-          obj === 'cash' ? this.changeBuyCashPrice= price : this.changeBuyCoinPrice = price;
+          obj === 'cash' ? this.changeBuyCashPrice= Math.max(price,0) : this.changeBuyCoinPrice = Math.max(price,0);
         }
         this.specification[index]= value[1];
         this.cashList[index]= value[2];
         this.coinList[index]= value[3];
         calc('cash');
+        calc('coin');
       },
       openPopup(val){
          this.update({popupShowOpen:true,popupShowButton:val})

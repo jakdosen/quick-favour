@@ -31,7 +31,7 @@ export default function($, window, document, undefined) {
 
     changeSrouce: function (index, cur_src) { // 鏀瑰彉澶у皬鍥惧湴鍧€
       this.$smallBox_pic.attr('src', cur_src);
-      this.$bigBox_pic.attr('src', 'images/big_'+(index + 1)+'.jpg');
+      this.$bigBox_pic.attr('src', cur_src);
     },
 
     setMask: function () { // 璁剧疆 mask 瀹介珮
