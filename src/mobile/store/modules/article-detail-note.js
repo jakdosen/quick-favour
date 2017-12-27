@@ -11,7 +11,8 @@ export default {
 		article: {
 			title: '',
 			date: '',
-			likeNum: 0
+			likeNum: 0,
+      shareNum:0
 		},
 		//留言信息
 		notes: [],
@@ -38,7 +39,8 @@ export default {
         commit('setArticleDetail',{
           title:article.title,
           date:article.created_at,
-          likeNum:article.like_num
+          likeNum:article.like_num,
+          shareNum:article.share_num||0
         });
         //页码信息
         commit('setPagination',meta.pagination);

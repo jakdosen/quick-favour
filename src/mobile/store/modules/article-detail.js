@@ -10,6 +10,8 @@ export default {
       title:'',
       date:'',
       likeNum:0,
+      shareNum:0,
+      commentNum:0,
       detail:''
     },
     //是否可分享
@@ -24,7 +26,7 @@ export default {
         article_id:params.articleId,
         share_id:params.share_id,
         share_code:params.share_code
-      }).then(({title,created_at,like_num,comment_num,click_num,content,id,desc,cover})=>{
+      }).then(({title,created_at,like_num,comment_num,click_num,share_num,content,id,desc,cover})=>{
         commit('fetchArticleDetail',{
           id,
           title,
@@ -32,6 +34,7 @@ export default {
           cover,
           date:created_at,
           likeNum:like_num,
+          shareNum:share_num,
           commentNum:comment_num,
           clickNum:click_num,
           detail:content

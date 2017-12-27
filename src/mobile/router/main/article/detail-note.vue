@@ -14,7 +14,7 @@
         <div>
           <h1 class="title">{{article.title}}</h1>
           <div class="info">
-            {{article.date}} <i>{{article.likeNum}}人秒赞</i>
+            {{article.date}} <i style="margin-left: 0.5em">{{article.shareNum}}人秒赞</i>
           </div>
           <div>
             <p>

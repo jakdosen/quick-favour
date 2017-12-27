@@ -10,10 +10,10 @@
           <div class="info justify">
             <span class="inline-block">
               <span>{{article.date}}</span>
-              <span style="margin-left: 1em">{{article.likeNum}}人秒赞</span>
+              <span style="margin-left: 1em">{{article.shareNum}}人秒赞</span>
             </span>
             <router-link class="inline-block" :to="'/article/detail/'+ article.id + '/note'" style="float: right">
-              <i><span class="iconfont icon-book"></span><badge :text="article.commentNum + 500" style="position: relative;top: -6px;font-size: 10px;height: 12px;
+              <i><span class="iconfont icon-book"></span><badge :text="article.commentNum" style="position: relative;top: -6px;font-size: 10px;height: 12px;
     line-height: 12px;"></badge> </i>
             </router-link>
 
