@@ -56,14 +56,14 @@
     <div class="container-950" style="background: none">
     <!--热门商品-->
     <div class="qb-hot-goods">
-      <p class="title"><span>热门商品</span><b>与品质生活不期而遇</b><a href="javascript:;">更多></a></p>
+      <p class="title"><span>热门商品</span><b>与品质生活不期而遇</b><a href="/hotGoods.html">更多></a></p>
       <div class="qb-hot-goods-box">
           <!--异步加载热门商品-->
       </div>
     </div>
     <!--秒币商品-->
     <div class="qb-store">
-      <p class="title"><span>秒币商品</span><b>更多商品、更多品牌</b><a href="javascript:;">更多></a></p>
+      <p class="title"><span>秒币商品</span><b>更多商品、更多品牌</b><a href="/quickMall.html">更多></a></p>
       <div class="qb-store-box">
         <!--异步加载秒币商品-->
       </div>
@@ -130,7 +130,7 @@
 <script type="text/template" id="hot-recommend">
   <div class="swiper-slide">
     <ul>
-      <@ obj.data && _.each(obj.data,function(item){@>
+      <@ obj.length && _.each(obj,function(item){@>
       <li>
         <a href="<@- item.id@>">
           <div class="img-box">
@@ -146,27 +146,6 @@
         </a>
       </li>
      <@})@>
-    </ul>
-  </div>
-
-  <div class="swiper-slide">
-    <ul>
-      <@ obj.data && _.each(obj.data,function(item){@>
-      <li>
-        <a href="<@- item.id@>">
-          <div class="img-box">
-            <img src="<@- item.goods_img@>" alt="">
-          </div>
-          <p><@- item.goods_name@></p>
-          <span>现金：<b>￥</b><em><@- item.cash_price@></em></span>
-          <div class="content-box">
-            <span>秒币：<b>M</b><em><@- item.coin_price@></em></span>
-            <b>元</b>
-            <em>秒</em>
-          </div>
-        </a>
-      </li>
-      <@})@>
     </ul>
   </div>
 </script>

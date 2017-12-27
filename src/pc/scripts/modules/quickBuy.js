@@ -40,6 +40,7 @@ const Search = VIEW.extend({
          this.model.set('keywords',$(e.currentTarget).val());
      },
      'click .qb-search-content span': 'searchMore',
+     'click .qb-search-history span': 'doSearchHistory'
   },
   initialize(){
      // 注册model
@@ -58,14 +59,18 @@ const Search = VIEW.extend({
     elem.append(_.template(searchTemplate)(searchHistory&&searchHistory.split(',')));
   },
   searchMore(){
-     location.href="?keywords="+this.model.get('keywords');
+     location.href="/searchPage.html?keywords="+this.model.get('keywords');
+  },
+  doSearchHistory(e){
+    location.href="/searchPage.html?keywords="+$(e.currentTarget).text();
   }
 });
 
 // 菜单模块
 const Menu =   VIEW.extend({
   events:{
-    'click .qb-menu-detail-hide li': 'changeNav'
+    'mouseover .qb-menu-detail-hide li': 'changeNav',
+    'mouseleave .qb-menu-detail': 'hideContent'
   },
   initialize(){
     // 渲染首页幻灯列表
@@ -83,6 +88,10 @@ const Menu =   VIEW.extend({
     homeCycleImage().then( data => {
       this.renderCycleImage(data.data)
     })
+  },
+  hideContent(){
+    this.$('.qb-menu-detail-show ul').fadeOut();
+    this.$('.qb-menu-detail-hide li').removeClass('active')
   },
   fetchDate(){
      category().then( data => {
@@ -166,8 +175,9 @@ const Recommend = VIEW.extend({
   fetchDate(){
     suggestlist(this.model.toJSON()).then(data =>{
       this.render(data)
+      !this.reSlider&&this.model.set({total:data.meta.pagination.total_pages});
       //加载幻灯效果
-      this.reSlider && this.reSlider.update() ||this.slider()
+      !this.reSlider && this.slider()
     })
   },
   slider(){
@@ -180,12 +190,21 @@ const Recommend = VIEW.extend({
       setWrapperSize:true,
       speed:500,
     })
-    _this.reSlider.on('slideChange',function(data){
-
+    _this.reSlider.on('slideChange',function(){
+      let  nowPage=_this.model.get('page'),nowIndex= Math.ceil((_this.reSlider.activeIndex+1)/2);
+      if(  nowPage <= nowIndex && nowIndex<_this.model.get('total')){
+        _this.model.set('page',nowPage+1)
+        _this.fetchDate();
+      }
     })
   },
   render(data){
-    this.$('.recommend-slider').append(_.template($('#hot-recommend').html())(data));
+    let html = '';
+    html = _.template($('#hot-recommend').html())(data.data.slice(0,4))
+    if(data.data.length>4){
+      html += _.template($('#hot-recommend').html())(data.data.slice(4,8))
+    }
+    !this.reSlider && this.$('.recommend-slider').append(html) || this.reSlider.appendSlide(html);
   }
 });
 
