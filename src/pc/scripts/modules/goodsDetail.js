@@ -10,7 +10,7 @@ import {detail, create, rater} from '^/services/mall'
 import {Model, Collection, View, Events} from 'backbone'
 
 
-new sliderBar();
+const SliderBar =new sliderBar();
 
 const GoodsValue = View.extend({
   events: {
@@ -80,13 +80,23 @@ const GoodsValue = View.extend({
   },
   addCart(){
     this.model.set({spec: this.spec_arry.join(',')});
-    create(this.model.toJSON()).then(res => location.href = "");
+    create(this.model.toJSON()).then(res => {
+      $.toast({
+        heading: '错误提示',
+        text: '加入购物车',
+        position: 'top-right',
+        stack: false,
+        icon: 'success'
+      })
+      SliderBar.addToMall(this.model.get('number'));
+    });
   },
   buy(){
     // 跳转到立即购买
     // location.href =
   }
 });
+
 
 
 // 商品评价

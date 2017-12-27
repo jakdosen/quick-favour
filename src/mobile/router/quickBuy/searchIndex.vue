@@ -49,11 +49,11 @@
             <tab-item class="vux-center"  v-for="(item, num) in list2" :key="num" >{{item}}</tab-item>
           </tab>
           <!--有列表的时候-->
-          <div v-if="sourceList.length" style="height: calc(100% - 44px)">
-            <goods-list :sourceList="sourceList" :onPullingUpArgs="onPullingUpArgs" :index = "index"></goods-list>
+          <div v-show="sourceList.length" style="height: calc(100% - 44px)">
+            <goods-list :sourceList="sourceList" :onPullingUpArgs="onPullingUpArgs" :pagination="pagination" :index = "index"></goods-list>
           </div>
           <!--空状态搜索-->
-          <div v-else class="search-null-modules">
+          <div v-show="!sourceList.length" class="search-null-modules">
               <span></span>
               抱歉，没有找到您搜到的商品~
           </div>
@@ -92,16 +92,19 @@
         searchFrom:false,  //用来展示不同的头
         searchHistory:[],  //搜索历史
         searchWord:'',   //搜索关键词
+        category_id:'', // 分类ID
         index:0,   // 当前选中第几个条件
         isShowHistory:true,  //空输入的时候直接显示历史页面
         searchPayLoad:null,   //记录当前搜索条件
       }
     },
     created:function () {
+      this.$store.commit('searchIndex/update',{sourceList:[],pagination:{current_page:0}});
        // 判断是否是直接搜索关键词
        this.searchWord = this.$route.query['searchWord']||'';
+       this.category_id = this.$route.query['category_id']||'';
        this.searchFrom = this.searchWord && true;
-       this.searchWord&&this.$store.dispatch('searchIndex/search', {keywords: this.searchWord});
+       this.searchWord&&this.$store.dispatch('searchIndex/search', {keywords: this.searchWord,category_id:this.category_id});
        // 取出本地存储的搜索历史
        const localStorage = window.localStorage.getItem('searchHistory')
        this.searchHistory = localStorage && localStorage.split(',') || '';
@@ -128,7 +131,10 @@
         this.search();
       },
       toSearchPage:function () {
-        this.$store.commit('searchIndex/update',{searchWord:''})
+        this.$router.replace({
+          path: '/search'
+        });
+        this.$router.go(0);
       },
       search(otherArg){
         if(!this.searchWord){
@@ -142,7 +148,7 @@
          // 第二部切换loading
          this.$store.commit('searchIndex/update',{isLoading:true});
          // 发起异步
-         let payload =!otherArg ? { keywords: this.searchWord}:{ keywords: this.searchWord,...otherArg};
+         let payload =!otherArg ? { keywords: this.searchWord,category_id:this.category_id}:{ keywords: this.searchWord,category_id:this.category_id,...otherArg};
          // 搜索条件
          this.searchPayLoad = payload;
          this.$store.dispatch('searchIndex/search', payload);
@@ -161,13 +167,12 @@
          window.localStorage.setItem('searchHistory',oldDate)
       },
       // 下拉刷新
-      onPullingUpArgs(callBack){
+      onPullingUpArgs(){
         // 防止请求多次
         if(!this.isLoadingPage)  return;
         const {current_page, total_pages} = this.pagination;
         this.$store.dispatch('searchIndex/pageSearch', {page: current_page + 1,...this.searchPayLoad});
         this.$store.commit('searchIndex/update', {isLoadingPage: false});
-        callBack(current_page,total_pages);
       }
     }
   }

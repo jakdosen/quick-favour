@@ -16,7 +16,7 @@
         <div class="all-body-right">
           <viewBox ref="allGoodsOfViewBox">
           <div class="all-type-goods"  v-for = "(item, index) in sourceList" v-show="index === selectIndex" :key="index">
-            <span v-if="!item.children.length"> 敬请期待{{item.cat_name}}商品</span>
+            <span v-if="!item.children"> 敬请期待{{item.cat_name}}商品</span>
             <div v-else style="width: 100%">
               <!--头部广告-->
               <swiper :show-desc-mask="false" :auto="true" :show-dots="false" dots-position="center" :loop="true"
@@ -26,7 +26,7 @@
               <span class="all-placeholder">热门分类</span>
               <div style="background: #fff">
                 <grid :cols="3">
-                  <grid-item v-for="(child,index) in item.children" :key="index" :link="'/search?searchWord='+child.cat_name" :label="child.cat_name">
+                  <grid-item v-for="(child,index) in item.children" :key="index" :link="'/search?searchWord='+child.cat_name+'&category_id='+child.id" :label="child.cat_name">
                     <x-img  default-src="static/allGoodsBg.png" slot="icon" :src="child.category_img"></x-img>
                   </grid-item>
                 </grid>

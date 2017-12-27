@@ -59,7 +59,11 @@
     methods: {
       ...mapMutations('register',['updateCommon']),
       sendStateCode(){
-         if(this.stateCodeSuggest !== '发送验证码'||!this.userPhone) return;
+         if(this.stateCodeSuggest !== '发送验证码') return;
+        if(!this.userPhone.length||!/^1[34578]\d{9}$/.test(this.userPhone)){
+          this.$vux.toast.text('请输入正确的手机号码')
+          return;
+        }
          this.$store.dispatch('register/sendCode',{mobile:this.userPhone});
          let time = 59;
          const timeOut = ()=>{

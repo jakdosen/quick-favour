@@ -21,9 +21,8 @@ export default {
         const res = await list(payload);
         const { data, meta } = res;
         const {  pagination } = meta;
+        commit('update',{isLoading: false,pagination:pagination})
         commit('updateSourceList',data)
-        commit('update',{pagination:pagination})
-        commit('update', {isLoading: false});
     },
     pageSearch : async ({commit, state},payload)=>{
       const res = await list(payload);

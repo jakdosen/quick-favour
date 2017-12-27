@@ -5,7 +5,7 @@
       class="wrapper"
       ref="scroll"
       :pullUpLoad="pullUpLoadObj"
-      @pullingUp="onPullingUp">
+      @pullingUp="onPullingUpArgs">
     <div v-for="(item,index) in sourceList" :key="index">
       <router-link :to="'/goods/'+item.id">
       <div class="search-goods-list vux-1px-b">
@@ -43,6 +43,13 @@
           return [];
         }
       },
+      pagination:{
+        type: Object,
+        default() {
+
+          return {};
+        }
+      },
       onPullingUpArgs:{
           type:Function,
           default() {
@@ -71,20 +78,16 @@
 
     },
     watch:{
-
-    },
-    methods: {
-      onPullingUp(){
-         this.onPullingUpArgs((current_page,total_pages)=>{
-         setTimeout(()=>{
+      pagination(val){
+          const { current_page, total_pages } =val;
           if (current_page < total_pages) {
             this.$refs.scroll.forceUpdate(true)
           } else {
             this.$refs.scroll.forceUpdate(false)
           }
-        },300);
-         });
       }
+    },
+    methods: {
     }
   }
 </script>

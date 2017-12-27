@@ -23,8 +23,8 @@ const tmpl = `
            <li>
               <span class="online-QQ"></span>
               <span class="online-phone">
-                 <img src="" alt="">
-                 <b style="display:none">15365577888</b>
+                 <img src="" alt="tel">
+                 <b>15365577888</b>
              </span>
            </li>
          </ul>
@@ -35,7 +35,6 @@ const tmpl = `
 const sliderBar = Backbone.View.extend({
    events:{
      "click .online-QQ":'onlineQQ',
-     "click .online-phone":'onlinePhone'
    },
    initialize: function (options) {
      this.options =options;
@@ -44,8 +43,9 @@ const sliderBar = Backbone.View.extend({
    onlineQQ(){
 
    },
-   onlinePhone(){
-
+   addToMall(num){
+      let elem = this.$('.toAction');
+      elem.text(Number(elem.text())+num);
    },
    render(){
       var  $box = $(_.template(tmpl)());

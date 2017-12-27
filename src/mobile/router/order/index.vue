@@ -6,7 +6,7 @@
        <!--收货地址-->
        <div class="order-address" @click="openChoseAddress">
          <div class="left iconfont icon-address"></div>
-         <div v-if="user_address&&JSON.stringify!=='{}'" class="center">
+         <div v-if="user_address&&JSON.stringify(user_address)!=='{}'" class="center">
            <p><span>收货人：</span>{{ user_address.true_name + ' '+user_address.mobile}}</p>
            <p><span>收货地址：</span>{{ user_address.province+user_address.city+user_address.county+user_address.address}}</p>
          </div>

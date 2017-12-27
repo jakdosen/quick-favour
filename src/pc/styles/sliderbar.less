@@ -36,6 +36,7 @@
     margin-top: 10px;
     margin-bottom: 10px;
     display: block;
+    cursor: pointer;
     &:first-child{
       margin-top: 0;
     }
@@ -67,7 +68,16 @@
      line-height: 35px;
      color: #333;
      position: absolute;
-     left: -100%;
+     left: -128px;
+     top: 0;
+     opacity: 0;
+     transition: all ease-out .3s;
+   }
+   &:hover{
+      b{
+        left: -118px;
+        opacity: 1;
+      }
    }
 }
 

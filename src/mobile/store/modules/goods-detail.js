@@ -12,6 +12,7 @@ export default {
     popupShowButton:0, //0表示显示两个按钮 1表示显示加入购物车，2表示显示立即购买
     selectSpec:[],
     raterData:[],
+    rateGoodsImg:'',
     raterPagination:[],
     raterCommentsCount:[],
     raterIsLoading:true
@@ -23,10 +24,10 @@ export default {
     },
     raterList: async ({commit, state},payload)=>{
       const res = await rater(payload);
-      const {data, meta, commentsCount} = res;
+      const {data, meta, commentsCount, goods_img} = res;
       const { pagination } = meta;
       if(pagination.current_page === 1){
-        commit('update',{raterCommentsCount:commentsCount});
+        commit('update',{raterCommentsCount:commentsCount,rateGoodsImg:goods_img });
       }
       commit('updateRaterData',data);
       commit('update',{raterPagination:pagination,raterIsLoading:true});

@@ -13,7 +13,7 @@
       <div class="buy-head">
         <!--首页幻灯-->
         <div class="buy-swiper">
-          <swiper :show-desc-mask="false" :show-dots="cycleImage>1" :auto="true" dots-position="center" :loop="true"
+          <swiper :show-desc-mask="false" :show-dots="cycleImage.length>1" :auto="true" dots-position="center" :loop="true"
                   height="15rem">
              <swiper-item v-for="(item, index) in cycleImage" :key="index"><router-link :to="'/goods/'+item.id"><img style="width: 100%;height: auto" :src="item.adv_code"></router-link></swiper-item>
           </swiper>
@@ -180,7 +180,7 @@
     background: #fff;
     box-sizing: border-box;
     width: 50%;
-    height: 22rem;
+    height: 28rem;
     border-bottom: 8px solid #f0f0f0;
   }
   .buy-goods-list li:nth-child(2n+1){

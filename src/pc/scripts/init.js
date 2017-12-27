@@ -87,7 +87,7 @@ axios.interceptors.response.use(
       $.toast({
         heading: '错误提示',
         text: resp.message,
-        position: 'bottom-center',
+        position: 'top-right',
         stack: false,
         icon: 'error'
       })

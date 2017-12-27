@@ -4,7 +4,7 @@
      <view-box body-padding-top="46px">
          <!--支付金额-->
          <div class="confirmOrder-pay">
-             <p>实付金额：<span><small>￥</small>{{ trueCash }}</small></span></p>
+             <p>实付金额：<span><small>￥</small>{{ Number(trueCash).toFixed(2) }}</small></span></p>
              <div class="clearfix">
                 <span>购买商品总计：{{order_list&&order_list.length}}件</span>
                <ul>

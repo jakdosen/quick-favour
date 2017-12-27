@@ -15,7 +15,7 @@
         <span class="hot-placeholder"></span>
         <!--底部商品-->
         <div class="hot-goods" style="height: calc(100% - 66px - 10rem)">
-          <goods-list :sourceList="sourceList" :onPullingUpArgs="onPullingUpArgs"></goods-list>
+          <goods-list :sourceList="sourceList" :onPullingUpArgs="onPullingUpArgs" :pagination="pagination"></goods-list>
         </div>
      </div>
   </div>
@@ -48,13 +48,12 @@
     },
     methods: {
         // 下拉刷新
-        onPullingUpArgs(callBack){
+        onPullingUpArgs(){
           // 防止请求多次
           if(!this.isLoading)  return;
           const {current_page, total_pages} = this.pagination;
           this.$store.dispatch('hotGoods/suggestlist', {page: current_page + 1,action_type:'hot'});
           this.$store.commit('hotGoods/update', {isLoading: false});
-          callBack(current_page,total_pages);
         }
     }
   }
