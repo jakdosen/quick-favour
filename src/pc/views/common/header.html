@@ -62,18 +62,36 @@ let activeByType = (type)=>{
         <a class="link-item" href="mall-cart.html">
           <span class="iconfont icon-shopping-cart text-primary" style="margin-right: 5px"></span>
           购物车
-          <span class="header-tip-num text-primary">12</span>
+          <span class="header-tip-num text-primary">0</span>
         </a>
         <a class="link-item">
           <span class="iconfont icon-app" style="font-size: 20px;position: relative;top: 1px"></span>
           APP
         </a>
-        <span class="link-item">
+        <span class="link-item waitLoad" style="display: none">
             <a id="toLogin" href="javascript:;">登录</a>
             |
             <a href="register.html">注册</a>
-          </span>
+        </span>
+        <div class="link-item getLoadInfo" style="display: none">
+          <div class="link-item loaded">
+
+          </div>
+          <a href="link-item" class="message">
+            消息 <b style="color: #f63">0</b>
+          </a>
+        </div>
       </div>
     </div>
   </div>
 </div>
+<script type="text/template" id="tpl-login">
+  <span class="name"><@- obj.nickname|| obj.account @></span>
+  <div class="module-manager">
+  <div class="left"><img src="" alt=""></div>
+  <div class="right">
+    <p>账号管理 | <span class="outLogin">退出</span></p>
+     <p class="fund">公益金：<@- obj.fund@></p></div>
+  <a href="javascript:;"><span>查看公益金</span></a></div>
+</script>
+

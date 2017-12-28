@@ -6,7 +6,7 @@ import Dialog from '@/scripts/common/dialog'
 import $ from 'jquery'
 import _ from 'underscore'
 import Backbone from 'backbone'
-import { login } from '^/services/user'
+import { login, userInfo } from '^/services/user'
 import store from 'store'
 
 const  MODEL = Backbone.Model;
@@ -106,8 +106,12 @@ const Login = Dialog.extend({
     login (_this.model.toJSON()).then( res => {
       const { api_token } = res;
       if(api_token){
-        store.set('user',{token:api_token,name:_this.model.get('account')});
-        this.$el.remove();
+        store.set('user',{token:api_token});
+        userInfo().then(data =>{
+          const { account, nickname, avatar, fund, api_token} = data;
+          store.set('user',{token:api_token,account,nickname,avatar,fund});
+          window.location.reload();
+        });
       }
     });
   },

@@ -56,10 +56,10 @@ const sliderBar = Backbone.View.extend({
    },
    addToMall(num){
       let elem = this.$('.toAction');
-      elem.text(Number(elem.text())+num);
+      elem.text(Number(elem.text())+Number(num));
    },
    render(){
-      var  $box = $(_.template(tmpl)());
+      let  $box = $(_.template(tmpl)());
       this.setElement($box);
       $('.mz-sliderBar').length > 0 && $('.mz-sliderBar').remove();
       this.$el.appendTo(document.body);

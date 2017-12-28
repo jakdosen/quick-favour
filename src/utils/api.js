@@ -26,7 +26,9 @@ export default {
       resetPassword:`${rootPath}/auth/resetPassword`,
       sendCode:`${rootPath}/auth/sendCode`,
       wx_bindPhone:`${rootPath}/auth/weChat/wx_bindPhone`,
-      wx_signature:`${rootPath}/auth/weChat/wxSignature`
+      wx_signature:`${rootPath}/auth/weChat/wxSignature`,
+      userInfo:`${rootPath}/user/userInfo`,
+      unReadNotic:`${rootPath}/user/unReadNotic`
     },
     //商城相关
     mall:{

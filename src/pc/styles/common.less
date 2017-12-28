@@ -348,6 +348,64 @@ html,body{
     .header-tip-num{
       font-weight: bold;
     }
+    .loaded{
+       position: relative;
+       cursor: pointer;
+       padding: 0 10px;
+       .module-manager{
+         position: absolute;
+         display: none;
+         top: 80px;
+         right: 0px;
+         opacity: 0;
+         box-sizing: content-box;
+         transition: all ease-out .3s;
+         background: #fff;
+         >div{
+           display: inline-block;
+           vertical-align: top;
+           &.left{
+             width: 80px;
+             height: 80px;
+             border-radius: 100%;
+             background: #eee;
+             img{
+               width: 100%;
+               height: auto;
+             }
+           }
+           &.right{
+             float: right;
+             text-align: right;
+             line-height: 30px;
+             margin-top: 10px;
+             .outLogin{
+               cursor: pointer;
+             }
+           }
+         }
+         a{
+           display: block;
+           width: 60px;
+           margin-top: 15px;
+           line-height: 30px;
+           font-size: 12px;
+           padding: 0 80px;
+           box-sizing: content-box;
+           background: #efefef;
+         }
+       }
+       &:hover{
+         box-shadow: 0 0 25px rgba(0,0,0,.2);
+         .module-manager{
+            display: block;
+            opacity: 1;
+            border: 1px solid #eee;
+            padding: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,.2);
+         }
+       }
+    }
   }
 }
 /* main-dropdown

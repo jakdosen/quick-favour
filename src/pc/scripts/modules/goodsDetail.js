@@ -32,12 +32,14 @@ const GoodsValue = View.extend({
     this.loadSlider();
     // 渲染右边展示信息
     this.loadSpecification();
+    // 获取公共数据
+    this.bus = window.bus;
   },
   createModel(){
     let GoodsModel = Model.extend({
       defaults: {
         goods_id: this.options.goods_id,
-        number: '',
+        number: '1',
         spec: ''
       }
     });
@@ -82,12 +84,13 @@ const GoodsValue = View.extend({
     this.model.set({spec: this.spec_arry.join(',')});
     create(this.model.toJSON()).then(res => {
       $.toast({
-        heading: '错误提示',
-        text: '加入购物车',
+        heading: '恭喜',
+        text: '成功加入购物车',
         position: 'top-right',
         stack: false,
         icon: 'success'
       })
+      this.bus.events.trigger('add:cart',this.model.get('number'));
       SliderBar.addToMall(this.model.get('number'));
     });
   },

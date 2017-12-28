@@ -45,3 +45,18 @@ export function sendCode(params = {}) {
     {params},
   );
 }
+
+// 获取用户信息
+export function userInfo(params = {}) {
+  return axios.get(
+    auth.userInfo,
+    {params},
+  );
+}
+// 获取未读信息数
+export function unReadNotic(params = {}) {
+  return axios.get(
+    auth.unReadNotic,
+    {params},
+  );
+}

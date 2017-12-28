@@ -130,7 +130,7 @@
 <script type="text/template" id="hot-recommend">
   <div class="swiper-slide">
     <ul>
-      <@ obj.length && _.each(obj,function(item){@>
+      <@ obj && obj.length && _.each(obj,function(item){@>
       <li>
         <a href="/goodsDetail.html?goods_id=<@- item.id@>">
           <div class="img-box">

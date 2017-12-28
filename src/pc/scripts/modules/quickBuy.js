@@ -56,7 +56,8 @@ const Search = VIEW.extend({
       elem = this.$('.qb-search-history'),
       searchHistory = window.localStorage.getItem('searchHistory');
     elem.empty();
-    elem.append(_.template(searchTemplate)(searchHistory&&searchHistory.split(',')));
+    debugger;
+    elem.append(_.template(searchTemplate)(searchHistory&&searchHistory.split(',')||[]));
   },
   searchMore(){
      location.href="/searchPage.html?keywords="+this.model.get('keywords');

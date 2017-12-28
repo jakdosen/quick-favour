@@ -13,12 +13,14 @@ import pagination from './libs/jqyery-pagination-plugin/jquery.pagination'
 import magnifier from './libs/goods-detail/magnifier'
 import slideVerification from './libs/jquery-slideVerification-plugin/slideVerification'
 import LoginDialog from '@/scripts/common/loginDialog'
+import Header from '@/scripts/common/header'
+
 
 //初始化加载样式文件
 import '@/styles/login.less'
 import '@/styles/loginDialog.less'
 import './libs/jquery-toast-plugin/jquery.toast.less'
-import '@/scripts/common/header'
+
 //绑定toast 插件
 toast($,window,document);
 //绑定 lazyload 插件
@@ -53,6 +55,11 @@ bus.showLoginPopup = ()=>{
     new LoginDialog()
   }
 };
+
+events.on('logout',()=>{
+    store.remove('user');
+    window.location.reload();
+});
 
 // --------------underscore 模板配置----------------
 _.templateSettings = {
@@ -103,9 +110,13 @@ axios.interceptors.response.use(
     if (error.response) {
       switch (error.response.status) {
         case 401:
-          store.remove('user')
           events.trigger("logout");
       }
     }
     return Promise.reject(error.response && error.response.data || error)
   });
+
+//  注册头部信息
+new Header({
+  el:$('.header')
+});

@@ -127,7 +127,7 @@ let App = View.extend({
 
 
     this.urlParams  = util.urlArgs();
-    if (!!bus.checkIsLogin()) {
+    if (!bus.checkIsLogin()) {
       bus.showLoginPopup();
       return this
     } else {
