@@ -7,7 +7,7 @@ import $ from 'jquery'
 import _ from 'underscore'
 import Backbone from 'backbone'
 import { login } from '^/services/user'
-import * as axiosStore from 'store'
+import store from 'store'
 
 const  MODEL = Backbone.Model;
 
@@ -15,7 +15,7 @@ const tmpl = `
 <!--弹框登录-->
 <div class="mz-c-login" id="common-login-popup-window">
   <div class="logo-img">
-     <img src="/views/images/logo.png" alt=""> 
+     <span>秒赞</span>
   </div>
   <!--用户-->
   <div class="form-group">
@@ -32,7 +32,7 @@ const tmpl = `
     </div>
   </div>
   <a class="mz-btn-register toLogin" href="javascript:;">登录</a>
-  <p><span>没有账号？<a href="javascript:;">立即注册</a></span><a href="javascript:;">忘记密码</a></p>
+  <p><span>没有账号？<a href="/register.html">立即注册</a></span><a href="/accountSafe.html">忘记密码</a></p>
   <div class="mz-login-others">
     <fieldset>
       <legend align="center">使用第三方登录</legend>
@@ -50,8 +50,8 @@ const Login = Dialog.extend({
     'keyup .account input': function (e) {
       this.inValid('account') && this.model.set('account',$(e.currentTarget).val());
     },
-    'keyup .passWord input': function (e) {
-      this.inValid('password') && this.model.set('passWord',$(e.currentTarget).val());
+    'keyup .password input': function (e) {
+      this.inValid('password') && this.model.set('password',$(e.currentTarget).val());
     },
     'click .toLogin': 'toLogin'
   },
@@ -101,13 +101,15 @@ const Login = Dialog.extend({
       }
     }[key+'']();
   },
-  async toLogin(){
-    const res = await login (this.model.toJSON());
-    const { api_token } = res;
-    if(api_token){
-      axiosStore.set('api_token',api_token);
-      axiosStore.set('api_name',this.model.get('account'));
-    }
+  toLogin(){
+    let _this = this;
+    login (_this.model.toJSON()).then( res => {
+      const { api_token } = res;
+      if(api_token){
+        store.set('user',{token:api_token,name:_this.model.get('account')});
+        this.$el.remove();
+      }
+    });
   },
   content(){
       return  _.template(tmpl)();

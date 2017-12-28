@@ -175,7 +175,7 @@ let App = View.extend({
     'click .check-btn': 'checkCart'
   },
   initialize() {
-    if (!!bus.checkIsLogin()) {
+    if (!bus.checkIsLogin()) {
       bus.showLoginPopup();
       return this
     } else {

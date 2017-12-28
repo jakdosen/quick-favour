@@ -7,3 +7,5 @@ import $ from 'jquery'
 $('#toLogin').click(function () {
   new login();
 });
+
+

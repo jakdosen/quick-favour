@@ -8,9 +8,7 @@
 <%-include('./common/header.html',{type:'mall'})%>
 <%
 var bread = [
-{name:'首页',url:'www.baidu.com'},
-{name:'秒购',url:'www.baidu.com'},
-{name:'现金商品',url:'www.baidu.com'},
+{name:'秒购',url:'/quickBuy'},
 {name:'小米VR眼镜',url:''}
 ]
 %>
@@ -73,13 +71,13 @@ var bread = [
       <div class="list">
         <ul class="wrapper">
           <@ _.each(obj,function(item,index){@>
-          <li class="item <@- !index&& 'item-cur'@>" data-src="<@- item.img_url@>"><img src="<@- item.thumb_url@>" alt="#"></li>
+          <li class="item <@- !index&& 'item-cur'@>" data-src="<@- item.img_url@>"><img src="<@- item.thumb_url||item.img_url@>" alt="#"></li>
           <@})@>
         </ul>
       </div>
     </div>
     <div class="big-box">
-      <img src="<@- obj[0].thumb_url@>" alt="#">
+      <img src="<@- obj[0].thumb_url||obj[0].img_url@>" alt="#">
     </div>
   </div>
 </script>

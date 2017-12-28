@@ -50,7 +50,7 @@ const Search = VIEW.extend({
       }
     });
     this.model = new Model();
-    this.options.keywords && this.model.set('keywords',this.options.keywords)
+    this.options.keywords && this.model.set({keywords:this.options.keywords,category_id:this.options.category_id});
     this.$('input[name="search"]').val(this.options.keywords);
   },
   searchHistory(){
@@ -85,7 +85,7 @@ const Search = VIEW.extend({
     let $elem= $(e.currentTarget);
     $elem.addClass('active').siblings().removeClass('active');
     this.model.set(
-      {goods_type:$elem.data('goodstype')||this.model.get('goods_type'),
+      {goods_type:String($elem.data('goodstype'))||this.model.get('goods_type'),
       sort_by:$elem.data('sortby')||'price_desc'});
     this.search();
   }
@@ -140,7 +140,8 @@ const App =  VIEW.extend({
      // 处理搜索模块
      this.search = new Search({
         el:$('body'),
-        keywords: this.urlParams.keywords
+        keywords: this.urlParams.keywords,
+        category_id: this.urlParams.category_id || ''
      });
   }
 });

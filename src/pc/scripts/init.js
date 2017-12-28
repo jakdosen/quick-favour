@@ -18,6 +18,7 @@ import LoginDialog from '@/scripts/common/loginDialog'
 import '@/styles/login.less'
 import '@/styles/loginDialog.less'
 import './libs/jquery-toast-plugin/jquery.toast.less'
+import '@/scripts/common/header'
 //绑定toast 插件
 toast($,window,document);
 //绑定 lazyload 插件
@@ -67,7 +68,11 @@ axios.interceptors.request.use(
         config.params['api_token'] = store.get('user').token;
       }
       if(config.method.toLowerCase() == 'post'){
-        config.data.params['api_token'] = store.get('user').token;
+        try{
+          config.data.params['api_token'] = store.get('user').token;
+        }catch (e){
+          config.data['api_token'] = store.get('user').token;
+        }
       }
       config.headers.Authorization = `token ${store.get('user').token}`;
     }

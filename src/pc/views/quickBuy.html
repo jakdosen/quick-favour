@@ -74,7 +74,7 @@
 <script type="text/template" id="ad-item-tpl">
   <@ obj.length && _.each(obj,function(item,index){@>
     <div class="swiper-slide">
-      <a href="<@- item.id@>" style="background:<@- item.bg_color@>"><img  src="<@- item.adv_code@>"></a>
+      <a href="/goodsDetail.html?goods_id=<@- item.id@>" style="background:<@- item.bg_color@>"><img  src="<@- item.adv_code@>"></a>
     </div>
   <@})@>
 </script>
@@ -82,7 +82,7 @@
 <script type="text/template" id="ad-hot-goods">
   <div class="qb-hot-goods-box-img">
     <@ if(obj.ads.length){@>
-      <a href="<@- obj.ads[0].id@>">
+      <a href="/goodsDetail.html?goods_id=<@- obj.ads[0].id@>">
         <img src="<@- obj.ads[0].adv_code@>" alt="">
       </a>
     <@}@>
@@ -91,7 +91,7 @@
     <ul>
       <@ obj.data && _.each(obj.data,function(item){@>
       <li>
-        <a href="<@- item.id@>">
+        <a href="/goodsDetail.html?goods_id=<@- item.id@>">
           <div class="img-box">
             <img src="<@- item.goods_img@>" alt="">
           </div>
@@ -115,7 +115,7 @@
     <ul>
       <@ obj.data && _.each(obj.data,function(item){@>
       <li>
-        <a href="<@- item.id@>">
+        <a href="/goodsDetail.html?goods_id=<@- item.id@>">
           <div class="img-box">
             <img src="<@- item.goods_img@>" alt="">
           </div>
@@ -132,7 +132,7 @@
     <ul>
       <@ obj.length && _.each(obj,function(item){@>
       <li>
-        <a href="<@- item.id@>">
+        <a href="/goodsDetail.html?goods_id=<@- item.id@>">
           <div class="img-box">
             <img src="<@- item.goods_img@>" alt="">
           </div>

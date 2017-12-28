@@ -180,11 +180,11 @@ const App = View.extend({
   dealModule(type){
     switch (type) {
       case  'detail' :
-        this.$('.goods-content-images').html(this.result.goods_desc);
+        this.$('.goods-content-images').empty().html(this.result.goods_desc);
         break;
       case 'config' :
         _.map(this.result.properties, item =>
-          this.$('.goods-content [data-id="config"]').append(`<div class="goods-config-item"><span>${item.name}</span><b>${item.value}</b></div>`)
+          this.$('.goods-content [data-id="config"]').empty().append(`<div class="goods-config-item"><span>${item.name}</span><b>${item.value}</b></div>`)
         )
         break;
       case 'comment' :

@@ -8,8 +8,7 @@
 <%-include('./common/header.html',{type:'mall'})%>
 <%
 var bread = [
-     {name:'首页',url:'www.baidu.com'},
-     {name:'秒购',url:'www.baidu.com'},
+     {name:'秒购',url:'/quickBuy.html'},
      {name:'热门商品',url:''}
   ]
 %>
@@ -37,7 +36,7 @@ var bread = [
 <script type="text/template" id="ad-item-tpl">
   <@ obj.length && _.each(obj,function(item,index){@>
   <div class="swiper-slide" >
-    <a href="<@- item.id@>" style="background:<@- item.bg_color@>"><img  src="<@- item.adv_code@>"></a>
+    <a href="/goodsDetail.html?goods_id=<@- item.id@>" style="background:<@- item.bg_color@>"><img  src="<@- item.adv_code@>"></a>
   </div>
   <@})@>
 </script>
@@ -46,7 +45,7 @@ var bread = [
   <ul>
     <@ obj.length && _.each(obj,function(item,index){@>
     <li>
-      <a href="<@- item.id@>" class="goods-style-1">
+      <a href="/goodsDetail.html?goods_id=<@- item.id@>" class="goods-style-1">
         <div class="img-box"><img src="<@- item.goods_img@>" alt=""></div>
         <div class="content-box">
           <div class="content-left">

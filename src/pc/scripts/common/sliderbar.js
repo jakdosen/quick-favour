@@ -5,6 +5,7 @@ import $ from 'jquery'
 import _ from 'underscore'
 import Backbone from 'backbone'
 import '@/styles/sliderbar.less'
+import { getCartList } from '^/services/mall'
 
 const tmpl = `
   <div class="mz-sliderBar">
@@ -13,12 +14,14 @@ const tmpl = `
       <div class="mz-sliderBar-center">
          <ul>
            <li>
-              <a href="" class="to-home"></a>
+              <a href="/article-list.html" class="to-home"></a>
            </li>
            <li>
-             <span class="iconfont icon-shopping-cart"></span>
-             <span>购物车</span> 
-             <b class="toAction">11</b>
+             <a href="/mall-cart.html">
+               <span class="iconfont icon-shopping-cart"></span>
+               <span>购物车</span> 
+               <b class="toAction">0</b>
+             </a>
            </li>
            <li>
               <span class="online-QQ"></span>
@@ -39,9 +42,17 @@ const sliderBar = Backbone.View.extend({
    initialize: function (options) {
      this.options =options;
      this.render();
+     // 获取当前购物车数据
+     this.fetchDate()
    },
    onlineQQ(){
 
+   },
+   fetchDate(){
+     getCartList().then( res =>{
+         const { total } = res;
+         this.addToMall(total.goods_count);
+     })
    },
    addToMall(num){
       let elem = this.$('.toAction');
