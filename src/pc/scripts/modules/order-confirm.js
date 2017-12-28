@@ -123,9 +123,6 @@ let App = View.extend({
     'click .check-btn': 'sendOrder'
   },
   initialize() {
-
-
-
     this.urlParams  = util.urlArgs();
     if (!bus.checkIsLogin()) {
       bus.showLoginPopup();
