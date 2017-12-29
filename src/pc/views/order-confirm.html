@@ -19,9 +19,7 @@
         <a href="javascript:;" class="text-primary js-add-address-btn">新增地址</a>
       </div>
       <div class="address-item primary">
-          <span class="address-name split">收货人姓名</span>
-          <span class="address-detail split">江苏省苏州市园区东昌路88号2.5产业园</span>
-          <span class="address-phone">15344555555</span>
+          数据加载中。。。
       </div>
     </div>
     <div class="order-goods split-bottom">
@@ -51,14 +49,7 @@
         我的账户
       </div>
       <div class="justify order-sub-body" style="padding:0 40px;margin-bottom: 10px">
-        <div class="inline-block">
-          <span>共1000.00元，可用1000</span>
-          <span>共1000.00元，可用1000</span>
-        </div>
-        <div class="inline-block switch-wrap">
-          <!--<input type="checkbox">-->
-          <span class="switch switch-on"><span class="slider"></span></span>
-        </div>
+         数据加载中。。。
       </div>
     </div>
     <div class="order-type split-bottom">
@@ -66,38 +57,12 @@
         支付类型
       </div>
       <div style="padding:0 40px;margin-bottom: 10px">
-        <a class="select-btn checked">现金</a>
-        <a class="select-btn">现金&秒币</a>
-        <a class="select-btn">秒币</a>
+        <a class="select-btn checked" data-type="0">现金</a>
+        <a class="select-btn" data-type="1">现金&秒币</a>
       </div>
     </div>
-    <div class="order-total split-bottom">
-        <div class="order-d-item">
-          <span class="order-d-item-header">商品件数：</span>
-          <span class="order-d-item-body">1件</span>
-        </div>
-      <div class="order-d-item">
-        <span class="order-d-item-header">运费：</span>
-        <span class="order-d-item-body">顺丰包邮</span>
-      </div>
-      <div class="order-d-item">
-        <span class="order-d-item-header">订单总额：</span>
-        <span class="order-d-item-body">¥299.00</span>
-      </div>
-    </div>
-    <div class="order-summary ">
-      <div class="order-d-item" style="font-size: 18px">
-        <span class="order-d-item-header">实际金额：</span>
-        <span class="order-d-item-body">¥299.00</span>
-      </div>
-      <div class="order-d-item" style="font-size: 14px;color: #999">
-        <span style="margin-right: 1em">寄送至：吴中区东厂路99号2.5创业园</span>
-        <span style="margin-right: 1em">收件人：吴** </span>
-        <span>号码：15455669887</span>
-      </div>
-      <div class="order-d-item" style="margin: 25px 0">
-          <button class="check-btn">提交订单</button>
-      </div>
+    <div class="order-packageDetail">
+      加载中。。。
     </div>
   </div>
 
@@ -174,6 +139,81 @@
           <button class="btn btn-default btn-lg">取消</button>
       </div>
     </div>
+</script>
+
+<!--// 收货地址确认-->
+<script type="text/template" id="address-item">
+  <@if(JSON.stringify(obj)!='{}'){@>
+      <span class="address-name split"><@- obj.true_name @> 收</span>
+      <span class="address-detail split"><@- obj.province+obj.city+obj.county+ obj.address @></span>
+      <span class="address-phone"><@- obj.mobile@></span>
+  <@}else{@>
+       <span class="address-name">请新增收货地址</span>
+  <@}@>
+</script>
+<!--账户渲染-->
+<script type="text/template" id="account">
+  <div class="inline-block account-package">
+    <span>共<@- obj.run_money@>元，可用<@- obj.can_use_run_money@></span>
+    <span>共<@- obj.m_coin@>秒币，可用<@- obj.can_use_m_coin@>秒币</span>
+  </div>
+  <@ if( obj.can_use_run_money*1 !='0'){@>
+    <div class="inline-block switch-wrap">
+      <!--<input type="checkbox">-->
+      <span class="switch switch-off"><span class="slider"></span></span>
+    </div>
+  <@}@>
+</script>
+<!--账单渲染-->
+<script type="text/template" id="package">
+  <div class="order-total split-bottom">
+    <div class="order-d-item">
+      <span class="order-d-item-header">商品件数：</span>
+    <span class="order-d-item-body"><@- obj.goods_list.length@>件</span>
+    </div>
+    <div class="order-d-item">
+      <span class="order-d-item-header">运费：</span>
+    <span class="order-d-item-body">顺丰包邮</span>
+      </div>
+      <div class="order-d-item">
+      <span class="order-d-item-header">订单总额：</span>
+    <span class="order-d-item-body">¥<@- obj.type==0 ? obj.cash_pay.cash_total:obj.cashcoin_pay.cash_total@></span>
+    </div>
+    <@ if(obj.type==1){@>
+      <div class="order-d-item">
+        <span class="order-d-item-header">秒币总额：</span>
+        <span class="order-d-item-body">M<@- obj.cashcoin_pay.coin_total@></span>
+      </div>
+    <@}@>
+    <@ if(obj.isAccount != 0){@>
+    <div class="order-d-item">
+      <span class="order-d-item-header">账户支付：</span>
+      <@
+         var trueMoney = obj.type==0 ? obj.cash_pay.cash_total*1 : obj.cashcoin_pay.cash_total*1
+      @>
+      <span class="order-d-item-body">¥<@- (obj.user_account.can_use_run_money*1-trueMoney)>0 ? trueMoney:obj.user_account.can_use_run_money*1@></span>
+    </div>
+    <@}@>
+  </div>
+  <div class="order-summary ">
+    <div class="order-d-item" style="font-size: 18px">
+      <span class="order-d-item-header">实际金额：</span>
+      <@
+        var math = obj.user_account.can_use_run_money*1-(obj.type==0 ? obj.cash_pay.cash_total*1 : obj.cashcoin_pay.cash_total*1)
+        var payTrue = math<0 ? Math.abs(math).toFixed(2):0.00
+        var payFalse = obj.type==0 ? obj.cash_pay.cash_total*1 : obj.cashcoin_pay.cash_total*1
+      @>
+      <span class="order-d-item-body">¥<@- obj.isAccount == 0? payFalse:payTrue  @></span>
+    </div>
+    <div class="order-d-item" style="font-size: 14px;color: #999">
+      <span style="margin-right: 1em">寄送至：<@- obj.user_address.province+obj.user_address.city+obj.user_address.county+ obj.user_address.address @></span>
+      <span style="margin-right: 1em">收件人：<@- obj.user_address.true_name@> </span>
+      <span>号码：<@- obj.user_address.mobile@></span>
+    </div>
+    <div class="order-d-item" style="margin: 25px 0">
+      <button class="check-btn">提交订单</button>
+    </div>
+  </div>
 </script>
 </body>
 </html>
