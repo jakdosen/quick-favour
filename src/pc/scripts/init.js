@@ -118,5 +118,5 @@ axios.interceptors.response.use(
 
 //  注册头部信息
 new Header({
-  el:$('.header')
+  el: $('.header-login').length ? $('.header-login'):$('.header')
 });

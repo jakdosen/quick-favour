@@ -6,9 +6,10 @@ import '@/scripts/common/header'
 import $ from 'jquery'
 import _ from 'underscore'
 import Backbone from 'backbone'
-import { resetPassword, sendCode } from '^/services/user'
+import { resetPassword, sendCode, userInfo } from '^/services/user'
 const  VIEW = Backbone.View;
 const  MODEL = Backbone.Model;
+import store from 'store'
 
 const App = VIEW.extend({
   events:{
@@ -19,8 +20,8 @@ const App = VIEW.extend({
     'keyup .code input': function (e) {
       this.inValid('code') && this.model.set('code',$(e.currentTarget).val());
     },
-    'keyup .passWord input': function (e) {
-      this.inValid('password') && this.model.set('passWord',$(e.currentTarget).val());
+    'keyup .password input': function (e) {
+      this.inValid('password') && this.model.set('password',$(e.currentTarget).val());
     },
     'click .mz-btn-register':'register',
     "click .changeType":function (e) {
@@ -96,7 +97,7 @@ const App = VIEW.extend({
     if(text !== '发送验证码') return;
     if(!this.inValid('account')) return;
     // 发送异步；
-    sendCode({account:this.model.get('account')});
+    sendCode({mobile:this.model.get('account')});
     let time = 59;
     const timeOut = ()=>{
       setTimeout(()=>{
@@ -113,8 +114,16 @@ const App = VIEW.extend({
   },
   register(){
     if(this.inValid('account')&&this.inValid('code')&&this.inValid('password')){
-      resetPassword(this.model.toJSON()).then(function () {
-        window.location.href="";
+      resetPassword(this.model.toJSON()).then(function (res) {
+        const { api_token } = res;
+        if(api_token){
+          store.set('user',{token:api_token});
+          userInfo().then(data =>{
+            const { account, nickname, avatar, fund, api_token} = data;
+            store.set('user',{token:api_token,account,nickname,avatar,fund});
+            window.location.href="/article-list.html";
+          });
+        }
       })
     }
   }

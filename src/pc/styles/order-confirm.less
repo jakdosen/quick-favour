@@ -81,6 +81,46 @@
     margin-right: 1em;
   }
 }
+.address-list{
+   padding: 25px 0;
+   font-size: 14px;
+   >span{
+      cursor: pointer;
+      color: #f36;
+      &:after{
+        content: '更多地址 ▼';
+      }
+   }
+   >span.open{
+     &:after{
+       content: '收起地址 ▲';
+     }
+   }
+   .address-content-item{
+       width: 100%;
+       margin-bottom: 20px;
+       span{
+         display: inline-block;
+         overflow: hidden;
+       }
+       .address-name{
+         width: 150px;
+       }
+       .address-detail{
+         width: 550px;
+       }
+       span{
+         margin-right: 15px;
+       }
+      .pull-right{
+        float: right;
+        background: #f63;
+        color: #fff;
+        padding: 2px 5px;
+        cursor: pointer;
+      }
+   }
+}
 .goods-table{
   width: 100%;
   table-layout: fixed;
@@ -136,7 +176,7 @@
 
   }
   &>.order-d-item-body{
-    width: 8em;
+    width: 8rem;
     color: @primary-color;
   }
 }

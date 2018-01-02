@@ -14,6 +14,9 @@ const  MODEL = Backbone.Model;
 
 
 const App = VIEW.extend({
+  events:{
+    'click .order-confirm a':'orderConfirm'
+  },
   initialize(){
     // 传递搜索词
     this.urlParams  = util.urlArgs();
@@ -24,6 +27,9 @@ const App = VIEW.extend({
     orderPay({order_ids}).then(data=>{
          this.render(data);
      })
+  },
+  orderConfirm(){
+
   },
   render(data){
      this.$('.order-cart').empty().append(_.template($('#order').html())(data));

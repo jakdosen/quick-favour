@@ -56,13 +56,15 @@ const Search = VIEW.extend({
   searchHistory(){
     let
       elem = this.$('.qb-search-history'),
-      searchHistory = window.localStorage.getItem('searchHistory');
-    elem.empty().append(_.template(searchTemplate)(searchHistory&&searchHistory.split(',')));
+      searchHistory = window.localStorage.getItem('searchHistory')||'';
+    elem.empty().append(_.template(searchTemplate)(searchHistory&&searchHistory.split(',')||[]));
   },
   search(){
     list(this.model.toJSON()).then(data=>{
          // 存搜索词
-         let oldSearch = window.localStorage.getItem('searchHistory').split(','),
+         let
+             history = window.localStorage.getItem('searchHistory')||'',
+             oldSearch = history.split(',')||[],
              keyWord = this.model.get('keywords');
          if(!~oldSearch.indexOf(keyWord)){
            oldSearch.unshift(keyWord);

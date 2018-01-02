@@ -53,6 +53,8 @@ export default {
       done:`${rootPath}/order/done`,
       prepay:`${rootPath}/pay/prepay`,
       addressList:`${rootPath}/address/addressList`,
+      default:`${rootPath}/address/default`,
+      create:`${rootPath}/address/create`,
       success:`${rootPath}/pay/success`,
       orderPay:`${rootPath}/pay/order`,
     },

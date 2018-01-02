@@ -29,6 +29,22 @@ export function addressList(params = {}) {
   );
 }
 
+// 用户地址添加/更新
+export function create(params = {}) {
+  return axios.post(
+    order.create,
+    {...params},
+  );
+}
+
+// 设置默认地址接口
+export function setDefault(params = {}) {
+  return axios.get(
+    order.default,
+    {params},
+  );
+}
+
 // 订单支付成功
 export function success(params = {}) {
   return axios.get(

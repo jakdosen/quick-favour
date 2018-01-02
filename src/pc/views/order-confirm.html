@@ -21,6 +21,12 @@
       <div class="address-item primary">
           数据加载中。。。
       </div>
+      <div class="address-list">
+          <div class="address-content" style="display: none">
+
+          </div>
+          <span class="address-nav primary"></span>
+      </div>
     </div>
     <div class="order-goods split-bottom">
         <div class="order-sub-title">
@@ -107,7 +113,7 @@
                 <div class="input-wrap">
                   <div class="input-label fl">姓名</div>
                   <div class="input-main">
-                    <input placeholder="收货人手机姓名" maxlength="15">
+                    <input class="name" placeholder="收货人手机姓名" maxlength="15">
                   </div>
                 </div>
               </div>
@@ -115,7 +121,7 @@
                   <div class="input-wrap">
                     <div class="input-label fl">手机号码</div>
                     <div class="input-main">
-                      <input placeholder="收货人手机号码" maxlength="20">
+                      <input class="phone" placeholder="收货人手机号码" maxlength="20">
                     </div>
                   </div>
               </div>
@@ -129,14 +135,14 @@
           <div class="input-wrap">
             <div class="input-label fl">详细地址</div>
             <div class="input-main">
-              <textarea rows="2" maxlength="50" placeholder="详细地址路名或街道、门牌号" minlength="5"></textarea>
+              <textarea class="address" rows="2" maxlength="50" placeholder="详细地址路名或街道、门牌号" minlength="5"></textarea>
             </div>
           </div>
         </div>
       </div>
       <div class="d-address-footer text-center">
-          <button class="btn btn-primary btn-lg" style="margin-right: 1em">确定</button>
-          <button class="btn btn-default btn-lg">取消</button>
+          <button class="btn btn-primary sure btn-lg" style="margin-right: 1em">确定</button>
+          <button class="btn btn-default cancel btn-lg">取消</button>
       </div>
     </div>
 </script>
@@ -203,7 +209,7 @@
         var payTrue = math<0 ? Math.abs(math).toFixed(2):0.00
         var payFalse = obj.type==0 ? obj.cash_pay.cash_total*1 : obj.cashcoin_pay.cash_total*1
       @>
-      <span class="order-d-item-body">¥<@- obj.isAccount == 0? payFalse:payTrue  @></span>
+      <span class="order-d-item-body" data-pay="<@- obj.isAccount == 0? payFalse:payTrue  @>">¥<@- obj.isAccount == 0? payFalse:payTrue  @></span>
     </div>
     <div class="order-d-item" style="font-size: 14px;color: #999">
       <span style="margin-right: 1em">寄送至：<@- obj.user_address.province+obj.user_address.city+obj.user_address.county+ obj.user_address.address @></span>
@@ -214,6 +220,19 @@
       <button class="check-btn">提交订单</button>
     </div>
   </div>
+</script>
+
+<script type="text/template" id="tpl-address-list">
+  <@ _.each(obj,function(item){@>
+    <div class="address-content-item">
+      <span class="address-name split"><@- item.true_name @> 收</span>
+      <span class="address-detail split"><@- item.province+ item.city+item.county+ item.address @></span>
+      <span class="address-phone"><@- item.mobile@></span>
+      <@ if(!item.is_default){@>
+         <span class="pull-right address-set-default" data-id="<@- item.id@>">设为默认</span>
+      <@}@>
+    </div>
+  <@})@>
 </script>
 </body>
 </html>

@@ -170,6 +170,9 @@ const addressInput = View.extend({
   getSelectData(){
     return this.model.toJSON()
   },
+  sendArgs(fn){
+      fn(this.model.toJSON());
+  },
   setSelectData(obj){
     this.model.set(obj)
   }

@@ -23,6 +23,8 @@ const  Header = VIEW.extend({
      this.bus = window.bus;
      // 渲染用户信息
      this.render();
+     // 用来区别是否获取用户消息树
+     if(!this.bus.checkIsLogin()) return;
      // 渲染用户消息数
      this.renderMessage();
      // 渲染购物车数量

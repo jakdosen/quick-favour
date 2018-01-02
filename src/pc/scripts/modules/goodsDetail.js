@@ -96,7 +96,10 @@ const GoodsValue = View.extend({
   },
   buy(){
     // 跳转到立即购买
-    // location.href =
+    location.href = '/order-confirm.html?goods_id='
+      +this.model.get('goods_id')
+      +'&number='+this.model.get('number')
+      +'&spec='+this.model.get('spec')
   }
 });
 

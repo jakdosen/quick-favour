@@ -6,7 +6,8 @@ import '@/scripts/common/header'
 import $ from 'jquery'
 import _ from 'underscore'
 import Backbone from 'backbone'
-import { register, sendCode } from '^/services/user'
+import { register, sendCode, userInfo } from '^/services/user'
+import store from 'store'
 
 const  VIEW = Backbone.View;
 const  MODEL = Backbone.Model;
@@ -20,7 +21,7 @@ const App = VIEW.extend({
     'keyup .code input': function (e) {
       this.inValid('code') && this.model.set('code',$(e.currentTarget).val());
     },
-    'keyup .passWord input': function (e) {
+    'keyup .passsword input': function (e) {
       this.inValid('password') && this.model.set('passWord',$(e.currentTarget).val());
     },
     'click .mz-btn-register':'register',
@@ -97,7 +98,7 @@ const App = VIEW.extend({
     if(text !== '发送验证码') return;
     if(!this.inValid('account')) return;
     // 发送异步；
-    sendCode({account:this.model.get('account')});
+    sendCode({mobile:this.model.get('account')});
     let time = 59;
     const timeOut = ()=>{
       setTimeout(()=>{
@@ -114,9 +115,16 @@ const App = VIEW.extend({
   },
   register(){
      if(this.inValid('account')&&this.inValid('code')&&this.inValid('password')){
-         debugger;
-         register(this.model.toJSON()).then(function () {
-              window.location.href="";
+         register(this.model.toJSON()).then(function (res) {
+           const { api_token } = res;
+           if(api_token){
+             store.set('user',{token:api_token});
+             userInfo().then(data =>{
+               const { account, nickname, avatar, fund, api_token} = data;
+               store.set('user',{token:api_token,account,nickname,avatar,fund});
+               window.location.href="/article-list.html";
+             });
+           }
          })
      }
   }

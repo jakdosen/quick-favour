@@ -9,7 +9,7 @@ import AddressInput from '../common/addressInput'
 import '@/styles/loginDialog.less'
 import Dialog from '@/scripts/common/dialog'
 import {  checkorder, directcheckorder} from '^/services/mall'
-
+import { create, done, addressList, setDefault } from '^/services/order'
 import {Model, Collection, View, Events} from 'backbone'
 
 let bus = window.bus;
@@ -20,6 +20,9 @@ let moduleEv = _.extend({}, Events);
  */
 let AddressPopupView = Dialog.extend({
   template:_.template($('#address-form-tpl').html()),
+  events:{
+    'click .sure':'confirmBtn'
+  },
   initialize(){
     this.constructor.__super__.initialize.apply(this, arguments);
     //合并父类的events
@@ -35,10 +38,46 @@ let AddressPopupView = Dialog.extend({
     return  this.template();
   },
   initAddressInput(){
-    new AddressInput({
+    this.addRessInput = new AddressInput({
       target:this.$('.js-address-input')
     });
-  }
+  },
+  confirmBtn(){
+    if(!this.addRessInput) return;
+    const message = msg => $.toast({
+      heading: '错误提示',
+      text: msg,
+      position: 'mid-center',
+      stack: false,
+      icon: 'error'
+    })
+    this.addRessInput.sendArgs(cityData =>{
+      let arvs = {
+        true_name:this.$('.d-address-body .name').val(),
+        mobile:this.$('.d-address-body .phone').val(),
+        province_id:cityData['provinceId'],
+        city_id:cityData['cityId'],
+        county_id:cityData['districtId'],
+        address:this.$('.d-address-body .address').val(),
+        is_default:'1'}
+        if(!arvs.true_name){
+          message('收货人姓名不可为空！')
+          return;
+        }else if(!arvs.mobile){
+          message('收货人电话不可为空！')
+          return;
+        }else if(!arvs.province_id||!arvs.city_id){
+          message('省份城市选择不可为空！')
+          return;
+        }else if(!arvs.address){
+          message('详情地址不可为空！')
+          return;
+        }
+        create(arvs).then(data =>{
+            window.location.reload();
+        });
+    });
+  },
 })
 
 /**
@@ -61,12 +100,41 @@ let GoodsView = View.extend({
  * Address
  */
 const Address = View.extend({
+  events:{
+    'click .address-list .address-nav': 'openMore',
+    'click .address-set-default':'setDefault'
+  },
   template: _.template($('#address-item').html()),
   initialize() {
+    this.dataList = []; //记录当前address集合
+    _.delay(this.fetchDate.bind(this),1000);
     this.render();
+  },
+  openMore(e){
+     let elem = this.$(e.currentTarget);
+     elem.toggleClass('open');
+     this.$('.address-content').slideToggle();
+  },
+  fetchDate(){
+    addressList().then(data => {
+        if(!data.data.length){
+           this.$('.address-list').hide();
+           return;
+        }
+        this.renderList(data);
+    });
   },
   render() {
      this.$('.address-item').empty().append(this.template(this.model.toJSON()));
+  },
+  renderList({data}){
+    this.dataList = data;
+    this.$('.address-content').empty().append(_.template($('#tpl-address-list').html())(data));
+  },
+  setDefault(e){
+    setDefault({address_id:this.$(e.currentTarget).data('id')}).then(({ id })=>{
+        window.location.reload();
+    })
   }
 });
 /**
@@ -113,6 +181,7 @@ let App = View.extend({
     } else {
       this.isAccount = 0;//是否使用账户余额 0表示不使用 1表示使用
       this.type=0;// 0表示现金模式 1表示现金&秒币
+      this.addressId='';  // 表示地址ID
       this.goodsList = new Collection();
       this.goodsList.bind('add', this.renderGoodsList, this);
       this.addressModel = new Model();
@@ -142,6 +211,7 @@ let App = View.extend({
     }
   },
   parseData(data){
+    this.addressId = data.user_address.id;
     this.goodsList.add(data.goods_list);
     this.addressModel.set(data.user_address);
     this.accountModel.set(data.user_account);
@@ -189,7 +259,14 @@ let App = View.extend({
     }
   },
   sendOrder(){
-
+    let payLoad = {pay_type:Number(this.type)+1,account_pay:Number(this.isAccount)+1,address_id:this.addressId,goods_list:this.goodsList.toJSON()}
+    done(payLoad).then(({order_ids, payment_id})=>{
+        if(!Number(this.$('.order-summary span[data-pay]').data('pay'))) {
+            location.href='/paySuccess.html?payment_id='+payment_id;
+        }else{
+            location.href='/payOrder.html?order_ids='+order_ids;
+        }
+    });
   },
   addAddress(){
     new AddressPopupView();

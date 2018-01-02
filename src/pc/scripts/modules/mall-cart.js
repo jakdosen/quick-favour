@@ -10,57 +10,6 @@ import {Model, Collection, View, Events} from 'backbone'
 let bus = window.bus;
 let moduleEv = _.extend({}, Events);
 
-let mockData = {
-  "carts": {
-    "cash_goods": [],
-    "coin_goods": {
-      "checked_count": 1,
-      "goods_list": [
-        {
-          "cart_id": 14,
-          "goods_id": 460,
-          "goods_name": "菲律宾香蕉约1.5kg",
-          "goods_sn": "MZ000460",
-          "cash_price": "5.00",
-          "coin_price": "59995",
-          "goods_type": 2,
-          "goods_number": 2,
-          "goods_attr_id": "4044,4049",
-          "goods_attr_str": "越南 8成熟",
-          "is_checked": 1,
-          "is_on_sale": 1,
-          "goods_img": "http://t13.zetadata.com.cn/upload/images/201610/goods_img/460_G_1459126720606.jpg"
-        }
-      ]
-    },
-    "cashcoin_goods": {
-      "checked_count": 1,
-      "goods_list": [
-        {
-          "cart_id": 1,
-          "goods_id": 430,
-          "goods_name": "以色列葡萄柚4个约250g/个",
-          "goods_sn": "MZ000430",
-          "cash_price": "30.00",
-          "coin_price": "40.00",
-          "goods_type": 3,
-          "goods_number": 1,
-          "goods_attr_id": "4044,4049",
-          "goods_attr_str": null,
-          "is_checked": 1,
-          "is_on_sale": 1,
-          "goods_img": "http://t13.zetadata.com.cn/upload/images/201610/goods_img/430_G_1459971655294.jpg"
-        }
-      ]
-    }
-  },
-  "total": {
-    "goods_checked": 3,
-    "goods_count": 3,
-    "cash_total": "40.00",
-    "coin_total": 120035
-  }
-};
 /**
  * CartModel
  */
@@ -191,7 +140,6 @@ let App = View.extend({
     getCartList().then((data) => {
       this.parseData(data);
     })
-    this.parseData(mockData);
   },
   parseData(data) {
     //"cash_goods","coin_goods","cashcoin_goods"
