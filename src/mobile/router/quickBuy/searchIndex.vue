@@ -27,7 +27,7 @@
       <div style="height: 100%">
         <!--历史搜索-->
         <div v-if="isShowHistory&&!isLoading"  class="search-histry-modules   c-page-padding">
-          <card>
+          <card v-show="searchHistory.length">
             <div slot="header">
               <div class="clearfix">
                 <span>搜索历史</span>
@@ -37,7 +37,7 @@
             </div>
             <div slot="content" style="margin-top: 1rem">
               <ul>
-                <li v-for="(item,index) in searchHistory" :key="index"  @click="doSearchHistory(item)" class="vux-1px">{{ item }}</li>
+                <li v-if="item" v-for="(item,index) in searchHistory" :key="index"  @click="doSearchHistory(item)" class="vux-1px">{{ item }}</li>
               </ul>
             </div>
           </card>
