@@ -10,7 +10,7 @@
         </tab>
       </div>
     </CommonHeader>
-    <view-box  ref="viewBox" style="background: #f0f0f0">
+    <view-box  ref="viewBox" style="background: #f0f0f0;padding-top: 46px;">
          <!--购买信息-->
          <div id="buy-info" class="buy-info">
            <swiper :show-desc-mask="false" :auto="true" :show-dots="[].concat(list.gallerys).length>1"  dots-position="center" :loop="true"

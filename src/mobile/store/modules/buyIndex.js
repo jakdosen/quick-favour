@@ -11,6 +11,7 @@ export default {
     suggestlist:[],
     pagination:{},
     isLoading:true,
+    scrollObj:null
   },
   actions: {
     cycleImage:async ({ commit }) =>{

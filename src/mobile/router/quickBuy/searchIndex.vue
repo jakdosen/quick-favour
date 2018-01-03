@@ -131,10 +131,8 @@
         this.search();
       },
       toSearchPage:function () {
-        this.$router.replace({
-          path: '/search'
-        });
-        this.$router.go(0);
+       this.$router.push({ path: '/search'});
+       window.location.reload();
       },
       search(otherArg){
         if(!this.searchWord){

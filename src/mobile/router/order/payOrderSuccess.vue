@@ -15,7 +15,7 @@
          </div>
          <!--跳转链接到订单详情和返回首页-->
          <div class="payOrder-toLink">
-             <a class="link-btn" :href="'/m1/order/order_detail.html?id='+payment_id">订单详情</a>
+             <a class="link-btn" :href="'/m1/order/order.html?type=3'">订单详情</a>
              <router-link class="link-btn" to="/">返回首页</router-link>
          </div>
          <!--安全提醒-->

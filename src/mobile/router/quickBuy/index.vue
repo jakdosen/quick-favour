@@ -7,7 +7,9 @@
       style="height:100%"
       class="wrapper"
       ref="scroll"
+      :listenScroll="true"
       :pullUpLoad="pullUpLoadObj"
+      @scroll="scrollEvent"
       @pullingUp="onPullingUp">
       <!--头部-->
       <div class="buy-head">
@@ -96,8 +98,12 @@
         this.$store.dispatch('buyIndex/cycleImage');
         // 重置列表数据
 //        this.$store.commit('buyIndex/update',{suggestlist:[]});
-        // 获取推荐列表(在数据没有的时候加载)
-        !this.suggestlist.length && this.$store.dispatch('buyIndex/suggestlist',{page:1});
+          !this.suggestlist.length && this.$store.dispatch('buyIndex/suggestlist',{page:1});
+    },
+    updated(){
+      // 如果是直接返回，加载到上次浏览地点
+      let scroll_list = !this.scrollObj ? this.scroll : this.scrollObj
+      this.suggestlist.length && this.$refs.scroll.scrollTo( scroll_list.x, scroll_list.y , 0)
     },
     data(){
         return {
@@ -107,11 +113,22 @@
               more: '加载更多',
               noMore: '没有更多数据了'
             }
-          }
+          },
+          scroll:{x:0,y:0}
         }
     },
     computed: {
-      ...mapState('buyIndex', ['cycleImage','isLoading','suggestlist','pagination'])
+      ...mapState('buyIndex', ['cycleImage','isLoading','suggestlist','pagination','scrollObj'])
+    },
+    watch:{
+      pagination(val){
+          const { current_page,  total_pages} = val;
+          if (current_page < total_pages) {
+            this.$refs.scroll.forceUpdate(true)
+          } else {
+            this.$refs.scroll.forceUpdate(false)
+          }
+      }
     },
     methods: {
 //        箭头函数会导致this指向错误
@@ -124,14 +141,14 @@
           const {current_page, total_pages} = this.pagination;
           this.$store.dispatch('buyIndex/suggestlist', {page: current_page + 1});
           this.$store.commit('buyIndex/update', {isLoading: false});
-          setTimeout(()=>{
-            if (current_page < total_pages) {
-              this.$refs.scroll.forceUpdate(true)
-            } else {
-              this.$refs.scroll.forceUpdate(false)
-            }
-          },300);
+        },
+        scrollEvent(arv){
+            this.scroll = arv;
         }
+    },
+    beforeRouteLeave(to, from, next){
+        this.$store.commit('buyIndex/update',{scrollObj:this.scroll});
+        next();
     }
   }
 </script>

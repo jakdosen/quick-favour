@@ -133,7 +133,7 @@
           this.submitOrder({
             pay_type:this.chosePay,
             account_pay:(this.isShowAccount && 1) || 0,
-            address_id:this.user_address.id,
+            address_id:this.user_address&&this.user_address.id,
             goods_list:this.goods_list,
             trueCash:this.accountPay
           });
