@@ -7,7 +7,7 @@ import { list } from '^/services/mall'
 export default {
   namespaced: true,
   state: {
-    list2: ['综合', '现金商品', '现金&秒币', '秒币商品', '价格'],
+    list2: ['综合', '现金商品', '秒币商品', '现金&秒币', '价格'],
     isLoading:false,
     pagination:{},
     sourceList:[],
