@@ -6,7 +6,7 @@
          <div class="confirmOrder-pay">
              <p>实付金额：<span><small>￥</small>{{ Number(trueCash).toFixed(2) }}</small></span></p>
              <div class="clearfix">
-                <span>购买商品总计：{{order_list&&order_list.length}}件</span>
+                <span>购买商品总计：{{goods_count}}件</span>
                <ul>
                  <li v-for="item in order_list">
                    <img :src="item.goods_thumb" alt="">
@@ -80,7 +80,7 @@
       }
     },
     computed: {
-      ...mapState('confirmOrder',['order_list','trueCash']),
+      ...mapState('confirmOrder',['order_list','trueCash','goods_count']),
     },
     methods: {
       ...mapActions('confirmOrder',['orderPay']),

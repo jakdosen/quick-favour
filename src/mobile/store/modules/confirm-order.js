@@ -11,6 +11,7 @@ export default {
   state: {
     goods_list:[],
     trueCash:'', //实际应要付的价格
+    goods_count:0,// 目前商品数量
     order_list:[],
     user_account:{
       run_money: "0.00",
@@ -78,8 +79,8 @@ export default {
     },
     orderPay:async ({commit,state},payload) =>{
       const res = await orderPay(payload);
-      const { order_amount, goods_list} = res;
-      commit('update',{trueCash:order_amount,order_list:goods_list})
+      const { order_amount, goods_list, goods_count} = res;
+      commit('update',{trueCash:order_amount,order_list:goods_list, goods_count:goods_count})
     }
   },
   mutations: {
