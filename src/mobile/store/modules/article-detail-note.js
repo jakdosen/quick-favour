@@ -49,7 +49,8 @@ export default {
           return {
             id:comment.id,
             desc:comment.content,
-            user:comment.user
+            user:comment.user,
+            date:comment.created_at
           }
         }));
         commit('setLoadingState',false)

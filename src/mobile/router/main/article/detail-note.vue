@@ -26,13 +26,14 @@
                          :key="item.id"
                          style="padding: 10px"
             >
-              <div class="weui-media-box__hd" style="height: 40px;height: 40px;background-color: #7bc549">
-                <img :src="item.user.avatar" alt="" class="weui-media-box__thumb">
+              <div class="weui-media-box__hd" style="width: 40px;height: 40px;">
+                <!--<img :src="item.user.avatar" alt="" class="weui-media-box__thumb">-->
+                <x-img  default-src="static/allGoodsBg.png" class="weui-media-box__thumb" :src="item.user.avatar" height="40px" width="40px"></x-img>
               </div>
               <div class="weui-media-box__bd">
-                <!--<h4 class="weui-media-box__title">{{item.title}}</h4>-->
+                <h4 class="weui-media-box__title" style="font-size: 14px">{{item.user.nickname || '匿名'}}</h4>
                 <p class="weui-media-box__desc">{{item.desc}}</p>
-                <!--<p class="weui-media-box__tip"> {{item.likeNum}}人秒赞</p>-->
+                <p class="weui-media-box__tip"> {{item.date}}</p>
               </div>
             </div>
 
@@ -43,7 +44,7 @@
   </view-box>
 </template>
 <script>
-  import { Group, Cell, Badge, ViewBox, XHeader,Flexbox,FlexboxItem,Icon,Popup,XButton,XTextarea,TransferDom} from 'vux'
+  import { Group, Cell, Badge, ViewBox, XHeader,Flexbox,FlexboxItem,Icon,Popup,XButton,XTextarea,TransferDom, XImg} from 'vux'
   import { mapState, mapActions ,mapMutations} from 'vuex'
   import VueBetterScroll  from 'vue2-better-scroll'
   export default {
@@ -92,6 +93,7 @@
       ViewBox,
       XHeader,
       XTextarea,
+      XImg,
       Flexbox,
       FlexboxItem,
       Icon,

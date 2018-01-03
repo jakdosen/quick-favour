@@ -122,7 +122,7 @@ function getEntries(globPath) {
 
     let parseObj = path.parse(filepath);
 		let basename = parseObj.name
-    if(basename == 'index'){
+    if(basename == 'index' && !/(?:modules)|(?:views)/.test(parseObj.dir.split('/').slice(-1))){
 			// 取倒数第二层(view下面的文件夹)做包名
 			basename = [parseObj.dir.split('/').slice(-1),basename].join('-')
     }
