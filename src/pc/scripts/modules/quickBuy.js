@@ -222,18 +222,20 @@ const App = VIEW.extend({
     this.Menu = new Menu({
       el:$('.qb-menu')
     });
-    // 绑定热门商品模块
-    this.hotGoods = new HotGoods({
-      el:$('.qb-hot-goods')
-    });
-    // 绑定秒币商城
-    this.coinStore = new CoinStore({
-      el:$('.qb-store')
-    });
     // 绑定热门推荐
     this.recommend = new Recommend({
       el:$('.qb-recommend-goods')
     });
+    setTimeout(()=>{
+      // 绑定热门商品模块
+      this.hotGoods = new HotGoods({
+        el:$('.qb-hot-goods')
+      });
+      // 绑定秒币商城
+      this.coinStore = new CoinStore({
+        el:$('.qb-store')
+      });
+    },500)
   }
 })
 

@@ -37,7 +37,7 @@ var bread = [
 <script type="text/template" id="ad-item-tpl">
   <@ obj.length && _.each(obj,function(item,index){@>
   <div class="swiper-slide" >
-    <a href="/goodsDetail.html?goods_id=<@- item.id@>" style="background:<@- item.bg_color@>"><img  src="<@- item.adv_code@>"></a>
+    <a href="goodsDetail.html?goods_id=<@- item.id@>" style="background:<@- item.bg_color@>"><img  src="<@- item.adv_code@>"></a>
   </div>
   <@})@>
 </script>
@@ -46,7 +46,7 @@ var bread = [
   <ul>
     <@ obj.length && _.each(obj,function(item,index){@>
     <li>
-      <a href="/goodsDetail.html?goods_id=<@- item.id@>" class="goods-style-2">
+      <a href="goodsDetail.html?goods_id=<@- item.id@>" class="goods-style-2">
         <div class="img-box"><img src="<@- item.goods_img@>" alt=""></div>
         <div class="content-box">
           <span class="title"><@- item.goods_name@></span>
