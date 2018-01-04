@@ -23,8 +23,8 @@
                <span><small>￥</small>{{list.cash_price}}</span>
                <div>
                    <span><small>M</small>{{list.coin_price}}</span>
-                   <i v-if="list.cash_price">元</i>
-                   <b v-if="list.coin_price">秒</b>
+                   <i v-if="list.goods_type==1||list.goods_type==3">元</i>
+                   <b v-if="list.goods_type==2||list.goods_type==3">秒</b>
                </div>
            </div>
          </div>

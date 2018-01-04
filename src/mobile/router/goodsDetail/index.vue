@@ -15,7 +15,7 @@
             <div class="info">
               <span><i><small>￥</small>{{ changeBuyCashPrice || list.cash_price}}</i>& <b><small>M</small>{{ changeBuyCoinPrice || list.coin_price}}</b></span>
               <p>商品编号：{{list.goods_sn}}</p>
-              <span><i v-if="list.cash_price">元</i><b v-if="list.coin_price">秒</b></span>
+              <span><i v-if="list.goods_type==1||list.goods_type==3">元</i><b v-if="list.goods_type==2||list.goods_type==3">秒</b></span>
             </div>
           </div>
           <div class="chose-list" :data-title="item.name" v-for="(item,index) in list.specification" :key="index">

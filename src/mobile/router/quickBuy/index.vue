@@ -62,8 +62,8 @@
                   <span><small>￥</small>{{item.cash_price}}</span>
                   <div class="buy-icon">
                     <em><small>m</small>{{item.coin_price}}</em>
-                    <i>元</i>
-                    <b>秒</b>
+                    <i v-if="item.goods_type==1||item.goods_type==3">元</i>
+                    <b v-if="item.goods_type==2||item.goods_type==3">秒</b>
                   </div>
                 </div>
               </div>
@@ -97,13 +97,12 @@
         // 获取上面导航
         this.$store.dispatch('buyIndex/cycleImage');
         // 重置列表数据
-//        this.$store.commit('buyIndex/update',{suggestlist:[]});
-          !this.suggestlist.length && this.$store.dispatch('buyIndex/suggestlist',{page:1});
+        !this.suggestlist.length && this.$store.dispatch('buyIndex/suggestlist',{page:1});
     },
     updated(){
       // 如果是直接返回，加载到上次浏览地点
-      let scroll_list = !this.scrollObj ? this.scroll : this.scrollObj
-      this.suggestlist.length && this.$refs.scroll.scrollTo( scroll_list.x, scroll_list.y , 0)
+      this.scroll = !this.scrollObj ? this.scroll : this.scrollObj;
+      this.suggestlist.length && this.$refs.scroll.scrollTo( this.scroll.x, this.scroll.y , 0)
     },
     data(){
         return {
@@ -208,7 +207,7 @@
   }
   .buy-image{
     width: 100%;
-    height: 65%;
+    height: 71%;
     overflow: hidden;
   }
   .buy-content{

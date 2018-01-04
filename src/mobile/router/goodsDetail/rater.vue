@@ -18,7 +18,7 @@
             selected-item-class="check-border-active"
             @on-change="raterChange"
           >
-            <checker-item :value="'0'" >全部({{ raterCommentsCount.comment_general }})</checker-item>
+            <checker-item :value="'0'" >全部({{ raterCommentsCount.comment_all }})</checker-item>
             <checker-item :value="'1'">好评({{ raterCommentsCount['comment_good']}})</checker-item>
             <checker-item :value="'2'">中评({{ raterCommentsCount['comment_general']}})</checker-item>
             <checker-item :value="'3'">差评({{ raterCommentsCount['comment_low']}})</checker-item>
@@ -113,8 +113,8 @@
   .justify-content(center);
   }
   .header-img img{
-    width: 47px;
-    height: 30px;
+    width: 31px;
+    height: 31px;
     margin-top: 6px;
   }
   .buy-rater{

@@ -17,8 +17,8 @@
             <span v-if="type"><small>￥</small>{{item.cash_price}}</span>
             <div>
               <em><small>M</small>{{item.coin_price}}</em>
-              <i v-if="type">元</i>
-              <b>秒</b>
+              <i v-if="item.goods_type==1||item.goods_type==3">元</i>
+              <b v-if="item.goods_type==2||item.goods_type==3">秒</b>
             </div>
           </div>
       </div>
