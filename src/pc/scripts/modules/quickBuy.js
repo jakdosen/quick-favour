@@ -56,7 +56,6 @@ const Search = VIEW.extend({
       elem = this.$('.qb-search-history'),
       searchHistory = window.localStorage.getItem('searchHistory');
     elem.empty();
-    debugger;
     elem.append(_.template(searchTemplate)(searchHistory&&searchHistory.split(',')||[]));
   },
   searchMore(){
