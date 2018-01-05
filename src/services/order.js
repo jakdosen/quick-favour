@@ -60,3 +60,11 @@ export function orderPay(params = {}) {
     {params},
   );
 }
+
+// 支付接口
+export function Pay(params = {}) {
+  return axios.post(
+    order.pay,
+    {...params},
+  );
+}

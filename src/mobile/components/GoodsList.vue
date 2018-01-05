@@ -14,9 +14,11 @@
           </div>
           <div class="right-content">
             <p>{{item.goods_name}}</p>
-            <span v-if="type"><small>￥</small>{{item.cash_price}}</span>
-            <div>
-              <em><small>M</small>{{item.coin_price}}</em>
+            <div class="price clearfix">
+              <span v-if="item.goods_type==1||item.goods_type==3"><small>￥</small>{{item.cash_price}}</span><br>
+              <em v-if="item.goods_type==2||item.goods_type==3"><small>M</small>{{item.coin_price}}</em>
+            </div>
+            <div class="sign">
               <i v-if="item.goods_type==1||item.goods_type==3">元</i>
               <b v-if="item.goods_type==2||item.goods_type==3">秒</b>
             </div>
@@ -121,16 +123,24 @@
     height: 6rem;
     overflow: hidden;
   }
-  .right-content > span{
-    color: @color2;
-    font-size: 1.2rem;
-    line-height: 2;
+  .right-content{
+     position: relative;
+     .price{
+        text-align: left;
+         color: @color1;
+        font-size: 1.4rem !important;
+     }
+     .sign{
+        position: absolute;
+        bottom: 1rem;
+        right: 0;
+        z-index: 2;
+     }
   }
-  .right-content > div{
+
+  .right-content > span{
     color: @color1;
-    font-size: 1.4rem;
     line-height: 2;
-    text-align: right;
   }
   .right-content > div small{
     font-size: 1.2rem;
@@ -145,7 +155,6 @@
     background: #f20840;
     color: #fff;
     padding: 0 .7rem;
-    margin-top: -5px;
   }
   .right-content > div i{
     background: #822eef;

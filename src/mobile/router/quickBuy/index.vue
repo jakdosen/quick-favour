@@ -42,7 +42,7 @@
                   <icon style="margin-left: 10px;" type="search"></icon>
                   <span>输入商品名称进行搜索</span>
               </div>
-              <router-link to="/mall/cart"><span class="iconfont icon-shopping-cart" style="margin-left:1rem;color: #ff5300;font-size: 2.5rem"></span></router-link>
+              <router-link to="/mall/cart"><span class="shopping-cart"></span></router-link>
             </div>
           </Sticky>
         </div>
@@ -61,7 +61,7 @@
                   <p>{{item.goods_name}}</p>
                   <span><small>￥</small>{{item.cash_price}}</span>
                   <div class="buy-icon">
-                    <em><small>m</small>{{item.coin_price}}</em>
+                    <em><small>M</small>{{item.coin_price}}</em>
                     <i v-if="item.goods_type==1||item.goods_type==3">元</i>
                     <b v-if="item.goods_type==2||item.goods_type==3">秒</b>
                   </div>
@@ -263,6 +263,14 @@
   .buyIndex-01{
     background: url('~@/publice/img/buyIndex-01.png') no-repeat;
     background-size: contain;
+  }
+  .shopping-cart{
+    display: inline-block;
+    width: 3.5rem;
+    height: 3.5rem;
+    background: url('~@/publice/img/buyCart.png') no-repeat center center;
+    margin-left: 1rem;
+    background-size: 2.5rem 2.5rem;
   }
   .wrapper{
     -webkit-overflow-scrolling: touch;

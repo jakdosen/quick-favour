@@ -57,6 +57,7 @@ export default {
       create:`${rootPath}/address/create`,
       success:`${rootPath}/pay/success`,
       orderPay:`${rootPath}/pay/order`,
+      pay:`${rootPath}/api/pay`
     },
     // 地址相关
     // address:{

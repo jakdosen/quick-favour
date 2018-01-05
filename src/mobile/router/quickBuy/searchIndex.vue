@@ -159,6 +159,7 @@
       // 存入本地缓存，新的搜索历史
       saveHistory(){
          const oldDate = this.searchHistory||[];
+         if(!!~this.searchHistory.indexOf(this.searchWord)) return;
          oldDate.unshift(this.searchWord);
          oldDate.length>10 && oldDate.pop();
          this.searchHistory=oldDate;

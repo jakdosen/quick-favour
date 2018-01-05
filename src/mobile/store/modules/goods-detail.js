@@ -35,7 +35,7 @@ export default {
     create: async ({commit, state},payload)=>{
       const res = await create(payload);
        commit('update',{popupShowOpen:false,popupShowButton:0})
-       router.push({path: '/mall/cart'});
+       // router.push({path: '/mall/cart'});
     },
     // toSubmitOrder: async ({commit, state},payload)=>{
     //   const res = await directcheckorder(payload);

@@ -13,10 +13,13 @@
     <view-box  ref="viewBox" style="background: #f0f0f0;padding-top: 46px;">
          <!--购买信息-->
          <div id="buy-info" class="buy-info">
-           <swiper :show-desc-mask="false" style="background: #fff" :auto="true" :show-dots="[].concat(list.gallerys).length>1"  dots-position="center" :loop="true"
-                   height="37.5rem">
-             <swiper-item v-for="(item, index) in list.gallerys" :key="index"><router-link to="/goods"><img style="width: 100%;height: auto" :src="item.img_url"></router-link></swiper-item>
-           </swiper>
+           <div class="buy-info-swiper">
+             <swiper v-model="swiper_index" :show-desc-mask="false" style="background: #fff" :auto="true" :show-dots="false"  :loop="true"
+                     height="37.5rem">
+               <swiper-item v-for="(item, index) in list.gallerys" :key="index"><img style="width: 100%;height: auto" :src="item.img_url"></swiper-item>
+             </swiper>
+             <span>{{(swiper_index+1)+' / '+[].concat(list.gallerys).length}}</span>
+           </div>
            <div class="buy-word-info">
                <strong>{{list.goods_name}}</strong>
                <p>{{list.goods_brief}}</p>
@@ -112,7 +115,8 @@
     data(){
       return {
          index:0,
-         goods_id:''
+         goods_id:'',
+         swiper_index:0,
       }
     },
     created(){
@@ -296,5 +300,20 @@
     text-align: center;
     font-size: 1.4rem;
     line-height: 8rem;
+  }
+  .buy-info-swiper{
+    position: relative;
+    >span{
+       position: absolute;
+       right: 1rem;
+       line-height: 3rem;
+       height: 3rem;
+       border-radius: 3rem;
+       padding: 0 2rem;
+       font-size: 1.4rem;
+       background: rgba(0,0,0,.3);
+       color: #fff;
+       bottom: 2rem;
+     }
   }
 </style>

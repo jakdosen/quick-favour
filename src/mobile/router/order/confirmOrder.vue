@@ -36,7 +36,7 @@
   import { ViewBox, XSwitch, Group, Checker, CheckerItem, Icon } from 'vux'
   import {mapGetters, mapState, mapActions} from 'vuex'
   import CommonHeader  from '@/components/CommonHeader'
-  import { prepay} from '^/services/order'
+  import { prepay, Pay} from '^/services/order'
   import {  getWxSignature } from '^/services/auth'
   const wx = Vue.wechat;
 
@@ -61,7 +61,7 @@
         const permissions = ['chooseWXPay'];
         const url = window.location.href;
         getWxSignature({
-          url: encodeURIComponent(url),
+          url: encodeURIComponent(window.location.href.split("#")[0]),
           jsApiList: JSON.stringify(permissions)
         }).then(data => {
           this.wx_signPackage =  Object.assign(data.signPackage, {
@@ -90,19 +90,22 @@
             order_ids:this.order_ids,
             payment:{"1":'weixin',"2":'alipay'}[String(this.chosePay)]
           }).then( ({payment_id}) =>{
-              const { timestamp,  nonceStr, signType, paySign} = this.wx_signPackage
+            Pay({payment_id}).then(({ pay_str, payment}) =>{
+              const { appId, timeStamp,  nonceStr, signType, paySign} = pay_str
               wx.ready(()=>{
                 wx.chooseWXPay({
-                  timestamp: timestamp, // 支付签名时间戳，注意微信jssdk中的所有使用timestamp字段均为小写。但最新版的支付后台生成签名使用的timeStamp字段名需大写其中的S字符
-                  nonceStr: nonceStr, // 支付签名随机串，不长于 32 位
-                  package: 'prepay_id='+payment_id, // 统一支付接口返回的prepay_id参数值，提交格式如：prepay_id=\*\*\*）
-                  signType: signType, // 签名方式，默认为'SHA1'，使用新版支付需传入'MD5'
-                  paySign: paySign, // 支付签名
+                  appId,
+                  timeStamp,
+                  nonceStr,
+                  package:pay_str.package,
+                  signType,
+                  paySign,
                   success: ()=>{
-                       this.$router.push({path:'/payOrderSuccess',query:{payment_id}})
+                    this.$router.push({path:'/payOrderSuccess',query:{payment_id}})
                   }
                 });
               });
+            });
           });
       }
     }
@@ -173,4 +176,9 @@
     margin-top: 15px;
   }
 }
+  .pay-selected{
+  .weui-icon-success{
+    color: #f63;
+  }
+  }
 </style>

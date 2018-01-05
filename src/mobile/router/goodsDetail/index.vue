@@ -172,9 +172,12 @@
          let args ={goods_id:this.$route.params.id
            ,number:this.buyNum
            ,spec:this.specification.join(',')};
-         flag ?this.create(args)
-           : this.$router.push({path:'/submitOrder',query:{...args}});
-//        this.$store.dispatch('confirmOrder/checkOrder',{buyNow:true,...args});
+         if(flag){
+           this.create(args);
+           this.$vux.toast.text('加入购物车成功');
+         }else{
+           this.$router.push({path:'/submitOrder',query:{...args}});
+         }
       }
     }
   }
