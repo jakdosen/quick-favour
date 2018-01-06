@@ -8,7 +8,7 @@
       <div class="weui-panel__bd">
         <router-link v-for="item in article.list"  class="weui-media-box weui-media-box_appmsg" :to="'/article/detail/'+ item.id" :key="item.id">
           <div class="weui-media-box__hd">
-            <img :src="item.cover" alt="" class="weui-media-box__thumb">
+            <img :src="item.cover" alt="" class="weui-media-box__thumb" style="width: 107px;height: 91px">
           </div>
           <div class="weui-media-box__bd">
             <h4 class="weui-media-box__title">{{item.title}}</h4>

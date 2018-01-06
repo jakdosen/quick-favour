@@ -49,7 +49,7 @@ axios.interceptors.request.use(
   config => {
     //防止缓存
     if(config.method.toLowerCase() == 'get'){
-      config.params['r'] = Math.random();
+      config.params['r'] = Math.floor(Date.now()/30000) * 30000;
     }
     if (axiosStore.get('api_token')) {
       if(config.method.toLowerCase() == 'get'){

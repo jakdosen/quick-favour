@@ -12,9 +12,9 @@
               <span>{{article.date}}</span>
               <span style="margin-left: 1em">{{article.shareNum}}人秒赞</span>
             </span>
-            <router-link class="inline-block" :to="'/article/detail/'+ article.id + '/note'" style="float: right">
-              <i><span class="iconfont icon-book"></span><badge :text="article.commentNum" style="position: relative;top: -6px;font-size: 10px;height: 12px;
-    line-height: 12px;"></badge> </i>
+            <router-link class="inline-block" :to="'/article/detail/'+ article.id + '/note'" style="float: right;color: #404040;">
+              <i><span class="iconfont icon-book"></span><badge :text="article.commentNum" style="position: relative;top: -6px;font-size: 10px;height: 14px;
+    line-height: 14px;"></badge> </i>
             </router-link>
 
           </div>
@@ -191,7 +191,7 @@
               shareCallback({
                 article_id:article.id
               }).then((data)=>{
-                Vue.$vux.toast.show({
+								data.amount && Vue.$vux.toast.show({
                   text:`分享成功，获得<span style="font-size: 20px">${data.amount}</span>个秒币！`,
                   width:'20em',
                   type:'success',
@@ -256,8 +256,9 @@
       color:#404040;
       img{
         max-width: 100%;
-        position: relative;
-        left: -2em;
+        margin-left: -2em;
+/*        position: relative;
+        left: -2em;*/
       }
       p{
         margin: .6rem 0;

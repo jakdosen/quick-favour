@@ -1,5 +1,5 @@
 <template>
-  <view-box ref="viewBox"  body-padding-bottom="50px">
+  <view-box ref="viewBox"  body-padding-bottom="50px"  body-padding-top="0">
     <transition
       @after-enter="$vux.bus && $vux.bus.$emit('vux:after-view-enter')"
       :name="'vux-pop-' + (direction === 'forward' ? 'in' : 'out')">

@@ -9,6 +9,7 @@
         style="height:100%"
         class="wrapper"
         ref="scroll"
+        :listenScroll="true"
         :pullUpLoad="pullUpLoadObj"
         @pullingUp="onPullingUp">
         <div>
@@ -61,7 +62,7 @@
       pullUpLoadObj: {
         threshold: 20,
         txt: {
-          more: '加载更多',
+          more: ' ',
           noMore: '没有更多数据了'
         }
       }
