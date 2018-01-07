@@ -70,7 +70,7 @@ export function addComment(params = {}) {
 export function shareCallback(params = {}) {
   return axios.post(
     article.shareCallback,
-    {...params},
+    {...params,share_channel:1},
   )
 }
 

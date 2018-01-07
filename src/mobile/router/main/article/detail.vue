@@ -61,19 +61,24 @@
       TransferDom
     },
     created(){
-      this.fetchArticleDetail(_.extend({},this.route.params,this.route.query));
-      preshare({
-        article_id:this.route.params.articleId,
-        is_weixin:1
-      }).then(data=>{
-        this.initShare(data)
-      }).catch(resp=>{
-        if(resp.code == 201 && !!~resp.message.indexOf('会员才可以分享文章')){
-          this.initShare({hide:true})
-        }else{
-          this.initShare({})
-        }
-      })
+      this.fetchArticleDetail(_.extend({},this.route.params,this.route.query)).then(()=> {
+      	let article = this.article;
+      	console.log(article)
+          preshare({
+              article_id:this.route.params.articleId,
+              is_weixin:1
+          }).then(data=>{
+              this.initShare(data)
+          }).catch(resp=>{
+              if(resp.code == 201 && !!~resp.message.indexOf('会员才可以分享文章')){
+                  this.initShare({hide:true})
+              }else{
+                  this.initShare({})
+              }
+          })
+      });
+
+
     },
     mounted() {
       //初始化分享

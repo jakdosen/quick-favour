@@ -22,7 +22,7 @@ export default {
   actions: {
     //获取文章详情
     fetchArticleDetail ({ commit ,state},params) {
-      getDetail({
+      return getDetail({
         article_id:params.articleId,
         share_id:params.share_id,
         share_code:params.share_code
