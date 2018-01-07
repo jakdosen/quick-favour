@@ -13,7 +13,7 @@
               <span style="margin-left: 1em">{{article.shareNum}}人秒赞</span>
             </span>
             <router-link class="inline-block" :to="'/article/detail/'+ article.id + '/note'" style="float: right;color: #404040;">
-              <i><span class="iconfont icon-book"></span><badge :text="article.commentNum" style="position: relative;top: -6px;font-size: 10px;height: 14px;
+              <i><span class="iconfont icon-book"></span><badge :text="article.commentNum + ' '"  style="position: relative;top: -6px;height: 14px;
     line-height: 14px;"></badge> </i>
             </router-link>
 
@@ -256,14 +256,15 @@
       color:#404040;
       img{
         max-width: 100%;
-        margin-left: -2em;
-/*        position: relative;
-        left: -2em;*/
       }
       p{
         margin: .6rem 0;
         text-align: justify;
         text-indent: 2em;
+        img{
+
+          margin-left: -2em;
+        }
       }
     }
   }

@@ -60,7 +60,7 @@
                 <div class="buy-content">
                   <p>{{item.goods_name}}</p>
                   <span><small>￥</small>{{item.cash_price}}</span>
-                  <div class="buy-icon">
+                  <div class="buy-icon" :style="{opacity:!!(parseInt(item.coin_price))|0}">
                     <em><small>M</small>{{item.coin_price}}</em>
                     <i v-if="item.goods_type==1||item.goods_type==3">元</i>
                     <b v-if="item.goods_type==2||item.goods_type==3">秒</b>

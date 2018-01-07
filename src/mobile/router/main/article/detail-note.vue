@@ -19,7 +19,7 @@
           </div>
           <div>
             <p>
-              {{pagination.total}}人 评论
+              全部留言 ( {{pagination.total}} )
             </p>
 
               <div v-for="item in notes"
@@ -32,7 +32,7 @@
                 <x-img  default-src="static/allGoodsBg.png" class="weui-media-box__thumb" :src="item.user.avatar" height="40px" width="40px"></x-img>
               </div>
               <div class="weui-media-box__bd">
-                <h4 class="weui-media-box__title" style="font-size: 14px">{{item.user.nickname || '匿名'}}</h4>
+                <h4 class="weui-media-box__title" style="font-size: 14px">{{item.user.nickname || item.user.account || '匿名'}}</h4>
                 <p class="weui-media-box__desc">{{item.desc}}</p>
                 <p class="weui-media-box__tip"> {{item.date}}</p>
               </div>

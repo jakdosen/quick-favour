@@ -110,7 +110,7 @@ moduleList.forEach(key =>{
 		minify: {
 			removeComments: true,
 			collapseWhitespace: true,
-			removeAttributeQuotes: true
+			removeAttributeQuotes: false
 		},
   }))
 })
