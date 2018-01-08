@@ -23,9 +23,11 @@
            <div class="buy-word-info">
                <strong>{{list.goods_name}}</strong>
                <p>{{list.goods_brief}}</p>
-               <span><small>￥</small>{{list.cash_price}}</span>
-               <div>
-                   <span><small>M</small>{{list.coin_price}}</span>
+               <div class="buy-word-info-box">
+                 <span v-if="list.goods_type==1||list.goods_type==3"><small>￥</small>{{list.cash_price}}</span>
+                 <span  v-if="list.goods_type==2||list.goods_type==3"><small>M</small>{{list.coin_price}}</span>
+               </div>
+               <div class="buy-word-info-sign">
                    <i v-if="list.goods_type==1||list.goods_type==3">元</i>
                    <b v-if="list.goods_type==2||list.goods_type==3">秒</b>
                </div>
@@ -71,7 +73,7 @@
             </transition>
             <transition name="fade">
             <div class="buy-tab" v-show="index === 1" style="padding:0 1rem;margin-top: 2rem;font-size: 1.4rem">
-              <x-table :content-bordered="false" :full-bordered="true">
+              <x-table :content-bordered="false" :full-bordered="true" v-if="[].concat(list.properties).length">
                 <colgroup><col width="40%"></colgroup>
                 <tbody>
                 <tr v-for = "item in list.properties">
@@ -80,6 +82,7 @@
                 </tr>
                 </tbody>
               </x-table>
+              <span v-else>暂无商品参数</span>
             </div>
             </transition>
           </div>
@@ -145,6 +148,7 @@
   @import '../../common.less';
   @import '~vux/src/styles/1px.less';
 .buy-word-info{
+  position: relative;
   padding: 0 1.5rem;
   padding-bottom: 1rem;
   width: 100%;
@@ -175,11 +179,10 @@
 .buy-word-info > span small{
   font-size: 1rem;
 }
-.buy-word-info> div {
-  text-align: right;
-}
+/*.buy-word-info> div {*/
+  /*text-align: right;*/
+/*}*/
 .buy-word-info> div  span{
-  float: left;
   color: #f63;
   font-size: 1.4rem;
 }
@@ -315,5 +318,16 @@
        color: #fff;
        bottom: 2rem;
      }
+  }
+  .buy-word-info-box{
+    text-align: left;
+    span{
+      display: block;
+    }
+  }
+  .buy-word-info-sign{
+     position: absolute;
+     bottom: 1rem;
+     right: 1.5rem;
   }
 </style>

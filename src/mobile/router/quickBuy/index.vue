@@ -15,9 +15,8 @@
       <div class="buy-head">
         <!--首页幻灯-->
         <div class="buy-swiper">
-          <swiper :show-desc-mask="false" :show-dots="cycleImage.length>1" :auto="true" dots-position="center" :loop="true"
-                  height="15rem">
-             <swiper-item v-for="(item, index) in cycleImage" :key="index"><router-link :to="'/goods/'+item.id"><img style="width: 100%;height: auto" :src="item.adv_code"></router-link></swiper-item>
+          <swiper :show-desc-mask="false" :show-dots="cycleImage.length>1" :auto="true" dots-position="center" :loop="true" height="150px">
+             <swiper-item v-for="(item, index) in cycleImage" :key="index"><router-link :to="'/goods/'+item.id"><img style="width: 100%;height: 100%" :src="item.adv_code"></router-link></swiper-item>
           </swiper>
         </div>
         <!--首页导航-->
@@ -55,13 +54,15 @@
               <div class="buy-goods-detail">
                 <div class="buy-image">
                   <!--<x-img container="#vux_view_box_body"   :offset="100"  default-src="//misc.360buyimg.com/lib/skin/e/i/error-jd.gif" :src="item.goods_img"></x-img>-->
-                  <img style="width: 100%; height: auto" :src="item.goods_img">
+                  <img style="width: 100%; height: auto;min-height: 15rem;" :src="item.goods_img">
                 </div>
                 <div class="buy-content">
                   <p>{{item.goods_name}}</p>
-                  <span><small>￥</small>{{item.cash_price}}</span>
-                  <div class="buy-icon" :style="{opacity:!!(parseInt(item.coin_price))|0}">
-                    <em><small>M</small>{{item.coin_price}}</em>
+                  <div class="buy-content-box">
+                    <span v-if="item.goods_type==1||item.goods_type==3"><small>￥</small>{{item.cash_price}}</span>
+                    <em v-if="item.goods_type==2||item.goods_type==3"><small>M</small>{{item.coin_price}}</em>
+                  </div>
+                  <div class="buy-icon">
                     <i v-if="item.goods_type==1||item.goods_type==3">元</i>
                     <b v-if="item.goods_type==2||item.goods_type==3">秒</b>
                   </div>
@@ -172,7 +173,6 @@
     top: 2rem;
     width: 100%;
     z-index: 99;
-
   }
   .buy-search-input{
     width: 80%;
@@ -196,7 +196,7 @@
     background: #fff;
     box-sizing: border-box;
     width: 50%;
-    height: 28rem;
+    padding: 1rem 0;
     border-bottom: 8px solid #f0f0f0;
   }
   .buy-goods-list li:nth-child(2n+1){
@@ -207,7 +207,7 @@
   }
   .buy-image{
     width: 100%;
-    height: 71%;
+    /*height: 71%;*/
     overflow: hidden;
   }
   .buy-content{
@@ -223,9 +223,30 @@
     overflow: hidden;
     color: #666;
   }
-  .buy-content span{
-     font-size: 1.2rem;
-     color: @color1;
+  .buy-content{
+    position: relative;
+    height: 6.5rem;
+    .buy-content-box{
+       position: absolute;
+       line-height: 1;
+       bottom: 0;
+       em{
+         margin-top: 5px;
+       }
+       span,em{
+         small{
+           font-size: 1rem;
+         }
+         display: block;
+         font-size: 1.4rem;
+         color: @color1;
+       }
+    }
+    .buy-icon{
+      position: absolute;
+      bottom: 0;
+      right: 1rem;
+    }
   }
   .buy-icon{
     text-align: right;

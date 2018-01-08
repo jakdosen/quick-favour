@@ -13,7 +13,11 @@
           <div class="buy-choose-goods">
             <div class="imgBox"><img :src="list.goods_thumb" alt=""></div>
             <div class="info">
-              <span><i><small>￥</small>{{ changeBuyCashPrice || list.cash_price}}</i>& <b><small>M</small>{{ changeBuyCoinPrice || list.coin_price}}</b></span>
+              <span>
+              <i v-if="list.goods_type==1||list.goods_type==3"><small>￥</small>{{ changeBuyCashPrice || list.cash_price}}</i>
+              <s v-if="list.goods_type==3">&</s>
+              <b v-if="list.goods_type==2||list.goods_type==3"><small>M</small>{{ changeBuyCoinPrice || list.coin_price}}</b>
+              </span>
               <p>商品编号：{{list.goods_sn}}</p>
               <span><i v-if="list.goods_type==1||list.goods_type==3">元</i><b v-if="list.goods_type==2||list.goods_type==3">秒</b></span>
             </div>
