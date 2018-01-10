@@ -55,7 +55,7 @@ const Login = Dialog.extend({
     },
     'click .toLogin': 'toLogin'
   },
-  initialize(){
+  initialize(options){
     this.constructor.__super__.initialize.apply(this, arguments);
     //合并父类的events
     if (this.constructor.prototype.events) {
@@ -65,7 +65,9 @@ const Login = Dialog.extend({
     // 新建model
     this.createModel();
     // 渲染Dom
-    this.render()
+    this.render();
+    // options 有个callBack方法，用来表示登录后操作
+    this.options = options;
   },
   createModel(){
     let login = MODEL.extend({
@@ -110,7 +112,11 @@ const Login = Dialog.extend({
         userInfo().then(data =>{
           const { account, nickname, avatar, fund, api_token} = data;
           store.set('user',{token:api_token,account,nickname,avatar,fund});
-          window.location.reload();
+          if(!!_this.options.callBack){
+            _this.options.callBack()
+          }else{
+            window.location.reload();
+          }
         });
       }
     });

@@ -123,7 +123,7 @@ var bread = [
   </div>
   <div class="comment-detail">
     <div class="comment-detail-nav">
-      <span>全部评价(<@- obj.data.length@>)</span>
+      <span>全部评价(<@- obj.commentsCount.comment_all@>)</span>
       <ul>
         <li>好评(<@- obj.commentsCount.comment_good@>)</li>
         <li>中评(<@- obj.commentsCount.comment_general@>)</li>
@@ -139,7 +139,7 @@ var bread = [
   <@ _.each(obj,function(item){@>
     <div class="comment-detail-content-item">
       <div class="name">
-        <span><img src="<@- item.user.avatar@>" alt=""></span>
+        <span><img width="100%" height="auto" src="<@- item.user.avatar@>" alt=""></span>
         <b><@- item.user.nickname@></b>
       </div>
       <div class="message">

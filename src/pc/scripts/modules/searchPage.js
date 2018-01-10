@@ -5,7 +5,6 @@ import '@/styles/hotGoods.less'
 import $ from 'jquery'
 import _ from 'underscore'
 import Backbone from 'backbone'
-import Swiper from 'swiper'
 import util from '^/utils'
 import { list } from '^/services/mall'
 

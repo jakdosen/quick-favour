@@ -4,6 +4,16 @@
 import $ from 'jquery'
 import _ from 'underscore'
 import '@/styles/login.less'
-import {Dialog} from '../common/ui'
-let dialog = new Dialog();
-document.body.appendChild(dialog.el)
+import login from '@/scripts/common/loginDialog';
+import util from '^/utils'
+
+
+new login({
+  callBack(){
+     let  _href = util.urlArgs()['to'];
+     location.href = (_href ? decodeURIComponent(_href) : '/article-list.html')
+  }
+});
+
+$('.mz-mask').remove();
+

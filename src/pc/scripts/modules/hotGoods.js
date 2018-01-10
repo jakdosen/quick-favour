@@ -5,7 +5,7 @@ import '@/styles/hotGoods.less'
 import $ from 'jquery'
 import _ from 'underscore'
 import Backbone from 'backbone'
-import Swiper from 'swiper'
+import Swiper from '../libs/swiper/swiper'
 import { homeCycleImage, suggestlist, list, category } from '^/services/mall'
 
 const  VIEW = Backbone.View;
@@ -33,14 +33,11 @@ const App = VIEW.extend({
   renderSlider(data){
       this.$('.swiper-wrapper').empty().append(_.template(this.$('#ad-item-tpl').html())(data));
     let swiperOption = {
-      pagination:{
-        el:'.pagination-ga',
-        clickable:true
-      },
+      pagination:this.$('.pagination-ga'),
       autoplay : 5000,
       speed:500,
-      setWrapperSize:true,
-      loop : true,
+      paginationClickable :true,
+      loop : data.length<2 ? false : true,
     }
     data.length<2 && this.$('.pagination-ga').hide();
     new Swiper(this.$('.swiper-container'),swiperOption)
