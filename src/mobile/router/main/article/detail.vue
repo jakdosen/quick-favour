@@ -150,7 +150,7 @@
         })
       },
       initShare(config){
-        const permissions = ['hideMenuItems','onMenuShareTimeline', 'onMenuShareAppMessage'];
+        const permissions = ['hideMenuItems','onMenuShareTimeline', 'onMenuShareAppMessage','onMenuShareQQ','onMenuShareWeibo','onMenuShareQZone'];
         const url = (config && config.share_url)||window.location.href.split("#")[0];
         let article = this.article;
         let configObj;
@@ -169,42 +169,29 @@
               menuList: ['menuItem:share:appMessage','menuItem:share:timeline']
             });
           }
-          wx.onMenuShareAppMessage({
-            title: article.title,
-            desc: article.desc,
-            link: url,
-            imgUrl:article.cover,
-            success(){
-              shareCallback({
-                article_id:article.id
-              }).then((data)=>{
-                Vue.$vux.toast.show({
-                  text:`分享成功，获得<span style="font-size: 20px">${data.amount}</span>个秒币！`,
-                  width:'20em',
-                  type:'success',
-                  time:3000
-                });
-              })
-            }
-          });
-          wx.onMenuShareTimeline({
-            title: article.title,
-            desc: article.desc,
-            link: url,
-            imgUrl:article.cover,
-            success(){
-              shareCallback({
-                article_id:article.id
-              }).then((data)=>{
-								data.amount && Vue.$vux.toast.show({
-                  text:`分享成功，获得<span style="font-size: 20px">${data.amount}</span>个秒币！`,
-                  width:'20em',
-                  type:'success',
-                  time:3000
-                });
-              })
-            }
-          })
+          let shareObj = {
+              title: article.title,
+              desc: article.desc,
+              link: url,
+              imgUrl:article.cover,
+              success(){
+                  shareCallback({
+                      article_id:article.id
+                  }).then((data)=>{
+                      data.amount && Vue.$vux.toast.show({
+                          text:`分享成功，获得<span style="font-size: 20px">${data.amount}</span>个秒币！`,
+                          width:'20em',
+                          type:'success',
+                          time:3000
+                      });
+                  })
+              }
+          };
+          wx.onMenuShareAppMessage(shareObj);
+          wx.onMenuShareTimeline(shareObj);
+          wx.onMenuShareQQ(shareObj);
+          wx.onMenuShareWeibo(shareObj);
+          wx.onMenuShareQZone(shareObj);
 
         });
         wx.error((res)=> {
