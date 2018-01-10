@@ -4,6 +4,7 @@ const utils = require('./utils')
 const config = require('./config')
 const webpack = require('webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const es3ifyPlugin = require('es3ify-webpack-plugin');
 
 const glob = require('glob')
 
@@ -36,12 +37,9 @@ let webpackConfig = {
 
       {
         test: /\.js$/,
-        loader: 'babel-loader',
+        loaders: ["es3ify-loader","babel-loader"],
         include: [resolve('src'), resolve('test')],
-        exclude:['polyfill.js','node_modules'],
-        query:{
-          presets: ['es2015-loose']
-        }
+        exclude:['polyfill.js'/*,'node_modules'*/]
       },
       {
         test: /\.(png|jpe?g|gif|svg)(\?.*)?$/,
@@ -88,8 +86,7 @@ let webpackConfig = {
           /node_modules/.test(module.resource)
         )
       }
-		}),
-
+		})
 	]
 }
 let htmls = getEntries(path.join(resolve('src/pc/views/') + '/*.html'));
@@ -110,7 +107,7 @@ moduleList.forEach(key =>{
 		minify: {
 			removeComments: true,
 			collapseWhitespace: true,
-			removeAttributeQuotes: false
+			removeAttributeQuotes: true
 		},
   }))
 })

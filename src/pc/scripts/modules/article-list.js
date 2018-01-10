@@ -50,7 +50,8 @@ let App = View.extend({
         this.template.ad({
           name:item.adv_name,
           link:item.adv_link,
-          src:item.adv_code
+          src:item.adv_code,
+          bgColor:item.bg_color||"transparent"
         })
       );
     });
