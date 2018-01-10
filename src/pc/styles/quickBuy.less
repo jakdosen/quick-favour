@@ -89,11 +89,13 @@
          left: 200px;
          top: 0;
          ul{
-           width: 100%;
+           width: 104%;
            height: 100%;
            background: #fff;
            position: relative;
            z-index: 10;
+           overflow-x: hidden;
+           overflow-y: auto;
          }
          li{
            float: left;
@@ -358,10 +360,21 @@
     background: #f63;
   }
 }
-.swiper-active-switch {
-  background: #db192a;
-}
+
 
 .swiper-container.qb-recommend-goods-content{
   height: 263px;
+}
+.swiper-pagination-switch {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  border-radius: 10px;
+  background: #fff;
+  margin: 0 5px;
+  opacity: 0.8;
+  cursor: pointer;
+}
+.swiper-active-switch {
+  background: #db192a;
 }

@@ -5,7 +5,8 @@ import '@/styles/quickBuy.less'
 import $ from 'jquery'
 import _ from 'underscore'
 import Backbone from 'backbone'
-import Swiper from 'swiper'
+// import Swiper from 'swiper'
+import Swiper from '../libs/swiper/swiper'
 import { homeCycleImage, suggestlist, list, category } from '^/services/mall'
 
 const  VIEW = Backbone.View;
@@ -107,13 +108,10 @@ const Menu =   VIEW.extend({
   renderCycleImage(data){
     this.$('.js-slider-cot').empty().append(_.template($('#ad-item-tpl').html())(data));
     let swiperOption = {
-      pagination:{
-        el:'.pagination-ga',
-        clickable:true
-      },
+      pagination:this.$('.pagination-ga'),
       autoplay : 5000,
       speed:500,
-      setWrapperSize:true,
+      paginationClickable :true,
       loop : true,
     }
     data.length<2 && this.$('.pagination-ga').hide();
@@ -183,28 +181,32 @@ const Recommend = VIEW.extend({
   slider(){
     let _this = this;
     _this.reSlider = new Swiper(this.$('.swiper-container'),{
-      navigation:{
-        nextEl: '.controlArrow .next',
-        prevEl: '.controlArrow .pre'
-      },
       setWrapperSize:true,
-      speed:500,
+      speed:1000,
     })
-    _this.reSlider.on('slideChange',function(){
+    $('.controlArrow .next').click(()=>{
       let  nowPage=_this.model.get('page'),nowIndex= Math.ceil((_this.reSlider.activeIndex+1)/2);
       if(  nowPage <= nowIndex && nowIndex<_this.model.get('total')){
         _this.model.set('page',nowPage+1)
         _this.fetchDate();
       }
-    })
+      _this.reSlider.swipeNext()
+    });
+    $('.controlArrow .pre').click(()=>_this.reSlider.swipePrev());
+
+    // _this.reSlider.on('slideChange',function(){
+    //
+    // })
   },
   render(data){
-    let html = '';
-    html = _.template($('#hot-recommend').html())(data.data.slice(0,4))
+    let html = [];
+    html.push( _.template($('#hot-recommend').html())(data.data.slice(0,4)));
     if(data.data.length>4){
-      html += _.template($('#hot-recommend').html())(data.data.slice(4,8))
+      html.push( _.template($('#hot-recommend').html())(data.data.slice(4,8)));
     }
-    !this.reSlider && this.$('.recommend-slider').append(html) || this.reSlider.appendSlide(html);
+    !this.reSlider
+    && html.map((item) => this.$('.recommend-slider').append(item))
+    || html.map((item) =>  this.reSlider.appendSlide(item))
   }
 });
 
@@ -234,7 +236,7 @@ const App = VIEW.extend({
       this.coinStore = new CoinStore({
         el:$('.qb-store')
       });
-    },500)
+    },100)
   }
 })
 
