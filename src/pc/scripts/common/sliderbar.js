@@ -25,10 +25,10 @@ const tmpl = `
            </li>
            <li>
               <span class="online-QQ">
-              <img width="23px" height="auto" src="static/qq.png" alt="tel" />
+              <img width="23px" height="auto" src="static/qq.png" alt="" />
               </span><br>
               <span class="online-phone">
-                 <img width="23px" height="auto" src="static/phone.png" alt="tel" />
+                 <img width="23px" height="auto" src="static/phone.png" alt="" />
                  <b>15365577888</b>
              </span>
            </li>
