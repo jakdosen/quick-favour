@@ -32,7 +32,7 @@ const tmpl = `
     </div>
   </div>
   <a class="mz-btn-register toLogin" href="javascript:;">登录</a>
-  <p><span>没有账号？<a href="/register.html">立即注册</a></span><a href="/accountSafe.html">忘记密码</a></p>
+  <p><span>没有账号？<a href="register.html">立即注册</a></span><a href="accountSafe.html">忘记密码</a></p>
   <div class="mz-login-others">
     <fieldset>
       <legend align="center">使用第三方登录</legend>
