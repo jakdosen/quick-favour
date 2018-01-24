@@ -20,12 +20,14 @@ const
 const
     menuNav =
         '<@ obj.length && _.each(obj,function(item,index){@>'+
+        '<@ if(item.cat_name) {@>'+
         '<li class="iconfont icon-arrow-right" data-flag="menu-<@- index @>"><@-item.cat_name@></li>'+
+        '<@ } @>'+
         '<@})@>',
     menuContent=
       '<@ obj.length && _.each(obj,function(item,index){@>'+
       '<ul data-flag="menu-<@- index @>" style="display:none">'+
-      '<@ item.children.length && _.each(item.children,function(child){@>'+
+      '<@  item["children"] && item.children.length && _.each(item.children,function(child){@>'+
       '<li><a href="/searchPage.html?keywords=<@- child.cat_name@>&category_id=<@- child.id@>">'+
       '<div class="img-box"><img src="<@- child.category_img@>" alt=""></div>'+
       '<span><@- child.cat_name@></span></a>'+
