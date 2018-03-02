@@ -150,7 +150,7 @@
 <!--// 收货地址确认-->
 <script type="text/template" id="address-item">
   <@if(JSON.stringify(obj)!='{}'){@>
-      <span class="address-name split"><@- obj.true_name @> 收</span>
+      <span class="address-name split"><@- obj.true_name @></span>
       <span class="address-detail split"><@- obj.province+obj.city+obj.county+ obj.address @></span>
       <span class="address-phone"><@- obj.mobile@></span>
   <@}else{@>
@@ -163,10 +163,10 @@
     <span>共<@- obj.run_money@>元，可用<@- obj.can_use_run_money@></span>
     <span>共<@- obj.m_coin@>秒币，可用<@- obj.can_use_m_coin@>秒币</span>
   </div>
-  <@ if( obj.can_use_run_money*1 !='0'){@>
+  <@ if( obj.can_use_run_money*1 !='0' || obj.can_use_m_coin*1 !='0'){@>
     <div class="inline-block switch-wrap">
       <!--<input type="checkbox">-->
-      <span class="switch switch-off"><span class="slider"></span></span>
+      <span class="switch"><span class="slider"></span></span>
     </div>
   <@}@>
 </script>

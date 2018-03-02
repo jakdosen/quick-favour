@@ -333,16 +333,20 @@
          display: inline-block;
          vertical-align: top;
        }
-       >span{
-         color: #ff5300;
-         text-indent: 20px;
-         width: 150px;
-         display: inline-block;
-       }
+       //>span{
+       //  color: #ff5300;
+       //  text-indent: 20px;
+       //  width: 150px;
+       //  display: inline-block;
+       //}
        li{
          float: left;
          min-width: 123px;
          cursor: pointer;
+         text-indent: 20px;
+         &.active{
+            color: #ff5300;
+         }
        }
      }
   }

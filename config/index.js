@@ -12,7 +12,7 @@ module.exports = {
     assetsPublicPath: '',
     proxyTable: {
       "/api": {
-        "target": "http://t13.zetadata.com.cn",
+        "target": "https://show.miaozancn.com",
         "changeOrigin": true
       },
     },

@@ -8,8 +8,8 @@
 <%-include('./common/header.html',{type:'mall'})%>
 <%
 var bread = [
-{name:'秒购',url:'/quickBuy'},
-{name:'小米VR眼镜',url:''}
+{name:'秒购',url:'quickBuy.html'},
+{name:'',url:''}
 ]
 %>
 <%- include('./common/breadcrumb.html',{bread:bread})%>
@@ -37,16 +37,6 @@ var bread = [
   <!--商品导航对应的商品详情介绍-->
   <div class="goods-content">
       <div  data-id="detail" class="active">
-          <!--<div class="goods-content-message clearfix">-->
-             <!--<span>品牌名称：Xiaomi/小米</span>-->
-            <!--<ul>-->
-              <!--<li>兼容平台：MIUI</li>-->
-              <!--<li>品牌名称：Xiaomi/小米</li>-->
-              <!--<li>品牌名称：Xiaomi/小米</li>-->
-              <!--<li>品牌名称：Xiaomi/小米</li>-->
-              <!--<li>品牌名称：Xiaomi/小米</li>-->
-            <!--</ul>-->
-          <!--</div>-->
           <div class="goods-content-images clearfix">
             数据加载中。。。
           </div>
@@ -118,16 +108,16 @@ var bread = [
 </script>
 <script type="text/template" id="tpl-comment">
   <div class="comment-count">
-    <span>商品评价 <@- obj.data.length@></span>
+    <span>商品评价 <@- obj.commentsCount.comment_all@></span>
     <p>好评度 <strong><@- obj.commentsCount.goods_rank/100@><b>%</b></strong></p>
   </div>
   <div class="comment-detail">
     <div class="comment-detail-nav">
-      <span>全部评价(<@- obj.commentsCount.comment_all@>)</span>
       <ul>
-        <li>好评(<@- obj.commentsCount.comment_good@>)</li>
-        <li>中评(<@- obj.commentsCount.comment_general@>)</li>
-        <li>差评(<@- obj.commentsCount.comment_low@>)</li>
+        <li class="active" data-rank="0">全部评价(<@- obj.commentsCount.comment_all@>)</li>
+        <li data-rank="1">好评(<@- obj.commentsCount.comment_good@>)</li>
+        <li data-rank="2">中评(<@- obj.commentsCount.comment_general@>)</li>
+        <li data-rank="3">差评(<@- obj.commentsCount.comment_low@>)</li>
       </ul>
     </div>
     <div class="comment-detail-content">

@@ -82,6 +82,7 @@ const GoodsValue = View.extend({
   },
   addCart(){
     this.model.set({spec: this.spec_arry.join(',')});
+    this.$('.spection').length && this.spec_arry.length ?
     create(this.model.toJSON()).then(res => {
       $.toast({
         heading: '恭喜',
@@ -92,14 +93,30 @@ const GoodsValue = View.extend({
       })
       this.bus.events.trigger('add:cart',this.model.get('number'));
       SliderBar.addToMall(this.model.get('number'));
-    });
+    })
+      :
+    $.toast({
+        heading: '添加失败',
+        text: '请选择商品属性',
+        position: 'mid-center',
+        stack: false,
+        icon: 'error'
+      })
   },
   buy(){
+    this.$('.spection').length && this.spec_arry.length ?
     // 跳转到立即购买
-    location.href = '/order-confirm.html?goods_id='
+    location.href = 'order-confirm.html?goods_id='
       +this.model.get('goods_id')
       +'&number='+this.model.get('number')
       +'&spec='+this.model.get('spec')
+    :  $.toast({
+      heading: '添加失败',
+      text: '请选择商品属性',
+      position: 'mid-center',
+      stack: false,
+      icon: 'error'
+    })
   }
 });
 
@@ -107,24 +124,36 @@ const GoodsValue = View.extend({
 
 // 商品评价
 const Comment = View.extend({
+  events:{
+     'click .comment-detail-nav li':'commentRank'
+  },
   initialize(options){
     this.options = options;
     this.rank = 0;
     this.curPageNum = 1;
-    this.fetchDate(true, 1);
+    this.fetchDate((data)=>{
+      // 渲染dom
+      this.render(data);
+      // 加载分页
+      this.initPagination(data.meta);
+    }, 1);
   },
-  fetchDate(isLoad, page){
+  commentRank(e){
+      let elem = $(e.currentTarget);
+      elem.addClass('active').siblings().removeClass('active');
+      this.rank = elem.data('rank');
+      this.fetchDate((data)=>{
+        // 加载分页
+        this.initPagination(data.meta);
+      })
+  },
+  fetchDate(fn, page){
     rater({
       goods_id: this.options.goods_id,
       rank: this.rank,
       page: page || 1
     }).then(data => {
-      if (isLoad) {
-        // 渲染dom
-        this.render(data);
-        // 加载分页
-        this.initPagination(data.meta);
-      }
+      fn && fn(data);
       // 渲染item
       this.renderItem(data.data);
     });
@@ -139,19 +168,16 @@ const Comment = View.extend({
   },
   initPagination({pagination}){
     let page$el = this.$('.js-pagination');
-    if (page$el[0].selectPage) {
-      //todo
-    } else {
-      page$el.pagination(pagination.total, {
-        link_to: 'javascript:;',
-        num_edge_entries: 1, //边缘页数
-        num_display_entries: 4, //主体页数
-        callback: this.changePageNum.bind(this),
-        items_per_page: pagination.per_page, //每页显示10项
-        prev_text: "前一页",
-        next_text: "后一页"
-      });
-    }
+     page$el.empty();
+     page$el.pagination(pagination.total, {
+       link_to: 'javascript:;',
+       num_edge_entries: 1, //边缘页数
+       num_display_entries: 4, //主体页数
+       callback: this.changePageNum.bind(this),
+       items_per_page: pagination.per_page, //每页显示10项
+       prev_text: "前一页",
+       next_text: "后一页"
+     });
   },
   changePageNum(pageNum){
     if (this.curPageNum === pageNum + 1) return

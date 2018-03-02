@@ -43,31 +43,31 @@
                 购物车为空
             </td>
           </tr>
-          <tr>
-            <td class="text-left"><input type="checkbox"></td>
-            <td>
-              <img width="50" height="50">
-            </td>
-            <td>
-              VR眼睛
-            </td>
-            <td>白色</td>
-            <td>现金</td>
-            <td>
-              <a class="iconfont icon-round-del change-btn decrease-btn" href="javascript:;"></a>
-              <span class="goods-num inline-block">2</span>
-              <a class="iconfont icon-round-add change-btn increase-btn" href="javascript:;"></a>
-            </td>
-            <td class="text-left currency">
-              ¥25000<br>
-              M4384834
-            </td>
-            <td class="text-right">
-              <a href="#" >
-                删除
-              </a>
-            </td>
-          </tr>
+          <!--<tr>-->
+            <!--<td class="text-left"><input type="checkbox"></td>-->
+            <!--<td>-->
+              <!--<img width="50" height="50">-->
+            <!--</td>-->
+            <!--<td>-->
+              <!--VR眼睛-->
+            <!--</td>-->
+            <!--<td>白色</td>-->
+            <!--<td>现金</td>-->
+            <!--<td>-->
+              <!--<a class="iconfont icon-round-del change-btn decrease-btn" href="javascript:;"></a>-->
+              <!--<span class="goods-num inline-block">2</span>-->
+              <!--<a class="iconfont icon-round-add change-btn increase-btn" href="javascript:;"></a>-->
+            <!--</td>-->
+            <!--<td class="text-left currency">-->
+              <!--¥25000<br>-->
+              <!--M4384834-->
+            <!--</td>-->
+            <!--<td class="text-right">-->
+              <!--<a href="#" >-->
+                <!--删除-->
+              <!--</a>-->
+            <!--</td>-->
+          <!--</tr>-->
         </tbody>
     </table>
   </div>
@@ -107,8 +107,12 @@
       <a class="iconfont icon-round-add change-btn increase-btn" href="javascript:;"></a>
     </td>
     <td class="text-left currency">
-      <@if(obj.cash_price){@><div>¥<@-obj.cash_price@></div><@}@>
-      <@if(obj.coin_price){@><div>M<@-obj.coin_price@></div><@}@>
+      <@ if(obj.goods_type != 2){@>
+          <@if(obj.cash_price){@><div>¥<@-obj.cash_price@></div><@}@>
+      <@}@>
+      <@ if(obj.goods_type != 1){@>
+         <@if(obj.coin_price){@><div>M<@-obj.coin_price@></div><@}@>
+      <@}@>
     </td>
     <td class="text-right">
       <a href="javascript:;" class="cart-del-btn">

@@ -115,15 +115,7 @@ const App = VIEW.extend({
   register(){
     if(this.inValid('account')&&this.inValid('code')&&this.inValid('password')){
       resetPassword(this.model.toJSON()).then(function (res) {
-        const { api_token } = res;
-        if(api_token){
-          store.set('user',{token:api_token});
-          userInfo().then(data =>{
-            const { account, nickname, avatar, fund, api_token} = data;
-            store.set('user',{token:api_token,account,nickname,avatar,fund});
-            window.location.href="/article-list.html";
-          });
-        }
+         window.location.replace('login.html');
       })
     }
   }

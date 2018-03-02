@@ -61,10 +61,10 @@ const Search = VIEW.extend({
     elem.append(_.template(searchTemplate)(searchHistory&&searchHistory.split(',')||[]));
   },
   searchMore(){
-     location.href="/searchPage.html?keywords="+this.model.get('keywords');
+     location.href="searchPage.html?keywords="+(this.model.get('keywords')||this.$('.qb-search-content input').val());
   },
   doSearchHistory(e){
-    location.href="/searchPage.html?keywords="+$(e.currentTarget).text();
+    location.href="searchPage.html?keywords="+$(e.currentTarget).text();
   }
 });
 

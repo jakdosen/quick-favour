@@ -27,7 +27,6 @@ let App = View.extend({
     this.commentList.bind('reset',this.renderCommentList,this)
     this.fetchArticleData(this.urlParams.id);
     this.fetchArticleCommentList(this.urlParams.id);
-    this.initSocialShare();
     this.initSubmitTextArea();
   },
   checkLogin(e){
@@ -38,14 +37,17 @@ let App = View.extend({
       return this
     }
   },
-  initSocialShare(){
+  initSocialShare(data){
     require.ensure([], function(require){
       require('@/scripts/libs/social-share/js/social-share');
 
 /*      preshare({}).then(data=>{
 
       });*/
-      socialShare('.js-article-share');
+      socialShare('.js-article-share',{
+        title:data.title,
+        image:data.cover
+      });
     });
 		// socialShare('.js-article-share');
   },
@@ -58,6 +60,7 @@ let App = View.extend({
       article_id
     }).then((data)=>{
       this.renderArticleContent(data)
+      this.initSocialShare(data);
     })
   },
   renderArticleContent(article){

@@ -21,7 +21,8 @@ let moduleEv = _.extend({}, Events);
 let AddressPopupView = Dialog.extend({
   template:_.template($('#address-form-tpl').html()),
   events:{
-    'click .sure':'confirmBtn'
+    'click .sure':'confirmBtn',
+    'click .cancel':'cancelBtn'
   },
   initialize(){
     this.constructor.__super__.initialize.apply(this, arguments);
@@ -78,6 +79,9 @@ let AddressPopupView = Dialog.extend({
         });
     });
   },
+  cancelBtn(){
+     this.close();
+  }
 })
 
 /**
@@ -179,7 +183,7 @@ let App = View.extend({
       bus.showLoginPopup();
       return this
     } else {
-      this.isAccount = 0;//是否使用账户余额 0表示不使用 1表示使用
+      this.isAccount = 1;//是否使用账户余额 0表示不使用 1表示使用  // 默认开启
       this.type=0;// 0表示现金模式 1表示现金&秒币
       this.addressId='';  // 表示地址ID
       this.goodsList = new Collection();
@@ -211,11 +215,28 @@ let App = View.extend({
     }
   },
   parseData(data){
+    // 下面处理数据
     this.addressId = data.user_address.id;
     this.goodsList.add(data.goods_list);
     this.addressModel.set(data.user_address);
     this.accountModel.set(data.user_account);
     this.accountList.set({...data,type:this.type,isAccount:this.isAccount});
+
+    // 处理类型
+    let type = _.chain(data.goods_list).pluck('goods_type').uniq().value();
+    type.map((item)=>{
+       if(type.length>1) return true;
+       switch (item*1){
+         case 1:
+           this.$('.order-type a:eq(1)').hide().siblings().trigger('click');
+           break;
+         case 2:
+           this.$('.order-type a:eq(0)').hide().siblings().trigger('click');
+           break;
+       }
+       return;
+    });
+
   },
   renderGoodsList() {
     this.$('.js-goods-list-cot').empty();
@@ -259,12 +280,21 @@ let App = View.extend({
     }
   },
   sendOrder(){
-    let payLoad = {pay_type:Number(this.type)+1,account_pay:Number(this.isAccount)+1,address_id:this.addressId,goods_list:this.goodsList.toJSON()}
+    let
+      payLoad = {pay_type:Number(this.type)+1,account_pay:Number(this.isAccount)+1,address_id:this.addressId,goods_list:this.goodsList.toJSON()};
+    //   userAccount  = this.accountList.get('user_account'),
+    //   cashCoin = this.accountList.get('cashcoin_pay'),
+    //   sign = true;
+    // if(this.isAccount ==1){
+    //   // 1表示现金&秒币支付
+    //   sign =  this.type == 1 ? userAccount.can_use_m_coin-cashCoin.coin_total>=0 : userAccount.can_use_run_money-cashCoin.cash_total>=0;
+    // }
+    // sign &&
     done(payLoad).then(({order_ids, payment_id})=>{
         if(!Number(this.$('.order-summary span[data-pay]').data('pay'))) {
-            location.href='/paySuccess.html?payment_id='+payment_id;
+            location.href='paySuccess.html?payment_id='+payment_id;
         }else{
-            location.href='/payOrder.html?order_ids='+order_ids;
+            location.href='payOrder.html?order_ids='+order_ids;
         }
     });
   },

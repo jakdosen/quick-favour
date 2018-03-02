@@ -137,13 +137,22 @@
             <img src="<@- item.goods_img@>" alt="">
           </div>
           <p><@- item.goods_name@></p>
-          <span>现金：<b>￥</b><em><@- item.cash_price@></em></span>
+           <span style="height: 21px;">
+             <@ if(item.goods_type == 3){@>
+                 现金：<b>￥</b><em><@- item.cash_price@></em>
+             <@}@>
+           </span>
           <div class="content-box">
-            <span>秒币：<b>M</b><em><@- item.coin_price@></em></span>
-            <@ if(item.goods_type==1 || item.goods_type==3){@>
+            <@ if(item.goods_type == 1){@>
+               <span>现金：<b>￥</b><em><@- item.cash_price@></em></span>
+            <@}@>
+            <@ if(item.goods_type == 2){@>
+               <span>秒币：<b>M</b><em><@- item.coin_price@></em></span>
+            <@}@>
+            <@ if(item.goods_type !=2 ){@>
             <b>元</b>
             <@}@>
-            <@ if(item.goods_type==2 || item.goods_type==3){@>
+            <@ if(item.goods_type != 1){@>
             <em>秒</em>
             <@}@>
           </div>

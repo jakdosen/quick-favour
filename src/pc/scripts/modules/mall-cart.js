@@ -42,8 +42,10 @@ let CartModel = Model.extend({
     delCart({
       cart_id: this.id,
     }).then(() => {
-      this.destroy()
-      moduleEv.trigger('check:total')
+      // this.destroy()
+      // moduleEv.trigger('remove:model',this);//移除当前model
+      // moduleEv.trigger('check:total')
+      window.location.reload();
     })
   }
 });
@@ -132,9 +134,13 @@ let App = View.extend({
       this.totalModel = new Model();
       this.cartList.bind('add', this.renderCartList, this)
       this.listenTo(moduleEv, 'check:total', this.changeTotal);
+      this.listenTo(moduleEv, 'remove:model', this.collectionRemove);
       this.totalModel.bind('change', this.renderTotal, this)
       this.fetchCartListData();
     }
+  },
+  collectionRemove(model){
+     this.cartList.remove(model)
   },
   fetchCartListData() {
     getCartList().then((data) => {
